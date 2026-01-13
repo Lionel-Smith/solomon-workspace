@@ -1,0 +1,61 @@
+{
+  "statusLine": {
+    "type": "command",
+    "command": "bash -c '\"$HOME/.nvm/versions/node/v20.19.6/bin/node\" \"$(ls -td ~/.claude/plugins/cache/claude-hud/claude-hud/*/ 2>/dev/null | head -1)dist/index.js\"'"
+  },
+  "mcpServers": {
+    "solomon-skills": {
+      "command": "{{SOLOMON_WORKSPACE}}/.venv/bin/python",
+      "args": ["-m", "solomon_mcp.skills_server"],
+      "cwd": "{{SOLOMON_WORKSPACE}}",
+      "env": {
+        "SKILLS_DIR": "{{SOLOMON_WORKSPACE}}/../.claude/skills"
+      }
+    },
+    "solomon-projects": {
+      "command": "{{SOLOMON_WORKSPACE}}/.venv/bin/python",
+      "args": ["-m", "solomon_mcp.projects_server"],
+      "cwd": "{{SOLOMON_WORKSPACE}}",
+      "env": {
+        "SOLOMON_DIR": "{{HOME}}/.solomon"
+      }
+    },
+    "solomon-memory": {
+      "command": "{{SOLOMON_WORKSPACE}}/.venv/bin/python",
+      "args": ["-m", "solomon_mcp.memory_server"],
+      "cwd": "{{SOLOMON_WORKSPACE}}",
+      "env": {
+        "MEM0_API_KEY": "{{MEM0_API_KEY}}",
+        "SOLOMON_PROJECT": "solomon"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "context7@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "github@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true,
+    "pr-review-toolkit@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "explanatory-output-style@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "ralph-wiggum@claude-plugins-official": true,
+    "linear@claude-plugins-official": true,
+    "hookify@claude-plugins-official": true,
+    "learning-output-style@claude-plugins-official": true,
+    "sentry@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "csharp-lsp@claude-plugins-official": true,
+    "php-lsp@claude-plugins-official": true,
+    "jdtls-lsp@claude-plugins-official": true,
+    "claude-hud@claude-hud": true
+  },
+  "permissions": {
+    "allow": [
+      "Grep"
+    ]
+  }
+}

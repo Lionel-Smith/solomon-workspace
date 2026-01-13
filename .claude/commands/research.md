@@ -1,0 +1,1 @@
+../../solomon/.claude/commands/research.md

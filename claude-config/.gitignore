@@ -1,0 +1,11 @@
+# Local secrets - NEVER commit
+secrets.env
+
+# Backup files created during sync
+*.backup.*
+
+# Local overrides
+*.local.json
+
+# Generated settings (created from template + secrets)
+settings.json
