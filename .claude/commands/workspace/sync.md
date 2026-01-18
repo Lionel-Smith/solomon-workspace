@@ -1,1 +1,0 @@
-../../../solomon/.claude/commands/workspace/sync.md

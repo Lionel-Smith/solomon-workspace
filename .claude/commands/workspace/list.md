@@ -1,1 +1,0 @@
-../../../solomon/.claude/commands/workspace/list.md
