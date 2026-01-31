@@ -31,10 +31,98 @@ solomon-workspace/
 
 ## Current Status
 
-- **Phase:** Phase 1 - Foundation
-- **Active Session:** SOL-04 (MCP Integration)
-- **Completed:** SOL-01, SOL-02, SOL-03
+- **Version:** 1.3.0 (HFS v1.9.1 Alignment)
+- **Workflow:** HFS Agentic Workflow v1.9.1
 - **Working Directory:** solomon/
+
+## Droplet Integration (2026-01-31)
+
+- **Droplet:** solomon-HFS (ID: 548434579)
+- **IP:** 198.199.121.241
+- **SSH:** `ssh solomon` (root, ~/.ssh/id_ed25519)
+- **Service:** `systemctl restart clawdbot`
+- **CLI:** `/opt/clawdbot-cli.sh` (v2026.1.24-1)
+- **Config:** `/home/clawdbot/.clawdbot/clawdbot.json`
+- **Workspace:** `/home/clawdbot/clawd/`
+
+### Active Integrations
+| Integration | Status | Details |
+|-------------|--------|---------|
+| Slack | Connected | Socket mode, open group policy |
+| Linear | Ready | Team HIG, GraphQL API via curl |
+| Gmail | Ready | info@highfunctioningsolutions.com via gog CLI |
+| Heartbeat | Active | 24h interval, sonnet model |
+| Mem0 | Connected | Persistent memory via REST API, $MEM0_API_KEY in sandbox env |
+| Context7 | Connected | Library docs via REST API, no auth required |
+
+### Custom Skills (in workspace)
+| Skill | Source | Purpose |
+|-------|--------|---------|
+| linear | clawdbot-workspace | Linear ticket management with actual team/project IDs |
+| email-triage | clawdbot-workspace | Gmail triage with urgency categories, NEVER auto-send |
+| idb-funding | clawdbot-workspace | IDB deadline tracking (Sept 30, 2026) |
+| reporting | clawdbot-workspace | Daily standup, weekly summary, project health |
+| meetings | clawdbot-workspace | Meeting notes and action item capture |
+| mem0-memory | clawdbot-workspace | Persistent memory store/search via Mem0 REST API |
+| context7-docs | clawdbot-workspace | Library documentation lookup via Context7 REST API |
+
+### Workspace Files
+| File | Purpose |
+|------|---------|
+| SOUL.md | Solomon identity — HFS AI Chief of Staff |
+| IDENTITY.md | Name, emoji, theme |
+| USER.md | Lionel + Dashae profiles |
+| MEMORY.md | Persistent context (company, projects, decisions) |
+| HEARTBEAT.md | Proactive check-in tasks |
+| TOOLS.md | Local config (gog, Linear, SSH) |
+
+## HFS v1.9.1 Features
+
+Solomon v1.3.0 supports HFS v1.9.1 features:
+
+### Hybrid Skill Parser
+Skills can use YAML frontmatter (v1.9.1) or XML-only (v1.7):
+
+```markdown
+---
+name: my-skill
+model: sonnet
+allowed_tools:
+  - Bash(git *)
+  - Read
+hooks:
+  pre_tool_call:
+    command: scripts/validate-patterns.sh
+---
+
+# My Skill
+
+<constraints>
+  <constraint severity="critical">...</constraint>
+</constraints>
+```
+
+### Hook Script Generation
+Generate validation scripts with HFS compliance:
+- Exit code **2** for violations (NOT exit 1)
+- `HFS_HOOK_MODE` support (warn/block)
+- Portable multiline matching with `perl -0777`
+
+### Subagent Definitions
+5 core agents with proper model assignments:
+- **researcher** (sonnet) - Deep research with memory
+- **planner** (sonnet) - Implementation planning
+- **reviewer** (sonnet) - Code and document review
+- **type-syncer** (sonnet) - TypeScript/Python type sync
+- **screenshot-taker** (haiku) - Visual verification
+
+### Verification Commands
+| Command | Description |
+|---------|-------------|
+| `/verify-hooks` | Run hook validation test suite |
+| `/spec-verify` | Phase 1.5 - Validate spec alignment |
+| `/infra-verify` | Phase 2.55 - Validate infrastructure |
+| `/checkpoint` | Create session state snapshot |
 
 ## HFS Session Commands
 
