@@ -21,12 +21,23 @@ solomon-workspace/
 │   ├── commands/         # Slash commands
 │   └── config/           # Plugin configuration
 │
-└── solomon-docs/         # Documentation & tracking (git)
-    ├── plans/            # Architecture plans
-    ├── progress/         # Execution tracking (SOLOMON_PROGRESS.md)
-    ├── sessions/         # Active session (SESSION.md)
-    ├── prompts/          # Implementation prompts
-    └── reference/        # Research and reference docs
+├── solomon-docs/         # Documentation & tracking (git)
+│   ├── plans/            # Architecture plans
+│   ├── progress/         # Execution tracking (SOLOMON_PROGRESS.md)
+│   ├── sessions/         # Active session (SESSION.md)
+│   ├── prompts/          # Implementation prompts
+│   └── reference/        # Research and reference docs
+│
+└── hfs-aiops/            # MCP-native AI operations server (git)
+    ├── clawdbot/         # Main package
+    │   ├── models/       # Pydantic/dataclass models
+    │   ├── services/     # Business logic services
+    │   ├── tools/        # MCP tool definitions
+    │   └── utils/        # Shared utilities
+    ├── scripts/          # Setup scripts (CrowdSec, Restic, etc.)
+    ├── cron/             # Cron job definitions
+    ├── tests/            # pytest test suite
+    └── docs/             # Progress tracking & session files
 ```
 
 ## Current Status

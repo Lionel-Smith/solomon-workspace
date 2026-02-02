@@ -1,6 +1,7 @@
 # Nested git repositories (managed separately)
 solomon/
 solomon-docs/
+hfs-aiops/
 
 # Python
 __pycache__/
