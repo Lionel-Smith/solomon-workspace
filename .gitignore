@@ -2,6 +2,7 @@
 solomon/
 solomon-docs/
 hfs-aiops/
+hfs-development-kit/
 
 # Python
 __pycache__/

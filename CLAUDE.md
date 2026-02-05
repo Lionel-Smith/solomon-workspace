@@ -28,16 +28,24 @@ solomon-workspace/
 │   ├── prompts/          # Implementation prompts
 │   └── reference/        # Research and reference docs
 │
-└── hfs-aiops/            # MCP-native AI operations server (git)
-    ├── clawdbot/         # Main package
-    │   ├── models/       # Pydantic/dataclass models
-    │   ├── services/     # Business logic services
-    │   ├── tools/        # MCP tool definitions
-    │   └── utils/        # Shared utilities
-    ├── scripts/          # Setup scripts (CrowdSec, Restic, etc.)
-    ├── cron/             # Cron job definitions
-    ├── tests/            # pytest test suite
-    └── docs/             # Progress tracking & session files
+├── hfs-aiops/            # MCP-native AI operations server (git)
+│   ├── clawdbot/         # Main package
+│   │   ├── models/       # Pydantic/dataclass models
+│   │   ├── services/     # Business logic services
+│   │   ├── tools/        # MCP tool definitions
+│   │   └── utils/        # Shared utilities
+│   ├── scripts/          # Setup scripts (CrowdSec, Restic, etc.)
+│   ├── cron/             # Cron job definitions
+│   ├── tests/            # pytest test suite
+│   └── docs/             # Progress tracking & session files
+│
+└── hfs-development-kit/  # HFS workflow specs & skills (git)
+    ├── workflow/          # Session & workflow format specs
+    ├── skills/            # Canonical HFS skill definitions
+    ├── starter-kit/       # Project bootstrap templates
+    ├── scripts/           # Utility scripts
+    ├── docs/              # Progress & session tracking
+    └── retrospectives/    # Project retrospectives
 ```
 
 ## Current Status
