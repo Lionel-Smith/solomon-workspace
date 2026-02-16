@@ -15,10 +15,11 @@ import {
   type AgentStep,
 } from "@/components/agent-stepper";
 import { PipelineStatusBadge } from "@/components/pipeline-status-badge";
+import { CheckpointPanel } from "@/components/checkpoint-panel";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getPipeline, pausePipeline } from "@/lib/api/pipelines";
-import { approveCheckpoint, rejectCheckpoint, getCheckpoints } from "@/lib/api/checkpoints";
+import { getCheckpoints } from "@/lib/api/checkpoints";
 import type { Pipeline, Checkpoint, PipelineEvent } from "@/lib/api/types";
 
 // ── Helpers ─────────────────────────────────────────────────────────
@@ -139,22 +140,10 @@ export function PipelineDetail({ id }: { id: string }) {
     setPipeline(updated);
   }, [id]);
 
-  const handleApprove = useCallback(async () => {
-    if (!pendingCheckpoint) return;
-    await approveCheckpoint(pendingCheckpoint.id, {
-      approved_by: "dashboard_user",
-    });
+  const handleCheckpointResolved = useCallback(() => {
     setPendingCheckpoint(null);
-  }, [pendingCheckpoint]);
-
-  const handleReject = useCallback(async () => {
-    if (!pendingCheckpoint) return;
-    await rejectCheckpoint(pendingCheckpoint.id, {
-      rejected_by: "dashboard_user",
-      reason: "Rejected from dashboard",
-    });
-    setPendingCheckpoint(null);
-  }, [pendingCheckpoint]);
+    getPipeline(id).then(setPipeline).catch(() => {});
+  }, [id]);
 
   if (loading) {
     return (
@@ -235,26 +224,10 @@ export function PipelineDetail({ id }: { id: string }) {
 
       {/* Checkpoint Panel */}
       {pendingCheckpoint && (
-        <Card className="border-yellow-300 dark:border-yellow-700">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-base">
-              Checkpoint: {pendingCheckpoint.checkpoint_type.replace(/_/g, " ")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm text-muted-foreground">
-              The pipeline is paused awaiting your review.
-            </p>
-            <div className="flex gap-2">
-              <Button size="sm" onClick={handleApprove}>
-                Approve
-              </Button>
-              <Button variant="destructive" size="sm" onClick={handleReject}>
-                Reject
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        <CheckpointPanel
+          checkpoint={pendingCheckpoint}
+          onResolved={handleCheckpointResolved}
+        />
       )}
 
       {/* Event log */}
