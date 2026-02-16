@@ -1,0 +1,35 @@
+# Esther Preview — Caddy reverse proxy
+#
+# DNS: Add an A record in Squarespace DNS pointing preview.hfs.do → droplet IP.
+# Caddy handles automatic HTTPS via Let's Encrypt.
+#
+# Install: copy this file to /etc/caddy/Caddyfile (or add as a site block)
+# Reload: systemctl reload caddy
+
+preview.hfs.do {
+	reverse_proxy localhost:3000
+
+	# WebSocket support for real-time pipeline updates
+	@websocket {
+		header Connection *Upgrade*
+		header Upgrade websocket
+	}
+	reverse_proxy @websocket localhost:3000
+
+	# Security headers
+	header {
+		X-Content-Type-Options nosniff
+		X-Frame-Options DENY
+		Referrer-Policy strict-origin-when-cross-origin
+	}
+
+	# Gzip compression
+	encode gzip
+
+	log {
+		output file /var/log/caddy/esther-preview.log {
+			roll_size 10mb
+			roll_keep 5
+		}
+	}
+}

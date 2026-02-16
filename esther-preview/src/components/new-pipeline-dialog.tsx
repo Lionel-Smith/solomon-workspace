@@ -28,6 +28,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { toast } from "sonner";
 import { startPipeline } from "@/lib/api/pipelines";
 import type { PipelineIntent } from "@/lib/api/types";
 
@@ -88,6 +89,9 @@ export function NewPipelineDialog({ open, onOpenChange }: Props) {
     setSubmitting(true);
     try {
       const pipeline = await startPipeline(result.data);
+      toast.success("Pipeline created", {
+        description: `${result.data.project_name} is now running.`,
+      });
       onOpenChange(false);
       router.push(`/pipelines/${pipeline.id}`);
     } catch (err) {

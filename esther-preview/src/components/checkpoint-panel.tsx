@@ -16,6 +16,7 @@ import { Separator } from "@/components/ui/separator";
 import { ColorSwatchGrid } from "@/components/brand/color-swatch-grid";
 import { TypographySamples } from "@/components/brand/typography-samples";
 import { ContrastMatrix } from "@/components/brand/contrast-matrix";
+import { toast } from "sonner";
 import { approveCheckpoint, rejectCheckpoint } from "@/lib/api/checkpoints";
 import type { Checkpoint, CheckpointType } from "@/lib/api/types";
 
@@ -214,11 +215,16 @@ export function CheckpointPanel({ checkpoint, onResolved }: Props) {
       await approveCheckpoint(checkpoint.id, {
         approved_by: "dashboard_user",
       });
+      toast.success("Checkpoint approved", {
+        description: TYPE_LABELS[checkpoint.checkpoint_type],
+      });
       onResolved();
+    } catch {
+      toast.error("Failed to approve checkpoint");
     } finally {
       setSubmitting(false);
     }
-  }, [checkpoint.id, onResolved]);
+  }, [checkpoint.id, checkpoint.checkpoint_type, onResolved]);
 
   const handleReject = useCallback(async () => {
     setSubmitting(true);
@@ -227,7 +233,12 @@ export function CheckpointPanel({ checkpoint, onResolved }: Props) {
         rejected_by: "dashboard_user",
         reason: rejectReason || "Rejected from dashboard",
       });
+      toast.info("Checkpoint rejected", {
+        description: "Pipeline will retry with your feedback.",
+      });
       onResolved();
+    } catch {
+      toast.error("Failed to reject checkpoint");
     } finally {
       setSubmitting(false);
     }

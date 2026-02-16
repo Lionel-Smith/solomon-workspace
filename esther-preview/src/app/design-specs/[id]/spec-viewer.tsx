@@ -155,9 +155,9 @@ function CodeTab({ spec }: { spec: DesignSpec }) {
   }
 
   return (
-    <div className="grid grid-cols-[200px_1fr] gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-4">
       {/* File tree */}
-      <div className="space-y-0.5 rounded-lg border p-2">
+      <div className="flex md:flex-col gap-1 md:gap-0.5 overflow-x-auto md:overflow-x-visible rounded-lg border p-2">
         {files.map((f) => (
           <button
             key={f.path}
@@ -317,9 +317,9 @@ export function SpecViewer({ specId }: { specId: string }) {
   }
 
   return (
-    <main className="mx-auto max-w-5xl space-y-6 p-6">
+    <main className="mx-auto max-w-5xl space-y-6 p-4 sm:p-6">
       {/* Header */}
-      <div className="flex items-start justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Design Spec</h1>
           <div className="mt-1 flex items-center gap-3">

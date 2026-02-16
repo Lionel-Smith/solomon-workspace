@@ -169,14 +169,14 @@ export function PipelineDetail({ id }: { id: string }) {
   const isPaused = pipeline.status === "paused_at_checkpoint";
 
   return (
-    <main className="mx-auto max-w-4xl space-y-6 p-6">
+    <main className="mx-auto max-w-4xl space-y-6 p-4 sm:p-6">
       {/* Header */}
-      <div className="flex items-start justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight">
             {pipeline.project_name}
           </h1>
-          <div className="mt-1 flex items-center gap-3">
+          <div className="mt-1 flex flex-wrap items-center gap-2 sm:gap-3">
             <PipelineStatusBadge status={pipeline.status} />
             <span className="text-sm text-muted-foreground">
               {elapsed(pipeline)}

@@ -68,45 +68,69 @@ export default async function PipelinesPage() {
           </p>
         </div>
       ) : (
-        <div className="rounded-lg border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Project</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Agent</TableHead>
-                <TableHead>Created</TableHead>
-                <TableHead className="text-right">Duration</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {data.items.map((p) => (
-                <TableRow key={p.id} className="cursor-pointer">
-                  <TableCell>
-                    <Link
-                      href={`/pipelines/${p.id}`}
-                      className="font-medium hover:underline"
-                    >
-                      {p.project_name}
-                    </Link>
-                  </TableCell>
-                  <TableCell>
-                    <PipelineStatusBadge status={p.status} />
-                  </TableCell>
-                  <TableCell className="text-sm text-muted-foreground">
-                    {p.current_agent}
-                  </TableCell>
-                  <TableCell className="text-sm text-muted-foreground">
-                    {formatDate(p.created_at)}
-                  </TableCell>
-                  <TableCell className="text-right text-sm tabular-nums text-muted-foreground">
-                    {duration(p)}
-                  </TableCell>
+        <>
+          {/* Mobile: card layout */}
+          <div className="space-y-3 md:hidden">
+            {data.items.map((p) => (
+              <Link
+                key={p.id}
+                href={`/pipelines/${p.id}`}
+                className="block rounded-lg border p-4 hover:bg-accent/50 transition-colors"
+              >
+                <div className="flex items-start justify-between">
+                  <p className="font-medium text-sm">{p.project_name}</p>
+                  <PipelineStatusBadge status={p.status} />
+                </div>
+                <div className="mt-2 flex items-center gap-3 text-xs text-muted-foreground">
+                  {p.current_agent && <span>{p.current_agent}</span>}
+                  <span>{formatDate(p.created_at)}</span>
+                  <span className="tabular-nums">{duration(p)}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Desktop: table layout */}
+          <div className="hidden md:block rounded-lg border">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Project</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Agent</TableHead>
+                  <TableHead>Created</TableHead>
+                  <TableHead className="text-right">Duration</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+              </TableHeader>
+              <TableBody>
+                {data.items.map((p) => (
+                  <TableRow key={p.id} className="cursor-pointer">
+                    <TableCell>
+                      <Link
+                        href={`/pipelines/${p.id}`}
+                        className="font-medium hover:underline"
+                      >
+                        {p.project_name}
+                      </Link>
+                    </TableCell>
+                    <TableCell>
+                      <PipelineStatusBadge status={p.status} />
+                    </TableCell>
+                    <TableCell className="text-sm text-muted-foreground">
+                      {p.current_agent}
+                    </TableCell>
+                    <TableCell className="text-sm text-muted-foreground">
+                      {formatDate(p.created_at)}
+                    </TableCell>
+                    <TableCell className="text-right text-sm tabular-nums text-muted-foreground">
+                      {duration(p)}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </>
       )}
     </main>
   );
