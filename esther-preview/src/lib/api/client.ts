@@ -43,10 +43,18 @@ async function handleResponse<T>(res: Response): Promise<T> {
 
 // ── Public API ──────────────────────────────────────────────────────
 
-export async function get<T>(path: string): Promise<T> {
+interface FetchOptions {
+  /** Extra headers (e.g. Cookie forwarded from server component). */
+  headers?: Record<string, string>;
+}
+
+export async function get<T>(
+  path: string,
+  opts?: FetchOptions,
+): Promise<T> {
   const res = await fetch(url(path), {
     credentials: "include",
-    headers: { Accept: "application/json" },
+    headers: { Accept: "application/json", ...opts?.headers },
   });
   return handleResponse<T>(res);
 }

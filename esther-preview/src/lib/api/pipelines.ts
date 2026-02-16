@@ -7,17 +7,26 @@ import type {
   StartPipelineRequest,
 } from "./types";
 
+interface ServerOptions {
+  headers?: Record<string, string>;
+}
+
 export async function getPipelines(
   page = 1,
   perPage = 20,
+  opts?: ServerOptions,
 ): Promise<PaginatedResponse<Pipeline>> {
   return get<PaginatedResponse<Pipeline>>(
     `/api/pipelines?page=${page}&per_page=${perPage}`,
+    opts,
   );
 }
 
-export async function getPipeline(id: string): Promise<Pipeline> {
-  return get<Pipeline>(`/api/pipelines/${id}`);
+export async function getPipeline(
+  id: string,
+  opts?: ServerOptions,
+): Promise<Pipeline> {
+  return get<Pipeline>(`/api/pipelines/${id}`, opts);
 }
 
 export async function startPipeline(
