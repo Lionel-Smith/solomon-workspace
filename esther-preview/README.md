@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# esther-preview
 
-## Getting Started
+Real-time dashboard for the Esther AI Design Agent pipeline. Built with Next.js 16, shadcn/ui, and Tailwind CSS.
 
-First, run the development server:
+**Production URL:** preview.hfs.do
+
+## Features
+
+- **Pipeline Dashboard** — List and monitor all active design pipelines
+- **Real-Time Updates** — WebSocket streaming of agent progress
+- **Checkpoint Approval** — Approve, reject, or revise pipeline checkpoints
+- **Design Spec Viewer** — Browse brand tokens, components, and generated code
+- **Artifact Browser** — Preview and download pipeline artifacts from DO Spaces
+
+## Setup
 
 ```bash
+npm install
+cp .env.example .env.local  # configure API URL
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `NEXT_PUBLIC_API_URL` | Yes | Esther cloud API base URL |
+| `NEXT_PUBLIC_WS_URL` | Yes | WebSocket endpoint URL |
 
-## Learn More
+Example `.env.local`:
 
-To learn more about Next.js, take a look at the following resources:
+```
+NEXT_PUBLIC_API_URL=https://api.hfs.do/esther/api/v1
+NEXT_PUBLIC_WS_URL=wss://api.hfs.do/esther/api/v1/ws
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Architecture
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+esther-preview/
+├── app/
+│   ├── layout.tsx              # Root layout with providers
+│   ├── page.tsx                # Pipeline dashboard (home)
+│   ├── pipelines/
+│   │   └── [id]/
+│   │       └── page.tsx        # Pipeline detail + real-time progress
+│   └── design-specs/
+│       └── [id]/
+│           └── page.tsx        # Design spec viewer
+├── components/
+│   ├── ui/                     # shadcn/ui base components
+│   ├── pipeline-card.tsx       # Pipeline status card
+│   ├── pipeline-progress.tsx   # Agent progress stepper
+│   ├── checkpoint-dialog.tsx   # Approve/reject dialog
+│   ├── brand-token-grid.tsx    # Brand token display
+│   ├── code-preview.tsx        # Generated code viewer
+│   └── artifact-list.tsx       # Artifact browser
+├── hooks/
+│   ├── use-pipeline.ts         # Pipeline data fetching
+│   ├── use-websocket.ts        # WebSocket connection
+│   └── use-checkpoint.ts       # Checkpoint actions
+├── lib/
+│   ├── api.ts                  # API client
+│   └── types.ts                # TypeScript types
+└── public/
+```
 
-## Deploy on Vercel
+## Key Pages
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Pipeline Dashboard (`/`)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Lists all pipelines with status indicators (created, running, paused, completed, failed). Supports filtering by status and creator.
+
+### Pipeline Detail (`/pipelines/[id]`)
+
+Real-time agent progress via WebSocket. Shows:
+- Current agent and progress percentage
+- Agent completion timeline
+- Pending checkpoint with approval UI
+- Error details if failed
+
+### Design Spec Viewer (`/design-specs/[id]`)
+
+Displays the completed Design Spec with tabs for:
+- Brand tokens (color swatches, typography preview)
+- Component manifest
+- Generated code files with syntax highlighting
+- WCAG audit report
+
+## Deployment
+
+### PM2 (Production)
+
+```bash
+npm run build
+pm2 start ecosystem.config.js
+```
+
+### Caddy
+
+Reverse proxy configuration in the Caddyfile:
+
+```
+preview.hfs.do {
+    reverse_proxy localhost:3000
+}
+```
+
+## Development
+
+```bash
+npm run dev       # Development server
+npm run build     # Production build
+npm run lint      # ESLint
+```
