@@ -16,25 +16,32 @@ export async function getPipelines(
   perPage = 20,
   opts?: ServerOptions,
 ): Promise<PaginatedResponse<Pipeline>> {
-  return get<PaginatedResponse<Pipeline>>(
-    `/api/pipelines?page=${page}&per_page=${perPage}`,
+  const offset = (page - 1) * perPage;
+  const raw = await get<{ pipelines: Pipeline[]; total: number; offset: number; limit: number }>(
+    `/pipelines?offset=${offset}&limit=${perPage}`,
     opts,
   );
+  return {
+    items: raw.pipelines,
+    total: raw.total,
+    page,
+    per_page: perPage,
+  };
 }
 
 export async function getPipeline(
   id: string,
   opts?: ServerOptions,
 ): Promise<Pipeline> {
-  return get<Pipeline>(`/api/pipelines/${id}`, opts);
+  return get<Pipeline>(`/pipelines/${id}`, opts);
 }
 
 export async function startPipeline(
   req: StartPipelineRequest,
 ): Promise<Pipeline> {
-  return post<Pipeline>("/api/pipelines", req);
+  return post<Pipeline>("/pipelines", req);
 }
 
 export async function pausePipeline(id: string): Promise<Pipeline> {
-  return post<Pipeline>(`/api/pipelines/${id}/pause`);
+  return post<Pipeline>(`/pipelines/${id}/pause`);
 }

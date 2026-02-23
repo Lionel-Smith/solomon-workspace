@@ -10,7 +10,7 @@ import type {
 export async function getCheckpoints(
   pipelineId: string,
 ): Promise<Checkpoint[]> {
-  return get<Checkpoint[]>(`/api/pipelines/${pipelineId}/checkpoints`);
+  return get<Checkpoint[]>(`/pipelines/${pipelineId}/checkpoints`);
 }
 
 export async function approveCheckpoint(
@@ -18,7 +18,7 @@ export async function approveCheckpoint(
   req: ApproveCheckpointRequest,
 ): Promise<Checkpoint> {
   return post<Checkpoint>(
-    `/api/checkpoints/${checkpointId}/approve`,
+    `/checkpoints/${checkpointId}/approve`,
     req,
   );
 }
@@ -28,7 +28,7 @@ export async function rejectCheckpoint(
   req: RejectCheckpointRequest,
 ): Promise<Checkpoint> {
   return post<Checkpoint>(
-    `/api/checkpoints/${checkpointId}/reject`,
+    `/checkpoints/${checkpointId}/reject`,
     req,
   );
 }

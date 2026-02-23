@@ -6,13 +6,13 @@ import type { DesignSpec, BrandToken } from "./types";
 export async function getDesignSpec(
   pipelineId: string,
 ): Promise<DesignSpec> {
-  return get<DesignSpec>(`/api/pipelines/${pipelineId}/design-spec`);
+  return get<DesignSpec>(`/pipelines/${pipelineId}/design-spec`);
 }
 
 export async function getDesignSpecTokens(
   specId: string,
 ): Promise<BrandToken[]> {
-  return get<BrandToken[]>(`/api/design-specs/${specId}/tokens`);
+  return get<BrandToken[]>(`/design-specs/${specId}/tokens`);
 }
 
 export async function exportSpec(
@@ -20,6 +20,6 @@ export async function exportSpec(
   format: "json" | "css" | "tailwind" = "json",
 ): Promise<Record<string, unknown>> {
   return get<Record<string, unknown>>(
-    `/api/design-specs/${specId}/export?format=${format}`,
+    `/design-specs/${specId}/export?format=${format}`,
   );
 }
