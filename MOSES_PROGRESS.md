@@ -36,10 +36,10 @@
 
 | Session | Status | Duration | Started | Completed | Commit | Notes |
 |---------|--------|----------|---------|-----------|--------|-------|
-| MOS-08 | ⬜ Pending | — | — | — | — | Extract business logic from esther/__init__.py (score 189) |
-| MOS-09 | ⬜ Pending | — | — | — | — | Split commands/feature.py (score 57.7) |
-| MOS-10 | ⬜ Pending | — | — | — | — | Refactor projects_server.py (score 51.6) |
-| MOS-11 | ⬜ Pending | — | — | — | — | Targeted test coverage for top hotspots |
+| MOS-08 | ✅ Complete | ~25min | 2026-03-05 | 2026-03-05 | `516fde3` | 333→67 LOC __init__.py, extracted wiring.py (183), middleware.py (42), health.py (80) |
+| MOS-09 | ✅ Complete | ~30min | 2026-03-05 | 2026-03-05 | `d3b45b2` | 1785→331 LOC orchestrator, 5 submodules, 96/96 tests pass |
+| MOS-10 | ✅ Complete | ~35min | 2026-03-05 | 2026-03-05 | `f57cd15` | 1441→966 LOC server, extracted 400 LOC controller, 12 integration tests |
+| MOS-11 | ✅ Complete | ~40min | 2026-03-05 | 2026-03-05 | `99fb31b` | 55 tests: graph_runner (19), pipeline_service (24), Dashboard.tsx (12) |
 | MOS-12 | ⬜ Pending | — | — | — | — | lib/api.ts refactor + CI integration + build hygiene |
 
 ## Phase 1: Bishop MVP Foundation
@@ -108,9 +108,9 @@
 |-------|----------|----------|--------|
 | 0A: Anti-Pattern Sweep | 3 | 3 | ✅ Complete |
 | 0B: God Module Decomposition | 4 | 4 | ✅ Complete |
-| 0C: Hotspot Reduction + CI | 5 | 0 | ⬜ Pending |
+| 0C: Hotspot Reduction + CI | 5 | 4 | 🔄 Active |
 | 1: Bishop MVP Foundation | 6 | 0 | ⬜ Pending |
 | 2: E2E API + Analytics | 6 | 0 | ⬜ Pending |
 | 3: Playwright Frontend Testing | 5 | 0 | ⬜ Pending |
 | 4: Agent Integration + Deploy | 5 | 0 | ⬜ Pending |
-| **Total** | **34** | **7** | **🔄 In Progress** |
+| **Total** | **34** | **10** | **🔄 In Progress** |
