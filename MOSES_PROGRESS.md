@@ -52,7 +52,7 @@
 | MOS-14 | ✅ Complete | ~25min | 2026-03-05 | 2026-03-05 | `74c17bc` | 3 lazy drivers, read-only enforcement, 21 tests, optional extras |
 | MOS-15 | ✅ Complete | ~30min | 2026-03-05 | 2026-03-05 | `08f454e` | pytest exec + coverage, JSON+stdout parsing, 18 tests, solomon verified |
 | MOS-16 | ✅ Complete | ~25min | 2026-03-05 | 2026-03-05 | `62f27ac` | vitest/jest execution, JSON parsing, coverage text, 34 tests (16 new), dashboard verified |
-| MOS-17 | ⬜ Pending | — | — | — | — | Bishop-Data core (metrics, queries, validation) |
+| MOS-17 | ✅ Complete | ~30min | 2026-03-05 | 2026-03-05 | `b86809b` | Schema introspection, data query/validation, 3-layer read-only, SQL migration, 32 tests |
 | MOS-18 | ⬜ Pending | — | — | — | — | Temporal foundation (workers, QASweep, MetricsAggregation) |
 
 ## Phase 2: E2E API Testing + Analytics
@@ -109,8 +109,8 @@
 | 0A: Anti-Pattern Sweep | 3 | 3 | ✅ Complete |
 | 0B: God Module Decomposition | 4 | 4 | ✅ Complete |
 | 0C: Hotspot Reduction + CI | 5 | 5 | ✅ Complete |
-| 1: Bishop MVP Foundation | 6 | 4 | 🔄 Active |
+| 1: Bishop MVP Foundation | 6 | 5 | 🔄 Active |
 | 2: E2E API + Analytics | 6 | 0 | ⬜ Pending |
 | 3: Playwright Frontend Testing | 5 | 0 | ⬜ Pending |
 | 4: Agent Integration + Deploy | 5 | 0 | ⬜ Pending |
-| **Total** | **34** | **16** | **🔄 In Progress** |
+| **Total** | **34** | **17** | **🔄 In Progress** |
