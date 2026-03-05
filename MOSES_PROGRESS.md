@@ -48,7 +48,7 @@
 
 | Session | Status | Duration | Started | Completed | Commit | Notes |
 |---------|--------|----------|---------|-----------|--------|-------|
-| MOS-13 | ⬜ Pending | — | — | — | — | Bishop scaffold (FastMCP server, models, config) |
+| MOS-13 | ✅ Complete | ~20min | 2026-03-05 | 2026-03-05 | `dead30d` | FastMCP server, 3 models, config, health/status tools, 15 tests |
 | MOS-14 | ⬜ Pending | — | — | — | — | DB connector abstraction (asyncpg, aiosqlite, motor) |
 | MOS-15 | ⬜ Pending | — | — | — | — | Bishop-Test core (Python: pytest orchestration) |
 | MOS-16 | ⬜ Pending | — | — | — | — | Bishop-Test core (TypeScript: vitest/jest) |
@@ -109,8 +109,8 @@
 | 0A: Anti-Pattern Sweep | 3 | 3 | ✅ Complete |
 | 0B: God Module Decomposition | 4 | 4 | ✅ Complete |
 | 0C: Hotspot Reduction + CI | 5 | 5 | ✅ Complete |
-| 1: Bishop MVP Foundation | 6 | 0 | ⬜ Pending |
+| 1: Bishop MVP Foundation | 6 | 1 | 🔄 Active |
 | 2: E2E API + Analytics | 6 | 0 | ⬜ Pending |
 | 3: Playwright Frontend Testing | 5 | 0 | ⬜ Pending |
 | 4: Agent Integration + Deploy | 5 | 0 | ⬜ Pending |
-| **Total** | **34** | **12** | **🔄 In Progress** |
+| **Total** | **34** | **13** | **🔄 In Progress** |
