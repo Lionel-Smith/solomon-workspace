@@ -27,8 +27,8 @@
 |---------|--------|----------|---------|-----------|--------|-------|
 | MOS-04 | ✅ Complete | ~45min | 2026-03-04 | 2026-03-04 | `76418b6` | Complexity 32→4, hotspot 100.8→12.6, 5 files (259→76 LOC orchestrator) |
 | MOS-05 | ✅ Complete | ~30min | 2026-03-05 | 2026-03-05 | `983741a` | Complexity 26→6, 328→53 LOC orchestrator, 3 files |
-| MOS-06 | 🔄 Active | — | — | — | — | Decompose spec-viewer.tsx (complexity 20) |
-| MOS-07 | ⬜ Pending | — | — | — | — | Decompose FeatureDetail.tsx (solomon-dashboard) |
+| MOS-06 | ✅ Complete | ~25min | 2026-03-05 | 2026-03-05 | `aeb7bfd` | Complexity 20→~5, 406→107 LOC orchestrator, 4 files |
+| MOS-07 | 🔄 Active | — | — | — | — | Decompose FeatureDetail.tsx (solomon-dashboard) |
 
 ## Phase 0C: Python Hotspot Reduction + CI
 
@@ -107,10 +107,10 @@
 | Phase | Sessions | Complete | Status |
 |-------|----------|----------|--------|
 | 0A: Anti-Pattern Sweep | 3 | 3 | ✅ Complete |
-| 0B: God Module Decomposition | 4 | 2 | 🔄 Active |
+| 0B: God Module Decomposition | 4 | 3 | 🔄 Active |
 | 0C: Hotspot Reduction + CI | 5 | 0 | ⬜ Pending |
 | 1: Bishop MVP Foundation | 6 | 0 | ⬜ Pending |
 | 2: E2E API + Analytics | 6 | 0 | ⬜ Pending |
 | 3: Playwright Frontend Testing | 5 | 0 | ⬜ Pending |
 | 4: Agent Integration + Deploy | 5 | 0 | ⬜ Pending |
-| **Total** | **34** | **5** | **🔄 In Progress** |
+| **Total** | **34** | **6** | **🔄 In Progress** |
