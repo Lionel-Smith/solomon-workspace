@@ -2,7 +2,7 @@
 
 **Project:** Solomon — MCP-Native HFS Workflow Companion
 **Architecture:** Claude Code Plugin
-**Workflow:** HFS Agentic Workflow v1.8
+**Workflow:** HFS Agentic Workflow v2.0
 
 ## Repository Overview
 
@@ -50,9 +50,22 @@ solomon-workspace/
 
 ## Current Status
 
-- **Version:** 1.3.0 (HFS v1.9.1 Alignment)
-- **Workflow:** HFS Agentic Workflow v1.9.1
+- **Version:** 1.4.0 (HFS v2.0 Alignment)
+- **Workflow:** HFS Agentic Workflow v2.0
 - **Working Directory:** solomon/
+
+## Default Posture (karpathy-guidelines)
+
+Default to the four [`karpathy-guidelines`](https://github.com/forrestchang/andrej-karpathy-skills) principles for **feature work and bug fixes**:
+
+1. **Think Before Coding** — surface assumptions, ask when unclear, present multiple interpretations rather than picking silently
+2. **Simplicity First** — minimum code that solves the stated problem, no speculative features or single-use abstractions
+3. **Surgical Changes** — touch only what's required, match existing style, don't drive-by-refactor adjacent code
+4. **Goal-Driven Execution** — transform tasks into verifiable success criteria with `→ verify: <check>` per step
+
+**Scope boundary**: these defaults are *opted out of* during dedicated improvement sprints (refactor passes, skill-refresh sprints like SKR-1/SKR-2, polish/harden/optimize-style work) where adjacent improvements are the explicit ask. The HFS skills `polish`, `harden`, `optimize`, `arrange`, etc. are improvement-mode tools — the karpathy "don't touch adjacent code" rule does not apply when one of those skills is active.
+
+**Why this works**: the principles overlap heavily with our persistent feedback memories (`feedback_discovery_and_research_first.md`, `feedback_integration_temptation.md`) but consolidate them into a single citable named posture.
 
 ## Droplet Integration (2026-01-31)
 
@@ -95,7 +108,7 @@ solomon-workspace/
 | HEARTBEAT.md | Proactive check-in tasks |
 | TOOLS.md | Local config (gog, Linear, SSH) |
 
-## HFS v1.9.1 Features
+## HFS v2.0 Features
 
 Solomon v1.3.0 supports HFS v1.9.1 features:
 
@@ -143,6 +156,13 @@ Generate validation scripts with HFS compliance:
 | `/infra-verify` | Phase 2.55 - Validate infrastructure |
 | `/checkpoint` | Create session state snapshot |
 
+### Wave Execution (v2.0)
+| Command | Description |
+|---------|-------------|
+| `/wave:plan` | Compute execution waves from PROMPTS.md |
+| `/wave:run [N]` | Execute wave N (or next incomplete) |
+| `/wave:status` | Show wave completion dashboard |
+
 ## HFS Session Commands
 
 ```bash
@@ -172,6 +192,7 @@ Generate validation scripts with HFS compliance:
 - **Context7:** Up-to-date library documentation
 - **Claude HUD:** Real-time session visibility
 - **GitHub MCP:** Version control integration
+- **Firecrawl:** Phase 0 research automation via CLI or MCP tools
 
 ## Feature Registry (Planned)
 
@@ -227,3 +248,31 @@ All 14 HFS skills loaded in `.claude/skills/`:
 - python-backend-scaffold, fullstack-integration, debugging-workflow
 - backend-e2e-testing, playwright-e2e-testing
 - hfs-skill-creator
+
+## Compaction Instructions
+
+When compacting this conversation, preserve the following context — autonomous session runs depend on it surviving summarization:
+
+**HFS workflow state (always preserve):**
+- Active feature name and prefix (e.g., `frontend-wired-verification` / `FWV`)
+- Active session ID currently loaded in `solomon-docs/sessions/SESSION.md`
+- Path to the active plan and prompts file (e.g., `solomon-docs/plans/FWV_VERIFICATION_PLAN.md`, `solomon-docs/prompts/FWV_VERIFICATION_PROMPTS.md`)
+- Which repository is the current working directory for the active session (`solomon/`, `hfs-development-kit/`, `solomon-dashboard/`, or workspace root)
+- Uncommitted files that belong to the active session (so they are not accidentally discarded)
+- Session dependencies and wave position (e.g., "FWV-03 depends on FWV-01; Wave 1b")
+
+**Per-session verification checks (always preserve):**
+- `<verification>` check list from the loaded SESSION.md — these are the pass gate for `/session:complete`
+- `<forbidden>` patterns from the loaded SESSION.md — violating these blocks commit
+- `<constraint priority="critical">` entries — these cannot be relaxed during compaction
+
+**User-stated boundaries (always preserve — Anthropic docs warn these otherwise vanish):**
+- Any prohibition the user stated about destructive ops, force pushes, or branch targets
+- Any "run only these specific sessions" scope the user set
+- Any per-session manual-gate requirement (e.g., "FWV-06 needs manual review — parser-self-modification risk")
+
+**Safe to summarize / drop:**
+- Intermediate tool output, grep results, file listings
+- Brainstorming / visual companion screens
+- Completed sessions' full XML (keep ID + commit hash + verdict only)
+- Research findings older than the current session's scope
