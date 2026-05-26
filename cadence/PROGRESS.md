@@ -74,3 +74,24 @@ Append to the bottom of this file after each session completes.
   - Check 2 bare `python -c "import yaml..."` pinned to `hfs-aiops/.venv/bin/python3.11` (per `lesson_pyyaml_interpreter_pinning`)
 
 ---
+
+## [ROUTINE-03] daily-solomon-standup prompt
+
+- **Status:** ✅ Complete
+- **Loaded:** 2026-05-25
+- **Started:** 2026-05-25
+- **Completed:** 2026-05-25
+- **Effort:** medium
+- **Wave:** 2 (parallel_safe)
+- **Working dir:** `~/Documents/GitHub/solomon-workspace`
+- **Dependencies:** ROUTINE-01 ✅
+- **Model:** claude-opus-4-7 with extended thinking (16K tokens)
+- **Verification:** 5/5 gates passed — file_exists ✓ | front_matter_valid ✓ (slug=daily-solomon-standup, ritual_type=standup, version=1.0; pinned to `hfs-aiops/.venv/bin/python3.11`) | no_placeholders ✓ | length_reasonable ✓ (168 lines) | plan_review_score ✓ (96/100 ≥ 90)
+- **Commit:** `9b5eb3f` — feat(routines): add daily-solomon-standup Routine prompt (reviewed score ≥90/100)
+- **Files:** 2 created — `routines/daily-solomon-standup.md` (168 lines), `routines/.review/daily-solomon-standup_review.md` (review report, 2 iterations)
+- **plan-review-loop:** 2 iterations to clear (iter 1 = 92.5/100 with 2 criticals: Mem0 query shape + anti-pattern text expansion; iter 2 = 96/100 with 0 criticals → COMPLETE)
+- **Bonus constraint-sweep finding:** Caught stray `⚠` emoji in initial degraded-mode Safety line — removed before commit (emoji-allowlist enforcement via NFC-normalized regex sweep; documented in `pattern_emoji_allowlist_sweep`)
+- **Deferred to user:** Task 3 SMOKE_TEST — partial possible now (verify Safety §6 auth-failure branch since `/agents/activity` endpoint doesn't exist yet); full happy-path test waits for future BE-* session shipping Samson endpoint
+- **Routed-around drift (consistent with ROUTINE-01/02):**
+  - Verification paths used `solomon-workspace/routines/...` but `working_directory` IS solomon-workspace; semantic-equivalent run used (per `lesson_session_path_doubling_drift`)
+  - Check 2 bare `python -c "import yaml..."` pinned to `hfs-aiops/.venv/bin/python3.11` (per `lesson_pyyaml_interpreter_pinning`)
