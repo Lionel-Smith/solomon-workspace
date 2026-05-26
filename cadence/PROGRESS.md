@@ -118,3 +118,26 @@ Append to the bottom of this file after each session completes.
 - **Routed-around drift (consistent with ROUTINE-01/02/03):**
   - Verification paths used `solomon-workspace/routines/...` but `working_directory` IS solomon-workspace; semantic-equivalent run used (per `lesson_session_path_doubling_drift`)
   - Check 2 bare `python -c "import yaml..."` pinned to `hfs-aiops/.venv/bin/python3.11` (per `lesson_pyyaml_interpreter_pinning`)
+
+---
+
+## [ROUTINE-05] friday-eval prompt + golden dataset
+
+- **Status:** ✅ Complete
+- **Loaded:** 2026-05-25
+- **Started:** 2026-05-25
+- **Completed:** 2026-05-25
+- **Effort:** medium
+- **Wave:** 2 (parallel_safe)
+- **Working dir:** `~/Documents/GitHub/solomon-workspace`
+- **Dependencies:** ROUTINE-01 ✅
+- **Model:** claude-opus-4-7 with extended thinking (16K tokens)
+- **Verification:** 6/6 gates passed — file_exists ✓ | front_matter_valid ✓ (slug=friday-eval, ritual_type=eval, version=1.0) | no_placeholders ✓ | length_reasonable ✓ (160 lines) | plan_review_score ✓ (96/100 ≥ 90) | dataset_valid ✓ (10 tasks, valid agent_targets) | + emoji-allowlist sweep clean (single-emoji 🚨)
+- **Commit:** `5a6c79a` — feat(routines): add friday-eval Routine prompt + solomon-core-v1 dataset (reviewed score ≥90/100)
+- **Files:** 3 created — `cadence/eval/datasets/solomon-core-v1.yaml` (10-task golden dataset), `routines/friday-eval.md` (160 lines), `routines/.review/friday-eval_review.md`
+- **plan-review-loop:** 2 iterations (iter 1 = 95/100, 0 criticals, 1 warning re: loose "locally" wording; iter 2 = 96/100, 0 criticals, 0 warnings → COMPLETE). First Routine to clear iteration 1 with zero criticals — pattern library compounding.
+- **2 new patterns memorialized:** `lesson_unicode_dingbat_emoji_trap` (✓/✗ caught by emoji sweep; use Y/N text indicators) + `pattern_dual_unit_cost_budget` (dollars primary + tokens secondary when plan specifies hard $ cap)
+- **Deferred to user:** Task 4 SMOKE_TEST — partial-only until BE-* sessions ship `/solomon/run` + `/cadence/routines/.../runs` AND 6 fixture files are materialized
+- **Routed-around drift (consistent with ROUTINE-01..04):**
+  - Verification paths used `solomon-workspace/...` from working_dir IS solomon-workspace; semantic-equivalent run (per `lesson_session_path_doubling_drift`)
+  - Check 2 + 6 bare `python -c "import yaml..."` pinned to `hfs-aiops/.venv/bin/python3.11` (per `lesson_pyyaml_interpreter_pinning`)
