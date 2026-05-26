@@ -3,6 +3,14 @@ solomon/
 solomon-docs/
 hfs-aiops/
 hfs-development-kit/
+esther-mcp/
+esther-models/
+solomon-dashboard/
+
+# Working-tree artifacts (not source of truth)
+screenshots/
+research/
+.superpowers/
 
 # Python
 __pycache__/
