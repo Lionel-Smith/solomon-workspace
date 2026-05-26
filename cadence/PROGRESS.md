@@ -190,3 +190,27 @@ Append to the bottom of this file after each session completes.
 - **Routed-around drift (consistent with ROUTINE-01..06):**
   - Verification paths used `solomon-workspace/routines/...` from working_dir IS solomon-workspace; semantic-equivalent run (per `lesson_session_path_doubling_drift`)
   - Check 2 bare `python -c "import yaml..."` pinned to `hfs-aiops/.venv/bin/python3.11` (per `lesson_pyyaml_interpreter_pinning`)
+
+---
+
+## [ROUTINE-08] github-pr-review prompt
+
+- **Status:** ✅ Complete
+- **Loaded:** 2026-05-25
+- **Started:** 2026-05-25
+- **Completed:** 2026-05-25
+- **Effort:** medium
+- **Wave:** 2 (parallel_safe)
+- **Working dir:** `~/Documents/GitHub/solomon-workspace`
+- **Dependencies:** ROUTINE-01 ✅
+- **Model:** claude-opus-4-7 with extended thinking (16K tokens)
+- **Verification:** 5/5 gates passed — file_exists ✓ | front_matter_valid ✓ (slug=github-pr-review, ritual_type=pr_review, version=1.0) | no_placeholders ✓ | length_reasonable ✓ (195 lines) | plan_review_score ✓ (96/100 ≥ 90) | + emoji-allowlist sweep clean (0 emojis)
+- **Commit:** `8609044` — feat(routines): add github-pr-review Routine prompt (reviewed score ≥90/100)
+- **Files:** 2 created — `routines/github-pr-review.md` (195 lines), `routines/.review/github-pr-review_review.md`
+- **plan-review-loop:** 2 iterations (iter 1 = 95/100, 0 criticals + 3 warnings [production-code wording, dependency-file skip carve-out, side="LEFT" for deletions]; iter 2 = 96/100, 0 criticals → COMPLETE)
+- **Distinguishing properties:** First GitHub-event-triggered Routine. Samson-independent at runtime (event bridge via Anthropic GitHub App). Two-channel dispatch (GitHub PR primary + Slack #cadence-status meta-notif). Comment-only stance via event=COMMENT (never APPROVE/REQUEST_CHANGES). Same-head_sha dedup rule. Repo-specific CLAUDE.md constraint loading with HFS-wide defaults fallback.
+- **1 new pattern memorialized:** `pattern_structured_vs_conversational_emoji_split` — confirmed split across 4 structured-output Routines (zero emojis, bracketed [HIGH]/[MEDIUM]/[LOW] severity) vs 3 conversational-output Routines (template emojis as section markers). Rule of thumb for ROUTINE-09 and future Routines.
+- **Deferred to user:** Task 3 SMOKE_TEST — testable against real PR today (Samson-independent), but BE-08 ingestion persistence + drift tracking deferred.
+- **Routed-around drift (consistent with ROUTINE-01..07):**
+  - Verification paths used `solomon-workspace/routines/...` from working_dir IS solomon-workspace; semantic-equivalent run (per `lesson_session_path_doubling_drift`)
+  - Check 2 bare `python -c "import yaml..."` pinned to `hfs-aiops/.venv/bin/python3.11` (per `lesson_pyyaml_interpreter_pinning`)
