@@ -95,3 +95,26 @@ Append to the bottom of this file after each session completes.
 - **Routed-around drift (consistent with ROUTINE-01/02):**
   - Verification paths used `solomon-workspace/routines/...` but `working_directory` IS solomon-workspace; semantic-equivalent run used (per `lesson_session_path_doubling_drift`)
   - Check 2 bare `python -c "import yaml..."` pinned to `hfs-aiops/.venv/bin/python3.11` (per `lesson_pyyaml_interpreter_pinning`)
+
+---
+
+## [ROUTINE-04] friday-retro prompt
+
+- **Status:** ✅ Complete
+- **Loaded:** 2026-05-25
+- **Started:** 2026-05-25
+- **Completed:** 2026-05-25
+- **Effort:** medium
+- **Wave:** 2 (parallel_safe)
+- **Working dir:** `~/Documents/GitHub/solomon-workspace`
+- **Dependencies:** ROUTINE-01 ✅
+- **Model:** claude-opus-4-7 with extended thinking (16K tokens)
+- **Verification:** 5/5 gates passed — file_exists ✓ | front_matter_valid ✓ (slug=friday-retro, ritual_type=retro, version=1.0) | no_placeholders ✓ | length_reasonable ✓ (180 lines) | plan_review_score ✓ (96/100 ≥ 90)
+- **Commit:** `2e9f1ce` — feat(routines): add friday-retro Routine prompt (reviewed score ≥90/100)
+- **Files:** 2 created — `routines/friday-retro.md` (180 lines), `routines/.review/friday-retro_review.md` (review report, 2 iterations)
+- **plan-review-loop:** 2 iterations to clear (iter 1 = 92/100 with 3 criticals: repo resolution, git apply availability, quiet-week Kata prompt count; iter 2 = 96/100 with 0 criticals → COMPLETE)
+- **2 new patterns memorialized:** `pattern_slack_block_kit_value_contract` (JSON-string button.value contract for BE-06's webhook) + `pattern_routine_diff_validation_dual_path` (git apply --check OR logical line-number check for Anthropic cloud portability)
+- **Deferred to user:** Task 3 SMOKE_TEST — partial-only available now (verify auth-failure branch since /cadence/learnings doesn't exist yet). Full happy-path test deferred until BOTH BE-08 (Samson learnings endpoint) AND BE-06 (apply-worker webhook) ship
+- **Routed-around drift (consistent with ROUTINE-01/02/03):**
+  - Verification paths used `solomon-workspace/routines/...` but `working_directory` IS solomon-workspace; semantic-equivalent run used (per `lesson_session_path_doubling_drift`)
+  - Check 2 bare `python -c "import yaml..."` pinned to `hfs-aiops/.venv/bin/python3.11` (per `lesson_pyyaml_interpreter_pinning`)
