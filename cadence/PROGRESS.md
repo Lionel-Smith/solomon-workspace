@@ -337,3 +337,42 @@ Append to the bottom of this file after each session completes.
 - **Inherited patterns applied (4):** pattern_cadence_module_placement (path correction `hfs_aiops/cadence` → `samson/cadence` enforced via `<forbidden>` pattern — zero violations this session), pattern_read_target_repo_claude_md_before_authoring (Task 0: pre-flight read of hfs-aiops CLAUDE.md + samson/cadence/CLAUDE.md + plan §3.1+§3.5 + contract-first-api skill), pattern_decision_boundary_at_trigger_not_runtime (ExecutionMode field on RoutineRegisterRequest is payload-set, never runtime-derived), pattern_dispatch_order_matches_data_flow (response URL/SID fields are explicit-nullable, never silently blank)
 - **Routed-around drift (5 documented in SESSION.md `<drift_from_prompts_xml>`):** all 3 task paths corrected `hfs_aiops/cadence/*` → `samson/cadence/*`; tasks 1+2 reframed CREATE → MODIFY (placeholders from BE-01); verification commands path-corrected + venv-prefixed; +2 discriminator verification checks added; +1 critical constraint + 3 forbidden patterns added
 - **Notes:** mypy installed in venv (was missing — `2.1.0`). Wave 4 complete (BE-01 + BE-02 + BE-03 all ✅). BE-04 unblocked.
+
+
+## [BE-04] Repository layer (10 repos + 10 test files)
+
+- **Status:** ✅ Complete
+- **Loaded:** 2026-05-26
+- **Started:** 2026-05-26
+- **Completed:** 2026-05-26
+- **Effort:** heavy (XML estimate 75 minutes; likely 90-120 min realistic given 6 documented schema/path drifts to adapt)
+- **Wave:** 5 (NOT parallel-safe — single repo layer underpins all subsequent service sessions)
+- **Working dir:** `~/Documents/GitHub/solomon-workspace/hfs-aiops`
+- **Dependencies:** BE-02 ✅ + BE-03 ✅
+- **Model:** claude-sonnet-4-6 (extended thinking, 16K tokens — heaviest session config yet)
+- **Compaction trigger:** 70% context utilization — `<compaction>` block in SESSION.md directs preservation of signatures + drift block, drops completed-repo full source
+- **Skills declared:** python-backend-scaffold, db-transaction-discipline
+- **Memories loaded (5):** pattern_cadence_module_placement, pattern_read_target_repo_claude_md_before_authoring, lesson_session_verification_grep_anchored_to_class_body, lesson_real_db_integration_tests, pattern_shared_db_preflight_inventory
+- **Path correction applied** (per `pattern_cadence_module_placement`): all 10 task paths + 6 verification commands corrected from XML `hfs_aiops/cadence/repositories/...` → `samson/cadence/repositories/...`
+- **6 schema/spec drifts documented in SESSION.md `<drift_from_prompts_xml>`** — XML signatures lag BE-02 model schema in 3 places (LearningsRepository.insert columns, EventsRepository.create.triggered_by, PromotionsRepository.mark_decided.decided_via); type mismatch between DTO BudgetStatus and DB token snapshot budget_status; added 3 verification checks (no_direct_mem0_client, all_repos_present, all_test_files_present); rewrote rollback_before_remap check from fragile grep to strict Python assertion.
+- **9 verification gates total** (6 XML + 3 added): layering ✓, rollback_before_remap (strict ≥ assertion), tests, coverage ≥80%, no_forbidden, lazy_raise, no_direct_mem0_client, all_repos_present (11 .py files in repositories/), all_test_files_present (10 test_*.py files)
+- **User input required at /session:run start:** test database infrastructure decision (droplet vs local Postgres vs pytest fixture with transaction rollback — recommendation: fixture for speed)
+- **Verification:** 9/9 gates passed — layering ✓ | rollback_before_remap ✓ (5 IntegrityError catches = 5 rollback() calls, strict assertion) | tests ✓ (57 passed in 159s against DO Postgres via PgBouncer) | coverage ✓ (TOTAL 90% on 488 stmts, well above 80%; per-file 76-100%) | no_forbidden ✓ | lazy_raise ✓ | no_direct_mem0_client ⚠ (XML grep false-positived on docstring prose; AST-anchored semantic re-check confirms 0 actual call sites — same lesson_session_verification_grep_anchored_to_class_body bug class as BE-03) | all_repos_present ✓ (11) | all_test_files_present ✓ (10)
+- **Commit:** `3b2e32f` — feat(cadence): add 10 repositories with async sqlalchemy 2.0 and explicit rollback-before-remap
+- **Files:** 22 created + 1 modified — 11 source (10 repos + exceptions.py +NewsAlreadyDigestedThisDay), 12 test files (10 test_*.py + conftest + __init__.py). 2,285 lines total.
+- **User-input decision applied at run start:** Test DB infrastructure path = "Pytest fixture (Recommended)" — fresh per-test asyncpg engine via conftest.py `_build_test_engine()`. Engine config required 3 specific knobs that surfaced as bugs during execution (see "4 NEW bug-class patterns" below).
+- **All 6 documented schema/path drifts handled per SESSION.md `<drift_from_prompts_xml>`:**
+  1. All 10 task paths corrected `hfs_aiops/cadence/*` → `samson/cadence/*` (zero forbidden-pattern violations)
+  2. LearningsRepository.insert columns: `text_body/source/source_user_id/target_type_hint/tags` (XML's `text/agent_context/project_context/severity` discarded — no such columns)
+  3. EventsRepository.create.triggered_by parameter dropped (no column on CadenceEvent)
+  4. PromotionsRepository.mark_decided.decided_via parameter dropped (no column on cadence_promotions)
+  5. token_repo budget_status uses DB Literal["under","at","over"] (service layer will translate DTO BudgetStatus)
+  6. Mem0Mirror uses `get_mem0_client()` singleton (forbidden-pattern enforcement passed)
+- **4 NEW bug-class patterns memorialized** (all in `~/.claude/.../memory/`):
+  1. `pattern_asyncpg_pgbouncer_statement_cache_off` — `statement_cache_size=0` + `prepared_statement_cache_size=0` via connect_args for PgBouncer transaction mode
+  2. `pattern_pytest_asyncio_nullpool_fresh_engine` — function-scope event loops + NullPool + build engine inside fixture body + dispose in finally
+  3. `pattern_orm_refresh_after_upsert_returning` — `await session.refresh(returned)` after `pg_insert(...).on_conflict_do_update(...).returning(Model)`; identity map returns stale Python object otherwise (3 upsert methods fixed)
+  4. `lesson_session_verification_grep_anchored_to_class_body` confirmed/extended — BE-04 hit the same false-positive class on Gate 7's `Mem0Client()` grep
+- **Infrastructure:** SSH tunnel local 6432 → solomon droplet 127.0.0.1:6432 (PgBouncer), opened during /session:run, CLOSED at end. PgBouncer pool_mode preserved at transaction (no flip needed — statement_cache_size=0 was the right knob for tests).
+- **`.coverage` added to .gitignore** (test artifact, was inadvertently dropped by pytest-cov in repo root).
+- **Notes:** Heaviest session in Wave 5; took ~3h total (estimate was 75min — 90-120 min adapted estimate proved closer). Wave 5 complete. BE-05 + BE-06 (Wave 6) now unblocked.
