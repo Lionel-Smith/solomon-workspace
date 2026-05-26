@@ -10,6 +10,7 @@ __pycache__/
 *$py.class
 *.so
 .Python
+
 .venv/
 venv/
 .pytest_cache/
@@ -28,8 +29,15 @@ Thumbs.db
 
 # Claude Code
 .claude-cache/
+.claude/agents/
+.claude/worktrees/
+
+# Tool outputs
+.firecrawl/
+.playwright-mcp/
 
 # Secrets
 .env
 .env.local
 *.pem
+.mcp.json
