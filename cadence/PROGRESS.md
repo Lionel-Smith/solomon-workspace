@@ -30,3 +30,25 @@ Append to the bottom of this file after each session completes.
   - Pre-existing untouched: master push to all 3 repos deferred (auto-mode classifier denied direct-to-master push without explicit approval); the master-scoped commits ride along inside cadence-layer-v1.1 history.
 
 ---
+
+## [ROUTINE-01] Routine inventory scaffold
+
+- **Status:** ✅ Complete
+- **Loaded:** 2026-05-25
+- **Started:** 2026-05-25
+- **Completed:** 2026-05-25
+- **Effort:** light
+- **Wave:** 1
+- **Working dir:** `~/Documents/GitHub/solomon-workspace`
+- **Dependencies:** SETUP-00 ✅
+- **Verification:** 4/4 gates passed — files_exist ✓ | inventory_valid ✓ (8 entries, all required keys, validated via `hfs-aiops/.venv/bin/python3.11` since system python lacks pyyaml) | readme_references ✓ (25 hits ≥ 8) | no_placeholders ✓
+- **Commit:** `68d417e` — feat(routines): scaffold solomon-workspace/routines/ with README and 8-Routine inventory
+- **Files:** 2 created — `routines/README.md` (~140 lines), `routines/inventory.yml` (8 entries)
+- **Notes:**
+  - Reported 2 session-prompt bugs (non-blocking, routed around):
+    1. Verification commands use `solomon-workspace/routines/...` paths but `working_directory` IS solomon-workspace — paths would double-nest. Ran semantically equivalent checks with `routines/...` relative to workspace root.
+    2. `python -c "import yaml..."` check is ambiguous re: which python; pinned to `hfs-aiops/.venv/bin/python3.11` (pyyaml 6.0.3). System Python 3.14.5 lacks pyyaml.
+  - Solomon MCP `mark_complete` returned `PROJECT_NOT_FOUND` (Feature Registry not yet implemented for HFS_CADENCE_LAYER). Manual PROGRESS update + filesystem fallback as expected.
+  - **Unblocks Wave 2** — ROUTINE-02..09 (8 parallel prompt-author sessions) are now dependency-clear.
+
+---
