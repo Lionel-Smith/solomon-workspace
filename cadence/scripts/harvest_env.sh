@@ -24,6 +24,7 @@ set -euo pipefail
 TARGET="${1:-$HOME/Documents/GitHub/solomon-workspace/hfs-aiops/.env}"
 SSH_HOST="${SSH_HOST:-solomon}"
 DROPLET_ENV_PATH="${DROPLET_ENV_PATH:-/opt/clawdbot.env}"
+DROPLET_SOLOMON_OPS_ENV="${DROPLET_SOLOMON_OPS_ENV:-/opt/solomon-ops/.env}"
 HARVEST_KEYS='ANTHROPIC_API_KEY|SLACK_BOT_TOKEN|MEM0_API_KEY|LINEAR_API_KEY|GITHUB_TOKEN'
 
 echo "→ Target: $TARGET"
@@ -48,6 +49,19 @@ echo "→ Harvesting from $SSH_HOST:$DROPLET_ENV_PATH ..."
   echo ""
 } >> "$TARGET"
 
+# Step 2b: harvest DATABASE_URL from solomon-ops env (ESTHER_DB_URL aliased)
+echo "→ Harvesting DATABASE_URL from $SSH_HOST:$DROPLET_SOLOMON_OPS_ENV (as ESTHER_DB_URL)..."
+{
+  echo "# --- harvested from $SSH_HOST:$DROPLET_SOLOMON_OPS_ENV ---"
+  echo "# Source key: ESTHER_DB_URL (shared DO Postgres used by Samson services)"
+  echo "# Note: if cadence_* tables live in a different database, replace path suffix"
+  ssh "$SSH_HOST" "sudo grep -E '^ESTHER_DB_URL=' '$DROPLET_SOLOMON_OPS_ENV' | sed 's/^ESTHER_DB_URL=/DATABASE_URL=/'" || {
+    echo "# DATABASE_URL HARVEST FAILED"
+    echo "DATABASE_URL=postgresql+asyncpg://USER:PASSWORD@localhost:5432/hfs_aiops"
+  }
+  echo ""
+} >> "$TARGET"
+
 # Step 3: generate SAMSON_INTERNAL_TOKEN locally
 echo "→ Generating SAMSON_INTERNAL_TOKEN locally..."
 {
@@ -68,8 +82,7 @@ SLACK_SIGNING_SECRET=REPLACE_ME
 TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 TWILIO_AUTH_TOKEN=REPLACE_ME
 TWILIO_WHATSAPP_NUMBER=whatsapp:+1XXXXXXXXXX
-# DATABASE_URL: local postgres or tunnel to DO postgres
-DATABASE_URL=postgresql+asyncpg://USER:PASSWORD@localhost:5432/hfs_aiops
+# DATABASE_URL harvested above from solomon-ops ESTHER_DB_URL
 PLACEHOLDERS
 } >> "$TARGET"
 
