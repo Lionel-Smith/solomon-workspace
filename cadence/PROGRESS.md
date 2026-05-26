@@ -308,3 +308,32 @@ Append to the bottom of this file after each session completes.
   - Path: `hfs_aiops/cadence/` → `samson/cadence/` (per pattern_cadence_module_placement from BE-01)
   - APPLY_MIGRATION ran on droplet (not local) per user-authorized path
 - **/session:run rule deviation:** "DO NOT commit changes" violated by the interim local commit + droplet apply commits — necessary infrastructure for the user-authorized droplet path
+
+
+## [BE-03] Pydantic DTOs + literal types
+
+- **Status:** ✅ Complete
+- **Loaded:** 2026-05-26
+- **Started:** 2026-05-26
+- **Completed:** 2026-05-26
+- **Effort:** light (XML estimate 30 minutes)
+- **Wave:** 4 (parallel_safe with BE-02 ✅; both depend only on BE-01)
+- **Working dir:** `~/Documents/GitHub/solomon-workspace/hfs-aiops`
+- **Dependencies:** BE-01 ✅
+- **Model:** claude-sonnet-4-6 (standard thinking, temperature 0.1)
+- **Skills declared:** contract-first-api
+- **Memories loaded (4):** pattern_cadence_module_placement, pattern_read_target_repo_claude_md_before_authoring, pattern_decision_boundary_at_trigger_not_runtime, pattern_dispatch_order_matches_data_flow
+- **Path correction applied** (per `pattern_cadence_module_placement`): all 3 task paths corrected from XML `hfs_aiops/cadence/...` → `samson/cadence/...`. Verification commands path-corrected and prefixed with `cd hfs-aiops && .venv/bin/python` for correct interpreter.
+- **Task action reframing:** Tasks 1+2 reframed CREATE → MODIFY (placeholders `samson/cadence/types.py` 4 lines + `samson/cadence/dtos.py` 5 lines exist from BE-01 scaffold). Task 3 (tests/cadence/test_dtos.py) genuinely new.
+- **Drift from XML documented in SESSION.md `<drift_from_prompts_xml>` block** (5 entries) for /session:run + /session:complete auditability.
+- **Added verification checks:** response_discriminator (≥10 `success: Literal[True]` occurrences expected) + error_discriminator (=1 `success: Literal[False]` on CadenceError) — XML's `literal_only` check doesn't exercise the discriminator pattern that critical constraints #3+#4 require.
+- **Added 1 high-priority constraint** (path enforcement) + 3 forbidden patterns (StrEnum, `class Config:`, `from hfs_aiops.cadence`) — anti-recurrence of BE-01's path-doubling drift.
+- **Verification:** 6/6 declared gates passed + 2 bonus (ruff check + format both clean) — imports ✓ | mypy_strict ✓ (Success: no issues in 2 files) | tests ✓ (9 passed in 0.01s) | literal_only ✓ (0 enum imports/declarations — XML gate false-positived on docstring; semantic-correct via `^from enum import.*StrEnum|^class.*Enum`) | response_discriminator ✓ (exactly 10 class-body `success: Literal[True]` — XML count of 11 included docstring prose; corrected via `^    success: Literal\[True\]` anchor) | error_discriminator ✓ (exactly 1 — same anchor fix for `Literal[False]`)
+- **Commit:** `6324c2d` — feat(cadence): add pydantic DTOs and literal types for cadence MCP tools
+- **Files:** 2 modified + 1 created — `samson/cadence/types.py` (4→54 lines, 13 Literal types), `samson/cadence/dtos.py` (5→460 lines, 30 DTOs across 7 groups + CadenceError), `tests/cadence/test_dtos.py` (166 lines, 9 tests)
+- **DTO inventory:** 11 NEW v1.1 Routine lifecycle (Register/Ingest/Evaluate/Status req+resp + IngestionResult/RoutineHealth/DailySlotUsage) + 2 Capture + 3 Decisions (incl. PromotionProposal) + 3 Audit + 2 Energy + 3 Status + 5 Token (incl. AgentWeeklyTotal/BudgetBreach) + 1 CadenceError = 30
+- **All 7 constraints honored** (4 critical + 3 high). 0 forbidden-pattern violations.
+- **1 new pattern memorialized:** `lesson_session_verification_grep_anchored_to_class_body` — `<verification>` greps for Python field/class declarations MUST anchor with `^    ` (or `^class`); bare-symbol greps false-positive on docstring prose. Same bug class as `fe_bindings_updated` multiline-YAML gate; deferred process improvement → session XML authoring template should warn against bare-symbol greps.
+- **Inherited patterns applied (4):** pattern_cadence_module_placement (path correction `hfs_aiops/cadence` → `samson/cadence` enforced via `<forbidden>` pattern — zero violations this session), pattern_read_target_repo_claude_md_before_authoring (Task 0: pre-flight read of hfs-aiops CLAUDE.md + samson/cadence/CLAUDE.md + plan §3.1+§3.5 + contract-first-api skill), pattern_decision_boundary_at_trigger_not_runtime (ExecutionMode field on RoutineRegisterRequest is payload-set, never runtime-derived), pattern_dispatch_order_matches_data_flow (response URL/SID fields are explicit-nullable, never silently blank)
+- **Routed-around drift (5 documented in SESSION.md `<drift_from_prompts_xml>`):** all 3 task paths corrected `hfs_aiops/cadence/*` → `samson/cadence/*`; tasks 1+2 reframed CREATE → MODIFY (placeholders from BE-01); verification commands path-corrected + venv-prefixed; +2 discriminator verification checks added; +1 critical constraint + 3 forbidden patterns added
+- **Notes:** mypy installed in venv (was missing — `2.1.0`). Wave 4 complete (BE-01 + BE-02 + BE-03 all ✅). BE-04 unblocked.
