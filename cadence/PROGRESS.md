@@ -52,3 +52,25 @@ Append to the bottom of this file after each session completes.
   - **Unblocks Wave 2** — ROUTINE-02..09 (8 parallel prompt-author sessions) are now dependency-clear.
 
 ---
+
+## [ROUTINE-02] daily-news-sweep prompt
+
+- **Status:** ✅ Complete
+- **Loaded:** 2026-05-25
+- **Started:** 2026-05-25
+- **Completed:** 2026-05-25
+- **Effort:** medium
+- **Wave:** 2 (parallel_safe)
+- **Working dir:** `~/Documents/GitHub/solomon-workspace`
+- **Dependencies:** ROUTINE-01 ✅
+- **Model:** claude-opus-4-7 with extended thinking (16K tokens)
+- **Verification:** 5/5 gates passed — file_exists ✓ | front_matter_valid ✓ (slug=daily-news-sweep, ritual_type=news, version=1.0; pinned to `hfs-aiops/.venv/bin/python3.11`) | no_placeholders ✓ | length_reasonable ✓ (156 lines) | plan_review_score ✓ (96/100 ≥ 90)
+- **Commit:** `310fd61` — feat(routines): add daily-news-sweep Routine prompt (reviewed score ≥90/100)
+- **Files:** 2 created — `routines/daily-news-sweep.md` (156 lines), `routines/.review/daily-news-sweep_review.md` (review report, 2 iterations)
+- **plan-review-loop:** 2 iterations to clear (iter 1 = 91.5/100 with 2 criticals; iter 2 = 96/100 with 0 criticals → COMPLETE)
+- **Deferred to user:** Task 3 SMOKE_TEST — manual Anthropic UI run. The session is verification-complete; smoke test belongs to the user. If smoke test reveals issues, re-open ROUTINE-02 for fix-up commit.
+- **Routed-around drift (consistent with ROUTINE-01):**
+  - Verification paths used `solomon-workspace/routines/...` but `working_directory` IS solomon-workspace; semantic-equivalent run used (per `lesson_session_path_doubling_drift`)
+  - Check 2 bare `python -c "import yaml..."` pinned to `hfs-aiops/.venv/bin/python3.11` (per `lesson_pyyaml_interpreter_pinning`)
+
+---
