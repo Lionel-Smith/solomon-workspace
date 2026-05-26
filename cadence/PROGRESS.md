@@ -214,3 +214,28 @@ Append to the bottom of this file after each session completes.
 - **Routed-around drift (consistent with ROUTINE-01..07):**
   - Verification paths used `solomon-workspace/routines/...` from working_dir IS solomon-workspace; semantic-equivalent run (per `lesson_session_path_doubling_drift`)
   - Check 2 bare `python -c "import yaml..."` pinned to `hfs-aiops/.venv/bin/python3.11` (per `lesson_pyyaml_interpreter_pinning`)
+
+---
+
+## [ROUTINE-09] github-ci-triage prompt
+
+- **Status:** ✅ Complete
+- **Loaded:** 2026-05-25
+- **Started:** 2026-05-25
+- **Completed:** 2026-05-25
+- **Effort:** medium
+- **Wave:** 2 (parallel_safe) — **LAST Wave-2 session; completing it unblocks ROUTINE-10**
+- **Working dir:** `~/Documents/GitHub/solomon-workspace`
+- **Dependencies:** ROUTINE-01 ✅
+- **Model:** claude-opus-4-7 with extended thinking (16K tokens)
+- **Verification:** 5/5 gates passed — file_exists ✓ | front_matter_valid ✓ (slug=github-ci-triage, ritual_type=ci_triage, version=1.0) | no_placeholders ✓ | length_reasonable ✓ (193 lines) | plan_review_score ✓ (96/100 ≥ 90) | + emoji-allowlist sweep clean (0 emojis)
+- **Commit:** `22779e1` — feat(routines): add github-ci-triage Routine prompt (reviewed score ≥90/100)
+- **Files:** 2 created — `routines/github-ci-triage.md` (193 lines), `routines/.review/github-ci-triage_review.md`
+- **plan-review-loop:** 2 iterations (iter 1 = 93/100 with 2 criticals: flaky rubric ambiguity + dispatch order Slack-before-Linear, 1 warning: workflow_id vs workflow_name; iter 2 = 96/100, 0 criticals → COMPLETE)
+- **Distinguishing properties:** Second GitHub-event-triggered Routine. First with 3 connectors (github + slack + linear). First to file Linear issues directly from Routine. 5-category classification rubric. Flaky-counter state cross-run via Samson.
+- **1 new pattern memorialized:** `pattern_dispatch_order_matches_data_flow` — multi-connector dispatch where downstream references upstream artifacts (Slack body→Linear URL) requires producer-first ordering
+- **🏁 Wave 2 finish line reached:** All 9 ROUTINE-* prompt sessions complete (R-01 inventory + R-02..09 prompts). 8 Routine prompt files + 1 inventory + 8 review reports at solomon-workspace/routines/. Wave 7 (ROUTINE-10: create Routines in Anthropic UI) now unblocked.
+- **Deferred to user:** Task 3 SMOKE_TEST — testable against real CI failure today (Samson-independent), but BE-08 cross-run flaky counter persistence deferred.
+- **Routed-around drift (consistent with ROUTINE-01..08):**
+  - Verification paths used `solomon-workspace/routines/...` from working_dir IS solomon-workspace; semantic-equivalent run (per `lesson_session_path_doubling_drift`)
+  - Check 2 bare `python -c "import yaml..."` pinned to `hfs-aiops/.venv/bin/python3.11` (per `lesson_pyyaml_interpreter_pinning`)
