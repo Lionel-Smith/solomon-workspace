@@ -239,3 +239,33 @@ Append to the bottom of this file after each session completes.
 - **Routed-around drift (consistent with ROUTINE-01..08):**
   - Verification paths used `solomon-workspace/routines/...` from working_dir IS solomon-workspace; semantic-equivalent run (per `lesson_session_path_doubling_drift`)
   - Check 2 bare `python -c "import yaml..."` pinned to `hfs-aiops/.venv/bin/python3.11` (per `lesson_pyyaml_interpreter_pinning`)
+
+---
+
+## [BE-01] Cadence module scaffold
+
+- **Status:** ✅ Complete
+- **Loaded:** 2026-05-25
+- **Started:** 2026-05-26
+- **Completed:** 2026-05-26
+- **Effort:** medium
+- **Wave:** 3 — first Wave-3 session; paradigm shift from prompt authoring to Python implementation
+- **Working dir:** `~/Documents/GitHub/solomon-workspace/hfs-aiops`
+- **Dependencies:** SETUP-00 ✅
+- **Model:** claude-sonnet-4-6 with extended thinking (8K tokens)
+- **Verification:** 6/6 gates passed — tree ✓ (7 module dirs + tests dir) | imports_clean ✓ (samson.cadence + 7 submodules) | pytest ✓ (2/2 tests passed using samson's asyncio_mode=auto convention) | runtime_health ✓ (Quart test client; status 200) | three_layer_clean ✓ (no controllers→repositories) | no_forbidden ✓ (.py source scope)
+- **Commit:** `b1d93bc` (hfs-aiops repo, cadence-layer-v1.1 branch) — feat(cadence): scaffold cadence module with three-layer architecture and health endpoint
+- **Files:** 16 created + 1 modified — `samson/cadence/` tree (7 dirs, 11 files), `tests/cadence/` (2 files), `samson/server.py` (+2 lines registering cadence_bp)
+- **Architectural decision baked in:** Cadence module lives at `samson/cadence/` (Option A — sub-module of Samson; mounts in samson's existing Quart app via Blueprint with `/cadence` URL prefix). 4-layer architecture (controllers/services/repositories/integrations) intentionally richer than samson's 3-layer because cadence has DB persistence + multiple entry points. ALL downstream BE-* sessions must honor this placement.
+- **5 routed-around drifts (most of any session yet):**
+  1. Path: `hfs_aiops/cadence/` → `samson/cadence/` (no hfs_aiops Python package root)
+  2. Port: 8086 → 8080 (samson's QUART_PORT default)
+  3. Runtime gate: `quart run + curl` → Quart test client (FastMCP+Quart dual-server)
+  4. Forbidden-pattern scope: recursive → `--include="*.py"` (CLAUDE.md docs literal patterns by design)
+  5. Task 6 file: EDIT `app.py` → EDIT `samson/server.py` (no top-level app.py in repo)
+- **2 new patterns memorialized:**
+  - `pattern_cadence_module_placement` — the Option A architectural decision (records the WHY + downstream session implications for BE-02..BE-12)
+  - `pattern_read_target_repo_claude_md_before_authoring` — pre-work methodology to surface repo conventions before writing code (would have prevented drifts 1+3+5 if applied at session start)
+- **Routed-around drift (consistent with prior sessions):**
+  - Verification paths in XML used `hfs_aiops/cadence/...` but actual path is `samson/cadence/...` (per `lesson_session_path_doubling_drift` evolution — first-Python-session class)
+  - `python` interpreter pinned to `hfs-aiops/.venv/bin/python3.11` (per `lesson_pyyaml_interpreter_pinning`)
