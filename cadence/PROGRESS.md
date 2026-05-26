@@ -141,3 +141,27 @@ Append to the bottom of this file after each session completes.
 - **Routed-around drift (consistent with ROUTINE-01..04):**
   - Verification paths used `solomon-workspace/...` from working_dir IS solomon-workspace; semantic-equivalent run (per `lesson_session_path_doubling_drift`)
   - Check 2 + 6 bare `python -c "import yaml..."` pinned to `hfs-aiops/.venv/bin/python3.11` (per `lesson_pyyaml_interpreter_pinning`)
+
+---
+
+## [ROUTINE-06] friday-energy-retro prompt
+
+- **Status:** ✅ Complete
+- **Loaded:** 2026-05-25
+- **Started:** 2026-05-25
+- **Completed:** 2026-05-25
+- **Effort:** medium
+- **Wave:** 2 (parallel_safe)
+- **Working dir:** `~/Documents/GitHub/solomon-workspace`
+- **Dependencies:** ROUTINE-01 ✅
+- **Model:** claude-opus-4-7 with extended thinking (16K tokens)
+- **Verification:** 5/5 gates passed — file_exists ✓ | front_matter_valid ✓ (slug=friday-energy-retro, ritual_type=energy, version=1.0) | no_placeholders ✓ | length_reasonable ✓ (94 lines) | plan_review_score ✓ (96/100 ≥ 90) | + emoji-allowlist sweep clean (4 occurrences, all 🌴)
+- **Commit:** `18b4e9a` — feat(routines): add friday-energy-retro Routine prompt (reviewed score ≥90/100)
+- **Files:** 2 created — `routines/friday-energy-retro.md` (94 lines), `routines/.review/friday-energy-retro_review.md`
+- **plan-review-loop:** **1 iteration to clear** (first single-iteration clearance — 96/100, 0 criticals, 1 warning fixed inline). Multi-session mandate didn't apply: 3 downstream consumers (INT-01, BE-08, BE-11), not "more than 3."
+- **1 new pattern memorialized:** `refinement_emoji_constraint_examples_text_not_literals` — anti-pattern examples in constraint text should use text names, not emoji literals, because the strict allowlist sweep doesn't distinguish output-template from constraint-example emojis
+- **Unique property:** First Wave-2 Routine that can be FULLY smoke-tested today (no Samson runtime dependency). Recommended as first cloud-Routine smoke test before tackling Samson-dependent siblings.
+- **Deferred to user:** Task 3 SMOKE_TEST — full happy-path smoke testable now (no Samson deps).
+- **Routed-around drift (consistent with ROUTINE-01..05):**
+  - Verification paths used `solomon-workspace/routines/...` from working_dir IS solomon-workspace; semantic-equivalent run (per `lesson_session_path_doubling_drift`)
+  - Check 2 bare `python -c "import yaml..."` pinned to `hfs-aiops/.venv/bin/python3.11` (per `lesson_pyyaml_interpreter_pinning`)
