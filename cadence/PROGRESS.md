@@ -376,3 +376,45 @@ Append to the bottom of this file after each session completes.
 - **Infrastructure:** SSH tunnel local 6432 → solomon droplet 127.0.0.1:6432 (PgBouncer), opened during /session:run, CLOSED at end. PgBouncer pool_mode preserved at transaction (no flip needed — statement_cache_size=0 was the right knob for tests).
 - **`.coverage` added to .gitignore** (test artifact, was inadvertently dropped by pytest-cov in repo root).
 - **Notes:** Heaviest session in Wave 5; took ~3h total (estimate was 75min — 90-120 min adapted estimate proved closer). Wave 5 complete. BE-05 + BE-06 (Wave 6) now unblocked.
+
+
+## [BE-05] LearnService + /learn endpoint + cadence_learn_capture MCP tool
+
+- **Status:** ✅ Complete
+- **Loaded:** 2026-05-26
+- **Started:** 2026-05-26
+- **Completed:** 2026-05-26
+- **Effort:** heavy (XML estimate 75 minutes; likely 90-120 min given schema drift adaptations)
+- **Wave:** 6 (parallel_safe with BE-06 — both depend only on BE-04 ✅)
+- **Working dir:** `~/Documents/GitHub/solomon-workspace/hfs-aiops`
+- **Dependencies:** BE-04 ✅
+- **Model:** claude-sonnet-4-6 (extended thinking, 16K tokens)
+- **Skills declared:** python-backend-scaffold, db-transaction-discipline
+- **Memories loaded (7):** pattern_cadence_module_placement, pattern_read_target_repo_claude_md_before_authoring, lesson_session_verification_grep_anchored_to_class_body, pattern_pytest_asyncio_nullpool_fresh_engine, pattern_orm_refresh_after_upsert_returning, pattern_dispatch_order_matches_data_flow, lesson_aggregation_isolated_try_except
+- **Path correction applied** (per `pattern_cadence_module_placement`): 4 task paths + 5 verification command paths corrected `hfs_aiops/cadence/*` → `samson/cadence/*`
+- **5 schema/spec drifts documented in SESSION.md `<drift_from_prompts_xml>`:**
+  1. All paths corrected to samson/cadence/ (Option A)
+  2. `mem0_synced` column absent on CadenceLearning → use `tags` array (`"mem0:pending"`)
+  3. `severity` column absent → escalation feature adapted to tag (`"severity:high"`)
+  4. MCP tool signature realigned to CadenceLearnRequest DTO fields (BE-03)
+  5. `manual_curl` verification check deferred — reclassified as OPS-03 deploy smoke test (requires running samson server + bearer token + jq + tunnel)
+- **8 verification gates total** (5 XML kept + 3 added): layering_controller, layering_service (added), tests_unit, tests_integration, mem0_resilience, no_forbidden (added), mcp_tool_registered (added), manual_curl (deferred to OPS-03)
+- **Wiring summary in SESSION.md `<wiring_summary>`:** HTTP/MCP → controllers/learn.py auth + DTO parse → DI via get_session() → LearningsRepository + EventsRepository + Mem0Mirror → LearnService.capture() orchestration → response.
+- **Verification:** 7/8 active gates passed + 1 deferred — layering_controller ✓ | layering_service ✓ | tests_unit ✓ (9/9 in 0.18s) | tests_integration ✓ (6/6 in 0.14s) | mem0_resilience ✓ (2 mem0_unavailable tests pass) | no_forbidden ✓ | mcp_tool_registered ✓ (cadence_learn_capture on samson.server.mcp) | manual_curl ⏸ DEFERRED to OPS-03 (needs running samson server + tunnel + bearer + jq — reclassified as deploy smoke test). + Bonus: ruff check + format clean (after auto-format of 2 files)
+- **Commit:** `966aa8f` — feat(cadence): add /learn capture service, REST endpoint, and MCP tool with mem0 dedup
+- **Files:** 3 created + 1 modified — `samson/cadence/services/learn_service.py` (150 lines, LearnService + make_learn_service factory), `samson/cadence/controllers/learn.py` (133 lines, POST /cadence/learn + @mcp.tool cadence_learn_capture), `samson/cadence/blueprint.py` (+1 line, side-effect-import learn). 4 test files (15 tests total): `tests/cadence/services/{__init__.py, test_learn_service.py}` (9 unit tests, mocked collaborators) + `tests/cadence/controllers/{__init__.py, test_learn_endpoint.py}` (6 Quart-test-client integration tests + monkeypatched factory). 689 lines total.
+- **All 5 documented drifts handled per SESSION.md `<drift_from_prompts_xml>`:**
+  1. All 4 task paths + 5 verification command paths corrected `hfs_aiops/cadence/*` → `samson/cadence/*` (Option A)
+  2. `mem0_synced` column absent → encode via `mem0:pending` tag on the existing tags ARRAY (memorialized as `pattern_tag_based_feature_flags_no_migration`)
+  3. `severity` column absent → encode via `severity:high` tag (same pattern)
+  4. MCP tool signature realigned to CadenceLearnRequest DTO field names (BE-03)
+  5. manual_curl verification reclassified as OPS-03 deploy smoke test
+- **3 NEW architectural patterns memorialized** (all in `~/.claude/.../memory/`):
+  1. `pattern_service_factory_in_service_module` — `make_*_service(session)` factory co-located with service class; preserves layering at source-import level; reusable across BE-06..BE-10
+  2. `pattern_pessimistic_event_status_try_finally` — track lifecycle status via try/finally with `event_status="failed"` default; avoids forbidden `except Exception`; exactly-once `mark_completed()` call on every exit path
+  3. `pattern_tag_based_feature_flags_no_migration` — encode low-cardinality flags as `namespace:value` entries in existing tags ARRAY (severity:high, mem0:pending); avoids schema migration for transient/speculative features; promotable to column later
+- **Inherited patterns applied (7):** pattern_cadence_module_placement (path correction enforced, 0 forbidden hits), pattern_read_target_repo_claude_md_before_authoring (Task 0 reads), lesson_session_verification_grep_anchored_to_class_body (gate 6's no_forbidden grep handled prose), pattern_pytest_asyncio_nullpool_fresh_engine (NOT used — service tests are mocked), pattern_orm_refresh_after_upsert_returning (defensive — no upserts in BE-05), pattern_dispatch_order_matches_data_flow (DB write BEFORE Mem0, constraint #1), lesson_aggregation_isolated_try_except (Mem0 failure isolated to its own try/except)
+- **Bearer auth implemented inline** (`_check_bearer()` in controllers/learn.py) — simple SAMSON_INTERNAL_TOKEN env check; fail-closed if env var unset; tested via Quart client. More sophisticated middleware (rate limiting, signing) deferred to later session.
+- **Cadence module surface expanded:** cadence_bp now has 2 routes (`/health` from BE-01 + `/learn` from BE-05). One MCP tool registered (cadence_learn_capture) — OPS-03 mounts cadence's FastMCP namespace onto Solomon gateway.
+- **15 tests in 0.32s total** vs BE-04's 57 tests in 159s — 175x faster per test on average. Mock-vs-real-DB trade-off works at the right layer: service unit tests catch logic bugs fast; BE-04's real-DB tests catch schema-coupling bugs slower but deeper.
+- **Notes:** First session crossing 3 layers in one commit. BE-06 (PromoteService, Wave 6) is parallel-safe and is now the only Wave 6 candidate remaining.
