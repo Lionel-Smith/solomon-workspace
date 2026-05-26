@@ -165,3 +165,28 @@ Append to the bottom of this file after each session completes.
 - **Routed-around drift (consistent with ROUTINE-01..05):**
   - Verification paths used `solomon-workspace/routines/...` from working_dir IS solomon-workspace; semantic-equivalent run (per `lesson_session_path_doubling_drift`)
   - Check 2 bare `python -c "import yaml..."` pinned to `hfs-aiops/.venv/bin/python3.11` (per `lesson_pyyaml_interpreter_pinning`)
+
+---
+
+## [ROUTINE-07] claude-md-audit prompt
+
+- **Status:** ✅ Complete
+- **Loaded:** 2026-05-25
+- **Started:** 2026-05-25
+- **Completed:** 2026-05-25
+- **Effort:** medium
+- **Wave:** 2 (parallel_safe)
+- **Working dir:** `~/Documents/GitHub/solomon-workspace`
+- **Dependencies:** ROUTINE-01 ✅
+- **Model:** claude-opus-4-7 with extended thinking (16K tokens)
+- **Verification:** 5/5 gates passed — file_exists ✓ | front_matter_valid ✓ (slug=claude-md-audit, ritual_type=audit, version=1.0) | no_placeholders ✓ | length_reasonable ✓ (184 lines) | plan_review_score ✓ (96/100 ≥ 90) | + emoji-allowlist sweep clean (0 emojis — bracketed text severity)
+- **Commit:** `e41c8d4` — feat(routines): add claude-md-audit Routine prompt (reviewed score ≥90/100)
+- **Files:** 2 created — `routines/claude-md-audit.md` (184 lines), `routines/.review/claude-md-audit_review.md`
+- **plan-review-loop:** 2 iterations (iter 1 = 94/100 with 1 critical [Remote/Local decision misplaced at runtime] + 2 warnings [missing execution_mode + auto_promote payload fields]; iter 2 = 96/100, 0 criticals → COMPLETE)
+- **Distinguishing properties:** First API-triggered Routine (not scheduled). 8-field trigger payload (file_path/target_repo/audit_mode/execution_mode/auto_promote/triggered_via/triggered_by_user/trigger_message_ts). Contextual dispatch (Slack thread vs MCP user mention). Zero-emoji output (bracketed [HIGH]/[MEDIUM]/[LOW] severity tags).
+- **1 new pattern memorialized:** `pattern_decision_boundary_at_trigger_not_runtime` — when a Routine has Remote vs Local execution variants, the decision belongs at trigger time in the MCP tool / dispatcher, NOT at runtime in the cloud-Routine prompt (which can't observe user state from cloud)
+- **Deferred to user:** Task 3 SMOKE_TEST — partial-only (auth-failure + invalid-payload paths); full happy-path persistence deferred until BE-08 ships
+- **Cross-session implications recorded:** Samson's `cadence_audit_claude_md` MCP tool must encode OQ-14 decision logic. BE-06's apply-worker must handle `cadence_promotions` rows arriving from audit-driven `auto_promote=true` (no Slack approval click; row appears pending without UI).
+- **Routed-around drift (consistent with ROUTINE-01..06):**
+  - Verification paths used `solomon-workspace/routines/...` from working_dir IS solomon-workspace; semantic-equivalent run (per `lesson_session_path_doubling_drift`)
+  - Check 2 bare `python -c "import yaml..."` pinned to `hfs-aiops/.venv/bin/python3.11` (per `lesson_pyyaml_interpreter_pinning`)
