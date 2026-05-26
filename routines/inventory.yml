@@ -1,0 +1,152 @@
+# HFS Cadence Layer — Routine Inventory
+#
+# Machine-readable catalog of all 8 Routines consumed by BE-07's
+# `scripts/register_routines.py` to populate `cadence_routine_definitions`.
+#
+# All schedule_cron values are interpreted in TZ=America/Nassau (NAS).
+# BE-07 attaches `timezone: America/Nassau` to the Anthropic Routine config
+# at registration time.
+#
+# Schema enforced in BE-07 (per session ROUTINE-01 contract):
+#   routines:
+#     - slug: str                    (required, lowercase-with-hyphens, max 40)
+#       display_name: str            (required)
+#       ritual_type: enum            (news|standup|retro|eval|energy|audit|pr_review|ci_triage)
+#       trigger_type: enum           (scheduled|api|github)
+#       schedule_cron: str           (required if trigger_type=scheduled)
+#       github_event_filter: object  (required if trigger_type=github)
+#       prompt_path: str             (required, relative to solomon-workspace root)
+#       connectors: list[str]        (required)
+#       repos: list[str]             (required, may be empty)
+#       execution_mode: enum         (remote|local) default=remote
+#       max_runs_per_day: int        default=1
+
+routines:
+  - slug: daily-news-sweep
+    display_name: Daily Dev News Sweep
+    ritual_type: news
+    trigger_type: scheduled
+    schedule_cron: "30 6 * * 1-5"
+    prompt_path: routines/daily-news-sweep.md
+    connectors:
+      - slack
+      - whatsapp
+      - firecrawl
+    repos: []
+    execution_mode: remote
+    max_runs_per_day: 1
+
+  - slug: daily-solomon-standup
+    display_name: Daily Solomon Agent Standup
+    ritual_type: standup
+    trigger_type: scheduled
+    schedule_cron: "0 7 * * 1-5"
+    prompt_path: routines/daily-solomon-standup.md
+    connectors:
+      - slack
+      - whatsapp
+      - mem0
+    repos: []
+    execution_mode: remote
+    max_runs_per_day: 1
+
+  - slug: friday-retro
+    display_name: Friday Retrospective
+    ritual_type: retro
+    trigger_type: scheduled
+    schedule_cron: "0 15 * * 5"
+    prompt_path: routines/friday-retro.md
+    connectors:
+      - slack
+      - mem0
+    repos:
+      - solomon
+      - hfs-aiops
+      - solomon-workspace
+    execution_mode: remote
+    max_runs_per_day: 1
+
+  - slug: friday-eval
+    display_name: Friday Eval — solomon-core-v1
+    ritual_type: eval
+    trigger_type: scheduled
+    schedule_cron: "0 16 * * 5"
+    prompt_path: routines/friday-eval.md
+    connectors:
+      - slack
+    repos:
+      - solomon-workspace
+    execution_mode: remote
+    max_runs_per_day: 1
+
+  - slug: friday-energy-retro
+    display_name: Friday Energy Retro
+    ritual_type: energy
+    trigger_type: scheduled
+    schedule_cron: "0 17 * * 5"
+    prompt_path: routines/friday-energy-retro.md
+    connectors:
+      - whatsapp
+    repos: []
+    execution_mode: remote
+    max_runs_per_day: 1
+
+  - slug: claude-md-audit
+    display_name: CLAUDE.md Audit (on-demand)
+    ritual_type: audit
+    trigger_type: api
+    prompt_path: routines/claude-md-audit.md
+    connectors:
+      - slack
+    repos: []
+    execution_mode: remote
+    max_runs_per_day: 3
+
+  - slug: github-pr-review
+    display_name: GitHub Pull Request Review
+    ritual_type: pr_review
+    trigger_type: github
+    github_event_filter:
+      event: pull_request
+      actions:
+        - opened
+        - synchronize
+    prompt_path: routines/github-pr-review.md
+    connectors:
+      - github
+      - slack
+    repos:
+      - solomon
+      - hfs-aiops
+      - esther-mcp
+      - esther-models
+      - solomon-dashboard
+      - esther-preview
+      - hfs-development-kit
+      - solomon-workspace
+    execution_mode: remote
+    max_runs_per_day: 5
+
+  - slug: github-ci-triage
+    display_name: GitHub CI Failure Triage
+    ritual_type: ci_triage
+    trigger_type: github
+    github_event_filter:
+      event: workflow_run
+      conclusion: failure
+    prompt_path: routines/github-ci-triage.md
+    connectors:
+      - github
+      - slack
+      - linear
+    repos:
+      - solomon
+      - hfs-aiops
+      - esther-mcp
+      - esther-models
+      - solomon-dashboard
+      - esther-preview
+      - hfs-development-kit
+      - solomon-workspace
+    execution_mode: remote
+    max_runs_per_day: 3
