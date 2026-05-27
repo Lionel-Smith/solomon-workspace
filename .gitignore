@@ -49,3 +49,6 @@ Thumbs.db
 .env.local
 *.pem
 .mcp.json
+
+# Cadence — Routine bearer tokens (companion to routines/.created.yml; never committed)
+routines/.tokens.env

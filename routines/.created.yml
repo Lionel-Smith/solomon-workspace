@@ -1,0 +1,119 @@
+# Routines created in the Anthropic web UI during ROUTINE-10.
+#
+# - Source: routines/inventory.yml (8 Routines)
+# - Created via: claude.ai/code/routines (manual UI work, ROUTINE-10 Task 1)
+# - Consumer: BE-07's scripts/register_routines.py
+#     (reads this file to populate cadence_routine_definitions with
+#      anthropic_routine_id, then attaches schedule/connector metadata)
+#
+# Each entry MUST have:
+#   - slug:                  exact match to inventory.yml.routines[*].slug
+#   - anthropic_routine_id:  the rt_* identifier returned by Anthropic when
+#                            you save the Routine (paste from the UI's URL or
+#                            the success-toast — format: rt_<alphanumeric>)
+#   - created_at:            ISO 8601 with America/Nassau offset
+#                            (use Anthropic's "created" timestamp if shown,
+#                             otherwise the wall-clock time when you saved)
+#
+# Verification gates (run by /session:complete):
+#   1. created_count          — exactly 8 entries
+#   2. all_ids_present        — every anthropic_routine_id starts with `rt_`
+#                              (no `trig_PASTE_HERE` placeholders)
+#   3. slugs_match_inventory  — slug set EXACTLY matches inventory.yml's
+#   4. smoke_test_log         — ≥1 file in routines/.smoke-tests/ (target: 8)
+
+created:
+  # ─── Scheduled (5) ─────────────────────────────────────────────────────────
+
+  - slug: daily-news-sweep
+    # display_name:    Daily Dev News Sweep
+    # schedule_cron:   30 6 * * 1-5         (Mon–Fri 06:30 NAS)
+    # connectors:      slack, whatsapp, firecrawl
+    # prompt:          routines/daily-news-sweep.md
+    anthropic_routine_id: trig_01A9w6skLbgrA4GgmKJmr6rP
+    created_at: 2026-05-26T19:30:00-04:00
+
+  - slug: daily-solomon-standup
+    # display_name:    Daily Solomon Agent Standup
+    # schedule_cron:   0 7 * * 1-5          (Mon–Fri 07:00 NAS)
+    # connectors:      slack, whatsapp, mem0
+    # prompt:          routines/daily-solomon-standup.md
+    anthropic_routine_id: trig_01RC8mKuTeeLB3MyHNtxuMWY
+    created_at: 2026-05-26T20:05:00-04:00
+
+  - slug: friday-retro
+    # display_name:    Friday Retrospective
+    # schedule_cron:   0 15 * * 5           (Fri 15:00 NAS)
+    # connectors:      slack, mem0
+    # repos:           solomon, hfs-aiops, solomon-workspace
+    # prompt:          routines/friday-retro.md
+    anthropic_routine_id: trig_01TxzYbSqjbtPxxtDhrYYbeh
+    created_at: 2026-05-26T20:10:00-04:00
+
+  - slug: friday-eval
+    # display_name:    Friday Eval — solomon-core-v1
+    # schedule_cron:   0 16 * * 5           (Fri 16:00 NAS)
+    # connectors:      slack
+    # repos:           solomon-workspace
+    # prompt:          routines/friday-eval.md
+    anthropic_routine_id: trig_01NcDtKZEJp6AMQXan6cU1gf
+    created_at: 2026-05-26T20:10:00-04:00
+
+  - slug: friday-energy-retro
+    # display_name:    Friday Energy Retro
+    # schedule_cron:   0 17 * * 5           (Fri 17:00 NAS)
+    # connectors:      whatsapp
+    # prompt:          routines/friday-energy-retro.md
+    anthropic_routine_id: trig_011tUwDSykbionaLAqEYiSnW
+    created_at: 2026-05-26T20:10:00-04:00
+
+  # ─── On-demand API trigger (1) ─────────────────────────────────────────────
+
+  - slug: claude-md-audit
+    # display_name:    CLAUDE.md Audit (on-demand)
+    # trigger:         api (no schedule) — bearer token lives in routines/.tokens.env
+    #                  under CADENCE_CLAUDE_MD_AUDIT_TOKEN (gitignored)
+    # max_runs_per_day: 3
+    # connectors:      slack
+    # prompt:          routines/claude-md-audit.md
+    anthropic_routine_id: trig_01YGe9C2Gbm5TQidE5geFqUx
+    created_at: 2026-05-26T20:00:00-04:00
+    # api_token_env:   CADENCE_CLAUDE_MD_AUDIT_TOKEN (loaded from routines/.tokens.env)
+
+  # ─── GitHub-triggered (2) ──────────────────────────────────────────────────
+
+  - slug: github-pr-review
+    # display_name:    GitHub Pull Request Review
+    # trigger:         github (event=pull_request, actions=[opened, synchronize])
+    # connectors:      github, slack
+    # repos:           solomon, hfs-aiops, esther-mcp, esther-models,
+    #                  solomon-dashboard, esther-preview, hfs-development-kit,
+    #                  solomon-workspace  (8 active per OQ-10)
+    # max_runs_per_day: 5
+    # prompt:          routines/github-pr-review.md
+    anthropic_routine_id: trig_01JGRqeXAHwCJaxRJ575bK7t
+    created_at: 2026-05-26T20:10:00-04:00
+
+  - slug: github-ci-triage
+    # display_name:    GitHub CI Failure Triage
+    # trigger:         github (event=workflow_run, conclusion=failure)
+    # connectors:      github, slack, linear
+    # repos:           same 8 as github-pr-review
+    # max_runs_per_day: 3
+    # prompt:          routines/github-ci-triage.md
+    #
+    # ⚠ DEFERRED 2026-05-26 — Anthropic Routines only supports `pull_request` and
+    #   `release` GitHub events; `workflow_run` (which this Routine needs to react
+    #   to CI failures) is not in the event-type dropdown as of this session.
+    #   Confirmed by Lionel in the UI + matches docs at
+    #   https://code.claude.com/docs/en/routines#supported-events.
+    #
+    # Revisit when Anthropic adds workflow_run event support. Fallbacks if needed
+    # before then: (a) restructure as api trigger + per-repo GitHub Action wrapper
+    # that POSTs to /fire on workflow failure, (b) schedule every 30min + scan
+    # via GitHub API. Both add per-repo plumbing — see
+    # `lesson_anthropic_routines_event_support_gap.md` for the analysis.
+    status: deferred_anthropic_gap
+    anthropic_routine_id: null
+    created_at: null
+    deferred_reason: "workflow_run event not in Anthropic UI event dropdown (only pull_request and release supported as of 2026-05-26)"
