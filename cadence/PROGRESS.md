@@ -514,3 +514,70 @@ Append to the bottom of this file after each session completes.
 - **Cadence module surface expanded:** cadence_bp now has 6 routes (/health, /learn, /promotions/{id}/decide, /energy, /webhooks/slack, /webhooks/whatsapp). MCP tools: 2. Integration singletons: cadence/integrations/whatsapp_client.py adds 3rd (matches mem0/github/slack pattern).
 - **Test pyramid cumulative:** 9 DTO + 14 model + 57 repository (real DB) + 24 LearnService/PromoteService/ApplyWorker + 19 webhook+EnergyService+WhatsAppClient = 123+ tests, ~160s total runtime (repos dominate; mock-based tests sub-second)
 - **Notes:** Wave 6 + Phase 2 COMPLETE. Wave 7 + Phase 3 (Routine Integration) next — ROUTINE-10 + BE-07/08/09/10.
+
+
+## [ROUTINE-10] Create 8 Routines in Anthropic web UI + smoke test
+
+- **Status:** ✅ Complete (7 registered + 1 deferred)
+- **Loaded:** 2026-05-26
+- **Started:** 2026-05-26
+- **Completed:** 2026-05-26
+- **Effort:** medium (XML estimate 45 minutes; pure user-driven)
+- **Wave:** 7 (Phase 3 — Routine Integration begins)
+- **Working dir:** Anthropic web UI (claude.ai/code/routines) + `solomon-workspace`
+- **Dependencies:** ROUTINE-02..09 ✅ (all 8 prompts authored) + BE-05 ✅ + INT-01 ✅
+- **Model:** MANUAL — Lionel performs in Anthropic UI; agent provides checklist + post-action verification
+- **Session type:** MANUAL — first non-code-authoring session of the project
+- **Skills declared:** none (manual session)
+- **Memories loaded:** none (no agent-coding work to inform)
+- **Agent contribution:** Pre-populate `routines/.created.yml` template with 8 placeholder entries (Lionel fills in real `rt_*` IDs as each Routine is created in Task 1). Run 4 verification gates after Lionel reports done. Optional debugging help if Routine creation fails.
+- **User actions (Lionel in Anthropic UI):**
+  1. For each of 8 Routines: create via UI, paste prompt from `routines/{slug}.md`, set schedule (America/Nassau TZ) per inventory.yml, grant connectors per inventory.yml, configure GitHub event filter + repo access for github-triggered Routines, copy returned `rt_*` ID into `.created.yml`
+  2. Smoke test each Routine via "Run now" button, capture output to `routines/.smoke-tests/{slug}-{date}.txt`
+- **4 verification gates** (when Lionel reports done):
+  1. `created_count` — 8 entries in `.created.yml`
+  2. `all_ids_present` — all anthropic_routine_id values start with `rt_` (no placeholders)
+  3. `slugs_match_inventory` — `.created.yml` slug set == `inventory.yml` slug set (added gate)
+  4. `smoke_test_log` — `≥1` (target 8) per-Routine smoke test output files
+- **4 documented drifts in SESSION.md `<drift_from_prompts_xml>`:**
+  1. Verification commands rewritten from shell heredoc → argv-form Python -c (avoids quoting hell)
+  2. Added `slugs_match_inventory` gate beyond XML's 3 (exact slug-set match)
+  3. Added `<agent_actions_in_this_session>` block clarifying agent-vs-Lionel split
+  4. `.smoke-tests/` per-Routine output pattern formalized in Task 3
+- **Verification:** 4/4 gates passed — created_count ✓ (8 entries) | all_ids_present ✓ (7 registered + 1 deferred; threshold ≥7) | slugs_match_inventory ✓ (exact match) | smoke_test_log ✓
+- **Commit:** `4fec7da` — chore(routines): record 7 created Routine IDs (1 deferred — Anthropic workflow_run gap)
+- **Files:** 2 created + 1 modified — `routines/.created.yml`, `routines/.smoke-tests/README.md`, `.gitignore` (+`routines/.tokens.env` gitignore rule). Plus gitignored `routines/.tokens.env` with claude-md-audit's bearer token (NOT committed; rotate post-BE-07).
+- **7 Routines registered in Anthropic cloud:** daily-news-sweep `trig_01A9w6skLbgrA4GgmKJmr6rP`, daily-solomon-standup `trig_01RC8mKuTeeLB3MyHNtxuMWY`, friday-retro `trig_01TxzYbSqjbtPxxtDhrYYbeh`, friday-eval `trig_01NcDtKZEJp6AMQXan6cU1gf`, friday-energy-retro `trig_011tUwDSykbionaLAqEYiSnW`, claude-md-audit `trig_01YGe9C2Gbm5TQidE5geFqUx` (api trigger + bearer token in .tokens.env), github-pr-review `trig_01JGRqeXAHwCJaxRJ575bK7t` (8 active repos)
+- **1 Routine deferred:** github-ci-triage — `status: deferred_anthropic_gap`. Anthropic Routines supports only `pull_request` and `release` GitHub events as of 2026-05-26; `workflow_run` (CI failure) not available. Confirmed in UI + docs. Recovery: flip status + fill `trig_*` when Anthropic ships workflow_run support; or fallback via api+gh-action wrapper / schedule poll.
+- **3 plan-spec drift discoveries:** (1) actual ID format `trig_*` not plan-speculated `rt_*` (gate + template + memory updated); (2) API triggers have separate bearer tokens shown ONCE — convention `.created.yml` (ID, committed) + `.tokens.env` (token, gitignored); (3) `/fire` endpoint requires `anthropic-beta: experimental-cc-routine-2026-04-01` header
+- **Schema change:** added `status` field to `.created.yml` entries — BE-07's register_routines.py filters to `status=registered` and skips deferred entries. Forward-compatible — no breaking changes.
+- **1 new project memory:** `lesson_anthropic_routines_event_support_gap` — documents Anthropic gap + 3 workarounds + recovery path + 2 sibling discoveries
+- **Notes:** First MANUAL session of project. Wave 7 in progress. BE-07 (register_routines.py CLI) unblocks next — reads `.created.yml` + `.tokens.env`, populates `cadence_routine_definitions` via RoutineRepository (BE-04).
+
+
+## [BE-07] RoutineRegisterService + register_routines.py CLI + MCP tool
+
+- **Status:** 🔄 Active
+- **Loaded:** 2026-05-26
+- **Started:** —
+- **Completed:** —
+- **Effort:** light (XML estimate 30 minutes)
+- **Wave:** 8 (Phase 3 — Routine Integration continues)
+- **Working dir:** `~/Documents/GitHub/solomon-workspace/hfs-aiops`
+- **Dependencies:** ROUTINE-10 ✅
+- **Model:** claude-sonnet-4-6 (standard thinking, temperature 0.1)
+- **Skills declared (2):** python-backend-scaffold, db-transaction-discipline
+- **Memories loaded (6):** pattern_cadence_module_placement, pattern_service_factory_in_service_module, pattern_pessimistic_event_status_try_finally, pattern_orm_refresh_after_upsert_returning, pattern_pytest_asyncio_nullpool_fresh_engine, lesson_anthropic_routines_event_support_gap
+- **Path correction applied** (per `pattern_cadence_module_placement`): all 4 task paths corrected `hfs_aiops/cadence/*` → `samson/cadence/*`
+- **7 documented drifts in SESSION.md `<drift_from_prompts_xml>`:**
+  1. Paths corrected (Option A enforcement)
+  2. Verification gate `db_rows: 8` → 7 (ROUTINE-10 deferred github-ci-triage)
+  3. Schema-aware loader filters `.created.yml` to `status=registered` (ROUTINE-10 schema change)
+  4. `api_token_env` field stored as reference (not token value) per ROUTINE-10 split
+  5. +4 verification gates added beyond XML's 4
+  6. EXECUTE_SCRIPT (Task 4) requires SSH tunnel — added explicit commands
+  7. scripts/register_routines.py at repo root level (matches samson convention)
+- **9 verification gates total** (4 XML + 5 added — see SESSION.md)
+- **Verification:** pending (9 gates)
+- **Commit:** pending `feat(cadence): register 7 routines in samson catalog from solomon-workspace inventory (1 deferred)`
+- **Notes:** Light session — primarily glue code between BE-04 (RoutineRepository) and ROUTINE-10's YAML files. After BE-07: cadence_routine_definitions has 7 active rows; BE-08 (ingestion service + 8 per-Routine handlers) becomes unblocked next.
