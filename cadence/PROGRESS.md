@@ -636,3 +636,41 @@ Append to the bottom of this file after each session completes.
 - **2 NEW patterns memorialized:** `pattern_handler_registry_factory_callable` (key→factory(session)) + `lesson_grep_gate_indent_anchored_too_strict` (companion to BE-03's grep-gate lesson — different failure mode: false-negatives from over-anchoring)
 - **Cadence module fully scaffolded end-to-end:** 14 DB tables, 30 DTOs, 13 Literals, 10 repos, 6 services, 8 ingestion handlers, 4 MCP tools, 7 routes, 4 integration singletons, 139+ tests
 - **Notes:** Heaviest session of project (~3-4h actual). After BE-08: Wave 10 (BE-09 StatusService + BE-10 ReporterService, parallel-safe) unblocks.
+
+## [BE-09] EvaluateService + 8 per-ritual quality evaluators (LLM-as-judge)
+
+- **Status:** ✅ Complete
+- **Loaded:** 2026-05-26
+- **Started:** 2026-05-26
+- **Completed:** 2026-05-26
+- **Effort:** medium (XML estimate 60min; realistic 90-120 min given 8 evaluators + LLM-judge integration)
+- **Wave:** 10 (parallel-safe with BE-10)
+- **Working dir:** `~/Documents/GitHub/solomon-workspace/hfs-aiops`
+- **Dependencies:** BE-08 ✅
+- **Model:** claude-sonnet-4-6 (extended thinking, 8K tokens)
+- **Skills declared (1):** python-backend-scaffold
+- **Memories loaded (8):** pattern_cadence_module_placement, pattern_service_factory_in_service_module, pattern_pessimistic_event_status_try_finally, pattern_handler_registry_factory_callable, pattern_orm_refresh_after_upsert_returning, pattern_aggregation_isolated_try_except, lesson_grep_gate_indent_anchored_too_strict, lesson_anthropic_routines_event_support_gap
+- **Path correction applied** (per `pattern_cadence_module_placement`): all 5 task paths corrected
+- **Note on session naming:** Plan's BE-09 spec is `EvaluateService` (routine quality scoring with LLM-as-judge), NOT `StatusService` as some earlier reports mislabeled. User confirmed full scope at /session:load.
+- **7 documented drifts in SESSION.md `<drift_from_prompts_xml>`:**
+  1. Paths corrected (Option A enforcement)
+  2. **LLM-as-judge integration sub-decision** at /session:run start (3 options: existing samson client / new wrapper / anthropic SDK)
+  3. EVALUATOR_REGISTRY mirrors BE-08's HANDLER_REGISTRY (factory callable pattern from `pattern_handler_registry_factory_callable`)
+  4. `live_eval` gate DEFERRED to OPS-03 (BE-08 stub means no real runs exist to score)
+  5. +5 verification gates beyond XML's 3 (no_forbidden, layering, opus_for_retro_audit, no_raw_llm_logging, filter_not_yet_evaluated, mcp_tool_registered)
+  6. 3 separate test files vs XML's lumped dir
+  7. +3 forbidden patterns (cost runaway via re-evaluation, raw LLM response logging, evaluators-importing-orchestrator)
+- **9 verification gates total** (3 XML + 6 added; 1 deferred to OPS-03)
+- **1 USER DECISION REQUIRED AT /session:run START:** LLM client choice (existing samson / new wrapper / SDK) — default A→B→C if unanswered
+- **Cost discipline embedded in design:** evaluate_pending() must filter to status=succeeded AND not-yet-evaluated via LEFT JOIN cadence_routine_evaluations IS NULL — avoids ~$77/day runaway scenario (8 rituals × $0.10 avg × 96 polls/day)
+- **Build-but-can't-live-test:** BE-08's AnthropicRoutinesClient STUB means no real CadenceRoutineRun rows; tests fully covered via mocked LLM client + 3 fixture cases per evaluator (24 fixture tests + 4 orchestration tests = 28 total)
+- **Verification:** 8/9 active gates passed + 1 deferred — all_evaluators_registered ✓ | tests ✓ (39/39 in 0.16s) | no_forbidden ✓ | layering_evaluators ✓ | opus_for_retro_audit ✓ | no_raw_llm_logging ✓ | filter_not_yet_evaluated ✓ | mcp_tool_registered ✓ | live_eval ⏸ DEFERRED (BE-08 STUB; no real runs to score)
+- **Commit:** `30f8181` — feat(cadence): add routine quality evaluator with 8 per-ritual scorers and baseline drift detection
+- **Files:** 12 new + 2 modified (18 files): `services/evaluation/{base + __init__ + 8 evaluators}` + `evaluate_service.py` + `controllers/routine_evaluate.py` + `exceptions.py` (+LLMUnavailable) + `blueprint.py` (+routine_evaluate side-import) + 4 test files (39 tests)
+- **LLM-judge** via anthropic SDK (Option C, user-confirmed) — Sonnet for 6, Opus for retro+audit. Cost discipline: `LEFT JOIN cadence_routine_evaluations IS NULL` filter never re-scores; fail-safe to `quality_score=0.0 + issues_detected=["llm_unavailable"]`.
+- **2 NEW patterns memorialized:**
+  - `pattern_parametrized_tests_over_registry` — 32 tests from 4 functions × 8 evaluator classes via `@pytest.mark.parametrize`; adding the 9th evaluator gives free coverage
+  - `pattern_llm_as_judge_with_cost_discipline` — LEFT JOIN never-rescore + Sonnet/Opus split + LLM-unavailable fail-safe; applied across all 8 BE-09 evaluators
+- **EVALUATOR_REGISTRY mirrors BE-08's HANDLER_REGISTRY** (factory callable pattern reuse)
+- **Cadence module surface:** MCP tools: 5 (was 4; +cadence_routine_evaluate). 178+ tests cumulative.
+- **Notes:** First cadence session needing production LLM access. After BE-09: Wave 10 has BE-10 (ReporterService) remaining — parallel-safe, lighter (pure read + dispatch, no LLM).
