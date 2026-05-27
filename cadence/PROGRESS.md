@@ -557,10 +557,10 @@ Append to the bottom of this file after each session completes.
 
 ## [BE-07] RoutineRegisterService + register_routines.py CLI + MCP tool
 
-- **Status:** 🔄 Active
+- **Status:** ✅ Complete
 - **Loaded:** 2026-05-26
-- **Started:** —
-- **Completed:** —
+- **Started:** 2026-05-26
+- **Completed:** 2026-05-26
 - **Effort:** light (XML estimate 30 minutes)
 - **Wave:** 8 (Phase 3 — Routine Integration continues)
 - **Working dir:** `~/Documents/GitHub/solomon-workspace/hfs-aiops`
@@ -578,6 +578,55 @@ Append to the bottom of this file after each session completes.
   6. EXECUTE_SCRIPT (Task 4) requires SSH tunnel — added explicit commands
   7. scripts/register_routines.py at repo root level (matches samson convention)
 - **9 verification gates total** (4 XML + 5 added — see SESSION.md)
+- **Verification:** 9/9 gates passed — db_rows_registered ✓ (7 active rows in cadence_routine_definitions) | prompt_sha_set ✓ (all 7 have valid 40-char git SHAs) | idempotent ✓ (2nd run: 0 inserts, 7 updates) | deferred_skipped ✓ (github-ci-triage NOT in DB) | tests ✓ (7/7 service unit tests pass in 0.18s) | no_forbidden ✓ | no_token_logged ✓ | layering_service ✓ | mcp_tool_registered ✓
+- **Commit:** `20e93ba` — feat(cadence): register 7 routines in samson catalog from solomon-workspace inventory (1 deferred)
+- **Files:** 4 created + 2 modified — `samson/cadence/services/routine_register_service.py` (267 lines, RoutineRegisterService + RegistrationSummary + _git_sha_of + factory), `samson/cadence/controllers/routine_register.py` (75 lines, @mcp.tool cadence_routine_register), `scripts/register_routines.py` (131 lines, CLI with PgBouncer-safe engine builder), `tests/cadence/services/test_routine_register.py` (323 lines, 7 tests). Modified: `samson/cadence/repositories/routine_repo.py` (+75 lines, NEW upsert_definition method), `samson/cadence/blueprint.py` (+1 line side-import). 877 lines total.
+- **EXECUTE_SCRIPT (Task 4) executed against DO Postgres via SSH tunnel:**
+  - First run: inserted=7, updated=0, skipped (deferred)=1 ✅
+  - Second run: inserted=0, updated=7, skipped (deferred)=1 ✅ (idempotent)
+- **Production state confirmed live:** 7 active rows in `cadence_routine_definitions` with valid `trig_*` IDs + 40-char `prompt_sha` + correct `ritual_type`/`trigger_type` per inventory.yml. github-ci-triage NOT in DB (deferred per ROUTINE-10's Anthropic gap discovery).
+- **All 7 documented drifts handled per SESSION.md `<drift_from_prompts_xml>`:**
+  1. Paths corrected `hfs_aiops/cadence/*` → `samson/cadence/*` (Option A)
+  2. `db_rows` gate updated 8 → 7 (ROUTINE-10 deferred github-ci-triage)
+  3. Loader filters .created.yml on `status=registered` (ROUTINE-10 schema change)
+  4. `api_token_env` stored as reference only, never token value (no_token_logged gate)
+  5. +5 verification gates beyond XML (deferred_skipped, no_forbidden, no_token_logged, layering_service, mcp_tool_registered)
+  6. EXECUTE_SCRIPT (Task 4) used SSH tunnel + .venv/bin/python (same as BE-04)
+  7. scripts/register_routines.py at hfs-aiops/scripts/ (samson CLI convention)
+- **1 NEW pattern memorialized:** `pattern_prompt_sha_for_drift_detection` — store git SHA at registration; later ingestion compares stored vs current SHA to warn on local-vs-running drift; BE-08+ ingestion handlers can call detect_prompt_drift() helper. Limitation noted: one-sided check (local-vs-stored, not local-vs-Anthropic-running) since Routines API doesn't expose running prompt content (per `lesson_anthropic_routines_event_support_gap`).
+- **Inherited patterns applied (6):** pattern_cadence_module_placement (path enforcement, 0 forbidden hits), pattern_service_factory_in_service_module (make_routine_register_service), pattern_pessimistic_event_status_try_finally (register_from_inventory event lifecycle), pattern_orm_refresh_after_upsert_returning (upsert_definition refresh), pattern_asyncpg_pgbouncer_statement_cache_off (CLI's _build_pgbouncer_safe_session_factory — verbatim reapplication of BE-04's conftest pattern), lesson_anthropic_routines_event_support_gap (deferred-entry filter in loader)
+- **1 bug class fixed during execution:** CLI's second run hit DuplicatePreparedStatementError via PgBouncer. Diagnosis: esther.database doesn't pass statement_cache_size=0 (production samson works because connections cycle frequently; CLI's single-engine pattern hit the issue). Fix: CLI builds its OWN engine via `_build_pgbouncer_safe_session_factory()` — reapplication of BE-04's conftest pattern. Memory `pattern_asyncpg_pgbouncer_statement_cache_off` cited verbatim in docstring.
+- **Cadence is now LIVE end-to-end:** 7 Anthropic Routines exist in cloud (already scheduled, will fire on cadence) AND their definitions exist in DB (samson can recognize incoming runs via anthropic_routine_id lookup). The persistence loop is closed. Phase 3 / Wave 8 ✅ complete.
+- **Notes:** Lightest session of Phase 3. Most value is in the 7 production DB rows + the prompt_sha drift-detection mechanism (consumed by BE-08). 877 lines of new code, 5 reused patterns + 1 new pattern, 9/9 gates pass, idempotent UPSERT confirmed.
+
+## [BE-08] IngestService + 8 per-Routine handlers + AnthropicRoutinesClient + polling loop
+
+- **Status:** 🔄 Active
+- **Loaded:** 2026-05-26
+- **Started:** —
+- **Completed:** —
+- **Effort:** HEAVIEST OF PROJECT (XML estimate 90 minutes; realistic 4-5 hours given 12+ files + API uncertainty)
+- **Wave:** 9 (Phase 3 — Routine Integration ingestion path)
+- **Working dir:** `~/Documents/GitHub/solomon-workspace/hfs-aiops`
+- **Dependencies:** BE-07 ✅
+- **Model:** claude-opus-4-7 with extended thinking (32K tokens — highest of project)
+- **Compaction:** trigger 60% utilization (lower than usual — 12 files); fallback split into BE-08a/8b if compaction insufficient
+- **Skills declared (3):** python-backend-scaffold, db-transaction-discipline, contract-first-api
+- **Memories loaded (8):** pattern_cadence_module_placement, pattern_service_factory_in_service_module, pattern_pessimistic_event_status_try_finally, pattern_orm_refresh_after_upsert_returning, pattern_asyncpg_pgbouncer_statement_cache_off, pattern_aggregation_isolated_try_except, pattern_prompt_sha_for_drift_detection, lesson_anthropic_routines_event_support_gap
+- **Path correction applied** (per `pattern_cadence_module_placement`): all 12 task paths corrected
+- **7 documented drifts in SESSION.md `<drift_from_prompts_xml>`:**
+  1. Paths corrected (Option A enforcement)
+  2. **MAJOR: Anthropic Routines API surface uncertain** — only `/fire` documented; Task 1 methods (list_runs_since, get_run, trigger_run, list_routines) NOT in public docs. Strategy: AnthropicRoutinesClient methods raise AnthropicAPINotAvailable stub until API surface confirmed. Handlers + IngestService testable via mocked client.
+  3. ROUTINE-10 deferred github-ci-triage Routine — but handler still built (output-parsing works regardless of trigger source)
+  4. Verification `manual_ingest` + `idempotent` deferred (manual needs real API; idempotent already covered by BE-04's test_upsert_run_idempotent)
+  5. +5 verification gates beyond XML's 4
+  6. 13 tasks total (XML's 12 + `__init__.py` + exception class)
+  7. prompt_sha drift detection invoked per-handler (BE-07's pattern_prompt_sha_for_drift_detection)
+- **9 verification gates total** (4 XML + 5 added; 2 deferred to OPS-03 / already-covered)
+- **2 USER DECISIONS REQUIRED AT /session:run START:**
+  1. AnthropicRoutinesClient strategy: STUB (recommended) / REAL (risky reverse-engineer) / DEFER ENTIRELY
+  2. Full scope vs split 8a/8b: FULL (default, will hit 60% compaction) / SPLIT-by-handlers / SPLIT-by-layer
+  Defaults if user doesn't pick: STUB + FULL scope
 - **Verification:** pending (9 gates)
-- **Commit:** pending `feat(cadence): register 7 routines in samson catalog from solomon-workspace inventory (1 deferred)`
-- **Notes:** Light session — primarily glue code between BE-04 (RoutineRepository) and ROUTINE-10's YAML files. After BE-07: cadence_routine_definitions has 7 active rows; BE-08 (ingestion service + 8 per-Routine handlers) becomes unblocked next.
+- **Commit:** pending `feat(cadence): add routine ingestion service with 8 per-ritual handlers and polling loop`
+- **Notes:** HEAVIEST session of project. First session with 32K extended thinking + compaction at 60%. Major uncertainty: Anthropic Routines API surface. Strategy isolates uncertainty to one file (AnthropicRoutinesClient stub); handlers + IngestService fully testable via mocked fixtures. After BE-08: cadence ingestion path is wired (modulo real API access deferred to OPS-03). Wave 10 (BE-09 + BE-10, parallel) unblocks next.
