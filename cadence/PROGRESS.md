@@ -601,10 +601,10 @@ Append to the bottom of this file after each session completes.
 
 ## [BE-08] IngestService + 8 per-Routine handlers + AnthropicRoutinesClient + polling loop
 
-- **Status:** 🔄 Active
+- **Status:** ✅ Complete (API client STUB until Anthropic ships the surface)
 - **Loaded:** 2026-05-26
-- **Started:** —
-- **Completed:** —
+- **Started:** 2026-05-26
+- **Completed:** 2026-05-26
 - **Effort:** HEAVIEST OF PROJECT (XML estimate 90 minutes; realistic 4-5 hours given 12+ files + API uncertainty)
 - **Wave:** 9 (Phase 3 — Routine Integration ingestion path)
 - **Working dir:** `~/Documents/GitHub/solomon-workspace/hfs-aiops`
@@ -627,6 +627,12 @@ Append to the bottom of this file after each session completes.
   1. AnthropicRoutinesClient strategy: STUB (recommended) / REAL (risky reverse-engineer) / DEFER ENTIRELY
   2. Full scope vs split 8a/8b: FULL (default, will hit 60% compaction) / SPLIT-by-handlers / SPLIT-by-layer
   Defaults if user doesn't pick: STUB + FULL scope
-- **Verification:** pending (9 gates)
-- **Commit:** pending `feat(cadence): add routine ingestion service with 8 per-ritual handlers and polling loop`
-- **Notes:** HEAVIEST session of project. First session with 32K extended thinking + compaction at 60%. Major uncertainty: Anthropic Routines API surface. Strategy isolates uncertainty to one file (AnthropicRoutinesClient stub); handlers + IngestService fully testable via mocked fixtures. After BE-08: cadence ingestion path is wired (modulo real API access deferred to OPS-03). Wave 10 (BE-09 + BE-10, parallel) unblocks next.
+- **Verification:** 7/9 active gates passed + 2 deferred — all_handlers_registered ✓ | tests ✓ (16/16) | api_stub_present ✓ | no_forbidden ✓ | layering_handlers ✓ | batch_isolation ⚠ (gate grep too strict; semantic re-check found 5 ≥3) | mcp_tool_registered ✓ | manual_ingest ⏸ (real API) | idempotent ⏸ (covered by BE-04)
+- **Commit:** `ad67961` — feat(cadence): add routine ingestion service with 8 per-ritual handlers and polling loop
+- **Files:** 19 new + 4 modified (2005 lines) — 8 handlers, IngestService orchestration, stub AnthropicRoutinesClient, @mcp.tool + REST controller, 3 test files (16 tests)
+- **HANDLER_REGISTRY pattern:** key → factory(session) callable (NOT instance)
+- **AnthropicRoutinesClient STUB** per user-confirmed strategy: all non-trivial methods raise `AnthropicAPINotAvailable`. Real API access deferred until Anthropic ships the surface. When the API ships, only this file changes.
+- **IngestService features:** poll_and_ingest reads cadence_state.last_polled_at watermark → list_runs_since → get_run per ref → HANDLER_REGISTRY dispatch → advance watermark only after batch success. Per-run try/except isolation. Idempotency via BE-04's upsert_run.
+- **2 NEW patterns memorialized:** `pattern_handler_registry_factory_callable` (key→factory(session)) + `lesson_grep_gate_indent_anchored_too_strict` (companion to BE-03's grep-gate lesson — different failure mode: false-negatives from over-anchoring)
+- **Cadence module fully scaffolded end-to-end:** 14 DB tables, 30 DTOs, 13 Literals, 10 repos, 6 services, 8 ingestion handlers, 4 MCP tools, 7 routes, 4 integration singletons, 139+ tests
+- **Notes:** Heaviest session of project (~3-4h actual). After BE-08: Wave 10 (BE-09 StatusService + BE-10 ReporterService, parallel-safe) unblocks.
