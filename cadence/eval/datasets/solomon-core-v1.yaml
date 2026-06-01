@@ -1,0 +1,250 @@
+dataset_version: solomon-core-v1
+description: >
+  Core capability benchmark for the Solomon multi-agent system.
+  10 tasks covering all 6 production agents. Used by the friday-eval Routine
+  to detect week-over-week drift in agent behavior.
+created_at: "2026-05-06"
+last_updated_at: "2026-05-06"
+author: Lionel + Solomon
+schema_version: "1.0"
+
+tasks:
+
+  - task_id: architecture_dispatch
+    agent_target: solomon
+    description: >
+      A developer wants to add a new MCP tool called `get_alert_summary` to the
+      clawdbot server. Describe the minimal set of files to create or modify,
+      the FastMCP tool registration pattern to use, and how the new tool gets
+      wired into the server's tool registry.
+    expected_output: >
+      The response should identify: (1) creating a new file under
+      `clawdbot/tools/` (e.g., `alert_tools.py`) with a `@mcp.tool()` decorated
+      async function named `get_alert_summary`; (2) importing and registering the
+      tool module in `clawdbot/__init__.py` or the server wiring module; (3)
+      the FastMCP import statement (`from clawdbot.server import mcp` or
+      equivalent). Must mention the `@mcp.tool()` decorator and async def
+      signature. Should NOT invent non-existent abstractions or require a full
+      server restart boilerplate beyond systemctl.
+    tolerance: >
+      Key structural elements required: tool file under clawdbot/tools/, @mcp.tool()
+      decorator, async def signature, registration step. Exact file names may vary
+      by ±1 path segment. Explanatory prose around the core pattern is acceptable.
+      Deduct heavily if response invents a plugin registry that does not exist or
+      omits the async requirement.
+    passing_threshold: 0.7
+
+  - task_id: quart_async_pattern
+    agent_target: bishop
+    description: >
+      Show the correct Quart async route handler pattern for a database query
+      that must not block the event loop. The route is GET /api/pipelines/<id>
+      and it queries a PostgreSQL database. Include error handling for the case
+      where the pipeline does not exist (404) and for unexpected DB errors (500).
+    expected_output: >
+      Response must show: `async def get_pipeline(id)` decorated with
+      `@app.route("/api/pipelines/<id>")`, `await` on the DB call (e.g.,
+      `await db.fetchrow(...)` or equivalent async driver call), an explicit
+      404 branch when the record is not found, and a 500 / generic exception
+      handler. No `time.sleep`, no synchronous `psycopg2` blocking calls.
+      Import of `quart` and an async DB driver (asyncpg, databases, or
+      SQLAlchemy async) expected.
+    tolerance: >
+      Core async/await structure is mandatory (zero credit if synchronous).
+      404 and 500 handling both required; exact HTTP response helper syntax
+      may vary (abort(404) vs jsonify + 404 status). DB driver name may vary
+      as long as it is async-capable. Minor prose differences acceptable.
+    passing_threshold: 0.7
+
+  - task_id: session_load_command
+    agent_target: solomon
+    description: >
+      What does running `/load-session SOL-04` do in the Solomon HFS workflow?
+      Walk through each step the command performs, which files it reads from
+      and writes to, and what the session state is after the command completes.
+    expected_output: >
+      Response should cover: reads the SOL-04 prompt block from
+      `solomon-docs/prompts/` (or equivalent PROMPTS file); writes the session
+      definition to `solomon-docs/sessions/SESSION.md`; marks the session status
+      as Active (🔄); the next step in the lifecycle is `/run-session`. Should
+      mention that SOLOMON_PROGRESS.md is NOT updated by load-session (only by
+      complete-session). Should describe the session lifecycle:
+      load-session → run-session → complete-session.
+    tolerance: >
+      Must identify the PROMPTS source file, SESSION.md destination, and Active
+      status. Lifecycle order (load → run → complete) required. Exact file paths
+      may differ by one directory level. Emoji for Active state optional but
+      presence of the concept required. Does NOT need to quote the exact session
+      content.
+    passing_threshold: 0.7
+
+  - task_id: pytest_coverage_report
+    agent_target: bishop
+    description: >
+      Explain how Bishop's pytest execution tool parses a pytest --cov output.
+      What fields does it extract from the coverage report, how does it detect
+      whether the coverage threshold was met, and what structured data does it
+      return to the caller?
+    expected_output: >
+      Should describe: parsing stdout for the coverage percentage line
+      (e.g., "TOTAL ... 87%"); extracting line coverage %, branch coverage %
+      if present, and per-module breakdown; comparing extracted coverage against
+      a configurable threshold (default typically 80%); returning a structured
+      result with fields: `passed` (bool), `line_coverage` (float),
+      `branch_coverage` (float or null), `threshold` (float), `modules` (list),
+      `raw_output` (str). Should mention JSON parsing for pytest-json-report if
+      used as fallback.
+    tolerance: >
+      Core fields `passed`, `line_coverage`, `threshold` required. Branch
+      coverage and module list are expected but may be described as optional.
+      Exact field names may vary by one word (e.g., `coverage_pct` vs
+      `line_coverage`). Implementation approach (regex vs JSON report) may differ.
+    passing_threshold: 0.7
+
+  - task_id: design_spec_render
+    agent_target: jacob
+    description: >
+      Given a Figma component spec for a primary button with variants
+      (primary, secondary, destructive) and sizes (sm, md, lg), describe the
+      TypeScript React component Jacob would generate. Include the props
+      interface, variant handling approach, and accessibility attributes.
+    expected_output: >
+      Should produce or describe: a TypeScript `interface ButtonProps` with
+      `variant: "primary" | "secondary" | "destructive"`, `size: "sm" | "md" | "lg"`,
+      `children: React.ReactNode`, `disabled?: boolean`, and
+      `className?: string`. Component uses `cn()` or `clsx()` for variant-based
+      class merging. Includes `aria-disabled` when disabled, renders as `<button>`
+      with `type="button"` default. Forwards `ref` or includes `...props` spread
+      for HTML button attributes. No inline styles.
+    tolerance: >
+      TypeScript interface with variant and size union types required. Class
+      merging utility (cn/clsx/cva) required — exact utility may vary.
+      Accessibility: at minimum disabled state handling. Ref forwarding is
+      preferred but its absence alone should not drop score below 0.7 if all
+      other elements are present. Exact prop names may vary by ±1 synonym.
+    passing_threshold: 0.7
+
+  - task_id: dashboard_pipeline_view
+    agent_target: esther
+    description: >
+      In the Esther dashboard, what API endpoint does the pipeline list view
+      fetch from, what does the loading skeleton look like structurally, and
+      how does the component handle a fetch error — specifically, what the user
+      sees if the API returns a 500?
+    expected_output: >
+      Should identify: fetch from `/api/pipelines` (or Samson-proxied equivalent);
+      loading state renders a skeleton loader (repeated placeholder rows or cards,
+      not a spinner alone); on error the component renders an error boundary or
+      inline error message with a retry affordance (button or link); the error
+      state does NOT crash the full page. Should mention that the pipeline list
+      is server-rendered or uses SWR/React Query with appropriate stale-while-revalidate
+      behavior if applicable.
+    tolerance: >
+      API path must include "pipelines" — exact prefix (/api/ vs Samson proxy
+      path) may vary. Loading skeleton structural description required (not just
+      "spinner"). Error state with retry affordance required. SSR vs CSR approach
+      may differ. Exact component library (shadcn, custom) may vary.
+    passing_threshold: 0.7
+
+  - task_id: ci_gate_check
+    agent_target: twins-cane
+    description: >
+      What conditions cause Twins-Cane to mark a CI gate as failed, and what
+      is the prescribed response when a gate failure is detected? Include both
+      the technical failure conditions and the notification/escalation actions.
+    expected_output: >
+      Technical failure conditions: test suite failures (any pytest/vitest test
+      red), coverage drop below threshold, TypeScript type errors, ruff/lint
+      violations above severity threshold, or a deployment health check failure.
+      Response actions: halt the pipeline (do not proceed to next stage), post
+      failure summary to relevant Slack channel (e.g., #dev-alerts or
+      #ci-failures), log the failure details with commit SHA and failing checks,
+      and — if the failure persists across N consecutive runs — escalate by
+      filing a Linear issue with the `ci:gate-failure` tag.
+    tolerance: >
+      At least 3 of the 5 technical failure conditions required. Both immediate
+      (halt + notify) and escalation (Linear issue on repeat failures) response
+      actions required. Exact channel names and tag names may vary. Consecutive
+      run threshold N may vary (2-5 is acceptable). Response must not suggest
+      auto-merging on failure.
+    passing_threshold: 0.7
+
+  - task_id: skill_constraint_format
+    agent_target: solomon
+    description: >
+      Write the complete XML `<constraints>` block for a Solomon skill that
+      prevents the agent from editing any file whose path contains "prod" or
+      "production" (case-insensitive). The constraint must use
+      `severity="critical"` and include a clear violation message.
+    expected_output: >
+      Should produce valid XML like:
+      ```xml
+      <constraints>
+        <constraint severity="critical">
+          Do not edit, create, or delete any file whose path contains "prod"
+          or "production" (case-insensitive). This includes database configs,
+          environment files, and deployment manifests in production paths.
+          Violation: attempting to modify a production file is forbidden.
+        </constraint>
+      </constraints>
+      ```
+      Must have: `<constraints>` wrapper, `<constraint severity="critical">` attribute,
+      path pattern description covering both "prod" and "production", violation
+      language indicating the action is forbidden.
+    tolerance: >
+      XML structure with correct tag names required. `severity="critical"` attribute
+      required (exact value, not "high" or "error"). Both "prod" and "production"
+      patterns must be mentioned. Violation/forbidden language required. Inner text
+      wording may vary; do not penalize for additional safe file types listed.
+    passing_threshold: 0.7
+
+  - task_id: ingestion_handler_schema
+    agent_target: samson
+    description: >
+      Describe the schema of Samson's `cadence_eval_results` table — what columns
+      it stores per eval task result — and explain exactly what condition triggers
+      Samson's Linear client to file a P1 issue after the friday-eval Routine
+      completes.
+    expected_output: >
+      `cadence_eval_results` columns: `run_id` (FK to cadence_eval_runs),
+      `task_id` (str), `agent_target` (str), `score` (float, nullable),
+      `passed` (bool, nullable), `reasoning` (str), `agent_tokens` (int),
+      `judge_tokens` (int), `tokens_used` (int, total), `agent_output_snippet`
+      (str, first 200 chars), `created_at` (timestamp).
+      Linear P1 trigger: `drift ≤ -0.10` (a 10-percentage-point or greater
+      week-over-week drop in pass_rate), tagged `cadence:eval-drift`. The
+      Routine itself does NOT file the issue — only Samson's
+      `eval_ingestion_handler` (BE-08) does.
+    tolerance: >
+      At minimum: task_id, score, passed, reasoning, tokens_used columns required.
+      run_id FK and agent_target expected. Exact nullable/non-nullable constraints
+      may vary. Drift threshold of -0.10 (or equivalently -10%) EXACT — no credit
+      for -0.15 or -0.05. Attribution to BE-08 / ingestion handler (not the Routine)
+      required.
+    passing_threshold: 0.75
+
+  - task_id: mcp_tool_pattern
+    agent_target: solomon
+    description: >
+      Show the minimal Python code to register a FastMCP tool named
+      `get_pipeline_status` that accepts a `pipeline_id: str` parameter and
+      returns a dict. Assume `mcp` is the FastMCP server instance already
+      imported. The tool must be async.
+    expected_output: >
+      ```python
+      @mcp.tool()
+      async def get_pipeline_status(pipeline_id: str) -> dict:
+          # implementation
+          ...
+      ```
+      Must include: `@mcp.tool()` decorator (no arguments or with name kwarg),
+      `async def`, typed `pipeline_id: str` parameter, `-> dict` return annotation
+      (or equivalent return type). No class wrapper required. No MCP server
+      instantiation code needed (mcp is assumed imported).
+    tolerance: >
+      `@mcp.tool()` decorator required (exact form). `async def` required.
+      `pipeline_id: str` type hint required. Return annotation (`-> dict` or
+      `-> Dict[str, Any]`) strongly preferred but its absence alone should not
+      drop score below 0.7 if all other elements are present. Docstring optional.
+      Body placeholder (`pass`, `...`, or `return {}`) acceptable.
+    passing_threshold: 0.7
