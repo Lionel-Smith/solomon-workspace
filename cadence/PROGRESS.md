@@ -635,7 +635,7 @@ Append to the bottom of this file after each session completes.
 - **IngestService features:** poll_and_ingest reads cadence_state.last_polled_at watermark → list_runs_since → get_run per ref → HANDLER_REGISTRY dispatch → advance watermark only after batch success. Per-run try/except isolation. Idempotency via BE-04's upsert_run.
 - **2 NEW patterns memorialized:** `pattern_handler_registry_factory_callable` (key→factory(session)) + `lesson_grep_gate_indent_anchored_too_strict` (companion to BE-03's grep-gate lesson — different failure mode: false-negatives from over-anchoring)
 - **Cadence module fully scaffolded end-to-end:** 14 DB tables, 30 DTOs, 13 Literals, 10 repos, 6 services, 8 ingestion handlers, 4 MCP tools, 7 routes, 4 integration singletons, 139+ tests
-- **Notes:** Heaviest session of project (~3-4h actual). After BE-08: Wave 10 (BE-09 StatusService + BE-10 ReporterService, parallel-safe) unblocks.
+- **Notes:** Heaviest session of project (~3-4h actual). After BE-08: Wave 10 (BE-09 EvaluateService + BE-10 StatusService, parallel-safe) unblocks.
 
 ## [BE-09] EvaluateService + 8 per-ritual quality evaluators (LLM-as-judge)
 
@@ -673,4 +673,22 @@ Append to the bottom of this file after each session completes.
   - `pattern_llm_as_judge_with_cost_discipline` — LEFT JOIN never-rescore + Sonnet/Opus split + LLM-unavailable fail-safe; applied across all 8 BE-09 evaluators
 - **EVALUATOR_REGISTRY mirrors BE-08's HANDLER_REGISTRY** (factory callable pattern reuse)
 - **Cadence module surface:** MCP tools: 5 (was 4; +cadence_routine_evaluate). 178+ tests cumulative.
-- **Notes:** First cadence session needing production LLM access. After BE-09: Wave 10 has BE-10 (ReporterService) remaining — parallel-safe, lighter (pure read + dispatch, no LLM).
+- **Notes:** First cadence session needing production LLM access. After BE-09: Wave 10 has BE-10 (Status + token services) remaining — parallel-safe, lighter (pure read + dispatch, no LLM). (ReporterService is BE-11, Wave 12 — not this session.)
+
+## [BE-10] Status + token read services + status controller
+
+- **Status:** ✅ Complete
+- **Loaded:** 2026-06-09
+- **Started:** 2026-06-09
+- **Completed:** 2026-06-09
+- **Effort:** light (plan §14 "BE-10 [Light]")
+- **Wave:** 10 (parallel-safe with BE-09 ✅)
+- **Working dir:** `~/Documents/GitHub/solomon-workspace/hfs-aiops`
+- **Dependencies:** BE-09 ✅ (per plan wave map; both Wave 10)
+- **Model:** claude-sonnet-4-6
+- **Verification:** tests 39/39 ✓ | no_forbidden ✓ | layering_services ✓ | factories=3 ✓ | mcp_tools=3 ✓ | budget_translation ✓ | ruff ✓ | curl_status + curl_routines ⏸ DEFERRED to OPS-03 (need live samson :8086). Pre-existing 2 migration-test failures are env-only (no psycopg2), unrelated.
+- **Commit:** `6f95c63` (hfs-aiops, cadence-layer-v1.1) — 3 read services + AnthropicAdminClient + status controller; 39 tests in 0.25s
+  - **Branch note:** initially committed as `4d186a1` on `twins-harden-opus48` (HEAD was there from the twins-harden workstream), then cherry-picked to `cadence-layer-v1.1` as `6f95c63`; the stray was removed from the twins branch via `reset --hard f5fd461`. Cadence work belongs on `cadence-layer-v1.1`. Exposed a missing branch-target guard in `/session:run` + `/session:auto` — see `memory/pattern_session_auto_chain.md`.
+- **Tasks:** RoutineStatusService (per-routine health + daily slot usage + cron next-run), CadenceStatusService (ritual rollup + SLA-based overall_status), TokenService (snapshot_today + check, DB→wire budget translation), AnthropicAdminClient (4h cache, fail-safe on missing key), controllers/status.py (3 REST + 3 MCP tools). Repo aggregates added: routine_repo.aggregate_health + ritual_health_since, eval_repo.get_latest_run_any.
+- **Key decisions:** overall_status = user-chosen SLA-based/lenient (down only when systemic); budget_status under/at/over → within/warning/over translated in TokenService; CadenceStatusService aggregates from 4 repositories (never service→service); AnthropicAdminClient real-but-defensive (no admin key in env). detail_level controls ritual_health verbosity but overall_status always computed from full data.
+- **Notes:** Wave 10 complete (BE-09 EvaluateService + BE-10 StatusService both ✅). Next: Wave 12 — BE-11 (ReporterService + templates, medium) parallel with OPS-02 (observability). Full as-completed SESSION.md is archived in `solomon-docs/sessions/SESSION_HISTORY.md` under the BE-10 header.
