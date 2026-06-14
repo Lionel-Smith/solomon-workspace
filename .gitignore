@@ -3,6 +3,14 @@ solomon/
 solomon-docs/
 hfs-aiops/
 hfs-development-kit/
+esther-mcp/
+esther-models/
+solomon-dashboard/
+
+# Working-tree artifacts (not source of truth)
+screenshots/
+research/
+.superpowers/
 
 # Python
 __pycache__/
@@ -10,6 +18,7 @@ __pycache__/
 *$py.class
 *.so
 .Python
+
 .venv/
 venv/
 .pytest_cache/
@@ -28,8 +37,18 @@ Thumbs.db
 
 # Claude Code
 .claude-cache/
+.claude/agents/
+.claude/worktrees/
+
+# Tool outputs
+.firecrawl/
+.playwright-mcp/
 
 # Secrets
 .env
 .env.local
 *.pem
+.mcp.json
+
+# Cadence — Routine bearer tokens (companion to routines/.created.yml; never committed)
+routines/.tokens.env

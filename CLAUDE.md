@@ -241,13 +241,39 @@ PLANNING → PROMPTS_READY → IN_PROGRESS → COMPLETED
 
 ## Skills Available
 
-All 14 HFS skills loaded in `.claude/skills/`:
+Skills live at three layers (canonical → workspace → runtime). Edits must land at the canonical source to survive sync:
+- **Canonical**: `hfs-development-kit/skills/` (HFS-wide, source-of-truth for all workspaces)
+- **Workspace**: `solomon-workspace/.claude/skills/`
+- **Runtime**: `~/.claude/skills/` (loaded into every Claude Code session)
+
+### Planning & workflow
 - development-workflow, session-orchestrator, hfs-vscode-orchestrator
 - deep-app-research, project-plan-creator, implementation-plan-generator
 - plan-review-loop, hfs-project-bootstrap
-- python-backend-scaffold, fullstack-integration, debugging-workflow
-- backend-e2e-testing, playwright-e2e-testing
-- hfs-skill-creator
+
+### Backend
+- python-backend-scaffold (extended Apr 2026: `_validate_production_config()` fail-fast pattern)
+- fullstack-integration, debugging-workflow, backend-e2e-testing
+- **db-transaction-discipline** (NEW Apr 2026 — SQLAlchemy `rollback`-before-remap + exception specificity by op type)
+
+### Frontend
+- **frontend-session-gates** (NEW Apr 2026 — `tsc -b`, no `catch { return [] }`, diff-from-baseline, Vite PWA SW gates)
+- frontend-wired-verification, contract-first-api
+- hfs-frontend-visual-verification, hfs-accessibility-testing, playwright-e2e-testing
+
+### Infrastructure
+- hfs-preprod-deploy v2.0 (REFRESHED Apr 2026 — split into Pattern A: legacy nginx / Pattern B: Caddy host)
+- **hfs-droplet-ops** (NEW Apr 2026 — alembic specific revs, docker exec PYTHONPATH, `docker run --rm` vs `compose run`)
+- droplet-deployment, hfs-server-debugging, hfs-server-inventory
+- otel-observability, temporal-workflows, postgis-geospatial
+- auto-mode-operations
+
+### MCP & meta
+- mcp-server-building (extended Apr 2026: "Slash Command Pairing" — every MCP tool ships with paired `.claude/commands/<ns>/<n>.md`)
+- hfs-skill-creator, hfs-config-sync, claude-config-sync, compaction-resilience
+- skill-reviewer, hfs-repo-maintenance
+
+The April 2026 cross-project synthesis (B/C/D new + A/E/F edits) was driven by 396-retro analysis across 22 workspaces. See `memory/lesson_skills_for_xproject_lessons.md` for the lesson-to-skill map.
 
 ## Compaction Instructions
 

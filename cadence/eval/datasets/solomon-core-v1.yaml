@@ -1,0 +1,139 @@
+# Solomon Core Eval Dataset v1 — golden tasks for the friday-eval Routine
+#
+# Source of truth: cadence/decisions/OQ-05.md (locked 2026-05-25 — changes require
+# their own plan-review-loop pass per ROUTINE-05 constraint).
+#
+# Consumed by: routines/friday-eval.md
+# Ingested by: Samson eval_ingestion_handler (BE-08) → cadence_eval_runs + cadence_eval_results
+# Drift detection: friday-eval compares pass_rate to prior week; if drop ≥10%, alerts.
+#
+# Schema:
+#   dataset_version: stable identifier (changing this resets drift baseline)
+#   tasks: list of 10 items, each with:
+#     task_id: snake_case identifier (stable forever — used as the eval_results PK)
+#     description: the prompt sent to agent_target
+#     agent_target: which Solomon agent receives this task
+#                   one of: solomon | bishop | jacob | esther | samson | twins-cane | twins-abel
+#     expected_output: golden text the LLM-as-judge compares against
+#     tolerance: criteria the judge uses to score 0.0-1.0
+#     passing_threshold: score below which task is marked failed (default 0.7)
+#     fixture_path (optional): path to companion file for complex inputs
+#                             (created by future sessions; not required for v1)
+
+dataset_version: solomon-core-v1
+last_reviewed_at: 2026-05-25
+source_decision: cadence/decisions/OQ-05.md
+
+tasks:
+  - task_id: architecture_dispatch
+    description: "In the HFS three-layer backend pattern (controllers/services/repositories), where does file-upload validation belong? Answer in 2-3 sentences."
+    agent_target: solomon
+    expected_output: "Validation belongs in the controller layer. The controller validates incoming HTTP request shape, file size limits, and MIME types before calling the service layer. The service layer handles business-rule validation; the repository layer handles only persistence."
+    tolerance: "Answer correctly identifies controller as the validation entry point. Mentions three-layer pattern explicitly. Does not place validation in the repository layer. Service-layer business-rule validation acknowledgment is bonus but not required."
+    passing_threshold: 0.7
+
+  - task_id: quart_async_pattern
+    description: "Write a Quart async service method update_user_email(session, user_id, new_email) that fetches a User by id and updates their email, handling IntegrityError on duplicate email by raising a DuplicateEmail domain exception."
+    agent_target: bishop
+    expected_output: |
+      async def update_user_email(session: AsyncSession, user_id: int, new_email: str) -> User:
+          user = await session.get(User, user_id)
+          if user is None:
+              raise UserNotFound(user_id)
+          user.email = new_email
+          try:
+              await session.commit()
+          except IntegrityError as e:
+              await session.rollback()
+              raise DuplicateEmail(new_email) from e
+          return user
+    tolerance: "MUST include explicit `await session.rollback()` BEFORE remapping IntegrityError to the domain exception (per db-transaction-discipline skill). MUST catch IntegrityError specifically (not bare Exception). MUST raise a domain exception (DuplicateEmail) rather than letting IntegrityError propagate. Chaining with `from e` is bonus."
+    passing_threshold: 0.7
+
+  - task_id: claude_md_audit
+    description: "Audit the synthetic CLAUDE.md at fixture_path. Identify all redundancies (rules stated more than once), contradictions (rules that conflict), and stale references (versions/libraries no longer in use). Report each finding with category, line range, and one-sentence explanation."
+    agent_target: solomon
+    expected_output: "2 redundancies found, 1 contradiction found. Redundancy 1: rule about exception handling repeated in §A and §C. Redundancy 2: skill-loading instruction in §B and §E. Contradiction: §D and §F disagree on whether to skip pre-commit hooks."
+    tolerance: "MUST find both redundancies (credit 0.4 per correct redundancy). MUST find the contradiction (credit 0.3). Bonus 0.1 for any additional stale/vague finding. False positives subtract 0.1 each, capped at 0.0."
+    passing_threshold: 0.7
+    fixture_path: cadence/eval/fixtures/claude_md_audit_input.md
+
+  - task_id: learning_promotion
+    description: "Given these 3 captured learnings all about 'always lint before commit' (provided in fixture), propose a single concise CLAUDE.md addition that captures the rule. Output the unified diff."
+    agent_target: solomon
+    expected_output: |
+      ```diff
+      --- a/CLAUDE.md
+      +++ b/CLAUDE.md
+      @@ -<line>,<count> +<line>,<count> @@
+       ## Backend Patterns
+      +
+      +- Lint with `ruff check` before every commit. The pre-commit hook should never be skipped via --no-verify.
+      ```
+    tolerance: "MUST produce a valid unified diff (not just prose). MUST add a single rule line (not a paragraph). MUST mention either ruff or pre-commit. MUST NOT propose three separate rules. Bonus for placing the rule under a Backend Patterns or Conventions section."
+    passing_threshold: 0.7
+    fixture_path: cadence/eval/fixtures/learning_promotion_input.yml
+
+  - task_id: retrospective_kata
+    description: "Given these 4 weeks of captured learnings (in fixture), propose a single Toyota Kata target condition for next month — a measurable, achievable target that addresses the recurring theme."
+    agent_target: solomon
+    expected_output: "Target condition: 'Reduce pre-commit hook bypass incidents to zero over the next 4 weeks.' (or equivalent — measurable, achievable, addresses the dominant theme in the 4-week corpus)"
+    tolerance: "MUST be a single target condition (not multiple). MUST be measurable (has a number or boolean outcome). MUST be achievable within a stated time window (4 weeks or 1 month). MUST address a recurring theme actually present in the fixture's learnings."
+    passing_threshold: 0.7
+    fixture_path: cadence/eval/fixtures/retrospective_kata_input.yml
+
+  - task_id: jacob_anti_pattern
+    description: "Scan the Python file at fixture_path. Report all anti-patterns found, classifying each as critical / high / medium severity."
+    agent_target: jacob
+    expected_output: "3 anti-patterns found: (1) god module (CRITICAL): file exceeds 500 lines + handles auth + storage + email; (2) empty except block at line N (HIGH): `except: pass` silently swallows errors; (3) empty except block at line M (HIGH): same pattern."
+    tolerance: "MUST find the god module (1 credit, 0.4). MUST find both empty except blocks (0.3 each, 0.6 total). False positives subtract 0.1 each, capped at 0.0. Bonus 0.1 for correctly assigning CRITICAL to the god module and HIGH to the bare excepts."
+    passing_threshold: 0.7
+    fixture_path: cadence/eval/fixtures/jacob_anti_pattern_input.py
+
+  - task_id: bishop_test_writing
+    description: "Generate a pytest async test for the update_user_email function from task `quart_async_pattern`. Include one happy-path test and one IntegrityError-remap test verifying the rollback-then-raise pattern."
+    agent_target: bishop
+    expected_output: |
+      @pytest.mark.asyncio
+      async def test_update_user_email_happy(session, user_factory):
+          u = await user_factory(email="a@x.com")
+          updated = await update_user_email(session, u.id, "b@x.com")
+          assert updated.email == "b@x.com"
+
+      @pytest.mark.asyncio
+      async def test_update_user_email_duplicate_raises(session, user_factory):
+          u1 = await user_factory(email="a@x.com")
+          u2 = await user_factory(email="b@x.com")
+          with pytest.raises(DuplicateEmail):
+              await update_user_email(session, u2.id, "a@x.com")
+    tolerance: "MUST have 2 test functions. MUST use pytest.mark.asyncio. MUST verify happy path returns the updated user. MUST verify IntegrityError-equivalent raises DuplicateEmail (the domain exception). Bonus for using fixtures (session, user_factory) rather than direct DB setup."
+    passing_threshold: 0.7
+
+  - task_id: esther_component_inventory
+    description: "Given this feature spec (in fixture) describing a CRUD admin page with table, filters, and a modal-based create form, list the Shadcn/ui components needed."
+    agent_target: esther
+    expected_output: "Components needed: Table (or DataTable), Button, Input, Select (for filter), Dialog (for the modal), Form (react-hook-form integration), Label, Card (for the page header). HFS wrappers: HFSDataTable for loading/empty states."
+    tolerance: "MUST include Table/DataTable, Dialog, and at least one form input primitive (Input/Select/Form). MUST mention HFS wrappers (HFSDataTable or equivalent) if the spec implies fetched data. False additions (e.g., Calendar when the spec doesn't need one) subtract 0.1 each."
+    passing_threshold: 0.7
+    fixture_path: cadence/eval/fixtures/esther_component_inventory_input.md
+
+  - task_id: twins_false_positive
+    description: "Twins flagged this code snippet (in fixture) as potentially malicious. Classify the finding (true positive / false positive) with reasoning. If false positive, suggest a suppression rule."
+    agent_target: twins-cane
+    expected_output: "False positive. The snippet is benign string concatenation in a logging helper — no shell exec, no unvalidated user input as command argument, no shell metacharacters. Suppression rule: add to allowlist with tag `logging-helper-safe`; revisit if the helper is later used as a command builder."
+    tolerance: "MUST correctly classify as false positive. MUST identify the reasoning (no shell exec / no user input / no metacharacters). MUST propose a suppression mechanism (allowlist entry, rule tag, scoped exclusion). Misclassifying as true positive scores 0.0."
+    passing_threshold: 0.7
+    fixture_path: cadence/eval/fixtures/twins_false_positive_input.py
+
+  - task_id: samson_routing
+    description: "A user sent this Slack message: `/learn Quart Blueprint registration order matters — register blueprints AFTER configuring app.config or env-dependent defaults are missed`. Produce the Samson MCP tool call that captures this learning."
+    agent_target: samson
+    expected_output: |
+      cadence_learn_capture(
+          text="Quart Blueprint registration order matters — register blueprints AFTER configuring app.config or env-dependent defaults are missed",
+          source="slack",
+          source_user_id="<inferred-from-message-metadata>",
+          target_type_hint="claude_md"
+      )
+    tolerance: "MUST call cadence_learn_capture (not some other tool). MUST pass the learning text verbatim or near-verbatim (only stripping the `/learn ` prefix). MUST set source=slack. Bonus for inferring target_type_hint=claude_md (since 'always X' rule shape suggests CLAUDE.md addition). Bonus for inferring source_user_id from Slack metadata."
+    passing_threshold: 0.7
