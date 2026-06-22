@@ -157,11 +157,14 @@ Generate validation scripts with HFS compliance:
 | `/checkpoint` | Create session state snapshot |
 
 ### Wave Execution (v2.0)
-| Command | Description |
-|---------|-------------|
-| `/wave:plan` | Compute execution waves from PROMPTS.md |
-| `/wave:run [N]` | Execute wave N (or next incomplete) |
-| `/wave:status` | Show wave completion dashboard |
+
+⚠️ **MCP-tools-only — there are NO `/wave:*` slash commands.** These are exposed solely as Solomon MCP tools (`wave_plan`, `wave_run`, `wave_status`); no `.claude/commands/wave/` files exist. The wave executor is **state-tracking-only**: it computes waves and tracks status, but does **not** run sessions — `sequential`/`parallel` execution modes raise `NotImplementedError` (a loop driver must run sessions via `/session:auto`, which delegates pick/stop to the `loop_next` governor). Parallel agent-teams fan-out is deliberately deferred (Huntley's evidence cautions against multi-agent peer orchestration).
+
+| MCP tool | Description |
+|----------|-------------|
+| `wave_plan` | Compute execution waves from PROMPTS.md (DAG + file-conflict analysis) |
+| `wave_run` | `dry_run` preview / state-tracking only — does NOT execute sessions |
+| `wave_status` | Show wave completion dashboard |
 
 ## HFS Session Commands
 
