@@ -189,6 +189,21 @@ Generate validation scripts with HFS compliance:
 /complete-session "msg"  # Commit → Update PROGRESS.md → Archive session
 ```
 
+## Loop Engineering (LOOP feature, 2026-06-23)
+
+Solomon's autonomous-loop machinery — "design the loop, don't be the loop" (Cherny/Ralph). The loop *drives itself* through sessions, governed by enforced code.
+
+| Capability | What it does | Where |
+|---|---|---|
+| **`loop_next` MCP tool** | The single chokepoint every `/session:auto` boundary calls to advance. Returns `NextPick \| StopVerdict`; enforces deny-empty refusal, 3-tier cost budget, max_sessions, wall-clock, stuck-detection, lowest-wave-then-id pick. Path-explicit (works for unregistered projects). | `solomon/solomon_mcp/utils/loop_governor.py` |
+| **`/session:auto --goal`** | Runs the gate-aware backlog loop AND evaluates a completion-promise via the native `/goal` Stop-hook (Haiku checker) after each session. The promise is an *additional* stop, never a bypass. | `~/.claude/commands/session/auto.md` |
+| **`/session:plan-gap`** | The planning half: gap-analyses PLAN+specs vs shipped work and regenerates the PROMPTS DAG. NO code changes — lets the loop refresh its own backlog. | `~/.claude/commands/session/plan-gap.md` |
+| **iterate-to-green** | `/session:run` retries *machine-verifiable* gates (via `gate_class`) up to a `loop_next`-sourced cap; `critical`/`fuzzy`/`manual` STOP immediately. | `run.md` + `gate_class` in `session_parser` |
+| **`loop-guard.sh`** | PreToolUse deny hook — blocks cred-file reads, force-push, shell exfil; allows `git rm --cached` remediation. | `~/.claude/hooks/` |
+| **`reassert-session-context.sh`** | SessionStart/PreCompact hook re-injects the active session id + gates as additionalContext (compaction survival). | `~/.claude/hooks/` |
+
+See `solomon-docs/reference/ADR_LOOP_ENGINEERING.md`. Tagged `loop-engineering-v1-rc1` (SEC-01 history-purge pending — see `SEC01_REMEDIATION_RUNBOOK.md`).
+
 ## Integration Points
 
 - **Mem0:** Persistent memory across sessions
