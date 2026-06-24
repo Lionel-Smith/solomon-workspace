@@ -44,8 +44,12 @@ export function useWebSocket(
     function connect() {
       if (disposed) return;
 
+      // Path matches the server route (websocket_controller.py). The httpOnly
+      // `esther_token` cookie authenticates: the browser sends it automatically
+      // on the WS handshake (cross-origin requires SameSite=None; Secure, set
+      // server-side when the cookie is issued) — JS cannot read it to pass as a param.
       const ws = new WebSocket(
-        `${config.wsBaseUrl}/ws/pipelines/${pipelineId}`,
+        `${config.wsBaseUrl}/pipelines/${pipelineId}/stream`,
       );
       wsRef.current = ws;
 
