@@ -1,0 +1,9 @@
+repos:
+  # Workspace-root secret-scan gate. solomon-workspace tracks esther-preview/,
+  # cadence/, routines/, .claude/ etc. directly (no nested .git), so this is the
+  # effective commit-time gitleaks gate for all of them — the esther-v2 loop
+  # substrate (R3.2) for esther-preview, plus SEC-01 hardening for the rest.
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks

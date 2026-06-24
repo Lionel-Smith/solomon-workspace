@@ -1,0 +1,7 @@
+repos:
+  # esther-preview is TypeScript/Next.js (lint via npm eslint). gitleaks is the
+  # commit-time secret-scan gate required by the esther-v2 loop substrate (R3.2).
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks
