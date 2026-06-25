@@ -1,0 +1,39 @@
+{
+  "project_path": "src",
+  "findings": [
+    {
+      "dimension": "visual_states",
+      "severity": "warning",
+      "file": "components/new-pipeline-button.tsx",
+      "line": null,
+      "message": "Data-bearing component lacks an explicit loading/error/empty state (hfs visual verification)."
+    },
+    {
+      "dimension": "contract",
+      "severity": "info",
+      "file": "app/login/login-form.tsx",
+      "line": 27,
+      "message": "FE calls '${config.apiBaseUrl}/auth/token' \u2014 reconcile against the backend contract (contract-first-api)."
+    },
+    {
+      "dimension": "contract",
+      "severity": "info",
+      "file": "lib/auth/auth-context.tsx",
+      "line": 42,
+      "message": "FE calls '${config.apiBaseUrl}/auth/me' \u2014 reconcile against the backend contract (contract-first-api)."
+    },
+    {
+      "dimension": "contract",
+      "severity": "info",
+      "file": "lib/auth/auth-context.tsx",
+      "line": 56,
+      "message": "FE calls '${config.apiBaseUrl}/auth/logout' \u2014 reconcile against the backend contract (contract-first-api)."
+    }
+  ],
+  "total": 4,
+  "by_dimension": {
+    "visual_states": 1,
+    "contract": 3
+  },
+  "read_only": true
+}
