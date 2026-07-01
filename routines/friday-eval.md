@@ -1,9 +1,11 @@
 ---
 slug: friday-eval
 ritual_type: eval
-version: 1.0
-last_reviewed_at: 2026-05-06
+version: 1.1
+last_reviewed_at: 2026-07-01
 author: Lionel + Solomon
+changelog:
+  - "1.1 (2026-07-01): added environment prerequisites (live 2026-06-29 run hit BOTH gaps: SAMSON_INTERNAL_TOKEN unset AND proxy 403 on samson host); fixed dataset path (repo-root-relative, not solomon-workspace/-prefixed); proxy-403 disambiguation in Safety."
 ---
 
 # Friday Eval — solomon-core-v1
@@ -16,6 +18,11 @@ For each of the 10 tasks in `solomon-core-v1`, dispatch to the target Solomon ag
 
 ## 2. Trigger Context
 
+- **Environment prerequisites (cloud — the Routine's environment MUST provide these or every run fails; the 2026-06-29 run failed on BOTH):**
+  - Env var: `SAMSON_INTERNAL_TOKEN`.
+  - Network access: **Custom**, with `samson.highfunctioningsolutions.com` in Allowed domains (+ the default list). A 403 with `x-deny-reason: host_not_allowed` is the environment proxy, not Samson auth — report it as an environment misconfiguration, not a token failure.
+  - Slack: `#dev-retro` must exist with the bot invited (2026-06-29 run fell back into #dev-news).
+  - Repo: `solomon-workspace` must be attached to this Routine (it is — the dataset is read from the clone).
 - **Schedule:** cron `0 16 * * 5` in `America/Nassau` (Friday 16:00 NAS, one hour after friday-retro).
 - **Max runs/day:** 1 (Friday only).
 - **Daily slot budget:** counts as 1 of 15 daily Routine slots.
@@ -25,7 +32,7 @@ For each of the 10 tasks in `solomon-core-v1`, dispatch to the target Solomon ag
 
 Execute in order. Step 2's API calls are load-bearing — see Safety §6 for the auth-failure branch.
 
-1. **Load the dataset** from `solomon-workspace/cadence/eval/datasets/solomon-core-v1.yaml`. Parse with strict schema validation: every task must have `task_id, description, agent_target, expected_output, tolerance, passing_threshold`. If validation fails, dispatch the auth-failure-shape error (see §6) and exit.
+1. **Load the dataset** from `cadence/eval/datasets/solomon-core-v1.yaml` **relative to the solomon-workspace repo clone root** (do NOT prefix `solomon-workspace/` — the clone directory IS that repo; per lesson_session_path_doubling_drift, if the literal path misses, resolve the semantic equivalent within the clone). Parse with strict schema validation: every task must have `task_id, description, agent_target, expected_output, tolerance, passing_threshold`. If validation fails, dispatch the auth-failure-shape error (see §6) and exit.
 
 2. **For each of the 10 tasks** (process sequentially to bound concurrency cost):
    a. Resolve `fixture_path` if present: read the file content and inline it into the task payload as `fixture_content` (cap at 8KB; if larger, take first 8KB + note `[truncated]`).
@@ -125,6 +132,14 @@ payload:
 
 **Authentication failure (highest priority):**
 - If step 2 or step 4's Samson call returns HTTP 401 or 403: stop. Post a single line to Slack `#dev-retro`: `**Friday Eval — Week {{ iso_week }}** — Eval unavailable: SAMSON_INTERNAL_TOKEN auth failed. Investigate before next Friday.` Exit cleanly so Samson's ingestion records the failure.
+- **Distinguish the environment proxy:** a 403 carrying `x-deny-reason: host_not_allowed` is the cloud environment's network proxy blocking the host, not Samson rejecting the token. Report it as: `Eval unavailable: samson host not in the environment's Allowed domains (proxy 403). Fix the Routine environment, not the token.` The 2026-06-29 run conflated these — they are different fixes.
+
+**Connection failure — infrastructure unavailable (highest priority, before any per-task scoring):**
+- This branch triggers when a Samson call fails at the **connection level** — host unresolvable (DNS), connection refused, connection reset, or connection/read timeout — i.e. **no HTTP response is received at all**. This is distinct from a 401/403 (server responded, rejected auth) and from a 5xx (server responded with an error): in both of those the host was reachable.
+- On the first such failure, wait 10 seconds and retry once.
+- If the retry still cannot reach the host, **STOP the entire run**. Do **NOT** mark tasks `score=0.0`. A host-unreachable condition means the eval *could not run* — it is not evidence that the agents failed, and a fabricated 0% pass rate is indistinguishable from a real capability regression to anyone reading the summary.
+- Post a single line to Slack `#dev-retro`: `**Friday Eval — Week {{ iso_week }}** — Eval could not run: Samson unreachable (connection failure, not auth). No pass rate computed. Investigate before next Friday.` Exit cleanly so Samson's ingestion records an **infrastructure-failure** run, not a 0% scored run.
+- Rationale: a routine authored for `execution_mode: remote` must not emit a graded result when it is executing somewhere the remote dependencies don't resolve. This branch is the run-level guard; the per-task "5xx after retry" rule below applies only when the host *does* respond with a server error to an individual task.
 
 **Dataset validation failure:**
 - If the dataset YAML at `cadence/eval/datasets/solomon-core-v1.yaml` doesn't parse, has != 10 tasks, or has any task missing required fields: dispatch `**Friday Eval — Week {{ iso_week }}** — Eval unavailable: dataset schema invalid. See cadence/decisions/OQ-05.md for spec.` and exit.
@@ -140,6 +155,7 @@ payload:
 
 **Retry once:**
 - Samson API HTTP 5xx (per task or prior-week-fetch): wait 10 seconds, retry once. If still 5xx, mark the affected task failed.
+- Samson connection-level failure (host unresolvable / refused / reset / timeout — no HTTP response): handled by the **Connection failure** branch above — retry once, then abort the whole run with the infra-unavailable notice. Do NOT mark tasks failed.
 - Slack dispatch: wait 5 seconds, retry once.
 
 **Never:**
@@ -148,6 +164,7 @@ payload:
 - Fabricate the prior-week pass_rate. If unfetchable, set `drift=null` with the "no prior run" note.
 - File a Linear issue from this Routine. Linear P1 issue creation is Samson's responsibility (BE-08 ingestion handler watches for drift ≤ -0.10).
 - Use any emoji except `🚨` in the drift-regression line.
+- Broadcast a `0 / 10` (or any sub-100% pass rate) when the underlying cause is that Samson was unreachable. A connection-level failure is an **infrastructure-unavailable** condition (see the Connection-failure branch) — it must produce the "could not run" notice, never a scored pass rate that reads as a capability regression.
 
 ## 7. Cost Budget
 

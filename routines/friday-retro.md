@@ -1,9 +1,11 @@
 ---
 slug: friday-retro
 ritual_type: retro
-version: 1.0
-last_reviewed_at: 2026-05-06
+version: 1.1
+last_reviewed_at: 2026-07-01
 author: Lionel + Solomon
+changelog:
+  - "1.1 (2026-07-01): Mem0 connector call → direct REST API (no mem0 connector exists on claude.ai); added connection-failure branch; added environment prerequisites (SAMSON_INTERNAL_TOKEN + MEM0_API_KEY env vars, samson host + api.mem0.ai in Allowed domains, #dev-retro channel). Live evidence 2026-06-26: posted its auth-failure notice into #dev-news because #dev-retro doesn't exist."
 ---
 
 # Friday Retrospective
@@ -16,6 +18,10 @@ Convert the week's queued learnings into 0-10 actionable **promotion proposals**
 
 ## 2. Trigger Context
 
+- **Environment prerequisites (cloud — the Routine's environment MUST provide these or every run fails):**
+  - Env vars: `SAMSON_INTERNAL_TOKEN` (Samson read API), `MEM0_API_KEY` (Mem0 REST).
+  - Network access: **Custom**, with `samson.highfunctioningsolutions.com` and `api.mem0.ai` in Allowed domains (+ the default list). A 403 with `x-deny-reason: host_not_allowed` is the environment proxy, not Samson.
+  - Slack: `#dev-retro` must exist with the bot invited (2026-06-26 run fell back into #dev-news because it doesn't).
 - **Schedule:** cron `0 15 * * 5` in `America/Nassau` (Friday 15:00 NAS).
 - **Window:** the just-ending ISO week (Mon-Fri prior to the run).
 - **Max runs/day:** 1 (Fri only).
@@ -48,7 +54,14 @@ Execute in order. Step 2's API call is the load-bearing data fetch — see Safet
    - Restricted-tool / specialized agent behavior → `sub_agent` → `.claude/agents/{name}.md`.
    - Otherwise → `claude_md` (default).
 
-6. **Query Mem0** via the `mem0` connector for previously-approved promotions in the last 30 days (avoid re-proposing what was just merged). Use the connector's search-by-tag capability with tag `cadence:promotion`, status `approved`, last 30 days, limit 50. For each cluster's `representative_text`, drop it if Jaccard overlap ≥ 0.85 with an approved-promotion text. If Mem0 errors, skip this dedup step and add `output_artifacts.notes: "mem0_promotion_dedup_skipped"` — continue with raw clusters.
+6. **Query Mem0 via its REST API** (there is no mem0 connector on claude.ai — use direct HTTP with the env-var key) for previously-approved promotions in the last 30 days (avoid re-proposing what was just merged):
+   ```
+   POST https://api.mem0.ai/v1/memories/search/
+   Authorization: Token <MEM0_API_KEY>
+   Content-Type: application/json
+   Body: {"query": "cadence:promotion approved", "filters": {"categories": ["cadence:promotion"]}, "limit": 50}
+   ```
+   Filter results client-side to `status=approved` within the last 30 days (exact filter fields are flexible; query+recency is the contract). For each cluster's `representative_text`, drop it if Jaccard overlap ≥ 0.85 with an approved-promotion text. If the request errors (auth, 4xx/5xx, or connection), skip this dedup step and add `output_artifacts.notes: "mem0_promotion_dedup_skipped"` — continue with raw clusters.
 
 7. **Draft a unified-diff patch per remaining cluster** (cap at 10 — see §6 if more):
    - **Resolve the repo** from `target_path`: `solomon-workspace/CLAUDE.md` → solomon-workspace repo; `solomon/CLAUDE.md` → solomon repo; `hfs-aiops/CLAUDE.md` → hfs-aiops repo. For `.claude/skills/*`, `.claude/commands/*`, `.claude/agents/*` paths: default to **solomon-workspace** (the workspace's `.claude/` is symlinked from there). Only the 3 repos in this Routine's `repos` config are clone-able.
@@ -144,7 +157,13 @@ payload:
 
 **Authentication failure (highest priority):**
 - If step 2's GET returns HTTP 401 or 403: stop fetching. Post a single line to Slack `#dev-retro` only: `**Friday Retro — Week {{ iso_week }}** — Retro unavailable: SAMSON_INTERNAL_TOKEN auth failed. Investigate before next Friday.` Do NOT compose Block Kit, do NOT post Kata thread. Exit cleanly so Samson's ingestion records the failure.
-- If the token is missing entirely: same path, with reason `"token not configured in Routine secret store"`.
+- If the token is missing entirely: same path, with reason `"SAMSON_INTERNAL_TOKEN not set in the Routine's cloud environment"`.
+- **Distinguish the environment proxy:** a 403 carrying `x-deny-reason: host_not_allowed` is the cloud environment blocking the host — report `Retro unavailable: samson host not in the environment's Allowed domains (proxy 403). Fix the Routine environment, not the token.`
+
+**Connection failure — infrastructure unavailable (highest priority):**
+- Triggers when the Samson call fails at the **connection level** — DNS unresolvable, refused/reset, or timeout (no HTTP response at all). Wait 10 seconds, retry once.
+- If still unreachable, **STOP the run**. Do NOT post an empty "0 learnings — quiet week" retro: an unreachable host means the retro *could not run*, and a fabricated quiet-week is indistinguishable from a genuinely quiet week to anyone reading it.
+- Post the single line: `**Friday Retro — Week {{ iso_week }}** — Retro could not run: Samson unreachable (connection failure, not auth). Learnings not fetched. Investigate before next Friday.` Exit cleanly.
 
 **Promotion count overflow:**
 - If clustering produces > 10 candidate promotions: merge the lowest-frequency clusters into adjacent ones (same `target_type`) until ≤ 10 remain. If still > 10 after merging, take the top 10 by cluster size and add a note to `output_artifacts.notes`: `"N additional clusters carried over to next week (N=excess_count)"`. Samson's ingestion handler logs the carryover.

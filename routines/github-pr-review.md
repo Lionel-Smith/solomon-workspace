@@ -1,9 +1,11 @@
 ---
 slug: github-pr-review
 ritual_type: pr_review
-version: 1.0
-last_reviewed_at: 2026-05-06
+version: 1.1
+last_reviewed_at: 2026-07-01
 author: Lionel + Solomon
+changelog:
+  - "1.1 (2026-07-01): head_sha re-review dedup made best-effort (Samson is not reachable from this Routine's environment — no token/allowlist by design); #cadence-status channel prerequisite; Slack meta-notif failure is non-fatal."
 ---
 
 # GitHub PR Review
@@ -20,8 +22,9 @@ For a single PR on one of the 8 OQ-10 repos, read the diff via GitHub API, revie
 - **Event filter:** `pull_request.opened` OR `pull_request.synchronize`.
 - **Eligible repos** (per OQ-10): `solomon`, `hfs-aiops`, `esther-mcp`, `esther-models`, `solomon-dashboard`, `esther-preview`, `hfs-development-kit`, `solomon-workspace`. Skip with no-op if event arrives from any other repo.
 - **Event payload provides:** `repo` (full name e.g. `High-Functioning-Solutions/hfs-aiops`), `pr_number`, `base_sha`, `head_sha`, `author_login`, `files_changed` (list of paths + status). The diff itself fetches via GitHub API.
-- **Max runs/day:** 5 (per Appendix D budget — alert at 4/day so the cap doesn't surprise).
-- **Samson-independent at runtime:** no calls to Samson; Samson observes via ingestion poller (BE-08) every 15 min.
+- **Max runs/day:** 5 (per Appendix D budget — alert at 4/day so the cap doesn't surprise). Note: Anthropic also applies its own per-routine/per-account hourly caps on GitHub webhook events during the research preview; events beyond the platform limit are dropped.
+- **Environment prerequisites (cloud):** Slack `#cadence-status` must exist with the bot invited (meta-notif target). GitHub read/write works natively via the connected GitHub identity — reviews posted appear as Lionel.
+- **Samson-independent at runtime:** no calls to Samson; Samson observes via ingestion poller (BE-08) every 15 min. This Routine's environment deliberately has NO Samson token and default network access.
 
 ## 3. Steps
 
@@ -88,6 +91,7 @@ _No findings — clean against the repo's CLAUDE.md constraints._
 {% endif %}
 
 _Comment-only review — merge decision stays with humans. Findings re-runnable by closing and re-opening the PR._
+_Reviewed at {{ head_sha }}._
 ```
 
 ### GitHub line-specific comment (per finding that has a precise line range)
@@ -182,7 +186,7 @@ If Call 1 succeeds and Call 2 fails: record the Slack failure in `output_artifac
 - Use any emoji in the review body or line comments.
 - Use yellow (`#FFD700`) or red (`#FF0000`) in any color-coded output.
 - Block on missing CLAUDE.md — fall back to HFS defaults silently.
-- Re-review the same `head_sha` twice — if the Routine ran on this exact head_sha before (visible in Samson's `cadence_routine_runs`), exit cleanly with `output_artifacts.notes: "head_sha already reviewed"`. Synchronize events with no diff change shouldn't re-review.
+- Re-review the same `head_sha` twice — **best-effort check, GitHub-side only** (this Routine cannot query Samson: no token, no allowlisted host — by design). Check the PR's existing reviews/comments via the GitHub API for a prior `**Cadence PR Review**` comment on this exact `head_sha` (embed the head_sha in the review body footer to make this detectable: `_Reviewed at {{ head_sha }}._`). If found, exit cleanly with `output_artifacts.notes: "head_sha already reviewed"`. If the check itself fails, proceed with the review — a duplicate review is a lesser failure than a missing one.
 
 ## 7. Cost Budget
 

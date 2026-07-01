@@ -30,8 +30,8 @@ routines:
     prompt_path: routines/daily-news-sweep.md
     connectors:
       - slack
-      - whatsapp
-      - firecrawl
+    # Path A (2026-07-01): firecrawl dropped for native web_search/web_fetch (builtin tools,
+    # not connectors); whatsapp dropped — Samson owns the cross-post (OQ-04 resolved).
     repos: []
     execution_mode: remote
     max_runs_per_day: 1
@@ -44,8 +44,12 @@ routines:
     prompt_path: routines/daily-solomon-standup.md
     connectors:
       - slack
-      - whatsapp
-      - mem0
+    # v1.1 (2026-07-01): was [slack, whatsapp, mem0] — whatsapp and mem0 are phantom
+    # connectors (neither exists on claude.ai). Mem0 now via REST (api.mem0.ai +
+    # MEM0_API_KEY env var); WhatsApp owned by Samson (OQ-04). Environment needs:
+    # SAMSON_INTERNAL_TOKEN + MEM0_API_KEY env vars; Custom network access with
+    # samson.highfunctioningsolutions.com + api.mem0.ai allowlisted; #solomon-standup channel.
+    # PAUSED until prerequisites met AND Samson /agents/activity verified live.
     repos: []
     execution_mode: remote
     max_runs_per_day: 1
@@ -58,7 +62,9 @@ routines:
     prompt_path: routines/friday-retro.md
     connectors:
       - slack
-      - mem0
+    # v1.1 (2026-07-01): mem0 dropped — phantom connector; now via REST (api.mem0.ai +
+    # MEM0_API_KEY env var). Environment needs: SAMSON_INTERNAL_TOKEN + MEM0_API_KEY;
+    # Custom network access with samson host + api.mem0.ai; #dev-retro channel.
     repos:
       - solomon
       - hfs-aiops
@@ -86,7 +92,9 @@ routines:
     schedule_cron: "0 17 * * 5"
     prompt_path: routines/friday-energy-retro.md
     connectors:
-      - whatsapp
+      - slack
+    # v2.0 (2026-07-01): was [whatsapp] — a phantom connector (no native WhatsApp
+    # integration in claude.ai), so it never delivered. Now Slack-native, reply in-thread.
     repos: []
     execution_mode: remote
     max_runs_per_day: 1
@@ -98,7 +106,14 @@ routines:
     prompt_path: routines/claude-md-audit.md
     connectors:
       - slack
-    repos: []
+    # v1.1 (2026-07-01): repos were [] — but cloud sessions clone ONLY attached repos,
+    # so the audit could never fetch its target. Attach every auditable repo.
+    # execution_mode=local is UNSUPPORTED (Desktop scheduled tasks have no API trigger);
+    # Samson's OQ-14 dispatcher must always send remote. Needs #cadence-status channel.
+    repos:
+      - solomon-workspace
+      - solomon
+      - hfs-aiops
     execution_mode: remote
     max_runs_per_day: 3
 
@@ -126,6 +141,8 @@ routines:
       - solomon-workspace
     execution_mode: remote
     max_runs_per_day: 5
+    api_token_env: CADENCE_GITHUB_PR_REVIEW_TOKEN
+
 
   - slug: github-ci-triage
     display_name: GitHub CI Failure Triage

@@ -1,9 +1,11 @@
 ---
 slug: claude-md-audit
 ritual_type: audit
-version: 1.0
-last_reviewed_at: 2026-05-06
+version: 1.1
+last_reviewed_at: 2026-07-01
 author: Lionel + Solomon
+changelog:
+  - "1.1 (2026-07-01): local execution_mode marked UNSUPPORTED (API-triggered Routines are cloud-only; 'Local' in Anthropic's UI creates a Desktop scheduled task which has no API trigger — OQ-14's local path cannot exist on this platform). Auditable repos must be attached to the Routine config (cloud sessions clone only attached repos). #cadence-status channel prerequisite."
 ---
 
 # CLAUDE.md Audit (on-demand)
@@ -38,6 +40,9 @@ Audit the named CLAUDE.md against four checks (redundancy, contradiction, stalen
   }
   ```
 - **Max runs/day:** 3 (defensive cap; typical usage is 0-2/day).
+- **Environment prerequisites (cloud):**
+  - Repos: every auditable repo (`solomon-workspace`, `solomon`, `hfs-aiops`) must be **attached to this Routine's config** — cloud sessions cannot clone unattached repos.
+  - Slack: `#cadence-status` must exist with the bot invited (the `triggered_via=mcp` dispatch path posts there).
 - **Upstream consumer:** Samson `audit_ingestion_handler` (BE-08) writes `cadence_events` row with `event_type=audit, metadata={file_path, target_repo, findings, suggested_diff}`.
 
 ## 3. Steps
@@ -46,9 +51,9 @@ Execute in order. The Remote-vs-Local fork (step 2) is the OQ-14-encoded decisio
 
 1. **Validate payload.** Confirm `file_path`, `target_repo`, `execution_mode`, `triggered_via`, `triggered_by_user` present. Confirm `audit_mode` ∈ {all, redundancy, contradiction, staleness, complexity} (default `all` if absent). Confirm `execution_mode` ∈ {remote, local}. `auto_promote` defaults to false if absent. If any required field invalid, dispatch error per §6 and exit.
 
-2. **Honor `execution_mode` from payload** (the decision was made by Samson at trigger time per OQ-14 — this Routine does NOT decide at runtime because it can't observe the user's CWD from cloud context):
-   - **Remote mode** (`execution_mode=remote`, default): clone `target_repo` if not already in Routine `repos` config; check out latest `main`/`master`; read the file from the cloned tree. Audits committed content.
-   - **Local mode** (`execution_mode=local`): the Routine is dispatched as a Local Routine and runs on the user's Desktop. Read the file directly from the local filesystem at `<user_cwd>/<file_path>`. Audits unstaged content.
+2. **Honor `execution_mode` from payload** (decided by Samson at trigger time per OQ-14):
+   - **Remote mode** (`execution_mode=remote`, the ONLY supported mode): read the file from the cloned tree of `target_repo`. **The repo must already be attached to this Routine's config** — cloud sessions clone only attached repos at run start; there is no ad-hoc clone of arbitrary repos. If `target_repo` is not one of the attached repos, dispatch `**Audit failed:** {{ target_repo }} is not attached to this Routine — attach it in the Routine config first.` and exit. Audits committed content on the default branch.
+   - **Local mode (`execution_mode=local`) is UNSUPPORTED on this platform** — API-triggered Routines run only on Anthropic cloud; Anthropic's "Local" option is a Desktop scheduled task, which has no API trigger, so Samson cannot dispatch one. If the payload says `local`, dispatch `**Audit failed:** execution_mode=local is not supported by Anthropic Routines — Samson's OQ-14 dispatcher must send remote. Unstaged local content cannot be audited by this Routine.` and exit. (Fail closed rather than silently auditing committed content when the caller asked for unstaged.)
    - Record the received mode in `output_artifacts.execution_mode`.
 
 3. **Fetch the file content.** Cap at 50KB; if larger, take first 50KB and add a top-of-findings note: `_File truncated to first 50KB ({{ N }} of M lines processed)._`

@@ -1,9 +1,12 @@
 ---
 slug: daily-news-sweep
 ritual_type: news
-version: 1.0
-last_reviewed_at: 2026-05-06
+version: 1.2
+last_reviewed_at: 2026-07-01
 author: Lionel + Solomon
+changelog:
+  - "1.2 (2026-07-01): network-access prerequisite — web_fetch goes through the environment proxy; default Trusted allowlist blocks www.anthropic.com + hn.algolia.com (silent lane loss in the 2026-07-01 digest). Environment must be Full (no secrets in it) or Custom with fetch-lane hosts."
+  - "1.1 (2026-07-01): Path A cloud-native — dropped Firecrawl (native web_search/web_fetch only), dropped WhatsApp dispatch (Samson owns cross-post per OQ-04)."
 ---
 
 # Daily Dev News Sweep
@@ -12,10 +15,12 @@ You are running the daily developer-news sweep for Lionel Smith — Bahamian gov
 
 ## 1. Goal
 
-Produce a 5-7 bullet markdown digest of the most relevant developer-news items from the last 7 days, deduplicated and ranked, then dispatch it to Slack `#dev-news` and Lionel's WhatsApp. The output must be parseable by Samson's `IngestService` (so structure matters more than prose) and never exceed 7 bullets.
+Produce a 5-7 bullet markdown digest of the most relevant developer-news items from the last 7 days, deduplicated and ranked, then dispatch it to Slack `#dev-news`. The output must be parseable by Samson's `IngestService` (so structure matters more than prose) and never exceed 7 bullets. (WhatsApp delivery to the founder phone is unchanged but is now owned by Samson's cross-post handler, not this Routine — see §5.)
 
 ## 2. Trigger Context
 
+- **Execution locus:** **remote** (Anthropic cloud). Only native model tools are available — `web_search` and `web_fetch`. There is **no** Firecrawl connector, no RSS reader, no host CLI, and no droplet env/localhost. Do not reference any of those.
+- **Environment prerequisite — network access:** ALL outbound traffic (including `web_fetch`) passes through the environment proxy. Under default **Trusted** access, `www.anthropic.com` and `hn.algolia.com` are NOT allowlisted (evidence: the 2026-07-01 digest silently contained zero anthropic.com items). This Routine's environment must use **Full** network access (it is a web-reading routine and its environment holds NO secrets — keep it that way) or **Custom** with the §3 fetch-lane hosts added. A fetch failing with 403 `x-deny-reason: host_not_allowed` is a lane failure — record it in `output_artifacts.tool_call_failures` with reason `host_not_allowed (environment proxy)`.
 - **Schedule:** cron `30 6 * * 1-5` in `America/Nassau` (NAS, UTC-4 / UTC-5 DST).
 - **Window:** articles published in the last 168 hours (7 days) before run time.
 - **Max runs/day:** 1.
@@ -28,20 +33,25 @@ Execute in order. If any step's tool call fails twice in a row, log the failure 
 
 1. **Compute date window.** Set `cutoff = now - 7 days`. Any article with `published_at < cutoff` is "stale" and skipped unless this is a low-signal day (see step 6).
 
-2. **Fetch each source** (in this order; use `firecrawl` connector for HTML, an RSS reader for feeds, GitHub REST for releases):
-   - `https://news.ycombinator.com` — Hacker News front page, top 30 stories (Firecrawl scrape, depth=1).
-   - `https://www.anthropic.com/news` — Firecrawl scrape, list page.
-   - `https://www.anthropic.com/research` — Firecrawl scrape, list page.
-   - `https://www.anthropic.com/engineering` — Firecrawl scrape, list page.
-   - `https://api.github.com/repos/anthropics/claude-code/releases` — GitHub REST, last 7 days.
-   - `https://newsletter.pragmaticengineer.com/feed` — RSS.
-   - `https://www.latent.space/feed` — RSS.
-   - `https://arxiv.org/list/cs.AI/new` — Firecrawl scrape, top 20.
-   - `https://github.com/trending/python?since=daily` — Firecrawl scrape.
-   - `https://github.com/trending/typescript?since=daily` — Firecrawl scrape.
-   - `https://lobste.rs/rss` — RSS.
+2. **Gather from 10 source lanes using native tooling only.** Use `web_fetch` for the known pages (they render as HTML/JSON) and `web_search` for the discovery lanes (recency-limited to the last 7 days). The bracketed slug is the `source` value to record per article. Process in this order:
 
-3. **Extract per article:** `title`, `url` (canonical / normalized), `published_at` (UTC), `summary` (first 200 chars or feed excerpt), `source` (slug from list above).
+   **Direct fetch — `web_fetch`:**
+   - `[anthropic-news]` `https://www.anthropic.com/news`
+   - `[anthropic-research]` `https://www.anthropic.com/research`
+   - `[anthropic-eng]` `https://www.anthropic.com/engineering`
+   - `[claude-code-releases]` `https://api.github.com/repos/anthropics/claude-code/releases` — JSON; keep entries `published_at ≥ cutoff`.
+   - `[hn]` `https://hn.algolia.com/api/v1/search_by_date?tags=front_page&hitsPerPage=30` — Hacker News front page via the Algolia JSON API (cleaner + more parseable than scraping the HTML page; each hit has `created_at`, `title`, `url`, `objectID`).
+   - `[gh-trending-py]` `https://github.com/trending/python?since=weekly`
+   - `[gh-trending-ts]` `https://github.com/trending/typescript?since=weekly`
+
+   **Discovery — `web_search`** (these three lanes replace the old RSS/arXiv feeds, which do not render under native tooling; limit each to results from the last 7 days):
+   - `[eng-leadership]` — query: `software engineering leadership OR platform engineering` (Pragmatic-Engineer territory).
+   - `[ai-eng]` — query: `AI agents OR MCP OR agentic LLM engineering` (Latent-Space territory).
+   - `[research-new]` — query: `arxiv cs.AI agents OR LLM` (arXiv cs.AI territory).
+
+   **Verification gate (anti-fabrication — see §6):** every article you keep from a `web_search` lane MUST be confirmed with a follow-up `web_fetch` of its URL to (a) prove the link resolves and (b) read the real `published_at` and summary from the page. A search-result snippet is NOT sufficient evidence to include an item.
+
+3. **Extract per article:** `title`, `url` (canonical / normalized), `published_at` (UTC), `summary` (first 200 chars, taken from the fetched page — not from prior knowledge), `source` (bracketed slug from the lane above).
 
 4. **Filter and deduplicate:**
    - Drop articles with `published_at < cutoff` (older than 7 days).
@@ -101,9 +111,9 @@ If two or more themes have ≥ 2 items, **group by theme** with `###` H3 headers
 
 ## 5. Dispatch
 
-Two connector calls, in this exact order. The Routine's `output_artifacts.connector_calls` must record both for Samson's ingestion handler to verify dispatch.
+**One connector call — Slack.** Record it in `output_artifacts.connector_calls` so Samson's ingestion handler can verify dispatch.
 
-**Call 1 — Slack:**
+**Slack:**
 ```
 connector: slack
 method: chat.postMessage
@@ -114,16 +124,7 @@ payload:
   unfurl_media: false
 ```
 
-**Call 2 — WhatsApp:**
-```
-connector: whatsapp
-method: send_message
-payload:
-  to: <Lionel's number from Routine secret WHATSAPP_TO>
-  body: <plain-text rendering of the digest — strip "**" markers but keep links inline as "title (url)">
-```
-
-**WhatsApp fallback (per OQ-04):** if the WhatsApp connector is not available in this Anthropic environment, **skip Call 2** and add a note to `output_artifacts.notes`: `"whatsapp_connector_unavailable — Samson cross-post will mirror from Slack"`. Samson's WhatsApp adapter will detect the Slack post and cross-post within minutes.
+**WhatsApp — owned by Samson, not this Routine (OQ-04, resolved 2026-07-01, Path A cloud-native):** Do NOT call a WhatsApp connector from this Routine, even if one appears available. Samson's `whatsapp_handler` (INT-01) subscribes to the `#dev-news` `chat.postMessage` event and cross-posts the digest body to the founder phone via the Twilio WhatsApp adapter. Founder-phone delivery is unchanged — it is simply single-sourced in Samson so there is exactly one delivery path and no risk of double-posting. This Routine's only responsibility is a correct Slack post.
 
 ## 6. Safety
 
@@ -137,10 +138,10 @@ payload:
 **Retry once:**
 - HTTP 429 (rate-limited): wait 30 seconds, retry once. If still 429, mark source failed and continue.
 - HTTP 5xx: wait 10 seconds, retry once. If still 5xx, mark source failed and continue.
-- Connector dispatch failure (Slack or WhatsApp): wait 5 seconds, retry once. If still failing, record in `output_artifacts.connector_failures` and continue.
+- Connector dispatch failure (Slack): wait 5 seconds, retry once. If still failing, record in `output_artifacts.connector_failures` and stop (there is no second dispatch path to fall back to).
 
 **Never:**
-- Fabricate articles. Only include articles that were actually fetched and verified to have a working URL.
+- Fabricate articles. Only include articles that were actually fetched this run and verified to have a working URL. **Model prior knowledge and memory are NOT a source** — if `web_search`/`web_fetch` returns nothing verifiable for a lane, treat that lane as failed and record it in `output_artifacts.tool_call_failures`. Do not backfill the digest from what you already "know" about recent releases. Every bullet must trace to a URL fetched during this run. If the web tools are broadly unavailable and you cannot verify a single article, post the "No qualifying articles today" line per §4 rather than inventing content.
 - Include private, leaked, or scraped-paywalled content.
 - Exceed the 7-bullet hard ceiling.
 - Dispatch if the digest contains zero qualifying bullets — instead post the "No qualifying articles today" line per §4.
