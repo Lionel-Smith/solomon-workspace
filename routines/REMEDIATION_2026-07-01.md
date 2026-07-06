@@ -30,19 +30,24 @@ No bot to invite: the claude.ai Slack connector posts **as the workspace user**
 - [x] `#solomon-checkin` (private) — `C0BFADXB5PB` — connector confirmed it reads
       this private channel, proving the user-scoped connector model.
 
-### 2. Cloud environments (claude.ai/code → environment settings)
-Create TWO dedicated environments (secrets-scoping: never give the web-reading routine any secret):
+### 2. Cloud environments ⚙️ MOSTLY DONE (2026-07-05)
+Location: the environments are NOT in Settings — they live in the **environment selector**
+on the composer (the "smart tender"-style chip next to "Select repo…") → **Add cloud
+environment…**. Each env has: Name, Network access (None/Trusted/Full/Custom), Environment
+variables (.env format — UI itself warns "visible to anyone using this environment"), Setup script.
+Both created 2026-07-05.
 
 **`cadence-samson`** — for standup, friday-retro, friday-eval
-- [ ] Env vars: `SAMSON_INTERNAL_TOKEN=<value>`, `MEM0_API_KEY=<value>`
-      (⚠ visible to anyone who can edit the environment — single-user account, acceptable;
-       coordinate values with the SEC-01 rotation)
-- [ ] Network access: **Custom** → Allowed domains: `samson.highfunctioningsolutions.com`,
-      `api.mem0.ai` + check "Also include default list"
+- [x] Network access: **Custom** → Allowed domains `samson.highfunctioningsolutions.com` +
+      `api.mem0.ai`, "Also include default list" checked ✅
+- [ ] **Env vars (LIONEL — the only remaining step-2 action):** open the composer env selector →
+      gear icon on `cadence-samson` → Environment variables → paste:
+      `SAMSON_INTERNAL_TOKEN=<rotated value>` and `MEM0_API_KEY=<rotated value>` → save.
+      (Claude does not enter credentials into fields. Use SEC-01 post-rotation values.)
 
 **`cadence-web`** — for daily-news-sweep only
-- [ ] Network access: **Full** (it reads the open web; verification gate needs arbitrary hosts)
-- [ ] NO env vars / secrets in this environment — ever
+- [x] Network access: **Full** ✅
+- [x] NO env vars / secrets — created empty, correct ✅
 
 Leave energy-retro, claude-md-audit, github-pr-review on the **Default** (Trusted) environment —
 their only traffic is connector traffic (routed through Anthropic, bypasses the allowlist) and
