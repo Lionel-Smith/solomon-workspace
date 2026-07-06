@@ -40,10 +40,18 @@ Both created 2026-07-05.
 **`cadence-samson`** — for standup, friday-retro, friday-eval
 - [x] Network access: **Custom** → Allowed domains `samson.highfunctioningsolutions.com` +
       `api.mem0.ai`, "Also include default list" checked ✅
-- [ ] **Env vars (LIONEL — the only remaining step-2 action):** open the composer env selector →
-      gear icon on `cadence-samson` → Environment variables → paste:
-      `SAMSON_INTERNAL_TOKEN=<rotated value>` and `MEM0_API_KEY=<rotated value>` → save.
-      (Claude does not enter credentials into fields. Use SEC-01 post-rotation values.)
+- [ ] **Env vars — DEFERRED ON PURPOSE (not a to-do yet).** Leave BOTH blank until the Samson
+      cadence API actually exists. Verified in code 2026-07-06: the endpoints these routines call
+      (`/cadence/learnings/queued`, `/agents/activity`) have **zero route definitions** — the backend
+      is NOT built (this is the BE-05/BE-10 dependency). Pasting tokens now authenticates to nothing.
+      When it IS time to fill these (endpoints built + droplet recovered):
+      - `SAMSON_INTERNAL_TOKEN` — **self-minted, NOT a SEC-01 leaked cred** (no rotation needed).
+        Mint via `python3 -c "import secrets; print(secrets.token_urlsafe(48))"` OR reuse the prior
+        value; it is SYMMETRIC — the SAME value must be set here AND on Samson's droplet config.
+      - `MEM0_API_KEY` — the ONLY genuinely-leaked var here (SEC-01 family, unrotated). Rotate in the
+        Mem0 dashboard first (new key → revoke old), then paste the fresh value.
+      (Claude does not enter credentials into fields — Lionel pastes. See memory
+      `finding_samson_cadence_api_not_built_2026-07`.)
 
 **`cadence-web`** — for daily-news-sweep only
 - [x] Network access: **Full** ✅
@@ -74,11 +82,17 @@ Routines that read repo content (friday-eval's dataset, friday-retro's diff targ
 GitHub — uncommitted work is invisible to them. Push after committing these fixes.
 
 ### 5. Verification (before unpausing standup)
+⛔ **KNOWN-BLOCKED as of 2026-07-06 — do not attempt yet.** Three stacked blockers, deepest-first:
+(a) the Samson cadence endpoints are **NOT built** — verified in code: `/cadence/learnings/queued`
+and `/agents/activity` have zero route definitions (BE-05/BE-10 is real backend work, not a config
+fix); (b) the droplet is unreachable (`samson.*` NXDOMAIN + SSH refused, see
+`incident_samson_dns_ssh_2026-07-03`); (c) the `cadence-samson` env vars are intentionally unset.
+The curl below will 404 (endpoint) or fail to resolve (DNS) until (a)+(b) are fixed. Standup stays
+PAUSED. This is the genuine remaining dependency — everything upstream of it is done.
 - [ ] From any cloud session on `cadence-samson`:
       `curl -H "Authorization: Bearer $SAMSON_INTERNAL_TOKEN" https://samson.highfunctioningsolutions.com/agents/activity?since=24h`
-      → expect 200 JSON (NOT 403 `host_not_allowed`, NOT 401). If the endpoint 404s, the
-      Samson cadence API (BE-05/BE-10) isn't deployed — standup stays paused; that is the one
-      genuine backend dependency left.
+      → expect 200 JSON (NOT 403 `host_not_allowed`, NOT 401, NOT 404). A 404 = endpoint not built (a);
+      DNS failure = droplet/record not up (b).
 - [ ] "Run now" on daily-news-sweep → confirm anthropic.com items appear in the digest
       (proves the Full-network environment took effect)
 - [ ] "Run now" on friday-energy-retro → confirm the 🌴 prompt lands in #solomon-checkin
