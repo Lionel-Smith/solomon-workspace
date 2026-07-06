@@ -21,7 +21,7 @@ Convert the week's queued learnings into 0-10 actionable **promotion proposals**
 - **Environment prerequisites (cloud — the Routine's environment MUST provide these or every run fails):**
   - Env vars: `SAMSON_INTERNAL_TOKEN` (Samson read API), `MEM0_API_KEY` (Mem0 REST).
   - Network access: **Custom**, with `samson.highfunctioningsolutions.com` and `api.mem0.ai` in Allowed domains (+ the default list). A 403 with `x-deny-reason: host_not_allowed` is the environment proxy, not Samson.
-  - Slack: `#dev-retro` must exist with the bot invited (2026-06-26 run fell back into #dev-news because it doesn't).
+  - Slack: `#dev-retros` must exist (posts go via the claude.ai Slack connector as the workspace user — there is no separate bot to invite; the 2026-06-26 run fell back into #dev-news when the channel was missing).
 - **Schedule:** cron `0 15 * * 5` in `America/Nassau` (Friday 15:00 NAS).
 - **Window:** the just-ending ISO week (Mon-Fri prior to the run).
 - **Max runs/day:** 1 (Fri only).
@@ -135,7 +135,7 @@ Two connector calls. Both recorded in `output_artifacts.connector_calls`.
 connector: slack
 method: chat.postMessage
 payload:
-  channel: "#dev-retro"
+  channel: "#dev-retros"
   blocks: <the Block Kit JSON array from §4>
   text: "Friday Retro — Week {{ iso_week }}"   # fallback text for notifications
   unfurl_links: false
@@ -147,7 +147,7 @@ Capture the response's `ts` (message timestamp) — needed for Call 2.
 connector: slack
 method: chat.postMessage
 payload:
-  channel: "#dev-retro"
+  channel: "#dev-retros"
   thread_ts: <ts from Call 1>
   text: <the 4-prompt Kata reflection markdown from §4>
   unfurl_links: false
@@ -156,7 +156,7 @@ payload:
 ## 6. Safety
 
 **Authentication failure (highest priority):**
-- If step 2's GET returns HTTP 401 or 403: stop fetching. Post a single line to Slack `#dev-retro` only: `**Friday Retro — Week {{ iso_week }}** — Retro unavailable: SAMSON_INTERNAL_TOKEN auth failed. Investigate before next Friday.` Do NOT compose Block Kit, do NOT post Kata thread. Exit cleanly so Samson's ingestion records the failure.
+- If step 2's GET returns HTTP 401 or 403: stop fetching. Post a single line to Slack `#dev-retros` only: `**Friday Retro — Week {{ iso_week }}** — Retro unavailable: SAMSON_INTERNAL_TOKEN auth failed. Investigate before next Friday.` Do NOT compose Block Kit, do NOT post Kata thread. Exit cleanly so Samson's ingestion records the failure.
 - If the token is missing entirely: same path, with reason `"SAMSON_INTERNAL_TOKEN not set in the Routine's cloud environment"`.
 - **Distinguish the environment proxy:** a 403 carrying `x-deny-reason: host_not_allowed` is the cloud environment blocking the host — report `Retro unavailable: samson host not in the environment's Allowed domains (proxy 403). Fix the Routine environment, not the token.`
 

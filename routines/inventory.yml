@@ -64,7 +64,7 @@ routines:
       - slack
     # v1.1 (2026-07-01): mem0 dropped — phantom connector; now via REST (api.mem0.ai +
     # MEM0_API_KEY env var). Environment needs: SAMSON_INTERNAL_TOKEN + MEM0_API_KEY;
-    # Custom network access with samson host + api.mem0.ai; #dev-retro channel.
+    # Custom network access with samson host + api.mem0.ai; #dev-retros channel.
     repos:
       - solomon
       - hfs-aiops

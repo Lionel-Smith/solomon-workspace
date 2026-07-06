@@ -14,14 +14,14 @@ You are running Solomon's weekly capability eval against the `solomon-core-v1` g
 
 ## 1. Goal
 
-For each of the 10 tasks in `solomon-core-v1`, dispatch to the target Solomon agent via Samson's MCP API, capture the response, judge it 0.0-1.0 against the golden output with the verbatim Appendix C.4.1 prompt, and aggregate to a single pass-rate. Compare to the prior week's run and emit a drift signal. Dispatch the summary to Slack `#dev-retro` as a reply to that day's friday-retro thread when possible (so eval results sit alongside the week's promotion proposals).
+For each of the 10 tasks in `solomon-core-v1`, dispatch to the target Solomon agent via Samson's MCP API, capture the response, judge it 0.0-1.0 against the golden output with the verbatim Appendix C.4.1 prompt, and aggregate to a single pass-rate. Compare to the prior week's run and emit a drift signal. Dispatch the summary to Slack `#dev-retros` as a reply to that day's friday-retro thread when possible (so eval results sit alongside the week's promotion proposals).
 
 ## 2. Trigger Context
 
 - **Environment prerequisites (cloud — the Routine's environment MUST provide these or every run fails; the 2026-06-29 run failed on BOTH):**
   - Env var: `SAMSON_INTERNAL_TOKEN`.
   - Network access: **Custom**, with `samson.highfunctioningsolutions.com` in Allowed domains (+ the default list). A 403 with `x-deny-reason: host_not_allowed` is the environment proxy, not Samson auth — report it as an environment misconfiguration, not a token failure.
-  - Slack: `#dev-retro` must exist with the bot invited (2026-06-29 run fell back into #dev-news).
+  - Slack: `#dev-retros` must exist (posts go via the claude.ai Slack connector as the workspace user — there is no separate bot to invite; the 2026-06-29 run fell back into #dev-news when the channel was missing).
   - Repo: `solomon-workspace` must be attached to this Routine (it is — the dataset is read from the clone).
 - **Schedule:** cron `0 16 * * 5` in `America/Nassau` (Friday 16:00 NAS, one hour after friday-retro).
 - **Max runs/day:** 1 (Friday only).
@@ -120,7 +120,7 @@ One connector call. Both eval results and drift are in the same message — no t
 connector: slack
 method: chat.postMessage
 payload:
-  channel: "#dev-retro"
+  channel: "#dev-retros"
   thread_ts: <if friday-retro ran today and its ts is recoverable from Samson, reply in thread; else top-level>
   text: <the markdown summary from §4>
   unfurl_links: false
@@ -131,14 +131,14 @@ payload:
 ## 6. Safety
 
 **Authentication failure (highest priority):**
-- If step 2 or step 4's Samson call returns HTTP 401 or 403: stop. Post a single line to Slack `#dev-retro`: `**Friday Eval — Week {{ iso_week }}** — Eval unavailable: SAMSON_INTERNAL_TOKEN auth failed. Investigate before next Friday.` Exit cleanly so Samson's ingestion records the failure.
+- If step 2 or step 4's Samson call returns HTTP 401 or 403: stop. Post a single line to Slack `#dev-retros`: `**Friday Eval — Week {{ iso_week }}** — Eval unavailable: SAMSON_INTERNAL_TOKEN auth failed. Investigate before next Friday.` Exit cleanly so Samson's ingestion records the failure.
 - **Distinguish the environment proxy:** a 403 carrying `x-deny-reason: host_not_allowed` is the cloud environment's network proxy blocking the host, not Samson rejecting the token. Report it as: `Eval unavailable: samson host not in the environment's Allowed domains (proxy 403). Fix the Routine environment, not the token.` The 2026-06-29 run conflated these — they are different fixes.
 
 **Connection failure — infrastructure unavailable (highest priority, before any per-task scoring):**
 - This branch triggers when a Samson call fails at the **connection level** — host unresolvable (DNS), connection refused, connection reset, or connection/read timeout — i.e. **no HTTP response is received at all**. This is distinct from a 401/403 (server responded, rejected auth) and from a 5xx (server responded with an error): in both of those the host was reachable.
 - On the first such failure, wait 10 seconds and retry once.
 - If the retry still cannot reach the host, **STOP the entire run**. Do **NOT** mark tasks `score=0.0`. A host-unreachable condition means the eval *could not run* — it is not evidence that the agents failed, and a fabricated 0% pass rate is indistinguishable from a real capability regression to anyone reading the summary.
-- Post a single line to Slack `#dev-retro`: `**Friday Eval — Week {{ iso_week }}** — Eval could not run: Samson unreachable (connection failure, not auth). No pass rate computed. Investigate before next Friday.` Exit cleanly so Samson's ingestion records an **infrastructure-failure** run, not a 0% scored run.
+- Post a single line to Slack `#dev-retros`: `**Friday Eval — Week {{ iso_week }}** — Eval could not run: Samson unreachable (connection failure, not auth). No pass rate computed. Investigate before next Friday.` Exit cleanly so Samson's ingestion records an **infrastructure-failure** run, not a 0% scored run.
 - Rationale: a routine authored for `execution_mode: remote` must not emit a graded result when it is executing somewhere the remote dependencies don't resolve. This branch is the run-level guard; the per-task "5xx after retry" rule below applies only when the host *does* respond with a server error to an individual task.
 
 **Dataset validation failure:**

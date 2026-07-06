@@ -17,11 +17,18 @@ ROUTINE-10 (2026-05-26), not this repo. This is the drift the `prompt_sha` patte
 
 ## Operator checklist (Anthropic UI + Slack — in order)
 
-### 1. Slack channels (5 min)
-- [ ] Create `#solomon-standup`, invite the Claude bot
-- [ ] Create `#dev-retro`, invite the bot
-- [ ] Create `#cadence-status`, invite the bot
-- [ ] Create `#solomon-checkin` (low-traffic/private), invite the bot
+### 1. Slack channels ✅ DONE (2026-07-05)
+No bot to invite: the claude.ai Slack connector posts **as the workspace user**
+(Lionel), so channel membership is automatic for channels he created. The
+"invite the bot" step in the original audit was based on a wrong assumption.
+- [x] `#solomon-standup` (public) — `C0BF28R7DNF`
+- [x] `#dev-retros` (public) — `C0BFADVSDU1` — note the **plural**: the singular
+      `#dev-retro` name is locked by an archived private channel (`C0BF57AKBRB`),
+      so `#dev-retros` is canonical; the friday-retro/friday-eval prompts were
+      updated to match.
+- [x] `#cadence-status` (public) — `C0BFC83MAN8`
+- [x] `#solomon-checkin` (private) — `C0BFADXB5PB` — connector confirmed it reads
+      this private channel, proving the user-scoped connector model.
 
 ### 2. Cloud environments (claude.ai/code → environment settings)
 Create TWO dedicated environments (secrets-scoping: never give the web-reading routine any secret):
