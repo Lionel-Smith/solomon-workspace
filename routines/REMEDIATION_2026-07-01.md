@@ -62,17 +62,35 @@ their only traffic is connector traffic (routed through Anthropic, bypasses the 
 api.github.com (already allowlisted).
 
 ### 3. Per-routine UI edits (claude.ai/code/routines)
-- [ ] **daily-news-sweep** (`trig_01A9w6...`): re-paste prompt v1.2; set environment `cadence-web`;
-      remove whatsapp+firecrawl connectors (keep slack)
-- [ ] **daily-solomon-standup** (`trig_01RC8m...`): re-paste prompt v1.1; set environment
-      `cadence-samson`; remove whatsapp+mem0 connectors; **keep PAUSED** until step 5 passes
-- [ ] **friday-retro** (`trig_01TxzY...`): re-paste prompt v1.1; set environment `cadence-samson`;
-      remove mem0 connector
-- [ ] **friday-eval** (`trig_01NcDt...`): re-paste prompt v1.1; set environment `cadence-samson`
-- [ ] **friday-energy-retro** (`trig_011tUw...`): re-paste prompt v2.0; connector slack (was whatsapp)
-- [ ] **claude-md-audit** (`trig_01YGe9...`): re-paste prompt v1.1; attach repos
-      solomon-workspace, solomon, hfs-aiops
-- [ ] **github-pr-review** (`trig_01JGRq...`): re-paste prompt v1.1
+**WHERE the controls live (discovered 2026-07-06):** open a routine → **Details** (top-right) →
+**pencil/Edit** → the "Edit routine" modal. It has: Name, **Instructions** (paste the whole repo
+`.md` file including frontmatter — Cmd+A then Cmd+V replaces it), a repo picker (chips + "+"), an
+**Environment** combobox (THIS is where a routine binds to cadence-web/cadence-samson — resolves the
+earlier "can't find where routines bind an environment" question), Model, triggers, and a Connectors
+tab. Extra default connectors (Figma/Gmail/Linear) get auto-added — trim to only what inventory lists
+(least-privilege; the UI warns connectors grant write access without asking).
+
+**FOUR non-Samson routines DONE (2026-07-06):**
+- [x] **daily-news-sweep** (`trig_01A9w6...`): re-pasted **v1.2**; environment → **cadence-web**;
+      connectors trimmed to **Slack** (removed Figma/Gmail/Linear — whatsapp/firecrawl were never real).
+      (Live run transcript confirmed the egress block: 5/11 sources 403'd on the old env — cadence-web's
+      Full network is the fix.)
+- [x] **friday-energy-retro** (`trig_011tUw...`): re-pasted **v2.0**; connectors → **Slack** only.
+- [x] **claude-md-audit** (`trig_01YGe9...`): re-pasted **v1.1**; connectors → **Slack**; repos set to
+      exactly **solomon-workspace, solomon, hfs-aiops** (added solomon-workspace which was missing;
+      removed a stray hfs-development-kit to match inventory).
+- [x] **github-pr-review** (`trig_01JGRq...`): re-pasted **v1.1**; connectors → **Slack**. Repos left
+      AS-IS (8: solomon-docs, solomon, solomon-workspace, yatlas-api/web/core, hfs-aiops,
+      hfs-development-kit) — ⚠️ these DIVERGE from `inventory.yml` (which lists esther-mcp/models,
+      solomon-dashboard, esther-preview instead of the yatlas/solomon-docs ones). Not reconciled: PR-review
+      scope is a judgment call — decide whether the live 8 or the inventory list is authoritative, then
+      sync the other.
+
+**THREE Samson routines NOT done — blocked (see step 5 / `finding_samson_cadence_api_not_built_2026-07`):**
+- [ ] **daily-solomon-standup** (`trig_01RC8m...`): re-paste v1.1; env `cadence-samson`; **keep PAUSED**.
+      Blocked on the unbuilt Samson cadence API.
+- [ ] **friday-retro** (`trig_01TxzY...`): re-paste v1.1; env `cadence-samson`. Blocked (same).
+- [ ] **friday-eval** (`trig_01NcDt...`): re-paste v1.1; env `cadence-samson`. Blocked (same).
 - [ ] **github-ci-triage**: stays deferred — `workflow_run` still unsupported (docs confirm
       only pull_request + release as of 2026-07-01). Fallback (a) API-trigger + GH Action
       wrapper is viable when wanted.
