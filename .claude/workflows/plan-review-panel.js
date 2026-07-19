@@ -64,7 +64,7 @@ phase('Checklist')
 const checklist = await agent(
   `Read the file ${CHECKLIST_PATH} and return its COMPLETE raw content as your final text. ` +
     `If the file does not exist or is empty, return exactly the string "CHECKLIST_MISSING". ${NO_WRITE}`,
-  { label: 'fetch-checklist', effort: 'low' }
+  { label: 'fetch-checklist', model: 'haiku', effort: 'low' }
 )
 if (!checklist || checklist.includes('CHECKLIST_MISSING') || checklist.length < 500) {
   // Never warn-and-continue: a vanished checklist is the failure mode this panel exists to kill.
@@ -120,7 +120,7 @@ if (priorFindingsPath) {
   const prior = await agent(
     `Read ${priorFindingsPath} and return, as JSON in your final text, the array of previously-CONFIRMED ` +
       `CRIT findings it records (id, section, claim). ${NO_WRITE}`,
-    { label: 'fetch-prior', phase: 'Review', effort: 'low', schema: FINDINGS_SCHEMA }
+    { label: 'fetch-prior', phase: 'Review', model: 'haiku', effort: 'low', schema: FINDINGS_SCHEMA }
   )
   const fixChecks = await parallel(
     (prior?.findings || []).map((f) => () =>
@@ -270,7 +270,7 @@ const reportPath = await agent(
     `plausible" (each WITH its refutation quote), "Suggestions", and a final "Counts" line ` +
     `containing confirmed_crit=<n>. Findings are never omitted — downgraded ones appear with their ` +
     `refutation.\n3. Return only the absolute path of the file you wrote.`,
-  { label: 'write-report', effort: 'low' }
+  { label: 'write-report', model: 'haiku', effort: 'low' }
 )
 
 return {
