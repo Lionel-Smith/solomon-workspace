@@ -315,6 +315,11 @@ When compacting this conversation, preserve the following context — autonomous
 - Any "run only these specific sessions" scope the user set
 - Any per-session manual-gate requirement (e.g., "FWV-06 needs manual review — parser-self-modification risk")
 
+**User-granted authorizations (always preserve — compactors retain prohibitions far better than permissions):**
+- Any action the user explicitly approved this conversation, with its exact scope (e.g., "approved: disable openclaw.service, cap journald, docker prune — droplet only")
+- Whether each approved action has actually been *executed*, or is still pending
+- Any action that is user-approved but **blocked by the auto-mode classifier** — the classifier evaluates each tool call independently and does not observe `AskUserQuestion` answers, so a dropped approval means re-asking the user a question they already answered
+
 **Safe to summarize / drop:**
 - Intermediate tool output, grep results, file listings
 - Brainstorming / visual companion screens
