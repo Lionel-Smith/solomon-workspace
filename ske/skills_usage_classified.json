@@ -1,0 +1,473 @@
+{
+  "ACTIVE": [
+    {
+      "count": 3,
+      "last": "2026-07-24",
+      "name": "backend-e2e-testing"
+    },
+    {
+      "count": 3,
+      "last": "2026-07-26",
+      "name": "claude-design-prompts"
+    },
+    {
+      "count": 3,
+      "last": "2026-07-24",
+      "name": "db-transaction-discipline"
+    },
+    {
+      "count": 3,
+      "last": "2026-08-15",
+      "name": "debugging-workflow"
+    },
+    {
+      "count": 8,
+      "last": "2026-08-02",
+      "name": "deep-app-research"
+    },
+    {
+      "count": 15,
+      "last": "2026-08-15",
+      "name": "development-workflow"
+    },
+    {
+      "count": 19,
+      "last": "2026-08-15",
+      "name": "firecrawl-research"
+    },
+    {
+      "count": 3,
+      "last": "2026-07-23",
+      "name": "grill-with-docs"
+    },
+    {
+      "count": 3,
+      "last": "2026-07-23",
+      "name": "grilling"
+    },
+    {
+      "count": 11,
+      "last": "2026-07-22",
+      "name": "hfs-client-engagement"
+    },
+    {
+      "count": 9,
+      "last": "2026-08-03",
+      "name": "hfs-config-sync"
+    },
+    {
+      "count": 4,
+      "last": "2026-07-19",
+      "name": "hfs-vscode-orchestrator"
+    },
+    {
+      "count": 42,
+      "last": "2026-07-23",
+      "name": "plan-review-loop"
+    },
+    {
+      "count": 6,
+      "last": "2026-08-02",
+      "name": "research"
+    }
+  ],
+  "DORMANT": [
+    {
+      "count": 0,
+      "last": "-",
+      "name": "ask-matt"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "auto-mode-operations"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "claude-handoff"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "code-review"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "codebase-design"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "design-an-interface"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "diagnosing-bugs"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "edit-article"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "find-skills"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "frontend-design"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "fullstack-integration"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "git-guardrails-claude-code"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "grill-me"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "handoff"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "hfs-accessibility-testing"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "hfs-component-library"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "hfs-droplet-ops"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "hfs-preprod-deploy"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "hfs-repo-maintenance"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "hfs-server-debugging"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "hfs-server-inventory"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "hfs-skill-creator"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "implement"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "improve-codebase-architecture"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "loop-me"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "mcp-server-building"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "migrate-to-shoehorn"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "obsidian-vault"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "otel-observability"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "playwright-e2e-testing"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "polyrepo-management"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "postgis-geospatial"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "prototype"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "qa"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "request-refactor-plan"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "resolving-merge-conflicts"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "scaffold-exercises"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "sentry-create-alert"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "sentry-debug-issue"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "sentry-fix-stack-traces"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "sentry-get-started"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "sentry-instrument"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "sentry-otel-exporter-setup"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "sentry-setup-releases"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "sentry-snapshots-cocoa"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "setup-matt-pocock-skills"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "setup-pre-commit"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "skill-reviewer"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "solomon"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "solomon-complete"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "solomon-feature"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "solomon-session"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "solomon-status"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "tdd"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "teach"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "temporal-workflows"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "to-spec"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "to-tickets"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "triage"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "ubiquitous-language"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "wayfinder"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "wizard"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "writing-beats"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "writing-fragments"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "writing-great-skills"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "writing-rules"
+    },
+    {
+      "count": 0,
+      "last": "-",
+      "name": "writing-shape"
+    }
+  ],
+  "RARE": [
+    {
+      "count": 1,
+      "last": "2026-08-15",
+      "name": "compaction-resilience"
+    },
+    {
+      "count": 1,
+      "last": "2026-07-23",
+      "name": "contract-first-api"
+    },
+    {
+      "count": 2,
+      "last": "2026-07-23",
+      "name": "domain-modeling"
+    },
+    {
+      "count": 2,
+      "last": "2026-07-24",
+      "name": "frontend-session-gates"
+    },
+    {
+      "count": 2,
+      "last": "2026-07-24",
+      "name": "frontend-wired-verification"
+    },
+    {
+      "count": 2,
+      "last": "2026-07-25",
+      "name": "hfs-frontend-visual-verification"
+    },
+    {
+      "count": 2,
+      "last": "2026-07-20",
+      "name": "hfs-portfolio-review"
+    },
+    {
+      "count": 1,
+      "last": "2026-07-23",
+      "name": "hfs-project-bootstrap"
+    },
+    {
+      "count": 1,
+      "last": "2026-07-16",
+      "name": "implementation-plan-generator"
+    },
+    {
+      "count": 2,
+      "last": "2026-07-19",
+      "name": "project-plan-creator"
+    },
+    {
+      "count": 1,
+      "last": "2026-07-23",
+      "name": "python-backend-scaffold"
+    },
+    {
+      "count": 2,
+      "last": "2026-07-19",
+      "name": "session-orchestrator"
+    }
+  ]
+}
