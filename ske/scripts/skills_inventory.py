@@ -479,6 +479,18 @@ def main() -> int:
             "run is NOT baseline-comparable. Re-run with an interpreter that has PyYAML\n"
             "(e.g. solomon/.venv/bin/python3) to regenerate the canonical baseline.\n"
         )
+
+    # Validity guard (SKE-R-02): invalid frontmatter makes a skill unfindable
+    # by search_skills - fail the run so regressions can't land silently.
+    invalid = [
+        r["name"] for r in records if r["frontmatter_yaml_valid"] is False
+    ]
+    if invalid:
+        sys.stderr.write(
+            f"\nERROR: {len(invalid)} skill(s) with invalid frontmatter YAML: "
+            + ", ".join(sorted(invalid)) + "\n"
+        )
+        return 1
     return 0
 
 
