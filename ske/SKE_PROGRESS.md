@@ -13,7 +13,7 @@
 
 | Session | Wave | Title | Status |
 |---|---|---|---|
-| SKE-00d | 0 | Scaffolding verification + project registration | ⬜ Pending |
+| SKE-00d | 0 | Scaffolding verification + project registration | ✅ Complete |
 | SKE-R-01 | 0 | RET fail-closed + Encoding commits (P0) | ⬜ Pending |
 | SKE-R-02 | 0 | hfs-client-engagement frontmatter + validity guard | ⬜ Pending |
 | SKE-R-03 | 0 | Skills server: roots, index, resolution | ⬜ Pending |
@@ -48,3 +48,5 @@
 ## Session Log
 
 (append after each session completes)
+
+- **SKE-00d** (2026-08-21): project registered at ~/.solomon/projects/solomon-workspace/config.json (payroll-converter field shape); PROGRESS round-trips ProgressParser (23 rows, SKE-00 absent). Gate note: progress_parses command in PROMPTS calls nonexistent ProgressParser.parse() — real API is async parse_file; intent validated.
