@@ -18,7 +18,7 @@
 | SKE-R-02 | 0 | hfs-client-engagement frontmatter + validity guard | ✅ Complete |
 | SKE-R-03 | 0 | Skills server: roots, index, resolution | ✅ Complete |
 | SKE-R-04 | 0 | Parser: corpus-as-spec contract | ✅ Complete |
-| SKE-R-06 | 0 | Path drift | ⬜ Pending |
+| SKE-R-06 | 0 | Path drift | ✅ Complete |
 | SKE-R-07 | 1 | Command promotion + MCP namespace repair (task 6 = Lionel) | ⬜ Pending |
 | SKE-01 | 1 | Slash wrappers + inventory gates | ⬜ Pending |
 | SKE-02 | 1 | Skill reachability sweep + runtime-local disposition | ⬜ Pending |
@@ -54,3 +54,4 @@
 - **SKE-R-02** (2026-08-21, devkit `8078e02` + workspace `5880f21`): scalar quoted (single-line diff), yaml parses, guard exit-1 fail-path exercised; skill became live-discoverable mid-session (harness surfaced it). Inventory JSON regeneration reverted — SKE-11 owns that baseline.
 - **SKE-R-03** (2026-08-21, solomon `4841629` + devkit `55f8e5d`): 4/4 gates; health 82 (43+39) live; index 43 entries + pointer at ~1,139 tok (under 1,200 budget); 60 tests (7 new two-root/collision); _meta relocation done; hermetic AGENTS_ROOT patching in tests.
 - **SKE-R-04** (2026-08-21, solomon `80c2aaf` + devkit `165434e`): 5/5 gates; corpus yield 15/11 (vs 3/2 XML), pattern floor 38 held, index 1,139 tok; fullstack-integration was the 1-file outlier (## Constraints wrapping v1.7 XML) — converted to corpus format rather than adding a parser dialect; regex deletion landed as single revertable commit; consumer sweep clean (solomon + hfs-aiops).
+- **SKE-R-06** (2026-08-21, workspace `aba82fb`): 3/3 gates; 43 lionelj entries purged (discovery's 6 was an undercount) + phantom SKILLS_DIR; backup at ~/.claude/backups/settings.local.json.20260821-144953; symlinks $HOME-based (relative form dangles from arbitrary clone dirs — the fresh_clone gate decided).
