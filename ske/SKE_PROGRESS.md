@@ -19,7 +19,7 @@
 | SKE-R-03 | 0 | Skills server: roots, index, resolution | ✅ Complete |
 | SKE-R-04 | 0 | Parser: corpus-as-spec contract | ✅ Complete |
 | SKE-R-06 | 0 | Path drift | ✅ Complete |
-| SKE-R-07 | 1 | Command promotion + MCP namespace repair (task 6 = Lionel) | ⬜ Pending |
+| SKE-R-07 | 1 | Command promotion + MCP namespace repair (task 6 = Lionel) | ✅ Complete |
 | SKE-01 | 1 | Slash wrappers + inventory gates | ✅ Complete |
 | SKE-02 | 1 | Skill reachability sweep + runtime-local disposition | ⬜ Pending |
 | SKE-03 | 1 | Skill-load telemetry (Telemetry contract) | ✅ Complete |
@@ -57,3 +57,4 @@
 - **SKE-R-06** (2026-08-21, workspace `aba82fb`): 3/3 gates; 43 lionelj entries purged (discovery's 6 was an undercount) + phantom SKILLS_DIR; backup at ~/.claude/backups/settings.local.json.20260821-144953; symlinks $HOME-based (relative form dangles from arbitrary clone dirs — the fresh_clone gate decided).
 - **SKE-01** (2026-08-21, devkit `701fb7c` + workspace `6a652fe`): 3/3 gates + floor fail-path; coverage 43/43 (population correct pre-SKE-02), collisions [], drift [] (pins land in SKE-07); reachability fields merged into existing coverage dict (key collision found live); commands use live plugin namespace, runtime sync deferred to D13 user step.
 - **SKE-03** (2026-08-21, solomon `4c3b0d0` + devkit `2c1dedf`): 4/4 gates + 8 tests; hook measured ~13ms wall (bash spawn floor; sed-only parsing); exploding-counter test proves telemetry failure never fails the tool; USER WIRING PENDING (D13): PostToolUse entry for Skill + Read → claude-config/hooks/skill-telemetry.sh in runtime settings.
+- **SKE-R-07** (2026-08-21, devkit `c696378`+`c15bd37`, solomon `904732d`): 3/3 gates — copies_identical went MACHINE-checkable: discovery drift found, the 4 'runtime-only' files are symlinks → solomon/commands/ (plugin repo), so the live fix landed as repo edits and the planned user cp is a NO-OP (would sever symlinks — decision doc ske/decisions/SKE-R-07.md). 5 declared + 4 same-class dead refs repaired; 0 dead namespaces remain in command surfaces.
