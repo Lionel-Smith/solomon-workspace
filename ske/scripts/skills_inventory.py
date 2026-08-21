@@ -504,9 +504,9 @@ def main() -> int:
     ap.add_argument(
         "--coverage-floor",
         type=int,
-        default=0,
+        default=44,
         help="fail (exit 1) when org-authored reachable count is below this "
-        "(default 0 = report-only until SKE-02 sets the floor)",
+        "(44 since SKE-02: full org-authored population accounted)",
     )
     ap.add_argument(
         "--out",

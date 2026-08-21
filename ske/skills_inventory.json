@@ -1,19 +1,10 @@
 {
   "baseline_comparable": true,
   "coverage": {
-    "devkit_not_installed": [
-      "hfs-project-bootstrap",
-      "polyrepo-management",
-      "skill-reviewer",
-      "solomon",
-      "solomon-complete",
-      "solomon-feature",
-      "solomon-status"
-    ],
-    "reachable": 43,
+    "devkit_not_installed": [],
+    "reachable": 44,
     "runtime_not_in_devkit": [
       "ask-matt",
-      "claude-design-prompts",
       "claude-handoff",
       "code-review",
       "codebase-design",
@@ -53,7 +44,7 @@
       "writing-great-skills",
       "writing-shape"
     ],
-    "total": 43,
+    "total": 44,
     "unreachable": []
   },
   "drift": [
@@ -133,25 +124,28 @@
       }
     },
     {
-      "devkit_sha_match": null,
+      "devkit_sha_match": true,
       "distinct_copies": {
-        "/Users/lionel/.claude/skills/claude-design-prompts": [
+        "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/claude-design-prompts": [
+          "devkit",
           "runtime",
           "workspace"
         ]
       },
       "distinct_realpaths": 1,
       "identical": true,
-      "in_devkit": false,
+      "in_devkit": true,
       "name": "claude-design-prompts",
-      "newest_mtime": 1783165196,
+      "newest_mtime": 1787345381,
       "roots": [
+        "devkit",
         "runtime",
         "workspace"
       ],
       "sha_by_root": {
-        "runtime": "a6c6083f6b85",
-        "workspace": "a6c6083f6b85"
+        "devkit": "ba0834920089",
+        "runtime": "ba0834920089",
+        "workspace": "ba0834920089"
       }
     },
     {
@@ -952,7 +946,9 @@
       "devkit_sha_match": true,
       "distinct_copies": {
         "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-project-bootstrap": [
-          "devkit"
+          "devkit",
+          "runtime",
+          "workspace"
         ]
       },
       "distinct_realpaths": 1,
@@ -961,10 +957,14 @@
       "name": "hfs-project-bootstrap",
       "newest_mtime": 1785765888,
       "roots": [
-        "devkit"
+        "devkit",
+        "runtime",
+        "workspace"
       ],
       "sha_by_root": {
-        "devkit": "b1d25150dcb9"
+        "devkit": "b1d25150dcb9",
+        "runtime": "b1d25150dcb9",
+        "workspace": "b1d25150dcb9"
       }
     },
     {
@@ -1349,7 +1349,9 @@
           "plugin:solomon"
         ],
         "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/polyrepo-management": [
-          "devkit"
+          "devkit",
+          "runtime",
+          "workspace"
         ],
         "/Users/lionel/Documents/GitHub/solomon-workspace/solomon/skills/polyrepo-management": [
           "solomon-repo"
@@ -1363,12 +1365,16 @@
       "roots": [
         "devkit",
         "plugin:solomon",
-        "solomon-repo"
+        "runtime",
+        "solomon-repo",
+        "workspace"
       ],
       "sha_by_root": {
         "devkit": "7067436a87b2",
         "plugin:solomon": "7067436a87b2",
-        "solomon-repo": "7067436a87b2"
+        "runtime": "7067436a87b2",
+        "solomon-repo": "7067436a87b2",
+        "workspace": "7067436a87b2"
       }
     },
     {
@@ -1827,7 +1833,9 @@
       "devkit_sha_match": true,
       "distinct_copies": {
         "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/skill-reviewer": [
-          "devkit"
+          "devkit",
+          "runtime",
+          "workspace"
         ]
       },
       "distinct_realpaths": 1,
@@ -1836,17 +1844,23 @@
       "name": "skill-reviewer",
       "newest_mtime": 1785765888,
       "roots": [
-        "devkit"
+        "devkit",
+        "runtime",
+        "workspace"
       ],
       "sha_by_root": {
-        "devkit": "3963948e59a0"
+        "devkit": "3963948e59a0",
+        "runtime": "3963948e59a0",
+        "workspace": "3963948e59a0"
       }
     },
     {
       "devkit_sha_match": true,
       "distinct_copies": {
         "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon": [
-          "devkit"
+          "devkit",
+          "runtime",
+          "workspace"
         ]
       },
       "distinct_realpaths": 1,
@@ -1855,17 +1869,23 @@
       "name": "solomon",
       "newest_mtime": 1785765888,
       "roots": [
-        "devkit"
+        "devkit",
+        "runtime",
+        "workspace"
       ],
       "sha_by_root": {
-        "devkit": "82a7bf9ef952"
+        "devkit": "82a7bf9ef952",
+        "runtime": "82a7bf9ef952",
+        "workspace": "82a7bf9ef952"
       }
     },
     {
       "devkit_sha_match": true,
       "distinct_copies": {
         "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon-complete": [
-          "devkit"
+          "devkit",
+          "runtime",
+          "workspace"
         ]
       },
       "distinct_realpaths": 1,
@@ -1874,17 +1894,23 @@
       "name": "solomon-complete",
       "newest_mtime": 1785765888,
       "roots": [
-        "devkit"
+        "devkit",
+        "runtime",
+        "workspace"
       ],
       "sha_by_root": {
-        "devkit": "d752c90685f8"
+        "devkit": "d752c90685f8",
+        "runtime": "d752c90685f8",
+        "workspace": "d752c90685f8"
       }
     },
     {
       "devkit_sha_match": true,
       "distinct_copies": {
         "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon-feature": [
-          "devkit"
+          "devkit",
+          "runtime",
+          "workspace"
         ]
       },
       "distinct_realpaths": 1,
@@ -1893,10 +1919,14 @@
       "name": "solomon-feature",
       "newest_mtime": 1785765888,
       "roots": [
-        "devkit"
+        "devkit",
+        "runtime",
+        "workspace"
       ],
       "sha_by_root": {
-        "devkit": "ce244b6901b3"
+        "devkit": "ce244b6901b3",
+        "runtime": "ce244b6901b3",
+        "workspace": "ce244b6901b3"
       }
     },
     {
@@ -1928,7 +1958,9 @@
       "devkit_sha_match": true,
       "distinct_copies": {
         "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon-status": [
-          "devkit"
+          "devkit",
+          "runtime",
+          "workspace"
         ]
       },
       "distinct_realpaths": 1,
@@ -1937,10 +1969,14 @@
       "name": "solomon-status",
       "newest_mtime": 1785765888,
       "roots": [
-        "devkit"
+        "devkit",
+        "runtime",
+        "workspace"
       ],
       "sha_by_root": {
-        "devkit": "5e66fa195d3f"
+        "devkit": "5e66fa195d3f",
+        "runtime": "5e66fa195d3f",
+        "workspace": "5e66fa195d3f"
       }
     },
     {
@@ -2394,6 +2430,57 @@
             "references/edge-cases.md",
             "references/performance-tests.md"
           ],
+          "symlink_target": null,
+          "upstream_pin": null
+        },
+        "claude-design-prompts": {
+          "body_bytes": 4999,
+          "bytes": 5534,
+          "declared_name": "claude-design-prompts",
+          "description_chars": 481,
+          "description_tokens": 120,
+          "est_tokens": 1384,
+          "frontmatter_keys": [
+            "description",
+            "name"
+          ],
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
+          "has_assets_dir": false,
+          "has_evals": false,
+          "has_frontmatter": true,
+          "has_references_dir": false,
+          "has_scripts_dir": false,
+          "is_symlink": false,
+          "lines": 83,
+          "mentions_code_review": false,
+          "mentions_completion_criteria": false,
+          "mentions_tdd": false,
+          "mentions_worktree": false,
+          "missing_assumed_v2_keys": [
+            "version",
+            "author",
+            "date",
+            "phase",
+            "triggers",
+            "related_skills"
+          ],
+          "missing_template_keys": [
+            "version",
+            "allowed-tools",
+            "model",
+            "hooks"
+          ],
+          "monolithic": true,
+          "mtime": 1787345381,
+          "name": "claude-design-prompts",
+          "name_matches_dir": true,
+          "path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/claude-design-prompts",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/claude-design-prompts",
+          "root": "devkit",
+          "sha256": "ba0834920089a2344b29e24d92fcbe585ef3a602d49d5e100332efd4bfa15b7b",
+          "sub_file_count": 0,
+          "sub_files": [],
           "symlink_target": null,
           "upstream_pin": null
         },
@@ -4719,28 +4806,29 @@
         },
         "claude-design-prompts": {
           "body_bytes": 4999,
-          "bytes": 4999,
-          "declared_name": null,
-          "description_chars": 0,
-          "description_tokens": 0,
-          "est_tokens": 1250,
-          "frontmatter_keys": [],
+          "bytes": 5534,
+          "declared_name": "claude-design-prompts",
+          "description_chars": 481,
+          "description_tokens": 120,
+          "est_tokens": 1384,
+          "frontmatter_keys": [
+            "description",
+            "name"
+          ],
           "frontmatter_yaml_error": null,
-          "frontmatter_yaml_valid": null,
+          "frontmatter_yaml_valid": true,
           "has_assets_dir": false,
           "has_evals": false,
-          "has_frontmatter": false,
+          "has_frontmatter": true,
           "has_references_dir": false,
           "has_scripts_dir": false,
-          "is_symlink": false,
-          "lines": 79,
+          "is_symlink": true,
+          "lines": 83,
           "mentions_code_review": false,
           "mentions_completion_criteria": false,
           "mentions_tdd": false,
           "mentions_worktree": false,
           "missing_assumed_v2_keys": [
-            "name",
-            "description",
             "version",
             "author",
             "date",
@@ -4749,24 +4837,22 @@
             "related_skills"
           ],
           "missing_template_keys": [
-            "name",
             "version",
-            "description",
             "allowed-tools",
             "model",
             "hooks"
           ],
           "monolithic": true,
-          "mtime": 1783165196,
+          "mtime": 1787345381,
           "name": "claude-design-prompts",
-          "name_matches_dir": false,
+          "name_matches_dir": true,
           "path": "/Users/lionel/.claude/skills/claude-design-prompts",
-          "real_path": "/Users/lionel/.claude/skills/claude-design-prompts",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/claude-design-prompts",
           "root": "runtime",
-          "sha256": "a6c6083f6b852942fe1592bb128ef8f0ee091fb1fa171fbcfd11747833b0ce9c",
+          "sha256": "ba0834920089a2344b29e24d92fcbe585ef3a602d49d5e100332efd4bfa15b7b",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null,
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/claude-design-prompts",
           "upstream_pin": null
         },
         "claude-handoff": {
@@ -6389,6 +6475,57 @@
           "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-preprod-deploy/",
           "upstream_pin": null
         },
+        "hfs-project-bootstrap": {
+          "body_bytes": 17141,
+          "bytes": 17555,
+          "declared_name": "hfs-project-bootstrap",
+          "description_chars": 364,
+          "description_tokens": 91,
+          "est_tokens": 4389,
+          "frontmatter_keys": [
+            "description",
+            "name"
+          ],
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
+          "has_assets_dir": false,
+          "has_evals": false,
+          "has_frontmatter": true,
+          "has_references_dir": false,
+          "has_scripts_dir": false,
+          "is_symlink": true,
+          "lines": 440,
+          "mentions_code_review": false,
+          "mentions_completion_criteria": true,
+          "mentions_tdd": false,
+          "mentions_worktree": false,
+          "missing_assumed_v2_keys": [
+            "version",
+            "author",
+            "date",
+            "phase",
+            "triggers",
+            "related_skills"
+          ],
+          "missing_template_keys": [
+            "version",
+            "allowed-tools",
+            "model",
+            "hooks"
+          ],
+          "monolithic": true,
+          "mtime": 1785765888,
+          "name": "hfs-project-bootstrap",
+          "name_matches_dir": true,
+          "path": "/Users/lionel/.claude/skills/hfs-project-bootstrap",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-project-bootstrap",
+          "root": "runtime",
+          "sha256": "b1d25150dcb9a63c1a6067e9bdeb7049a726e63c8764c7a3e28e41e9af8d9a84",
+          "sub_file_count": 0,
+          "sub_files": [],
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-project-bootstrap",
+          "upstream_pin": null
+        },
         "hfs-repo-maintenance": {
           "body_bytes": 13578,
           "bytes": 13929,
@@ -7176,6 +7313,57 @@
           "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/playwright-e2e-testing/",
           "upstream_pin": null
         },
+        "polyrepo-management": {
+          "body_bytes": 7344,
+          "bytes": 7699,
+          "declared_name": "polyrepo-management",
+          "description_chars": 307,
+          "description_tokens": 77,
+          "est_tokens": 1925,
+          "frontmatter_keys": [
+            "description",
+            "name"
+          ],
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
+          "has_assets_dir": false,
+          "has_evals": false,
+          "has_frontmatter": true,
+          "has_references_dir": false,
+          "has_scripts_dir": false,
+          "is_symlink": true,
+          "lines": 177,
+          "mentions_code_review": false,
+          "mentions_completion_criteria": false,
+          "mentions_tdd": false,
+          "mentions_worktree": false,
+          "missing_assumed_v2_keys": [
+            "version",
+            "author",
+            "date",
+            "phase",
+            "triggers",
+            "related_skills"
+          ],
+          "missing_template_keys": [
+            "version",
+            "allowed-tools",
+            "model",
+            "hooks"
+          ],
+          "monolithic": true,
+          "mtime": 1785765888,
+          "name": "polyrepo-management",
+          "name_matches_dir": true,
+          "path": "/Users/lionel/.claude/skills/polyrepo-management",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/polyrepo-management",
+          "root": "runtime",
+          "sha256": "7067436a87b2396682cd667678c35285b3127e8373bd369990613587a1bca052",
+          "sub_file_count": 0,
+          "sub_files": [],
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/polyrepo-management",
+          "upstream_pin": null
+        },
         "postgis-geospatial": {
           "body_bytes": 11415,
           "bytes": 11951,
@@ -7822,6 +8010,210 @@
           "symlink_target": "../../.agents/skills/setup-pre-commit",
           "upstream_pin": null
         },
+        "skill-reviewer": {
+          "body_bytes": 7485,
+          "bytes": 7853,
+          "declared_name": "skill-reviewer",
+          "description_chars": 323,
+          "description_tokens": 81,
+          "est_tokens": 1963,
+          "frontmatter_keys": [
+            "description",
+            "name"
+          ],
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
+          "has_assets_dir": false,
+          "has_evals": false,
+          "has_frontmatter": true,
+          "has_references_dir": false,
+          "has_scripts_dir": false,
+          "is_symlink": true,
+          "lines": 291,
+          "mentions_code_review": true,
+          "mentions_completion_criteria": false,
+          "mentions_tdd": false,
+          "mentions_worktree": false,
+          "missing_assumed_v2_keys": [
+            "version",
+            "author",
+            "date",
+            "phase",
+            "triggers",
+            "related_skills"
+          ],
+          "missing_template_keys": [
+            "version",
+            "allowed-tools",
+            "model",
+            "hooks"
+          ],
+          "monolithic": true,
+          "mtime": 1785765888,
+          "name": "skill-reviewer",
+          "name_matches_dir": true,
+          "path": "/Users/lionel/.claude/skills/skill-reviewer",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/skill-reviewer",
+          "root": "runtime",
+          "sha256": "3963948e59a018a2280e5388263af228fc29c474edfc4356d87d516cd48e9419",
+          "sub_file_count": 0,
+          "sub_files": [],
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/skill-reviewer",
+          "upstream_pin": null
+        },
+        "solomon": {
+          "body_bytes": 2155,
+          "bytes": 2521,
+          "declared_name": "solomon",
+          "description_chars": 330,
+          "description_tokens": 82,
+          "est_tokens": 630,
+          "frontmatter_keys": [
+            "description",
+            "name"
+          ],
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
+          "has_assets_dir": false,
+          "has_evals": false,
+          "has_frontmatter": true,
+          "has_references_dir": false,
+          "has_scripts_dir": false,
+          "is_symlink": true,
+          "lines": 83,
+          "mentions_code_review": false,
+          "mentions_completion_criteria": false,
+          "mentions_tdd": false,
+          "mentions_worktree": false,
+          "missing_assumed_v2_keys": [
+            "version",
+            "author",
+            "date",
+            "phase",
+            "triggers",
+            "related_skills"
+          ],
+          "missing_template_keys": [
+            "version",
+            "allowed-tools",
+            "model",
+            "hooks"
+          ],
+          "monolithic": true,
+          "mtime": 1785765888,
+          "name": "solomon",
+          "name_matches_dir": true,
+          "path": "/Users/lionel/.claude/skills/solomon",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon",
+          "root": "runtime",
+          "sha256": "82a7bf9ef95228ff84484e52f63670986301d86e813006aaae8f709c5a1267b2",
+          "sub_file_count": 0,
+          "sub_files": [],
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon",
+          "upstream_pin": null
+        },
+        "solomon-complete": {
+          "body_bytes": 1780,
+          "bytes": 2065,
+          "declared_name": "solomon-complete",
+          "description_chars": 240,
+          "description_tokens": 60,
+          "est_tokens": 516,
+          "frontmatter_keys": [
+            "description",
+            "name"
+          ],
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
+          "has_assets_dir": false,
+          "has_evals": false,
+          "has_frontmatter": true,
+          "has_references_dir": false,
+          "has_scripts_dir": false,
+          "is_symlink": true,
+          "lines": 88,
+          "mentions_code_review": false,
+          "mentions_completion_criteria": false,
+          "mentions_tdd": false,
+          "mentions_worktree": false,
+          "missing_assumed_v2_keys": [
+            "version",
+            "author",
+            "date",
+            "phase",
+            "triggers",
+            "related_skills"
+          ],
+          "missing_template_keys": [
+            "version",
+            "allowed-tools",
+            "model",
+            "hooks"
+          ],
+          "monolithic": true,
+          "mtime": 1785765888,
+          "name": "solomon-complete",
+          "name_matches_dir": true,
+          "path": "/Users/lionel/.claude/skills/solomon-complete",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon-complete",
+          "root": "runtime",
+          "sha256": "d752c90685f81f230d868254d4b70f2e1170ab0dbc6ce325f47aa4dd3d22aa27",
+          "sub_file_count": 0,
+          "sub_files": [],
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon-complete",
+          "upstream_pin": null
+        },
+        "solomon-feature": {
+          "body_bytes": 4061,
+          "bytes": 4341,
+          "declared_name": "solomon-feature",
+          "description_chars": 236,
+          "description_tokens": 59,
+          "est_tokens": 1085,
+          "frontmatter_keys": [
+            "description",
+            "name"
+          ],
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
+          "has_assets_dir": false,
+          "has_evals": false,
+          "has_frontmatter": true,
+          "has_references_dir": false,
+          "has_scripts_dir": false,
+          "is_symlink": true,
+          "lines": 172,
+          "mentions_code_review": false,
+          "mentions_completion_criteria": false,
+          "mentions_tdd": false,
+          "mentions_worktree": false,
+          "missing_assumed_v2_keys": [
+            "version",
+            "author",
+            "date",
+            "phase",
+            "triggers",
+            "related_skills"
+          ],
+          "missing_template_keys": [
+            "version",
+            "allowed-tools",
+            "model",
+            "hooks"
+          ],
+          "monolithic": true,
+          "mtime": 1785765888,
+          "name": "solomon-feature",
+          "name_matches_dir": true,
+          "path": "/Users/lionel/.claude/skills/solomon-feature",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon-feature",
+          "root": "runtime",
+          "sha256": "ce244b6901b3cb4f8c3fcc3132df9a4847b9d7f76f79d9d2ea734d3fb4e6c5ec",
+          "sub_file_count": 0,
+          "sub_files": [],
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon-feature",
+          "upstream_pin": null
+        },
         "solomon-session": {
           "body_bytes": 1950,
           "bytes": 2299,
@@ -7871,6 +8263,57 @@
           "sub_file_count": 0,
           "sub_files": [],
           "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon-session/",
+          "upstream_pin": null
+        },
+        "solomon-status": {
+          "body_bytes": 1897,
+          "bytes": 2186,
+          "declared_name": "solomon-status",
+          "description_chars": 246,
+          "description_tokens": 62,
+          "est_tokens": 546,
+          "frontmatter_keys": [
+            "description",
+            "name"
+          ],
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
+          "has_assets_dir": false,
+          "has_evals": false,
+          "has_frontmatter": true,
+          "has_references_dir": false,
+          "has_scripts_dir": false,
+          "is_symlink": true,
+          "lines": 88,
+          "mentions_code_review": false,
+          "mentions_completion_criteria": false,
+          "mentions_tdd": false,
+          "mentions_worktree": false,
+          "missing_assumed_v2_keys": [
+            "version",
+            "author",
+            "date",
+            "phase",
+            "triggers",
+            "related_skills"
+          ],
+          "missing_template_keys": [
+            "version",
+            "allowed-tools",
+            "model",
+            "hooks"
+          ],
+          "monolithic": true,
+          "mtime": 1785765888,
+          "name": "solomon-status",
+          "name_matches_dir": true,
+          "path": "/Users/lionel/.claude/skills/solomon-status",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon-status",
+          "root": "runtime",
+          "sha256": "5e66fa195d3ff2e8c0b85751e7648c6feb39d312e73710d13fd67d77363a51eb",
+          "sub_file_count": 0,
+          "sub_files": [],
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon-status",
           "upstream_pin": null
         },
         "tdd": {
@@ -10862,28 +11305,29 @@
         },
         "claude-design-prompts": {
           "body_bytes": 4999,
-          "bytes": 4999,
-          "declared_name": null,
-          "description_chars": 0,
-          "description_tokens": 0,
-          "est_tokens": 1250,
-          "frontmatter_keys": [],
+          "bytes": 5534,
+          "declared_name": "claude-design-prompts",
+          "description_chars": 481,
+          "description_tokens": 120,
+          "est_tokens": 1384,
+          "frontmatter_keys": [
+            "description",
+            "name"
+          ],
           "frontmatter_yaml_error": null,
-          "frontmatter_yaml_valid": null,
+          "frontmatter_yaml_valid": true,
           "has_assets_dir": false,
           "has_evals": false,
-          "has_frontmatter": false,
+          "has_frontmatter": true,
           "has_references_dir": false,
           "has_scripts_dir": false,
-          "is_symlink": false,
-          "lines": 79,
+          "is_symlink": true,
+          "lines": 83,
           "mentions_code_review": false,
           "mentions_completion_criteria": false,
           "mentions_tdd": false,
           "mentions_worktree": false,
           "missing_assumed_v2_keys": [
-            "name",
-            "description",
             "version",
             "author",
             "date",
@@ -10892,24 +11336,22 @@
             "related_skills"
           ],
           "missing_template_keys": [
-            "name",
             "version",
-            "description",
             "allowed-tools",
             "model",
             "hooks"
           ],
           "monolithic": true,
-          "mtime": 1783165196,
+          "mtime": 1787345381,
           "name": "claude-design-prompts",
-          "name_matches_dir": false,
+          "name_matches_dir": true,
           "path": "/Users/lionel/Documents/GitHub/solomon-workspace/.claude/skills/claude-design-prompts",
-          "real_path": "/Users/lionel/.claude/skills/claude-design-prompts",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/claude-design-prompts",
           "root": "workspace",
-          "sha256": "a6c6083f6b852942fe1592bb128ef8f0ee091fb1fa171fbcfd11747833b0ce9c",
+          "sha256": "ba0834920089a2344b29e24d92fcbe585ef3a602d49d5e100332efd4bfa15b7b",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null,
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/claude-design-prompts",
           "upstream_pin": null
         },
         "claude-handoff": {
@@ -12532,6 +12974,57 @@
           "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-preprod-deploy/",
           "upstream_pin": null
         },
+        "hfs-project-bootstrap": {
+          "body_bytes": 17141,
+          "bytes": 17555,
+          "declared_name": "hfs-project-bootstrap",
+          "description_chars": 364,
+          "description_tokens": 91,
+          "est_tokens": 4389,
+          "frontmatter_keys": [
+            "description",
+            "name"
+          ],
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
+          "has_assets_dir": false,
+          "has_evals": false,
+          "has_frontmatter": true,
+          "has_references_dir": false,
+          "has_scripts_dir": false,
+          "is_symlink": true,
+          "lines": 440,
+          "mentions_code_review": false,
+          "mentions_completion_criteria": true,
+          "mentions_tdd": false,
+          "mentions_worktree": false,
+          "missing_assumed_v2_keys": [
+            "version",
+            "author",
+            "date",
+            "phase",
+            "triggers",
+            "related_skills"
+          ],
+          "missing_template_keys": [
+            "version",
+            "allowed-tools",
+            "model",
+            "hooks"
+          ],
+          "monolithic": true,
+          "mtime": 1785765888,
+          "name": "hfs-project-bootstrap",
+          "name_matches_dir": true,
+          "path": "/Users/lionel/Documents/GitHub/solomon-workspace/.claude/skills/hfs-project-bootstrap",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-project-bootstrap",
+          "root": "workspace",
+          "sha256": "b1d25150dcb9a63c1a6067e9bdeb7049a726e63c8764c7a3e28e41e9af8d9a84",
+          "sub_file_count": 0,
+          "sub_files": [],
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-project-bootstrap",
+          "upstream_pin": null
+        },
         "hfs-repo-maintenance": {
           "body_bytes": 13578,
           "bytes": 13929,
@@ -13319,6 +13812,57 @@
           "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/playwright-e2e-testing/",
           "upstream_pin": null
         },
+        "polyrepo-management": {
+          "body_bytes": 7344,
+          "bytes": 7699,
+          "declared_name": "polyrepo-management",
+          "description_chars": 307,
+          "description_tokens": 77,
+          "est_tokens": 1925,
+          "frontmatter_keys": [
+            "description",
+            "name"
+          ],
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
+          "has_assets_dir": false,
+          "has_evals": false,
+          "has_frontmatter": true,
+          "has_references_dir": false,
+          "has_scripts_dir": false,
+          "is_symlink": true,
+          "lines": 177,
+          "mentions_code_review": false,
+          "mentions_completion_criteria": false,
+          "mentions_tdd": false,
+          "mentions_worktree": false,
+          "missing_assumed_v2_keys": [
+            "version",
+            "author",
+            "date",
+            "phase",
+            "triggers",
+            "related_skills"
+          ],
+          "missing_template_keys": [
+            "version",
+            "allowed-tools",
+            "model",
+            "hooks"
+          ],
+          "monolithic": true,
+          "mtime": 1785765888,
+          "name": "polyrepo-management",
+          "name_matches_dir": true,
+          "path": "/Users/lionel/Documents/GitHub/solomon-workspace/.claude/skills/polyrepo-management",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/polyrepo-management",
+          "root": "workspace",
+          "sha256": "7067436a87b2396682cd667678c35285b3127e8373bd369990613587a1bca052",
+          "sub_file_count": 0,
+          "sub_files": [],
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/polyrepo-management",
+          "upstream_pin": null
+        },
         "postgis-geospatial": {
           "body_bytes": 11415,
           "bytes": 11951,
@@ -13965,6 +14509,210 @@
           "symlink_target": "../../.agents/skills/setup-pre-commit",
           "upstream_pin": null
         },
+        "skill-reviewer": {
+          "body_bytes": 7485,
+          "bytes": 7853,
+          "declared_name": "skill-reviewer",
+          "description_chars": 323,
+          "description_tokens": 81,
+          "est_tokens": 1963,
+          "frontmatter_keys": [
+            "description",
+            "name"
+          ],
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
+          "has_assets_dir": false,
+          "has_evals": false,
+          "has_frontmatter": true,
+          "has_references_dir": false,
+          "has_scripts_dir": false,
+          "is_symlink": true,
+          "lines": 291,
+          "mentions_code_review": true,
+          "mentions_completion_criteria": false,
+          "mentions_tdd": false,
+          "mentions_worktree": false,
+          "missing_assumed_v2_keys": [
+            "version",
+            "author",
+            "date",
+            "phase",
+            "triggers",
+            "related_skills"
+          ],
+          "missing_template_keys": [
+            "version",
+            "allowed-tools",
+            "model",
+            "hooks"
+          ],
+          "monolithic": true,
+          "mtime": 1785765888,
+          "name": "skill-reviewer",
+          "name_matches_dir": true,
+          "path": "/Users/lionel/Documents/GitHub/solomon-workspace/.claude/skills/skill-reviewer",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/skill-reviewer",
+          "root": "workspace",
+          "sha256": "3963948e59a018a2280e5388263af228fc29c474edfc4356d87d516cd48e9419",
+          "sub_file_count": 0,
+          "sub_files": [],
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/skill-reviewer",
+          "upstream_pin": null
+        },
+        "solomon": {
+          "body_bytes": 2155,
+          "bytes": 2521,
+          "declared_name": "solomon",
+          "description_chars": 330,
+          "description_tokens": 82,
+          "est_tokens": 630,
+          "frontmatter_keys": [
+            "description",
+            "name"
+          ],
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
+          "has_assets_dir": false,
+          "has_evals": false,
+          "has_frontmatter": true,
+          "has_references_dir": false,
+          "has_scripts_dir": false,
+          "is_symlink": true,
+          "lines": 83,
+          "mentions_code_review": false,
+          "mentions_completion_criteria": false,
+          "mentions_tdd": false,
+          "mentions_worktree": false,
+          "missing_assumed_v2_keys": [
+            "version",
+            "author",
+            "date",
+            "phase",
+            "triggers",
+            "related_skills"
+          ],
+          "missing_template_keys": [
+            "version",
+            "allowed-tools",
+            "model",
+            "hooks"
+          ],
+          "monolithic": true,
+          "mtime": 1785765888,
+          "name": "solomon",
+          "name_matches_dir": true,
+          "path": "/Users/lionel/Documents/GitHub/solomon-workspace/.claude/skills/solomon",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon",
+          "root": "workspace",
+          "sha256": "82a7bf9ef95228ff84484e52f63670986301d86e813006aaae8f709c5a1267b2",
+          "sub_file_count": 0,
+          "sub_files": [],
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon",
+          "upstream_pin": null
+        },
+        "solomon-complete": {
+          "body_bytes": 1780,
+          "bytes": 2065,
+          "declared_name": "solomon-complete",
+          "description_chars": 240,
+          "description_tokens": 60,
+          "est_tokens": 516,
+          "frontmatter_keys": [
+            "description",
+            "name"
+          ],
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
+          "has_assets_dir": false,
+          "has_evals": false,
+          "has_frontmatter": true,
+          "has_references_dir": false,
+          "has_scripts_dir": false,
+          "is_symlink": true,
+          "lines": 88,
+          "mentions_code_review": false,
+          "mentions_completion_criteria": false,
+          "mentions_tdd": false,
+          "mentions_worktree": false,
+          "missing_assumed_v2_keys": [
+            "version",
+            "author",
+            "date",
+            "phase",
+            "triggers",
+            "related_skills"
+          ],
+          "missing_template_keys": [
+            "version",
+            "allowed-tools",
+            "model",
+            "hooks"
+          ],
+          "monolithic": true,
+          "mtime": 1785765888,
+          "name": "solomon-complete",
+          "name_matches_dir": true,
+          "path": "/Users/lionel/Documents/GitHub/solomon-workspace/.claude/skills/solomon-complete",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon-complete",
+          "root": "workspace",
+          "sha256": "d752c90685f81f230d868254d4b70f2e1170ab0dbc6ce325f47aa4dd3d22aa27",
+          "sub_file_count": 0,
+          "sub_files": [],
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon-complete",
+          "upstream_pin": null
+        },
+        "solomon-feature": {
+          "body_bytes": 4061,
+          "bytes": 4341,
+          "declared_name": "solomon-feature",
+          "description_chars": 236,
+          "description_tokens": 59,
+          "est_tokens": 1085,
+          "frontmatter_keys": [
+            "description",
+            "name"
+          ],
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
+          "has_assets_dir": false,
+          "has_evals": false,
+          "has_frontmatter": true,
+          "has_references_dir": false,
+          "has_scripts_dir": false,
+          "is_symlink": true,
+          "lines": 172,
+          "mentions_code_review": false,
+          "mentions_completion_criteria": false,
+          "mentions_tdd": false,
+          "mentions_worktree": false,
+          "missing_assumed_v2_keys": [
+            "version",
+            "author",
+            "date",
+            "phase",
+            "triggers",
+            "related_skills"
+          ],
+          "missing_template_keys": [
+            "version",
+            "allowed-tools",
+            "model",
+            "hooks"
+          ],
+          "monolithic": true,
+          "mtime": 1785765888,
+          "name": "solomon-feature",
+          "name_matches_dir": true,
+          "path": "/Users/lionel/Documents/GitHub/solomon-workspace/.claude/skills/solomon-feature",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon-feature",
+          "root": "workspace",
+          "sha256": "ce244b6901b3cb4f8c3fcc3132df9a4847b9d7f76f79d9d2ea734d3fb4e6c5ec",
+          "sub_file_count": 0,
+          "sub_files": [],
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon-feature",
+          "upstream_pin": null
+        },
         "solomon-session": {
           "body_bytes": 1950,
           "bytes": 2299,
@@ -14014,6 +14762,57 @@
           "sub_file_count": 0,
           "sub_files": [],
           "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon-session/",
+          "upstream_pin": null
+        },
+        "solomon-status": {
+          "body_bytes": 1897,
+          "bytes": 2186,
+          "declared_name": "solomon-status",
+          "description_chars": 246,
+          "description_tokens": 62,
+          "est_tokens": 546,
+          "frontmatter_keys": [
+            "description",
+            "name"
+          ],
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
+          "has_assets_dir": false,
+          "has_evals": false,
+          "has_frontmatter": true,
+          "has_references_dir": false,
+          "has_scripts_dir": false,
+          "is_symlink": true,
+          "lines": 88,
+          "mentions_code_review": false,
+          "mentions_completion_criteria": false,
+          "mentions_tdd": false,
+          "mentions_worktree": false,
+          "missing_assumed_v2_keys": [
+            "version",
+            "author",
+            "date",
+            "phase",
+            "triggers",
+            "related_skills"
+          ],
+          "missing_template_keys": [
+            "version",
+            "allowed-tools",
+            "model",
+            "hooks"
+          ],
+          "monolithic": true,
+          "mtime": 1785765888,
+          "name": "solomon-status",
+          "name_matches_dir": true,
+          "path": "/Users/lionel/Documents/GitHub/solomon-workspace/.claude/skills/solomon-status",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon-status",
+          "root": "workspace",
+          "sha256": "5e66fa195d3ff2e8c0b85751e7648c6feb39d312e73710d13fd67d77363a51eb",
+          "sub_file_count": 0,
+          "sub_files": [],
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon-status",
           "upstream_pin": null
         },
         "tdd": {
@@ -15655,6 +16454,57 @@
         "references/edge-cases.md",
         "references/performance-tests.md"
       ],
+      "symlink_target": null,
+      "upstream_pin": null
+    },
+    {
+      "body_bytes": 4999,
+      "bytes": 5534,
+      "declared_name": "claude-design-prompts",
+      "description_chars": 481,
+      "description_tokens": 120,
+      "est_tokens": 1384,
+      "frontmatter_keys": [
+        "description",
+        "name"
+      ],
+      "frontmatter_yaml_error": null,
+      "frontmatter_yaml_valid": true,
+      "has_assets_dir": false,
+      "has_evals": false,
+      "has_frontmatter": true,
+      "has_references_dir": false,
+      "has_scripts_dir": false,
+      "is_symlink": false,
+      "lines": 83,
+      "mentions_code_review": false,
+      "mentions_completion_criteria": false,
+      "mentions_tdd": false,
+      "mentions_worktree": false,
+      "missing_assumed_v2_keys": [
+        "version",
+        "author",
+        "date",
+        "phase",
+        "triggers",
+        "related_skills"
+      ],
+      "missing_template_keys": [
+        "version",
+        "allowed-tools",
+        "model",
+        "hooks"
+      ],
+      "monolithic": true,
+      "mtime": 1787345381,
+      "name": "claude-design-prompts",
+      "name_matches_dir": true,
+      "path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/claude-design-prompts",
+      "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/claude-design-prompts",
+      "root": "devkit",
+      "sha256": "ba0834920089a2344b29e24d92fcbe585ef3a602d49d5e100332efd4bfa15b7b",
+      "sub_file_count": 0,
+      "sub_files": [],
       "symlink_target": null,
       "upstream_pin": null
     },
@@ -18642,58 +19492,6 @@
       "upstream_pin": null
     },
     {
-      "body_bytes": 4999,
-      "bytes": 4999,
-      "declared_name": null,
-      "description_chars": 0,
-      "description_tokens": 0,
-      "est_tokens": 1250,
-      "frontmatter_keys": [],
-      "frontmatter_yaml_error": null,
-      "frontmatter_yaml_valid": null,
-      "has_assets_dir": false,
-      "has_evals": false,
-      "has_frontmatter": false,
-      "has_references_dir": false,
-      "has_scripts_dir": false,
-      "is_symlink": false,
-      "lines": 79,
-      "mentions_code_review": false,
-      "mentions_completion_criteria": false,
-      "mentions_tdd": false,
-      "mentions_worktree": false,
-      "missing_assumed_v2_keys": [
-        "name",
-        "description",
-        "version",
-        "author",
-        "date",
-        "phase",
-        "triggers",
-        "related_skills"
-      ],
-      "missing_template_keys": [
-        "name",
-        "version",
-        "description",
-        "allowed-tools",
-        "model",
-        "hooks"
-      ],
-      "monolithic": true,
-      "mtime": 1783165196,
-      "name": "claude-design-prompts",
-      "name_matches_dir": false,
-      "path": "/Users/lionel/.claude/skills/claude-design-prompts",
-      "real_path": "/Users/lionel/.claude/skills/claude-design-prompts",
-      "root": "runtime",
-      "sha256": "a6c6083f6b852942fe1592bb128ef8f0ee091fb1fa171fbcfd11747833b0ce9c",
-      "sub_file_count": 0,
-      "sub_files": [],
-      "symlink_target": null,
-      "upstream_pin": null
-    },
-    {
       "body_bytes": 1057,
       "bytes": 1285,
       "declared_name": "claude-handoff",
@@ -20744,23 +21542,23 @@
     }
   ],
   "summary": {
-    "avg_description_chars": 283.6,
+    "avg_description_chars": 288.6,
     "avg_lines": 179.6,
     "frontmatter_yaml_invalid": 0,
-    "index_cost_tokens": 6739,
+    "index_cost_tokens": 6859,
     "max_lines": 484,
-    "median_description_chars": 254,
+    "median_description_chars": 265,
     "median_lines": 134,
     "mentions_code_review": 11,
     "mentions_completion_criteria": 8,
     "mentions_tdd": 5,
     "mentions_worktree": 2,
     "monolithic_count": 58,
-    "name_mismatch": 2,
-    "no_frontmatter": 1,
-    "total_bytes": 710427,
-    "total_est_tokens": 177611,
-    "total_lines": 17062,
+    "name_mismatch": 1,
+    "no_frontmatter": 0,
+    "total_bytes": 710962,
+    "total_est_tokens": 177745,
+    "total_lines": 17066,
     "unique_skills": 95,
     "with_assets_dir": 3,
     "with_evals": 0,

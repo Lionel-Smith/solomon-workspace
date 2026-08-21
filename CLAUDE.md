@@ -259,10 +259,10 @@ PLANNING → PROMPTS_READY → IN_PROGRESS → COMPLETED
 
 ## Skills Available
 
-Skills live at three layers (canonical → workspace → runtime). Edits must land at the canonical source to survive sync:
-- **Canonical**: `hfs-development-kit/skills/` (HFS-wide, source-of-truth for all workspaces)
-- **Workspace**: `solomon-workspace/.claude/skills/`
-- **Runtime**: `~/.claude/skills/` (loaded into every Claude Code session)
+Two skill roots, one command layer (corrected SKE-02, 2026-08-21):
+- **Org-authored (canonical)**: `hfs-development-kit/skills/` — source of truth; runtime entries in `~/.claude/skills/` are symlinks into it (edit canonically, changes are live through the symlink)
+- **Vendored (read-only)**: `~/.agents/skills/` — discovered via `search_skills` only, loaded as `agents:<name>`; never wrapped or edited
+- **Commands**: one layer — `~/.claude/commands/` entries symlink into `solomon/commands/` and devkit; canonical edits are live immediately. `solomon-workspace/.claude/skills` and `.claude/commands` are symlinks to the runtime dirs, not independent layers.
 
 ### Planning & workflow
 - development-workflow, session-orchestrator, hfs-vscode-orchestrator
@@ -282,13 +282,13 @@ Skills live at three layers (canonical → workspace → runtime). Edits must la
 ### Infrastructure
 - hfs-preprod-deploy v2.0 (REFRESHED Apr 2026 — split into Pattern A: legacy nginx / Pattern B: Caddy host)
 - **hfs-droplet-ops** (NEW Apr 2026 — alembic specific revs, docker exec PYTHONPATH, `docker run --rm` vs `compose run`)
-- droplet-deployment, hfs-server-debugging, hfs-server-inventory
+- hfs-server-debugging, hfs-server-inventory
 - otel-observability, temporal-workflows, postgis-geospatial
 - auto-mode-operations
 
 ### MCP & meta
 - mcp-server-building (extended Apr 2026: "Slash Command Pairing" — every MCP tool ships with paired `.claude/commands/<ns>/<n>.md`)
-- hfs-skill-creator, hfs-config-sync, claude-config-sync, compaction-resilience
+- hfs-skill-creator, hfs-config-sync, compaction-resilience
 - skill-reviewer, hfs-repo-maintenance
 
 The April 2026 cross-project synthesis (B/C/D new + A/E/F edits) was driven by 396-retro analysis across 22 workspaces. See `memory/lesson_skills_for_xproject_lessons.md` for the lesson-to-skill map.
