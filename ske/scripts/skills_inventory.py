@@ -268,6 +268,7 @@ def build_record(root_label: str, skill_dir: Path, skill_md: Path) -> dict:
         "name_matches_dir": str(fm.get("name", "")) == skill_dir.name,
         "description_chars": len(desc),
         "description_tokens": round(len(desc) / 4),
+        "upstream_pin": (str(fm["upstream"]) if "upstream" in fm else None),
         "missing_template_keys": [k for k in TEMPLATE_KEYS if k not in fm],
         "missing_assumed_v2_keys": [k for k in ASSUMED_V2_KEYS if k not in fm],
         "sub_file_count": len(sub_files),
@@ -423,9 +424,90 @@ def print_report(doc: dict) -> None:
     w(f"  in runtime, not in devkit:   {len(doc['coverage']['runtime_not_in_devkit'])}\n")
 
 
+SKILL_LOCK_PATH = HOME / ".agents" / ".skill-lock.json"
+
+
+def build_coverage(scanned: list[dict]) -> dict:
+    """D5 enforcement field: org-authored (devkit) reachability.
+
+    Reachable = frontmatter YAML parses (invalid YAML makes a skill
+    unfindable by search - the SKE-R-02 bug class). Report-only until
+    SKE-02 sets the floor: vendored skills never enter this population
+    (ADR-0002).
+    """
+    devkit = next((r for r in scanned if r["label"] == "devkit"), None)
+    entries = list(devkit["entries"].values()) if devkit else []
+    unreachable = [
+        {"name": r["name"], "reason": r["frontmatter_yaml_error"] or "invalid frontmatter"}
+        for r in entries
+        if r["frontmatter_yaml_valid"] is False
+    ]
+    return {
+        "total": len(entries),
+        "reachable": len(entries) - len(unreachable),
+        "unreachable": sorted(unreachable, key=lambda u: u["name"]),
+    }
+
+
+def build_name_collisions(scanned: list[dict]) -> list[str]:
+    """Q4 tripwire: bare names present in BOTH devkit and ~/.agents/skills.
+
+    Any name here resolves only via qualified form (devkit:x / agents:x);
+    the server returns AMBIGUOUS_SKILL for the bare name.
+    """
+    devkit = next((r for r in scanned if r["label"] == "devkit"), None)
+    agents = next((r for r in scanned if r["label"] == "agents"), None)
+    if not devkit or not agents:
+        return []
+    return sorted(set(devkit["entries"]) & set(agents["entries"]))
+
+
+def build_upstream_drift(scanned: list[dict]) -> list[dict]:
+    """Q3 report-only field: frontmatter `upstream:` pins vs live lockfile.
+
+    Devkit wrapper skills may pin an upstream vendored hash (SKE-07). A pin
+    that no longer prefixes the lockfile's skillFolderHash means upstream
+    moved - reported, never enforced.
+    """
+    try:
+        lock = json.loads(SKILL_LOCK_PATH.read_text()).get("skills", {})
+    except (OSError, ValueError):
+        lock = {}
+    devkit = next((r for r in scanned if r["label"] == "devkit"), None)
+    drift: list[dict] = []
+    for rec in (devkit["entries"].values() if devkit else []):
+        pin = rec.get("upstream_pin")
+        if not pin:
+            continue
+        # pin forms: "<name>@<hash-prefix>" or bare "<hash-prefix>"
+        target, _, pinned_hash = pin.rpartition("@")
+        target = target or rec["name"]
+        lock_hash = (lock.get(target) or {}).get("skillFolderHash")
+        if lock_hash is None:
+            status = "lock_missing"
+        elif lock_hash.startswith(pinned_hash):
+            status = "match"
+        else:
+            status = "drift"
+        drift.append({
+            "name": rec["name"],
+            "pin": pin,
+            "lock_hash": lock_hash,
+            "status": status,
+        })
+    return sorted(drift, key=lambda d: d["name"])
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="SKE-00 skills inventory")
     ap.add_argument("--stdout", action="store_true", help="report only, do not write JSON")
+    ap.add_argument(
+        "--coverage-floor",
+        type=int,
+        default=0,
+        help="fail (exit 1) when org-authored reachable count is below this "
+        "(default 0 = report-only until SKE-02 sets the floor)",
+    )
     ap.add_argument(
         "--out",
         default=str(Path(__file__).resolve().parents[1] / "skills_inventory.json"),
@@ -464,7 +546,12 @@ def main() -> int:
             "runtime_not_in_devkit": sorted(runtime_names - devkit_names),
         },
         "summary": summarize(records),
+        "name_collisions": build_name_collisions(scanned),
+        "upstream_drift": build_upstream_drift(scanned),
     }
+    # Reachability fields merge into the existing install-coverage dict
+    # (SKE-01: coverage.{reachable,total,unreachable} over org-authored)
+    doc["coverage"].update(build_coverage(scanned))
 
     print_report(doc)
 
@@ -489,6 +576,14 @@ def main() -> int:
         sys.stderr.write(
             f"\nERROR: {len(invalid)} skill(s) with invalid frontmatter YAML: "
             + ", ".join(sorted(invalid)) + "\n"
+        )
+        return 1
+
+    # Coverage floor (SKE-01): report-only at floor 0; SKE-02 raises it
+    if doc["coverage"]["reachable"] < args.coverage_floor:
+        sys.stderr.write(
+            f"\nERROR: coverage {doc['coverage']['reachable']}/"
+            f"{doc['coverage']['total']} below floor {args.coverage_floor}\n"
         )
         return 1
     return 0

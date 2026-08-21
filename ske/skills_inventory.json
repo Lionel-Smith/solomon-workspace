@@ -10,6 +10,7 @@
       "solomon-feature",
       "solomon-status"
     ],
+    "reachable": 43,
     "runtime_not_in_devkit": [
       "ask-matt",
       "claude-design-prompts",
@@ -51,7 +52,9 @@
       "writing-fragments",
       "writing-great-skills",
       "writing-shape"
-    ]
+    ],
+    "total": 43,
+    "unreachable": []
   },
   "drift": [
     {
@@ -608,16 +611,16 @@
       "identical": true,
       "in_devkit": true,
       "name": "fullstack-integration",
-      "newest_mtime": 1777474946,
+      "newest_mtime": 1787338115,
       "roots": [
         "devkit",
         "runtime",
         "workspace"
       ],
       "sha_by_root": {
-        "devkit": "1ded4f61429a",
-        "runtime": "1ded4f61429a",
-        "workspace": "1ded4f61429a"
+        "devkit": "6753aa47f294",
+        "runtime": "6753aa47f294",
+        "workspace": "6753aa47f294"
       }
     },
     {
@@ -783,16 +786,16 @@
       "identical": true,
       "in_devkit": true,
       "name": "hfs-client-engagement",
-      "newest_mtime": 1785765888,
+      "newest_mtime": 1787337541,
       "roots": [
         "devkit",
         "runtime",
         "workspace"
       ],
       "sha_by_root": {
-        "devkit": "24302bd7b86b",
-        "runtime": "24302bd7b86b",
-        "workspace": "24302bd7b86b"
+        "devkit": "cd3ad4fed644",
+        "runtime": "cd3ad4fed644",
+        "workspace": "cd3ad4fed644"
       }
     },
     {
@@ -2285,6 +2288,7 @@
       }
     }
   ],
+  "name_collisions": [],
   "roots": [
     {
       "entries": {
@@ -2336,7 +2340,8 @@
           "sha256": "7c4c792df58cb3886d70cf2ab3cfe6336a0334ccdeb6e8241191f7dca4c0f47c",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "backend-e2e-testing": {
           "body_bytes": 10393,
@@ -2389,7 +2394,8 @@
             "references/edge-cases.md",
             "references/performance-tests.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "compaction-resilience": {
           "body_bytes": 10198,
@@ -2439,7 +2445,8 @@
           "sha256": "597e355f2af245bfef57fe4c933dfb36213204f1e0222e7f2ac69336c12dca38",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "contract-first-api": {
           "body_bytes": 11098,
@@ -2491,7 +2498,8 @@
           "sub_files": [
             "references/preset-tuning.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "db-transaction-discipline": {
           "body_bytes": 11986,
@@ -2541,7 +2549,8 @@
           "sha256": "760868ffe5d8460cfeefe3b7559c2569ce1986278efe03c877676bf6061d807e",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "debugging-workflow": {
           "body_bytes": 11834,
@@ -2595,7 +2604,8 @@
             "references/diagnostic-patterns.md",
             "references/fix-patterns.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "deep-app-research": {
           "body_bytes": 12768,
@@ -2645,7 +2655,8 @@
           "sha256": "a01db909228356560ac25ca3566b2c72d0106bb8a16bc7b4fe39eaf9ac0ed1fd",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "development-workflow": {
           "body_bytes": 11863,
@@ -2697,7 +2708,8 @@
           "sub_files": [
             "references/quick-start.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "firecrawl-research": {
           "body_bytes": 5238,
@@ -2746,7 +2758,8 @@
           "sha256": "daaf3d252e9531229ab2df382698e2e78a35ccb6e9a8f5164b14aab2c8d5acc7",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "frontend-session-gates": {
           "body_bytes": 11565,
@@ -2796,7 +2809,8 @@
           "sha256": "d55e0a8c55fe86790d99c75064e3c9b1b12158433ee8388c625382ba10f62f4d",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "frontend-wired-verification": {
           "body_bytes": 8184,
@@ -2850,15 +2864,16 @@
             "examples/session-with-wired-checks.xml",
             "examples/wired-traversal.spec.ts"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "fullstack-integration": {
-          "body_bytes": 12137,
-          "bytes": 12503,
+          "body_bytes": 12070,
+          "bytes": 12436,
           "declared_name": "fullstack-integration",
           "description_chars": 316,
           "description_tokens": 79,
-          "est_tokens": 3126,
+          "est_tokens": 3109,
           "frontmatter_keys": [
             "description",
             "name"
@@ -2871,7 +2886,7 @@
           "has_references_dir": true,
           "has_scripts_dir": false,
           "is_symlink": false,
-          "lines": 398,
+          "lines": 396,
           "mentions_code_review": false,
           "mentions_completion_criteria": false,
           "mentions_tdd": false,
@@ -2891,19 +2906,20 @@
             "hooks"
           ],
           "monolithic": false,
-          "mtime": 1777474946,
+          "mtime": 1787338115,
           "name": "fullstack-integration",
           "name_matches_dir": true,
           "path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/fullstack-integration",
           "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/fullstack-integration",
           "root": "devkit",
-          "sha256": "1ded4f61429a8ccd3d645c0a73f1959ad62cf08b078326fa0b1a5357eeb4ec8e",
+          "sha256": "6753aa47f2944a7b9999423d607fd929913a8b493133d1bfb44ee13c6f07dfab",
           "sub_file_count": 2,
           "sub_files": [
             "references/deployment.md",
             "references/websocket.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "hfs-accessibility-testing": {
           "body_bytes": 7907,
@@ -2952,21 +2968,22 @@
           "sha256": "f6045cba191b044d710e947199204ab3702196884b6b8f952ce5c9a5272ee20f",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "hfs-client-engagement": {
           "body_bytes": 9749,
-          "bytes": 10596,
+          "bytes": 10598,
           "declared_name": "hfs-client-engagement",
           "description_chars": 793,
           "description_tokens": 198,
-          "est_tokens": 2649,
+          "est_tokens": 2650,
           "frontmatter_keys": [
             "description",
             "name"
           ],
-          "frontmatter_yaml_error": "mapping values are not allowed here",
-          "frontmatter_yaml_valid": false,
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
           "has_assets_dir": false,
           "has_evals": false,
           "has_frontmatter": true,
@@ -2993,18 +3010,19 @@
             "hooks"
           ],
           "monolithic": false,
-          "mtime": 1785765888,
+          "mtime": 1787337541,
           "name": "hfs-client-engagement",
           "name_matches_dir": true,
           "path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-client-engagement",
           "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-client-engagement",
           "root": "devkit",
-          "sha256": "24302bd7b86b6491ad4ec6dd3963e747ec23053a9fda0583e220ad0cb6604a24",
+          "sha256": "cd3ad4fed6442813463ea8b05e1be7d99e88ad667eacd0583b09ad35445ad21d",
           "sub_file_count": 1,
           "sub_files": [
             "references/meeting-playbook.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "hfs-component-library": {
           "body_bytes": 6951,
@@ -3059,7 +3077,8 @@
             "components/LoadingState.tsx",
             "components/PageHeader.tsx"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "hfs-config-sync": {
           "body_bytes": 8562,
@@ -3109,7 +3128,8 @@
           "sha256": "89fab35ddd83450011af97730c24d7711606b1f28b6f7a16d310728e0d878814",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "hfs-droplet-ops": {
           "body_bytes": 11901,
@@ -3159,7 +3179,8 @@
           "sha256": "e1e33683cccea4837ae03bca72a841df696b4bd5f3697e88759b0c8ddbff31e5",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "hfs-frontend-visual-verification": {
           "body_bytes": 13206,
@@ -3210,7 +3231,8 @@
           "sub_files": [
             "examples/visual-regression-suite.spec.ts"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "hfs-portfolio-review": {
           "body_bytes": 2557,
@@ -3260,7 +3282,8 @@
           "sha256": "0404cc1d38d7aa7dc4ea1610a8f63a69d434ad687edac71200029cb5e202e764",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "hfs-preprod-deploy": {
           "body_bytes": 16976,
@@ -3311,7 +3334,8 @@
           "sub_files": [
             "references/templates.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "hfs-project-bootstrap": {
           "body_bytes": 17141,
@@ -3361,7 +3385,8 @@
           "sha256": "b1d25150dcb9a63c1a6067e9bdeb7049a726e63c8764c7a3e28e41e9af8d9a84",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "hfs-repo-maintenance": {
           "body_bytes": 13578,
@@ -3414,7 +3439,8 @@
             "hfs-repo-maintenance-SKILL-v1.2.md",
             "hfs-repo-maintenance-validation-report.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "hfs-server-debugging": {
           "body_bytes": 7952,
@@ -3463,7 +3489,8 @@
           "sha256": "f7d910be2dc73ef55ccea5b629134c4ed13be2794f987f78d38cd1e193e60d15",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "hfs-server-inventory": {
           "body_bytes": 11097,
@@ -3512,7 +3539,8 @@
           "sha256": "56ad152c0a09995171c95fffd778b7ce2b0745581fe481951ea175da9e041b41",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "hfs-skill-creator": {
           "body_bytes": 17400,
@@ -3562,7 +3590,8 @@
           "sha256": "c2dd89c9cc4a0ddaf45622a55311b1eb5181171926d23844649f011ea10df31e",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "hfs-vscode-orchestrator": {
           "body_bytes": 10411,
@@ -3614,7 +3643,8 @@
           "sub_files": [
             "references/slash-commands.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "implementation-plan-generator": {
           "body_bytes": 13836,
@@ -3671,7 +3701,8 @@
             "references/session-metadata.md",
             "references/session-structure.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "mcp-server-building": {
           "body_bytes": 15391,
@@ -3724,7 +3755,8 @@
             "examples/minimal-server.py",
             "references/fastmcp-cookbook.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "otel-observability": {
           "body_bytes": 11117,
@@ -3774,7 +3806,8 @@
           "sha256": "42a4b8f81ada67a98adc6ef846184840c45487b1ef3ee4ae7aae220661224cec",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "plan-review-loop": {
           "body_bytes": 4744,
@@ -3824,7 +3857,8 @@
           "sha256": "809cf13267d2807cb71802ca1688a06988cbefdb8d80e8894dd3ef4225227e92",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "playwright-e2e-testing": {
           "body_bytes": 8725,
@@ -3877,7 +3911,8 @@
             "examples/test-scenarios.md",
             "references/wired-traversal.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "polyrepo-management": {
           "body_bytes": 7344,
@@ -3927,7 +3962,8 @@
           "sha256": "7067436a87b2396682cd667678c35285b3127e8373bd369990613587a1bca052",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "postgis-geospatial": {
           "body_bytes": 11415,
@@ -3977,7 +4013,8 @@
           "sha256": "5edb308f3b6a62b6389476b40734405b0ccb25fa28c67f5c645083c8e863bf16",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "project-plan-creator": {
           "body_bytes": 10431,
@@ -4029,7 +4066,8 @@
           "sub_files": [
             "references/v1.8-frontend-sections.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "python-backend-scaffold": {
           "body_bytes": 11947,
@@ -4089,7 +4127,8 @@
             "scripts/init_module.py",
             "scripts/init_project.py"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "session-orchestrator": {
           "body_bytes": 12397,
@@ -4151,7 +4190,8 @@
             "scripts/init_progress.py",
             "scripts/init_session.py"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "skill-reviewer": {
           "body_bytes": 7485,
@@ -4201,7 +4241,8 @@
           "sha256": "3963948e59a018a2280e5388263af228fc29c474edfc4356d87d516cd48e9419",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "solomon": {
           "body_bytes": 2155,
@@ -4251,7 +4292,8 @@
           "sha256": "82a7bf9ef95228ff84484e52f63670986301d86e813006aaae8f709c5a1267b2",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "solomon-complete": {
           "body_bytes": 1780,
@@ -4301,7 +4343,8 @@
           "sha256": "d752c90685f81f230d868254d4b70f2e1170ab0dbc6ce325f47aa4dd3d22aa27",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "solomon-feature": {
           "body_bytes": 4061,
@@ -4351,7 +4394,8 @@
           "sha256": "ce244b6901b3cb4f8c3fcc3132df9a4847b9d7f76f79d9d2ea734d3fb4e6c5ec",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "solomon-session": {
           "body_bytes": 1950,
@@ -4401,7 +4445,8 @@
           "sha256": "ac44f8c475f0ff100d815ea85f4d4fda6b64a9faa56df86acb000984e97df848",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "solomon-status": {
           "body_bytes": 1897,
@@ -4451,7 +4496,8 @@
           "sha256": "5e66fa195d3ff2e8c0b85751e7648c6feb39d312e73710d13fd67d77363a51eb",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "temporal-workflows": {
           "body_bytes": 10298,
@@ -4501,7 +4547,8 @@
           "sha256": "fa1d8cff52855c3efb4437513dcf95a191558a8503526e1f678f389be089775e",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         }
       },
       "exists": true,
@@ -4562,7 +4609,8 @@
           "sha256": "b7dbb3249695841cf28f87555acc77dc630dafba0f1d544ecce252ff63b0933e",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/ask-matt"
+          "symlink_target": "../../.agents/skills/ask-matt",
+          "upstream_pin": null
         },
         "auto-mode-operations": {
           "body_bytes": 15313,
@@ -4612,7 +4660,8 @@
           "sha256": "7c4c792df58cb3886d70cf2ab3cfe6336a0334ccdeb6e8241191f7dca4c0f47c",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/auto-mode-operations/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/auto-mode-operations/",
+          "upstream_pin": null
         },
         "backend-e2e-testing": {
           "body_bytes": 10393,
@@ -4665,7 +4714,8 @@
             "references/edge-cases.md",
             "references/performance-tests.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/backend-e2e-testing/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/backend-e2e-testing/",
+          "upstream_pin": null
         },
         "claude-design-prompts": {
           "body_bytes": 4999,
@@ -4716,7 +4766,8 @@
           "sha256": "a6c6083f6b852942fe1592bb128ef8f0ee091fb1fa171fbcfd11747833b0ce9c",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "claude-handoff": {
           "body_bytes": 1057,
@@ -4768,7 +4819,8 @@
           "sha256": "bbb25773158d78f610461e4041ffb56fe871cb297626e1f52b0535a9083b7996",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/claude-handoff"
+          "symlink_target": "../../.agents/skills/claude-handoff",
+          "upstream_pin": null
         },
         "code-review": {
           "body_bytes": 6281,
@@ -4818,7 +4870,8 @@
           "sha256": "6a65cc61114f96db07ec41e3920e67c9c5bf70dd6e0901eb9460ebcb2bdc209f",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/code-review"
+          "symlink_target": "../../.agents/skills/code-review",
+          "upstream_pin": null
         },
         "codebase-design": {
           "body_bytes": 6179,
@@ -4871,7 +4924,8 @@
             "DEEPENING.md",
             "DESIGN-IT-TWICE.md"
           ],
-          "symlink_target": "../../.agents/skills/codebase-design"
+          "symlink_target": "../../.agents/skills/codebase-design",
+          "upstream_pin": null
         },
         "compaction-resilience": {
           "body_bytes": 10198,
@@ -4921,7 +4975,8 @@
           "sha256": "597e355f2af245bfef57fe4c933dfb36213204f1e0222e7f2ac69336c12dca38",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/compaction-resilience/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/compaction-resilience/",
+          "upstream_pin": null
         },
         "contract-first-api": {
           "body_bytes": 11098,
@@ -4973,7 +5028,8 @@
           "sub_files": [
             "references/preset-tuning.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/contract-first-api/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/contract-first-api/",
+          "upstream_pin": null
         },
         "db-transaction-discipline": {
           "body_bytes": 11986,
@@ -5023,7 +5079,8 @@
           "sha256": "760868ffe5d8460cfeefe3b7559c2569ce1986278efe03c877676bf6061d807e",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/db-transaction-discipline/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/db-transaction-discipline/",
+          "upstream_pin": null
         },
         "debugging-workflow": {
           "body_bytes": 11834,
@@ -5077,7 +5134,8 @@
             "references/diagnostic-patterns.md",
             "references/fix-patterns.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/debugging-workflow/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/debugging-workflow/",
+          "upstream_pin": null
         },
         "deep-app-research": {
           "body_bytes": 12768,
@@ -5127,7 +5185,8 @@
           "sha256": "a01db909228356560ac25ca3566b2c72d0106bb8a16bc7b4fe39eaf9ac0ed1fd",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/deep-app-research/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/deep-app-research/",
+          "upstream_pin": null
         },
         "design-an-interface": {
           "body_bytes": 3104,
@@ -5177,7 +5236,8 @@
           "sha256": "a2596e9fa2d50e23ba014f64a5b8f9df4eb56b846a52cad152899ef5eb97b085",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/design-an-interface"
+          "symlink_target": "../../.agents/skills/design-an-interface",
+          "upstream_pin": null
         },
         "development-workflow": {
           "body_bytes": 11863,
@@ -5229,7 +5289,8 @@
           "sub_files": [
             "references/quick-start.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/development-workflow/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/development-workflow/",
+          "upstream_pin": null
         },
         "diagnosing-bugs": {
           "body_bytes": 8336,
@@ -5281,7 +5342,8 @@
           "sub_files": [
             "scripts/hitl-loop.template.sh"
           ],
-          "symlink_target": "../../.agents/skills/diagnosing-bugs"
+          "symlink_target": "../../.agents/skills/diagnosing-bugs",
+          "upstream_pin": null
         },
         "domain-modeling": {
           "body_bytes": 3167,
@@ -5334,7 +5396,8 @@
             "ADR-FORMAT.md",
             "CONTEXT-FORMAT.md"
           ],
-          "symlink_target": "../../.agents/skills/domain-modeling"
+          "symlink_target": "../../.agents/skills/domain-modeling",
+          "upstream_pin": null
         },
         "edit-article": {
           "body_bytes": 521,
@@ -5385,7 +5448,8 @@
           "sha256": "e10fba546f45357fe0aaa7494b9e186910d4525818d19f9b2ad6f28cc506aa5e",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/edit-article"
+          "symlink_target": "../../.agents/skills/edit-article",
+          "upstream_pin": null
         },
         "find-skills": {
           "body_bytes": 5176,
@@ -5435,7 +5499,8 @@
           "sha256": "deddc03b4b5f50755b97fcdb737a786676992ef7e9be614d2cd2c71e0320bebf",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/find-skills"
+          "symlink_target": "../../.agents/skills/find-skills",
+          "upstream_pin": null
         },
         "firecrawl-research": {
           "body_bytes": 5238,
@@ -5484,7 +5549,8 @@
           "sha256": "daaf3d252e9531229ab2df382698e2e78a35ccb6e9a8f5164b14aab2c8d5acc7",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/firecrawl-research/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/firecrawl-research/",
+          "upstream_pin": null
         },
         "frontend-session-gates": {
           "body_bytes": 11565,
@@ -5534,7 +5600,8 @@
           "sha256": "d55e0a8c55fe86790d99c75064e3c9b1b12158433ee8388c625382ba10f62f4d",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/frontend-session-gates/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/frontend-session-gates/",
+          "upstream_pin": null
         },
         "frontend-wired-verification": {
           "body_bytes": 8184,
@@ -5588,15 +5655,16 @@
             "examples/session-with-wired-checks.xml",
             "examples/wired-traversal.spec.ts"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/frontend-wired-verification/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/frontend-wired-verification/",
+          "upstream_pin": null
         },
         "fullstack-integration": {
-          "body_bytes": 12137,
-          "bytes": 12503,
+          "body_bytes": 12070,
+          "bytes": 12436,
           "declared_name": "fullstack-integration",
           "description_chars": 316,
           "description_tokens": 79,
-          "est_tokens": 3126,
+          "est_tokens": 3109,
           "frontmatter_keys": [
             "description",
             "name"
@@ -5609,7 +5677,7 @@
           "has_references_dir": true,
           "has_scripts_dir": false,
           "is_symlink": true,
-          "lines": 398,
+          "lines": 396,
           "mentions_code_review": false,
           "mentions_completion_criteria": false,
           "mentions_tdd": false,
@@ -5629,19 +5697,20 @@
             "hooks"
           ],
           "monolithic": false,
-          "mtime": 1777474946,
+          "mtime": 1787338115,
           "name": "fullstack-integration",
           "name_matches_dir": true,
           "path": "/Users/lionel/.claude/skills/fullstack-integration",
           "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/fullstack-integration",
           "root": "runtime",
-          "sha256": "1ded4f61429a8ccd3d645c0a73f1959ad62cf08b078326fa0b1a5357eeb4ec8e",
+          "sha256": "6753aa47f2944a7b9999423d607fd929913a8b493133d1bfb44ee13c6f07dfab",
           "sub_file_count": 2,
           "sub_files": [
             "references/deployment.md",
             "references/websocket.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/fullstack-integration/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/fullstack-integration/",
+          "upstream_pin": null
         },
         "git-guardrails-claude-code": {
           "body_bytes": 2014,
@@ -5693,7 +5762,8 @@
           "sub_files": [
             "scripts/block-dangerous-git.sh"
           ],
-          "symlink_target": "../../.agents/skills/git-guardrails-claude-code"
+          "symlink_target": "../../.agents/skills/git-guardrails-claude-code",
+          "upstream_pin": null
         },
         "grill-me": {
           "body_bytes": 28,
@@ -5744,7 +5814,8 @@
           "sha256": "6189dfceb7304a6e5558f75d87e68fa3bc7fcf7ba120e44f21f8a61fe01eba54",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/grill-me"
+          "symlink_target": "../../.agents/skills/grill-me",
+          "upstream_pin": null
         },
         "grill-with-docs": {
           "body_bytes": 64,
@@ -5795,7 +5866,8 @@
           "sha256": "610d091047bcfb9db0f75c057d15538481a721111579fc5ec7f83ad9131a2165",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/grill-with-docs"
+          "symlink_target": "../../.agents/skills/grill-with-docs",
+          "upstream_pin": null
         },
         "grilling": {
           "body_bytes": 633,
@@ -5845,7 +5917,8 @@
           "sha256": "5a35925d03a391bcfa46940868b649b72dba89ec9c19525e785bbb6bd3a7f478",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/grilling"
+          "symlink_target": "../../.agents/skills/grilling",
+          "upstream_pin": null
         },
         "handoff": {
           "body_bytes": 669,
@@ -5897,7 +5970,8 @@
           "sha256": "57c9f1f392d7352cdc85b1e39ca49eddc70ce1dc278bd9653fb4f23dfc2560fc",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/handoff"
+          "symlink_target": "../../.agents/skills/handoff",
+          "upstream_pin": null
         },
         "hfs-accessibility-testing": {
           "body_bytes": 7907,
@@ -5946,21 +6020,22 @@
           "sha256": "f6045cba191b044d710e947199204ab3702196884b6b8f952ce5c9a5272ee20f",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-accessibility-testing/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-accessibility-testing/",
+          "upstream_pin": null
         },
         "hfs-client-engagement": {
           "body_bytes": 9749,
-          "bytes": 10596,
+          "bytes": 10598,
           "declared_name": "hfs-client-engagement",
           "description_chars": 793,
           "description_tokens": 198,
-          "est_tokens": 2649,
+          "est_tokens": 2650,
           "frontmatter_keys": [
             "description",
             "name"
           ],
-          "frontmatter_yaml_error": "mapping values are not allowed here",
-          "frontmatter_yaml_valid": false,
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
           "has_assets_dir": false,
           "has_evals": false,
           "has_frontmatter": true,
@@ -5987,18 +6062,19 @@
             "hooks"
           ],
           "monolithic": false,
-          "mtime": 1785765888,
+          "mtime": 1787337541,
           "name": "hfs-client-engagement",
           "name_matches_dir": true,
           "path": "/Users/lionel/.claude/skills/hfs-client-engagement",
           "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-client-engagement",
           "root": "runtime",
-          "sha256": "24302bd7b86b6491ad4ec6dd3963e747ec23053a9fda0583e220ad0cb6604a24",
+          "sha256": "cd3ad4fed6442813463ea8b05e1be7d99e88ad667eacd0583b09ad35445ad21d",
           "sub_file_count": 1,
           "sub_files": [
             "references/meeting-playbook.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-client-engagement/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-client-engagement/",
+          "upstream_pin": null
         },
         "hfs-component-library": {
           "body_bytes": 6951,
@@ -6053,7 +6129,8 @@
             "components/LoadingState.tsx",
             "components/PageHeader.tsx"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-component-library/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-component-library/",
+          "upstream_pin": null
         },
         "hfs-config-sync": {
           "body_bytes": 8562,
@@ -6103,7 +6180,8 @@
           "sha256": "89fab35ddd83450011af97730c24d7711606b1f28b6f7a16d310728e0d878814",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-config-sync/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-config-sync/",
+          "upstream_pin": null
         },
         "hfs-droplet-ops": {
           "body_bytes": 11901,
@@ -6153,7 +6231,8 @@
           "sha256": "e1e33683cccea4837ae03bca72a841df696b4bd5f3697e88759b0c8ddbff31e5",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-droplet-ops/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-droplet-ops/",
+          "upstream_pin": null
         },
         "hfs-frontend-visual-verification": {
           "body_bytes": 13206,
@@ -6204,7 +6283,8 @@
           "sub_files": [
             "examples/visual-regression-suite.spec.ts"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-frontend-visual-verification/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-frontend-visual-verification/",
+          "upstream_pin": null
         },
         "hfs-portfolio-review": {
           "body_bytes": 2557,
@@ -6254,7 +6334,8 @@
           "sha256": "0404cc1d38d7aa7dc4ea1610a8f63a69d434ad687edac71200029cb5e202e764",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-portfolio-review/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-portfolio-review/",
+          "upstream_pin": null
         },
         "hfs-preprod-deploy": {
           "body_bytes": 16976,
@@ -6305,7 +6386,8 @@
           "sub_files": [
             "references/templates.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-preprod-deploy/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-preprod-deploy/",
+          "upstream_pin": null
         },
         "hfs-repo-maintenance": {
           "body_bytes": 13578,
@@ -6358,7 +6440,8 @@
             "hfs-repo-maintenance-SKILL-v1.2.md",
             "hfs-repo-maintenance-validation-report.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-repo-maintenance/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-repo-maintenance/",
+          "upstream_pin": null
         },
         "hfs-server-debugging": {
           "body_bytes": 7952,
@@ -6407,7 +6490,8 @@
           "sha256": "f7d910be2dc73ef55ccea5b629134c4ed13be2794f987f78d38cd1e193e60d15",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-server-debugging/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-server-debugging/",
+          "upstream_pin": null
         },
         "hfs-server-inventory": {
           "body_bytes": 11097,
@@ -6456,7 +6540,8 @@
           "sha256": "56ad152c0a09995171c95fffd778b7ce2b0745581fe481951ea175da9e041b41",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-server-inventory/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-server-inventory/",
+          "upstream_pin": null
         },
         "hfs-skill-creator": {
           "body_bytes": 17400,
@@ -6506,7 +6591,8 @@
           "sha256": "c2dd89c9cc4a0ddaf45622a55311b1eb5181171926d23844649f011ea10df31e",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-skill-creator/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-skill-creator/",
+          "upstream_pin": null
         },
         "hfs-vscode-orchestrator": {
           "body_bytes": 10411,
@@ -6558,7 +6644,8 @@
           "sub_files": [
             "references/slash-commands.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-vscode-orchestrator/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-vscode-orchestrator/",
+          "upstream_pin": null
         },
         "implement": {
           "body_bytes": 302,
@@ -6609,7 +6696,8 @@
           "sha256": "6d3fd9e83b8f36e5213854779db49b256a457a7ebb4a503e53fa7dcff696adc3",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/implement"
+          "symlink_target": "../../.agents/skills/implement",
+          "upstream_pin": null
         },
         "implementation-plan-generator": {
           "body_bytes": 13836,
@@ -6666,7 +6754,8 @@
             "references/session-metadata.md",
             "references/session-structure.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/implementation-plan-generator/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/implementation-plan-generator/",
+          "upstream_pin": null
         },
         "improve-codebase-architecture": {
           "body_bytes": 5207,
@@ -6719,7 +6808,8 @@
           "sub_files": [
             "HTML-REPORT.md"
           ],
-          "symlink_target": "../../.agents/skills/improve-codebase-architecture"
+          "symlink_target": "../../.agents/skills/improve-codebase-architecture",
+          "upstream_pin": null
         },
         "loop-me": {
           "body_bytes": 2342,
@@ -6771,7 +6861,8 @@
           "sha256": "2b2c725f8b6e8b8f3f6e6bc2c18f0cf3ab029a270b5ac23132fbebdeb6b443aa",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/loop-me"
+          "symlink_target": "../../.agents/skills/loop-me",
+          "upstream_pin": null
         },
         "mcp-server-building": {
           "body_bytes": 15391,
@@ -6824,7 +6915,8 @@
             "examples/minimal-server.py",
             "references/fastmcp-cookbook.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/mcp-server-building/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/mcp-server-building/",
+          "upstream_pin": null
         },
         "migrate-to-shoehorn": {
           "body_bytes": 2579,
@@ -6874,7 +6966,8 @@
           "sha256": "de4da4c11d924fac79c924b2ee3d2db4a5cb98386eb490a599119463d036ae72",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/migrate-to-shoehorn"
+          "symlink_target": "../../.agents/skills/migrate-to-shoehorn",
+          "upstream_pin": null
         },
         "obsidian-vault": {
           "body_bytes": 1314,
@@ -6924,7 +7017,8 @@
           "sha256": "7bed1d552aa5e9345e493cd62cb13e65c5d829d153c349afdb2cb91c809fa6c4",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/obsidian-vault"
+          "symlink_target": "../../.agents/skills/obsidian-vault",
+          "upstream_pin": null
         },
         "otel-observability": {
           "body_bytes": 11117,
@@ -6974,7 +7068,8 @@
           "sha256": "42a4b8f81ada67a98adc6ef846184840c45487b1ef3ee4ae7aae220661224cec",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/otel-observability/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/otel-observability/",
+          "upstream_pin": null
         },
         "plan-review-loop": {
           "body_bytes": 4744,
@@ -7024,7 +7119,8 @@
           "sha256": "809cf13267d2807cb71802ca1688a06988cbefdb8d80e8894dd3ef4225227e92",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/plan-review-loop/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/plan-review-loop/",
+          "upstream_pin": null
         },
         "playwright-e2e-testing": {
           "body_bytes": 8725,
@@ -7077,7 +7173,8 @@
             "examples/test-scenarios.md",
             "references/wired-traversal.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/playwright-e2e-testing/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/playwright-e2e-testing/",
+          "upstream_pin": null
         },
         "postgis-geospatial": {
           "body_bytes": 11415,
@@ -7127,7 +7224,8 @@
           "sha256": "5edb308f3b6a62b6389476b40734405b0ccb25fa28c67f5c645083c8e863bf16",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/postgis-geospatial/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/postgis-geospatial/",
+          "upstream_pin": null
         },
         "project-plan-creator": {
           "body_bytes": 10431,
@@ -7179,7 +7277,8 @@
           "sub_files": [
             "references/v1.8-frontend-sections.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/project-plan-creator/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/project-plan-creator/",
+          "upstream_pin": null
         },
         "prototype": {
           "body_bytes": 2785,
@@ -7232,7 +7331,8 @@
             "LOGIC.md",
             "UI.md"
           ],
-          "symlink_target": "../../.agents/skills/prototype"
+          "symlink_target": "../../.agents/skills/prototype",
+          "upstream_pin": null
         },
         "python-backend-scaffold": {
           "body_bytes": 11947,
@@ -7292,7 +7392,8 @@
             "scripts/init_module.py",
             "scripts/init_project.py"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/python-backend-scaffold/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/python-backend-scaffold/",
+          "upstream_pin": null
         },
         "qa": {
           "body_bytes": 4653,
@@ -7342,7 +7443,8 @@
           "sha256": "d9727aac6503981bf69bdd8b37e0d85b32b8fbd353a57528c252dac1337ab761",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/qa"
+          "symlink_target": "../../.agents/skills/qa",
+          "upstream_pin": null
         },
         "request-refactor-plan": {
           "body_bytes": 2445,
@@ -7392,7 +7494,8 @@
           "sha256": "d59de4ba6cc1fe2dd267e8b9b5a1fd88e3e739e2130bc9dd78061d2a072830b8",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/request-refactor-plan"
+          "symlink_target": "../../.agents/skills/request-refactor-plan",
+          "upstream_pin": null
         },
         "research": {
           "body_bytes": 675,
@@ -7442,7 +7545,8 @@
           "sha256": "ef8af88383613e4a4576d933dfac37bca57d47d86fc564b89a2cc88023c4d6ac",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/research"
+          "symlink_target": "../../.agents/skills/research",
+          "upstream_pin": null
         },
         "resolving-merge-conflicts": {
           "body_bytes": 795,
@@ -7492,7 +7596,8 @@
           "sha256": "c7c9ba81362a786aac05d2223123bf1bd2f8a99c3243a72882ede9c68bedfb24",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/resolving-merge-conflicts"
+          "symlink_target": "../../.agents/skills/resolving-merge-conflicts",
+          "upstream_pin": null
         },
         "scaffold-exercises": {
           "body_bytes": 3338,
@@ -7542,7 +7647,8 @@
           "sha256": "75f5c9d771606fb9762f16522efc954df11c324f87148d8ff069bce166257de9",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/scaffold-exercises"
+          "symlink_target": "../../.agents/skills/scaffold-exercises",
+          "upstream_pin": null
         },
         "session-orchestrator": {
           "body_bytes": 12397,
@@ -7604,7 +7710,8 @@
             "scripts/init_progress.py",
             "scripts/init_session.py"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/session-orchestrator/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/session-orchestrator/",
+          "upstream_pin": null
         },
         "setup-matt-pocock-skills": {
           "body_bytes": 7042,
@@ -7661,7 +7768,8 @@
             "issue-tracker-local.md",
             "triage-labels.md"
           ],
-          "symlink_target": "../../.agents/skills/setup-matt-pocock-skills"
+          "symlink_target": "../../.agents/skills/setup-matt-pocock-skills",
+          "upstream_pin": null
         },
         "setup-pre-commit": {
           "body_bytes": 1978,
@@ -7711,7 +7819,8 @@
           "sha256": "872f4037cb7e6e0e340d4175c086550072959925dffc87b160d1a30dc9f63bbd",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/setup-pre-commit"
+          "symlink_target": "../../.agents/skills/setup-pre-commit",
+          "upstream_pin": null
         },
         "solomon-session": {
           "body_bytes": 1950,
@@ -7761,7 +7870,8 @@
           "sha256": "ac44f8c475f0ff100d815ea85f4d4fda6b64a9faa56df86acb000984e97df848",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon-session/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon-session/",
+          "upstream_pin": null
         },
         "tdd": {
           "body_bytes": 3032,
@@ -7814,7 +7924,8 @@
             "mocking.md",
             "tests.md"
           ],
-          "symlink_target": "../../.agents/skills/tdd"
+          "symlink_target": "../../.agents/skills/tdd",
+          "upstream_pin": null
         },
         "teach": {
           "body_bytes": 9328,
@@ -7871,7 +7982,8 @@
             "MISSION-FORMAT.md",
             "RESOURCES-FORMAT.md"
           ],
-          "symlink_target": "../../.agents/skills/teach"
+          "symlink_target": "../../.agents/skills/teach",
+          "upstream_pin": null
         },
         "temporal-workflows": {
           "body_bytes": 10298,
@@ -7921,7 +8033,8 @@
           "sha256": "fa1d8cff52855c3efb4437513dcf95a191558a8503526e1f678f389be089775e",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/temporal-workflows/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/temporal-workflows/",
+          "upstream_pin": null
         },
         "to-spec": {
           "body_bytes": 2854,
@@ -7972,7 +8085,8 @@
           "sha256": "267638edd513b5918de626ad5605d261952abb7428cb308869c663ca924e93e7",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/to-spec"
+          "symlink_target": "../../.agents/skills/to-spec",
+          "upstream_pin": null
         },
         "to-tickets": {
           "body_bytes": 5484,
@@ -8023,7 +8137,8 @@
           "sha256": "918bdefab9313100cb1f7ccb412e2a773fe2f2801dd20d44f6b2acf7a42ca456",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/to-tickets"
+          "symlink_target": "../../.agents/skills/to-tickets",
+          "upstream_pin": null
         },
         "triage": {
           "body_bytes": 6369,
@@ -8077,7 +8192,8 @@
             "AGENT-BRIEF.md",
             "OUT-OF-SCOPE.md"
           ],
-          "symlink_target": "../../.agents/skills/triage"
+          "symlink_target": "../../.agents/skills/triage",
+          "upstream_pin": null
         },
         "ubiquitous-language": {
           "body_bytes": 4498,
@@ -8128,7 +8244,8 @@
           "sha256": "2449e2345b96b9f1e861c697b5eab50d03ae1254481a4306b6f815684e523b3a",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/ubiquitous-language"
+          "symlink_target": "../../.agents/skills/ubiquitous-language",
+          "upstream_pin": null
         },
         "wayfinder": {
           "body_bytes": 11226,
@@ -8179,7 +8296,8 @@
           "sha256": "bef437de697fb6984a8a90b7fd82f128609148d6e02f635ce419d03555b351e1",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/wayfinder"
+          "symlink_target": "../../.agents/skills/wayfinder",
+          "upstream_pin": null
         },
         "wizard": {
           "body_bytes": 3859,
@@ -8232,7 +8350,8 @@
           "sub_files": [
             "template.sh"
           ],
-          "symlink_target": "../../.agents/skills/wizard"
+          "symlink_target": "../../.agents/skills/wizard",
+          "upstream_pin": null
         },
         "writing-beats": {
           "body_bytes": 4718,
@@ -8283,7 +8402,8 @@
           "sha256": "668185cfb6eb6a324b8d864404c398e21f3cddbb637b760e39b7784c8c5e4fee",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/writing-beats"
+          "symlink_target": "../../.agents/skills/writing-beats",
+          "upstream_pin": null
         },
         "writing-fragments": {
           "body_bytes": 3444,
@@ -8334,7 +8454,8 @@
           "sha256": "c61b6608f227b0eee1b832273360cf5088ad68c343c15ec9c06673086662e64e",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/writing-fragments"
+          "symlink_target": "../../.agents/skills/writing-fragments",
+          "upstream_pin": null
         },
         "writing-great-skills": {
           "body_bytes": 9224,
@@ -8387,7 +8508,8 @@
           "sub_files": [
             "GLOSSARY.md"
           ],
-          "symlink_target": "../../.agents/skills/writing-great-skills"
+          "symlink_target": "../../.agents/skills/writing-great-skills",
+          "upstream_pin": null
         },
         "writing-shape": {
           "body_bytes": 5817,
@@ -8438,7 +8560,8 @@
           "sha256": "67d34422bbe43cfd523dea9fe7b3ec5260791aed8ea52309b5b85f9d76f32745",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/writing-shape"
+          "symlink_target": "../../.agents/skills/writing-shape",
+          "upstream_pin": null
         }
       },
       "exists": true,
@@ -8508,7 +8631,8 @@
           "sha256": "b7dbb3249695841cf28f87555acc77dc630dafba0f1d544ecce252ff63b0933e",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "claude-handoff": {
           "body_bytes": 1057,
@@ -8560,7 +8684,8 @@
           "sha256": "bbb25773158d78f610461e4041ffb56fe871cb297626e1f52b0535a9083b7996",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "code-review": {
           "body_bytes": 6281,
@@ -8610,7 +8735,8 @@
           "sha256": "6a65cc61114f96db07ec41e3920e67c9c5bf70dd6e0901eb9460ebcb2bdc209f",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "codebase-design": {
           "body_bytes": 6179,
@@ -8663,7 +8789,8 @@
             "DEEPENING.md",
             "DESIGN-IT-TWICE.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "design-an-interface": {
           "body_bytes": 3104,
@@ -8713,7 +8840,8 @@
           "sha256": "a2596e9fa2d50e23ba014f64a5b8f9df4eb56b846a52cad152899ef5eb97b085",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "diagnosing-bugs": {
           "body_bytes": 8336,
@@ -8765,7 +8893,8 @@
           "sub_files": [
             "scripts/hitl-loop.template.sh"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "domain-modeling": {
           "body_bytes": 3167,
@@ -8818,7 +8947,8 @@
             "ADR-FORMAT.md",
             "CONTEXT-FORMAT.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "edit-article": {
           "body_bytes": 521,
@@ -8869,7 +8999,8 @@
           "sha256": "e10fba546f45357fe0aaa7494b9e186910d4525818d19f9b2ad6f28cc506aa5e",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "find-skills": {
           "body_bytes": 5176,
@@ -8919,7 +9050,8 @@
           "sha256": "deddc03b4b5f50755b97fcdb737a786676992ef7e9be614d2cd2c71e0320bebf",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "git-guardrails-claude-code": {
           "body_bytes": 2014,
@@ -8971,7 +9103,8 @@
           "sub_files": [
             "scripts/block-dangerous-git.sh"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "grill-me": {
           "body_bytes": 28,
@@ -9022,7 +9155,8 @@
           "sha256": "6189dfceb7304a6e5558f75d87e68fa3bc7fcf7ba120e44f21f8a61fe01eba54",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "grill-with-docs": {
           "body_bytes": 64,
@@ -9073,7 +9207,8 @@
           "sha256": "610d091047bcfb9db0f75c057d15538481a721111579fc5ec7f83ad9131a2165",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "grilling": {
           "body_bytes": 633,
@@ -9123,7 +9258,8 @@
           "sha256": "5a35925d03a391bcfa46940868b649b72dba89ec9c19525e785bbb6bd3a7f478",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "handoff": {
           "body_bytes": 669,
@@ -9175,7 +9311,8 @@
           "sha256": "57c9f1f392d7352cdc85b1e39ca49eddc70ce1dc278bd9653fb4f23dfc2560fc",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "implement": {
           "body_bytes": 302,
@@ -9226,7 +9363,8 @@
           "sha256": "6d3fd9e83b8f36e5213854779db49b256a457a7ebb4a503e53fa7dcff696adc3",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "improve-codebase-architecture": {
           "body_bytes": 5207,
@@ -9279,7 +9417,8 @@
           "sub_files": [
             "HTML-REPORT.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "loop-me": {
           "body_bytes": 2342,
@@ -9331,7 +9470,8 @@
           "sha256": "2b2c725f8b6e8b8f3f6e6bc2c18f0cf3ab029a270b5ac23132fbebdeb6b443aa",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "migrate-to-shoehorn": {
           "body_bytes": 2579,
@@ -9381,7 +9521,8 @@
           "sha256": "de4da4c11d924fac79c924b2ee3d2db4a5cb98386eb490a599119463d036ae72",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "obsidian-vault": {
           "body_bytes": 1314,
@@ -9431,7 +9572,8 @@
           "sha256": "7bed1d552aa5e9345e493cd62cb13e65c5d829d153c349afdb2cb91c809fa6c4",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "prototype": {
           "body_bytes": 2785,
@@ -9484,7 +9626,8 @@
             "LOGIC.md",
             "UI.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "qa": {
           "body_bytes": 4653,
@@ -9534,7 +9677,8 @@
           "sha256": "d9727aac6503981bf69bdd8b37e0d85b32b8fbd353a57528c252dac1337ab761",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "request-refactor-plan": {
           "body_bytes": 2445,
@@ -9584,7 +9728,8 @@
           "sha256": "d59de4ba6cc1fe2dd267e8b9b5a1fd88e3e739e2130bc9dd78061d2a072830b8",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "research": {
           "body_bytes": 675,
@@ -9634,7 +9779,8 @@
           "sha256": "ef8af88383613e4a4576d933dfac37bca57d47d86fc564b89a2cc88023c4d6ac",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "resolving-merge-conflicts": {
           "body_bytes": 795,
@@ -9684,7 +9830,8 @@
           "sha256": "c7c9ba81362a786aac05d2223123bf1bd2f8a99c3243a72882ede9c68bedfb24",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "scaffold-exercises": {
           "body_bytes": 3338,
@@ -9734,7 +9881,8 @@
           "sha256": "75f5c9d771606fb9762f16522efc954df11c324f87148d8ff069bce166257de9",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "setup-matt-pocock-skills": {
           "body_bytes": 7042,
@@ -9791,7 +9939,8 @@
             "issue-tracker-local.md",
             "triage-labels.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "setup-pre-commit": {
           "body_bytes": 1978,
@@ -9841,7 +9990,8 @@
           "sha256": "872f4037cb7e6e0e340d4175c086550072959925dffc87b160d1a30dc9f63bbd",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "tdd": {
           "body_bytes": 3032,
@@ -9894,7 +10044,8 @@
             "mocking.md",
             "tests.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "teach": {
           "body_bytes": 9328,
@@ -9951,7 +10102,8 @@
             "MISSION-FORMAT.md",
             "RESOURCES-FORMAT.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "to-spec": {
           "body_bytes": 2854,
@@ -10002,7 +10154,8 @@
           "sha256": "267638edd513b5918de626ad5605d261952abb7428cb308869c663ca924e93e7",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "to-tickets": {
           "body_bytes": 5484,
@@ -10053,7 +10206,8 @@
           "sha256": "918bdefab9313100cb1f7ccb412e2a773fe2f2801dd20d44f6b2acf7a42ca456",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "triage": {
           "body_bytes": 6369,
@@ -10107,7 +10261,8 @@
             "AGENT-BRIEF.md",
             "OUT-OF-SCOPE.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "ubiquitous-language": {
           "body_bytes": 4498,
@@ -10158,7 +10313,8 @@
           "sha256": "2449e2345b96b9f1e861c697b5eab50d03ae1254481a4306b6f815684e523b3a",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "wayfinder": {
           "body_bytes": 11226,
@@ -10209,7 +10365,8 @@
           "sha256": "bef437de697fb6984a8a90b7fd82f128609148d6e02f635ce419d03555b351e1",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "wizard": {
           "body_bytes": 3859,
@@ -10262,7 +10419,8 @@
           "sub_files": [
             "template.sh"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "writing-beats": {
           "body_bytes": 4718,
@@ -10313,7 +10471,8 @@
           "sha256": "668185cfb6eb6a324b8d864404c398e21f3cddbb637b760e39b7784c8c5e4fee",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "writing-fragments": {
           "body_bytes": 3444,
@@ -10364,7 +10523,8 @@
           "sha256": "c61b6608f227b0eee1b832273360cf5088ad68c343c15ec9c06673086662e64e",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "writing-great-skills": {
           "body_bytes": 9224,
@@ -10417,7 +10577,8 @@
           "sub_files": [
             "GLOSSARY.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "writing-shape": {
           "body_bytes": 5817,
@@ -10468,7 +10629,8 @@
           "sha256": "67d34422bbe43cfd523dea9fe7b3ec5260791aed8ea52309b5b85f9d76f32745",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         }
       },
       "exists": true,
@@ -10528,7 +10690,8 @@
           "sha256": "7067436a87b2396682cd667678c35285b3127e8373bd369990613587a1bca052",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         }
       },
       "exists": true,
@@ -10589,7 +10752,8 @@
           "sha256": "b7dbb3249695841cf28f87555acc77dc630dafba0f1d544ecce252ff63b0933e",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/ask-matt"
+          "symlink_target": "../../.agents/skills/ask-matt",
+          "upstream_pin": null
         },
         "auto-mode-operations": {
           "body_bytes": 15313,
@@ -10639,7 +10803,8 @@
           "sha256": "7c4c792df58cb3886d70cf2ab3cfe6336a0334ccdeb6e8241191f7dca4c0f47c",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/auto-mode-operations/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/auto-mode-operations/",
+          "upstream_pin": null
         },
         "backend-e2e-testing": {
           "body_bytes": 10393,
@@ -10692,7 +10857,8 @@
             "references/edge-cases.md",
             "references/performance-tests.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/backend-e2e-testing/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/backend-e2e-testing/",
+          "upstream_pin": null
         },
         "claude-design-prompts": {
           "body_bytes": 4999,
@@ -10743,7 +10909,8 @@
           "sha256": "a6c6083f6b852942fe1592bb128ef8f0ee091fb1fa171fbcfd11747833b0ce9c",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "claude-handoff": {
           "body_bytes": 1057,
@@ -10795,7 +10962,8 @@
           "sha256": "bbb25773158d78f610461e4041ffb56fe871cb297626e1f52b0535a9083b7996",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/claude-handoff"
+          "symlink_target": "../../.agents/skills/claude-handoff",
+          "upstream_pin": null
         },
         "code-review": {
           "body_bytes": 6281,
@@ -10845,7 +11013,8 @@
           "sha256": "6a65cc61114f96db07ec41e3920e67c9c5bf70dd6e0901eb9460ebcb2bdc209f",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/code-review"
+          "symlink_target": "../../.agents/skills/code-review",
+          "upstream_pin": null
         },
         "codebase-design": {
           "body_bytes": 6179,
@@ -10898,7 +11067,8 @@
             "DEEPENING.md",
             "DESIGN-IT-TWICE.md"
           ],
-          "symlink_target": "../../.agents/skills/codebase-design"
+          "symlink_target": "../../.agents/skills/codebase-design",
+          "upstream_pin": null
         },
         "compaction-resilience": {
           "body_bytes": 10198,
@@ -10948,7 +11118,8 @@
           "sha256": "597e355f2af245bfef57fe4c933dfb36213204f1e0222e7f2ac69336c12dca38",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/compaction-resilience/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/compaction-resilience/",
+          "upstream_pin": null
         },
         "contract-first-api": {
           "body_bytes": 11098,
@@ -11000,7 +11171,8 @@
           "sub_files": [
             "references/preset-tuning.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/contract-first-api/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/contract-first-api/",
+          "upstream_pin": null
         },
         "db-transaction-discipline": {
           "body_bytes": 11986,
@@ -11050,7 +11222,8 @@
           "sha256": "760868ffe5d8460cfeefe3b7559c2569ce1986278efe03c877676bf6061d807e",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/db-transaction-discipline/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/db-transaction-discipline/",
+          "upstream_pin": null
         },
         "debugging-workflow": {
           "body_bytes": 11834,
@@ -11104,7 +11277,8 @@
             "references/diagnostic-patterns.md",
             "references/fix-patterns.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/debugging-workflow/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/debugging-workflow/",
+          "upstream_pin": null
         },
         "deep-app-research": {
           "body_bytes": 12768,
@@ -11154,7 +11328,8 @@
           "sha256": "a01db909228356560ac25ca3566b2c72d0106bb8a16bc7b4fe39eaf9ac0ed1fd",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/deep-app-research/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/deep-app-research/",
+          "upstream_pin": null
         },
         "design-an-interface": {
           "body_bytes": 3104,
@@ -11204,7 +11379,8 @@
           "sha256": "a2596e9fa2d50e23ba014f64a5b8f9df4eb56b846a52cad152899ef5eb97b085",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/design-an-interface"
+          "symlink_target": "../../.agents/skills/design-an-interface",
+          "upstream_pin": null
         },
         "development-workflow": {
           "body_bytes": 11863,
@@ -11256,7 +11432,8 @@
           "sub_files": [
             "references/quick-start.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/development-workflow/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/development-workflow/",
+          "upstream_pin": null
         },
         "diagnosing-bugs": {
           "body_bytes": 8336,
@@ -11308,7 +11485,8 @@
           "sub_files": [
             "scripts/hitl-loop.template.sh"
           ],
-          "symlink_target": "../../.agents/skills/diagnosing-bugs"
+          "symlink_target": "../../.agents/skills/diagnosing-bugs",
+          "upstream_pin": null
         },
         "domain-modeling": {
           "body_bytes": 3167,
@@ -11361,7 +11539,8 @@
             "ADR-FORMAT.md",
             "CONTEXT-FORMAT.md"
           ],
-          "symlink_target": "../../.agents/skills/domain-modeling"
+          "symlink_target": "../../.agents/skills/domain-modeling",
+          "upstream_pin": null
         },
         "edit-article": {
           "body_bytes": 521,
@@ -11412,7 +11591,8 @@
           "sha256": "e10fba546f45357fe0aaa7494b9e186910d4525818d19f9b2ad6f28cc506aa5e",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/edit-article"
+          "symlink_target": "../../.agents/skills/edit-article",
+          "upstream_pin": null
         },
         "find-skills": {
           "body_bytes": 5176,
@@ -11462,7 +11642,8 @@
           "sha256": "deddc03b4b5f50755b97fcdb737a786676992ef7e9be614d2cd2c71e0320bebf",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/find-skills"
+          "symlink_target": "../../.agents/skills/find-skills",
+          "upstream_pin": null
         },
         "firecrawl-research": {
           "body_bytes": 5238,
@@ -11511,7 +11692,8 @@
           "sha256": "daaf3d252e9531229ab2df382698e2e78a35ccb6e9a8f5164b14aab2c8d5acc7",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/firecrawl-research/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/firecrawl-research/",
+          "upstream_pin": null
         },
         "frontend-session-gates": {
           "body_bytes": 11565,
@@ -11561,7 +11743,8 @@
           "sha256": "d55e0a8c55fe86790d99c75064e3c9b1b12158433ee8388c625382ba10f62f4d",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/frontend-session-gates/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/frontend-session-gates/",
+          "upstream_pin": null
         },
         "frontend-wired-verification": {
           "body_bytes": 8184,
@@ -11615,15 +11798,16 @@
             "examples/session-with-wired-checks.xml",
             "examples/wired-traversal.spec.ts"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/frontend-wired-verification/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/frontend-wired-verification/",
+          "upstream_pin": null
         },
         "fullstack-integration": {
-          "body_bytes": 12137,
-          "bytes": 12503,
+          "body_bytes": 12070,
+          "bytes": 12436,
           "declared_name": "fullstack-integration",
           "description_chars": 316,
           "description_tokens": 79,
-          "est_tokens": 3126,
+          "est_tokens": 3109,
           "frontmatter_keys": [
             "description",
             "name"
@@ -11636,7 +11820,7 @@
           "has_references_dir": true,
           "has_scripts_dir": false,
           "is_symlink": true,
-          "lines": 398,
+          "lines": 396,
           "mentions_code_review": false,
           "mentions_completion_criteria": false,
           "mentions_tdd": false,
@@ -11656,19 +11840,20 @@
             "hooks"
           ],
           "monolithic": false,
-          "mtime": 1777474946,
+          "mtime": 1787338115,
           "name": "fullstack-integration",
           "name_matches_dir": true,
           "path": "/Users/lionel/Documents/GitHub/solomon-workspace/.claude/skills/fullstack-integration",
           "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/fullstack-integration",
           "root": "workspace",
-          "sha256": "1ded4f61429a8ccd3d645c0a73f1959ad62cf08b078326fa0b1a5357eeb4ec8e",
+          "sha256": "6753aa47f2944a7b9999423d607fd929913a8b493133d1bfb44ee13c6f07dfab",
           "sub_file_count": 2,
           "sub_files": [
             "references/deployment.md",
             "references/websocket.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/fullstack-integration/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/fullstack-integration/",
+          "upstream_pin": null
         },
         "git-guardrails-claude-code": {
           "body_bytes": 2014,
@@ -11720,7 +11905,8 @@
           "sub_files": [
             "scripts/block-dangerous-git.sh"
           ],
-          "symlink_target": "../../.agents/skills/git-guardrails-claude-code"
+          "symlink_target": "../../.agents/skills/git-guardrails-claude-code",
+          "upstream_pin": null
         },
         "grill-me": {
           "body_bytes": 28,
@@ -11771,7 +11957,8 @@
           "sha256": "6189dfceb7304a6e5558f75d87e68fa3bc7fcf7ba120e44f21f8a61fe01eba54",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/grill-me"
+          "symlink_target": "../../.agents/skills/grill-me",
+          "upstream_pin": null
         },
         "grill-with-docs": {
           "body_bytes": 64,
@@ -11822,7 +12009,8 @@
           "sha256": "610d091047bcfb9db0f75c057d15538481a721111579fc5ec7f83ad9131a2165",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/grill-with-docs"
+          "symlink_target": "../../.agents/skills/grill-with-docs",
+          "upstream_pin": null
         },
         "grilling": {
           "body_bytes": 633,
@@ -11872,7 +12060,8 @@
           "sha256": "5a35925d03a391bcfa46940868b649b72dba89ec9c19525e785bbb6bd3a7f478",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/grilling"
+          "symlink_target": "../../.agents/skills/grilling",
+          "upstream_pin": null
         },
         "handoff": {
           "body_bytes": 669,
@@ -11924,7 +12113,8 @@
           "sha256": "57c9f1f392d7352cdc85b1e39ca49eddc70ce1dc278bd9653fb4f23dfc2560fc",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/handoff"
+          "symlink_target": "../../.agents/skills/handoff",
+          "upstream_pin": null
         },
         "hfs-accessibility-testing": {
           "body_bytes": 7907,
@@ -11973,21 +12163,22 @@
           "sha256": "f6045cba191b044d710e947199204ab3702196884b6b8f952ce5c9a5272ee20f",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-accessibility-testing/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-accessibility-testing/",
+          "upstream_pin": null
         },
         "hfs-client-engagement": {
           "body_bytes": 9749,
-          "bytes": 10596,
+          "bytes": 10598,
           "declared_name": "hfs-client-engagement",
           "description_chars": 793,
           "description_tokens": 198,
-          "est_tokens": 2649,
+          "est_tokens": 2650,
           "frontmatter_keys": [
             "description",
             "name"
           ],
-          "frontmatter_yaml_error": "mapping values are not allowed here",
-          "frontmatter_yaml_valid": false,
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
           "has_assets_dir": false,
           "has_evals": false,
           "has_frontmatter": true,
@@ -12014,18 +12205,19 @@
             "hooks"
           ],
           "monolithic": false,
-          "mtime": 1785765888,
+          "mtime": 1787337541,
           "name": "hfs-client-engagement",
           "name_matches_dir": true,
           "path": "/Users/lionel/Documents/GitHub/solomon-workspace/.claude/skills/hfs-client-engagement",
           "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-client-engagement",
           "root": "workspace",
-          "sha256": "24302bd7b86b6491ad4ec6dd3963e747ec23053a9fda0583e220ad0cb6604a24",
+          "sha256": "cd3ad4fed6442813463ea8b05e1be7d99e88ad667eacd0583b09ad35445ad21d",
           "sub_file_count": 1,
           "sub_files": [
             "references/meeting-playbook.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-client-engagement/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-client-engagement/",
+          "upstream_pin": null
         },
         "hfs-component-library": {
           "body_bytes": 6951,
@@ -12080,7 +12272,8 @@
             "components/LoadingState.tsx",
             "components/PageHeader.tsx"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-component-library/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-component-library/",
+          "upstream_pin": null
         },
         "hfs-config-sync": {
           "body_bytes": 8562,
@@ -12130,7 +12323,8 @@
           "sha256": "89fab35ddd83450011af97730c24d7711606b1f28b6f7a16d310728e0d878814",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-config-sync/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-config-sync/",
+          "upstream_pin": null
         },
         "hfs-droplet-ops": {
           "body_bytes": 11901,
@@ -12180,7 +12374,8 @@
           "sha256": "e1e33683cccea4837ae03bca72a841df696b4bd5f3697e88759b0c8ddbff31e5",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-droplet-ops/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-droplet-ops/",
+          "upstream_pin": null
         },
         "hfs-frontend-visual-verification": {
           "body_bytes": 13206,
@@ -12231,7 +12426,8 @@
           "sub_files": [
             "examples/visual-regression-suite.spec.ts"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-frontend-visual-verification/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-frontend-visual-verification/",
+          "upstream_pin": null
         },
         "hfs-portfolio-review": {
           "body_bytes": 2557,
@@ -12281,7 +12477,8 @@
           "sha256": "0404cc1d38d7aa7dc4ea1610a8f63a69d434ad687edac71200029cb5e202e764",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-portfolio-review/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-portfolio-review/",
+          "upstream_pin": null
         },
         "hfs-preprod-deploy": {
           "body_bytes": 16976,
@@ -12332,7 +12529,8 @@
           "sub_files": [
             "references/templates.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-preprod-deploy/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-preprod-deploy/",
+          "upstream_pin": null
         },
         "hfs-repo-maintenance": {
           "body_bytes": 13578,
@@ -12385,7 +12583,8 @@
             "hfs-repo-maintenance-SKILL-v1.2.md",
             "hfs-repo-maintenance-validation-report.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-repo-maintenance/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-repo-maintenance/",
+          "upstream_pin": null
         },
         "hfs-server-debugging": {
           "body_bytes": 7952,
@@ -12434,7 +12633,8 @@
           "sha256": "f7d910be2dc73ef55ccea5b629134c4ed13be2794f987f78d38cd1e193e60d15",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-server-debugging/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-server-debugging/",
+          "upstream_pin": null
         },
         "hfs-server-inventory": {
           "body_bytes": 11097,
@@ -12483,7 +12683,8 @@
           "sha256": "56ad152c0a09995171c95fffd778b7ce2b0745581fe481951ea175da9e041b41",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-server-inventory/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-server-inventory/",
+          "upstream_pin": null
         },
         "hfs-skill-creator": {
           "body_bytes": 17400,
@@ -12533,7 +12734,8 @@
           "sha256": "c2dd89c9cc4a0ddaf45622a55311b1eb5181171926d23844649f011ea10df31e",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-skill-creator/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-skill-creator/",
+          "upstream_pin": null
         },
         "hfs-vscode-orchestrator": {
           "body_bytes": 10411,
@@ -12585,7 +12787,8 @@
           "sub_files": [
             "references/slash-commands.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-vscode-orchestrator/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-vscode-orchestrator/",
+          "upstream_pin": null
         },
         "implement": {
           "body_bytes": 302,
@@ -12636,7 +12839,8 @@
           "sha256": "6d3fd9e83b8f36e5213854779db49b256a457a7ebb4a503e53fa7dcff696adc3",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/implement"
+          "symlink_target": "../../.agents/skills/implement",
+          "upstream_pin": null
         },
         "implementation-plan-generator": {
           "body_bytes": 13836,
@@ -12693,7 +12897,8 @@
             "references/session-metadata.md",
             "references/session-structure.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/implementation-plan-generator/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/implementation-plan-generator/",
+          "upstream_pin": null
         },
         "improve-codebase-architecture": {
           "body_bytes": 5207,
@@ -12746,7 +12951,8 @@
           "sub_files": [
             "HTML-REPORT.md"
           ],
-          "symlink_target": "../../.agents/skills/improve-codebase-architecture"
+          "symlink_target": "../../.agents/skills/improve-codebase-architecture",
+          "upstream_pin": null
         },
         "loop-me": {
           "body_bytes": 2342,
@@ -12798,7 +13004,8 @@
           "sha256": "2b2c725f8b6e8b8f3f6e6bc2c18f0cf3ab029a270b5ac23132fbebdeb6b443aa",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/loop-me"
+          "symlink_target": "../../.agents/skills/loop-me",
+          "upstream_pin": null
         },
         "mcp-server-building": {
           "body_bytes": 15391,
@@ -12851,7 +13058,8 @@
             "examples/minimal-server.py",
             "references/fastmcp-cookbook.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/mcp-server-building/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/mcp-server-building/",
+          "upstream_pin": null
         },
         "migrate-to-shoehorn": {
           "body_bytes": 2579,
@@ -12901,7 +13109,8 @@
           "sha256": "de4da4c11d924fac79c924b2ee3d2db4a5cb98386eb490a599119463d036ae72",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/migrate-to-shoehorn"
+          "symlink_target": "../../.agents/skills/migrate-to-shoehorn",
+          "upstream_pin": null
         },
         "obsidian-vault": {
           "body_bytes": 1314,
@@ -12951,7 +13160,8 @@
           "sha256": "7bed1d552aa5e9345e493cd62cb13e65c5d829d153c349afdb2cb91c809fa6c4",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/obsidian-vault"
+          "symlink_target": "../../.agents/skills/obsidian-vault",
+          "upstream_pin": null
         },
         "otel-observability": {
           "body_bytes": 11117,
@@ -13001,7 +13211,8 @@
           "sha256": "42a4b8f81ada67a98adc6ef846184840c45487b1ef3ee4ae7aae220661224cec",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/otel-observability/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/otel-observability/",
+          "upstream_pin": null
         },
         "plan-review-loop": {
           "body_bytes": 4744,
@@ -13051,7 +13262,8 @@
           "sha256": "809cf13267d2807cb71802ca1688a06988cbefdb8d80e8894dd3ef4225227e92",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/plan-review-loop/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/plan-review-loop/",
+          "upstream_pin": null
         },
         "playwright-e2e-testing": {
           "body_bytes": 8725,
@@ -13104,7 +13316,8 @@
             "examples/test-scenarios.md",
             "references/wired-traversal.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/playwright-e2e-testing/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/playwright-e2e-testing/",
+          "upstream_pin": null
         },
         "postgis-geospatial": {
           "body_bytes": 11415,
@@ -13154,7 +13367,8 @@
           "sha256": "5edb308f3b6a62b6389476b40734405b0ccb25fa28c67f5c645083c8e863bf16",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/postgis-geospatial/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/postgis-geospatial/",
+          "upstream_pin": null
         },
         "project-plan-creator": {
           "body_bytes": 10431,
@@ -13206,7 +13420,8 @@
           "sub_files": [
             "references/v1.8-frontend-sections.md"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/project-plan-creator/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/project-plan-creator/",
+          "upstream_pin": null
         },
         "prototype": {
           "body_bytes": 2785,
@@ -13259,7 +13474,8 @@
             "LOGIC.md",
             "UI.md"
           ],
-          "symlink_target": "../../.agents/skills/prototype"
+          "symlink_target": "../../.agents/skills/prototype",
+          "upstream_pin": null
         },
         "python-backend-scaffold": {
           "body_bytes": 11947,
@@ -13319,7 +13535,8 @@
             "scripts/init_module.py",
             "scripts/init_project.py"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/python-backend-scaffold/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/python-backend-scaffold/",
+          "upstream_pin": null
         },
         "qa": {
           "body_bytes": 4653,
@@ -13369,7 +13586,8 @@
           "sha256": "d9727aac6503981bf69bdd8b37e0d85b32b8fbd353a57528c252dac1337ab761",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/qa"
+          "symlink_target": "../../.agents/skills/qa",
+          "upstream_pin": null
         },
         "request-refactor-plan": {
           "body_bytes": 2445,
@@ -13419,7 +13637,8 @@
           "sha256": "d59de4ba6cc1fe2dd267e8b9b5a1fd88e3e739e2130bc9dd78061d2a072830b8",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/request-refactor-plan"
+          "symlink_target": "../../.agents/skills/request-refactor-plan",
+          "upstream_pin": null
         },
         "research": {
           "body_bytes": 675,
@@ -13469,7 +13688,8 @@
           "sha256": "ef8af88383613e4a4576d933dfac37bca57d47d86fc564b89a2cc88023c4d6ac",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/research"
+          "symlink_target": "../../.agents/skills/research",
+          "upstream_pin": null
         },
         "resolving-merge-conflicts": {
           "body_bytes": 795,
@@ -13519,7 +13739,8 @@
           "sha256": "c7c9ba81362a786aac05d2223123bf1bd2f8a99c3243a72882ede9c68bedfb24",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/resolving-merge-conflicts"
+          "symlink_target": "../../.agents/skills/resolving-merge-conflicts",
+          "upstream_pin": null
         },
         "scaffold-exercises": {
           "body_bytes": 3338,
@@ -13569,7 +13790,8 @@
           "sha256": "75f5c9d771606fb9762f16522efc954df11c324f87148d8ff069bce166257de9",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/scaffold-exercises"
+          "symlink_target": "../../.agents/skills/scaffold-exercises",
+          "upstream_pin": null
         },
         "session-orchestrator": {
           "body_bytes": 12397,
@@ -13631,7 +13853,8 @@
             "scripts/init_progress.py",
             "scripts/init_session.py"
           ],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/session-orchestrator/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/session-orchestrator/",
+          "upstream_pin": null
         },
         "setup-matt-pocock-skills": {
           "body_bytes": 7042,
@@ -13688,7 +13911,8 @@
             "issue-tracker-local.md",
             "triage-labels.md"
           ],
-          "symlink_target": "../../.agents/skills/setup-matt-pocock-skills"
+          "symlink_target": "../../.agents/skills/setup-matt-pocock-skills",
+          "upstream_pin": null
         },
         "setup-pre-commit": {
           "body_bytes": 1978,
@@ -13738,7 +13962,8 @@
           "sha256": "872f4037cb7e6e0e340d4175c086550072959925dffc87b160d1a30dc9f63bbd",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/setup-pre-commit"
+          "symlink_target": "../../.agents/skills/setup-pre-commit",
+          "upstream_pin": null
         },
         "solomon-session": {
           "body_bytes": 1950,
@@ -13788,7 +14013,8 @@
           "sha256": "ac44f8c475f0ff100d815ea85f4d4fda6b64a9faa56df86acb000984e97df848",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon-session/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/solomon-session/",
+          "upstream_pin": null
         },
         "tdd": {
           "body_bytes": 3032,
@@ -13841,7 +14067,8 @@
             "mocking.md",
             "tests.md"
           ],
-          "symlink_target": "../../.agents/skills/tdd"
+          "symlink_target": "../../.agents/skills/tdd",
+          "upstream_pin": null
         },
         "teach": {
           "body_bytes": 9328,
@@ -13898,7 +14125,8 @@
             "MISSION-FORMAT.md",
             "RESOURCES-FORMAT.md"
           ],
-          "symlink_target": "../../.agents/skills/teach"
+          "symlink_target": "../../.agents/skills/teach",
+          "upstream_pin": null
         },
         "temporal-workflows": {
           "body_bytes": 10298,
@@ -13948,7 +14176,8 @@
           "sha256": "fa1d8cff52855c3efb4437513dcf95a191558a8503526e1f678f389be089775e",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/temporal-workflows/"
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/temporal-workflows/",
+          "upstream_pin": null
         },
         "to-spec": {
           "body_bytes": 2854,
@@ -13999,7 +14228,8 @@
           "sha256": "267638edd513b5918de626ad5605d261952abb7428cb308869c663ca924e93e7",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/to-spec"
+          "symlink_target": "../../.agents/skills/to-spec",
+          "upstream_pin": null
         },
         "to-tickets": {
           "body_bytes": 5484,
@@ -14050,7 +14280,8 @@
           "sha256": "918bdefab9313100cb1f7ccb412e2a773fe2f2801dd20d44f6b2acf7a42ca456",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/to-tickets"
+          "symlink_target": "../../.agents/skills/to-tickets",
+          "upstream_pin": null
         },
         "triage": {
           "body_bytes": 6369,
@@ -14104,7 +14335,8 @@
             "AGENT-BRIEF.md",
             "OUT-OF-SCOPE.md"
           ],
-          "symlink_target": "../../.agents/skills/triage"
+          "symlink_target": "../../.agents/skills/triage",
+          "upstream_pin": null
         },
         "ubiquitous-language": {
           "body_bytes": 4498,
@@ -14155,7 +14387,8 @@
           "sha256": "2449e2345b96b9f1e861c697b5eab50d03ae1254481a4306b6f815684e523b3a",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/ubiquitous-language"
+          "symlink_target": "../../.agents/skills/ubiquitous-language",
+          "upstream_pin": null
         },
         "wayfinder": {
           "body_bytes": 11226,
@@ -14206,7 +14439,8 @@
           "sha256": "bef437de697fb6984a8a90b7fd82f128609148d6e02f635ce419d03555b351e1",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/wayfinder"
+          "symlink_target": "../../.agents/skills/wayfinder",
+          "upstream_pin": null
         },
         "wizard": {
           "body_bytes": 3859,
@@ -14259,7 +14493,8 @@
           "sub_files": [
             "template.sh"
           ],
-          "symlink_target": "../../.agents/skills/wizard"
+          "symlink_target": "../../.agents/skills/wizard",
+          "upstream_pin": null
         },
         "writing-beats": {
           "body_bytes": 4718,
@@ -14310,7 +14545,8 @@
           "sha256": "668185cfb6eb6a324b8d864404c398e21f3cddbb637b760e39b7784c8c5e4fee",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/writing-beats"
+          "symlink_target": "../../.agents/skills/writing-beats",
+          "upstream_pin": null
         },
         "writing-fragments": {
           "body_bytes": 3444,
@@ -14361,7 +14597,8 @@
           "sha256": "c61b6608f227b0eee1b832273360cf5088ad68c343c15ec9c06673086662e64e",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/writing-fragments"
+          "symlink_target": "../../.agents/skills/writing-fragments",
+          "upstream_pin": null
         },
         "writing-great-skills": {
           "body_bytes": 9224,
@@ -14414,7 +14651,8 @@
           "sub_files": [
             "GLOSSARY.md"
           ],
-          "symlink_target": "../../.agents/skills/writing-great-skills"
+          "symlink_target": "../../.agents/skills/writing-great-skills",
+          "upstream_pin": null
         },
         "writing-shape": {
           "body_bytes": 5817,
@@ -14465,7 +14703,8 @@
           "sha256": "67d34422bbe43cfd523dea9fe7b3ec5260791aed8ea52309b5b85f9d76f32745",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": "../../.agents/skills/writing-shape"
+          "symlink_target": "../../.agents/skills/writing-shape",
+          "upstream_pin": null
         }
       },
       "exists": true,
@@ -14546,7 +14785,8 @@
           "sub_files": [
             "LICENSE.txt"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         }
       },
       "exists": true,
@@ -14605,7 +14845,8 @@
           "sha256": "2994b5d3152243b1a1cbf8358e9d7c18f290f31a23920647f31053c3efdf990d",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         }
       },
       "exists": true,
@@ -14666,7 +14907,8 @@
           "sha256": "6b77bef90d5d89283d29079a9e1ccbf58f4917018a5dc406310e2666d36881db",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "sentry-debug-issue": {
           "body_bytes": 8666,
@@ -14733,7 +14975,8 @@
             "references/concepts/user-feedback.md",
             "references/search-query-language.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "sentry-fix-stack-traces": {
           "body_bytes": 4432,
@@ -14815,7 +15058,8 @@
             "references/sdks/tanstack-start/index.md",
             "references/setup-verification.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "sentry-get-started": {
           "body_bytes": 6880,
@@ -14917,7 +15161,8 @@
             "references/sdks/flutter/error-monitoring.md",
             "references/sdks/flutter/index.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "sentry-instrument": {
           "body_bytes": 9925,
@@ -15019,7 +15264,8 @@
             "references/sdks/cloudflare/durable-objects.md",
             "references/sdks/cloudflare/error-monitoring.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "sentry-otel-exporter-setup": {
           "body_bytes": 17177,
@@ -15070,7 +15316,8 @@
           "sha256": "8671e32a5d05dc708846889f1081e28c782c24ee1575a33de89a2d2a9d81c8fc",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "sentry-setup-releases": {
           "body_bytes": 6718,
@@ -15172,7 +15419,8 @@
             "references/search-query-language.md",
             "references/setup-verification.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         },
         "sentry-snapshots-cocoa": {
           "body_bytes": 5118,
@@ -15230,7 +15478,8 @@
             "references/snapshots.md",
             "references/wizard-setup.md"
           ],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         }
       },
       "exists": true,
@@ -15290,7 +15539,8 @@
           "sha256": "7067436a87b2396682cd667678c35285b3127e8373bd369990613587a1bca052",
           "sub_file_count": 0,
           "sub_files": [],
-          "symlink_target": null
+          "symlink_target": null,
+          "upstream_pin": null
         }
       },
       "exists": true,
@@ -15351,7 +15601,8 @@
       "sha256": "7c4c792df58cb3886d70cf2ab3cfe6336a0334ccdeb6e8241191f7dca4c0f47c",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 10393,
@@ -15404,7 +15655,8 @@
         "references/edge-cases.md",
         "references/performance-tests.md"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 10198,
@@ -15454,7 +15706,8 @@
       "sha256": "597e355f2af245bfef57fe4c933dfb36213204f1e0222e7f2ac69336c12dca38",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 11098,
@@ -15506,7 +15759,8 @@
       "sub_files": [
         "references/preset-tuning.md"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 11986,
@@ -15556,7 +15810,8 @@
       "sha256": "760868ffe5d8460cfeefe3b7559c2569ce1986278efe03c877676bf6061d807e",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 11834,
@@ -15610,7 +15865,8 @@
         "references/diagnostic-patterns.md",
         "references/fix-patterns.md"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 12768,
@@ -15660,7 +15916,8 @@
       "sha256": "a01db909228356560ac25ca3566b2c72d0106bb8a16bc7b4fe39eaf9ac0ed1fd",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 11863,
@@ -15712,7 +15969,8 @@
       "sub_files": [
         "references/quick-start.md"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 5238,
@@ -15761,7 +16019,8 @@
       "sha256": "daaf3d252e9531229ab2df382698e2e78a35ccb6e9a8f5164b14aab2c8d5acc7",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 11565,
@@ -15811,7 +16070,8 @@
       "sha256": "d55e0a8c55fe86790d99c75064e3c9b1b12158433ee8388c625382ba10f62f4d",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 8184,
@@ -15865,15 +16125,16 @@
         "examples/session-with-wired-checks.xml",
         "examples/wired-traversal.spec.ts"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
-      "body_bytes": 12137,
-      "bytes": 12503,
+      "body_bytes": 12070,
+      "bytes": 12436,
       "declared_name": "fullstack-integration",
       "description_chars": 316,
       "description_tokens": 79,
-      "est_tokens": 3126,
+      "est_tokens": 3109,
       "frontmatter_keys": [
         "description",
         "name"
@@ -15886,7 +16147,7 @@
       "has_references_dir": true,
       "has_scripts_dir": false,
       "is_symlink": false,
-      "lines": 398,
+      "lines": 396,
       "mentions_code_review": false,
       "mentions_completion_criteria": false,
       "mentions_tdd": false,
@@ -15906,19 +16167,20 @@
         "hooks"
       ],
       "monolithic": false,
-      "mtime": 1777474946,
+      "mtime": 1787338115,
       "name": "fullstack-integration",
       "name_matches_dir": true,
       "path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/fullstack-integration",
       "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/fullstack-integration",
       "root": "devkit",
-      "sha256": "1ded4f61429a8ccd3d645c0a73f1959ad62cf08b078326fa0b1a5357eeb4ec8e",
+      "sha256": "6753aa47f2944a7b9999423d607fd929913a8b493133d1bfb44ee13c6f07dfab",
       "sub_file_count": 2,
       "sub_files": [
         "references/deployment.md",
         "references/websocket.md"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 7907,
@@ -15967,21 +16229,22 @@
       "sha256": "f6045cba191b044d710e947199204ab3702196884b6b8f952ce5c9a5272ee20f",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 9749,
-      "bytes": 10596,
+      "bytes": 10598,
       "declared_name": "hfs-client-engagement",
       "description_chars": 793,
       "description_tokens": 198,
-      "est_tokens": 2649,
+      "est_tokens": 2650,
       "frontmatter_keys": [
         "description",
         "name"
       ],
-      "frontmatter_yaml_error": "mapping values are not allowed here",
-      "frontmatter_yaml_valid": false,
+      "frontmatter_yaml_error": null,
+      "frontmatter_yaml_valid": true,
       "has_assets_dir": false,
       "has_evals": false,
       "has_frontmatter": true,
@@ -16008,18 +16271,19 @@
         "hooks"
       ],
       "monolithic": false,
-      "mtime": 1785765888,
+      "mtime": 1787337541,
       "name": "hfs-client-engagement",
       "name_matches_dir": true,
       "path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-client-engagement",
       "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-client-engagement",
       "root": "devkit",
-      "sha256": "24302bd7b86b6491ad4ec6dd3963e747ec23053a9fda0583e220ad0cb6604a24",
+      "sha256": "cd3ad4fed6442813463ea8b05e1be7d99e88ad667eacd0583b09ad35445ad21d",
       "sub_file_count": 1,
       "sub_files": [
         "references/meeting-playbook.md"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 6951,
@@ -16074,7 +16338,8 @@
         "components/LoadingState.tsx",
         "components/PageHeader.tsx"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 8562,
@@ -16124,7 +16389,8 @@
       "sha256": "89fab35ddd83450011af97730c24d7711606b1f28b6f7a16d310728e0d878814",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 11901,
@@ -16174,7 +16440,8 @@
       "sha256": "e1e33683cccea4837ae03bca72a841df696b4bd5f3697e88759b0c8ddbff31e5",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 13206,
@@ -16225,7 +16492,8 @@
       "sub_files": [
         "examples/visual-regression-suite.spec.ts"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 2557,
@@ -16275,7 +16543,8 @@
       "sha256": "0404cc1d38d7aa7dc4ea1610a8f63a69d434ad687edac71200029cb5e202e764",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 16976,
@@ -16326,7 +16595,8 @@
       "sub_files": [
         "references/templates.md"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 17141,
@@ -16376,7 +16646,8 @@
       "sha256": "b1d25150dcb9a63c1a6067e9bdeb7049a726e63c8764c7a3e28e41e9af8d9a84",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 13578,
@@ -16429,7 +16700,8 @@
         "hfs-repo-maintenance-SKILL-v1.2.md",
         "hfs-repo-maintenance-validation-report.md"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 7952,
@@ -16478,7 +16750,8 @@
       "sha256": "f7d910be2dc73ef55ccea5b629134c4ed13be2794f987f78d38cd1e193e60d15",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 11097,
@@ -16527,7 +16800,8 @@
       "sha256": "56ad152c0a09995171c95fffd778b7ce2b0745581fe481951ea175da9e041b41",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 17400,
@@ -16577,7 +16851,8 @@
       "sha256": "c2dd89c9cc4a0ddaf45622a55311b1eb5181171926d23844649f011ea10df31e",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 10411,
@@ -16629,7 +16904,8 @@
       "sub_files": [
         "references/slash-commands.md"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 13836,
@@ -16686,7 +16962,8 @@
         "references/session-metadata.md",
         "references/session-structure.md"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 15391,
@@ -16739,7 +17016,8 @@
         "examples/minimal-server.py",
         "references/fastmcp-cookbook.md"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 11117,
@@ -16789,7 +17067,8 @@
       "sha256": "42a4b8f81ada67a98adc6ef846184840c45487b1ef3ee4ae7aae220661224cec",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 4744,
@@ -16839,7 +17118,8 @@
       "sha256": "809cf13267d2807cb71802ca1688a06988cbefdb8d80e8894dd3ef4225227e92",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 8725,
@@ -16892,7 +17172,8 @@
         "examples/test-scenarios.md",
         "references/wired-traversal.md"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 7344,
@@ -16942,7 +17223,8 @@
       "sha256": "7067436a87b2396682cd667678c35285b3127e8373bd369990613587a1bca052",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 11415,
@@ -16992,7 +17274,8 @@
       "sha256": "5edb308f3b6a62b6389476b40734405b0ccb25fa28c67f5c645083c8e863bf16",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 10431,
@@ -17044,7 +17327,8 @@
       "sub_files": [
         "references/v1.8-frontend-sections.md"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 11947,
@@ -17104,7 +17388,8 @@
         "scripts/init_module.py",
         "scripts/init_project.py"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 12397,
@@ -17166,7 +17451,8 @@
         "scripts/init_progress.py",
         "scripts/init_session.py"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 7485,
@@ -17216,7 +17502,8 @@
       "sha256": "3963948e59a018a2280e5388263af228fc29c474edfc4356d87d516cd48e9419",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 2155,
@@ -17266,7 +17553,8 @@
       "sha256": "82a7bf9ef95228ff84484e52f63670986301d86e813006aaae8f709c5a1267b2",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 1780,
@@ -17316,7 +17604,8 @@
       "sha256": "d752c90685f81f230d868254d4b70f2e1170ab0dbc6ce325f47aa4dd3d22aa27",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 4061,
@@ -17366,7 +17655,8 @@
       "sha256": "ce244b6901b3cb4f8c3fcc3132df9a4847b9d7f76f79d9d2ea734d3fb4e6c5ec",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 1950,
@@ -17416,7 +17706,8 @@
       "sha256": "ac44f8c475f0ff100d815ea85f4d4fda6b64a9faa56df86acb000984e97df848",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 1897,
@@ -17466,7 +17757,8 @@
       "sha256": "5e66fa195d3ff2e8c0b85751e7648c6feb39d312e73710d13fd67d77363a51eb",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 10298,
@@ -17516,7 +17808,8 @@
       "sha256": "fa1d8cff52855c3efb4437513dcf95a191558a8503526e1f678f389be089775e",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 7973,
@@ -17569,7 +17862,8 @@
       "sub_files": [
         "LICENSE.txt"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 8167,
@@ -17618,7 +17912,8 @@
       "sha256": "2994b5d3152243b1a1cbf8358e9d7c18f290f31a23920647f31053c3efdf990d",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 7104,
@@ -17669,7 +17964,8 @@
       "sha256": "6b77bef90d5d89283d29079a9e1ccbf58f4917018a5dc406310e2666d36881db",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 8666,
@@ -17736,7 +18032,8 @@
         "references/concepts/user-feedback.md",
         "references/search-query-language.md"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 4432,
@@ -17818,7 +18115,8 @@
         "references/sdks/tanstack-start/index.md",
         "references/setup-verification.md"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 6880,
@@ -17920,7 +18218,8 @@
         "references/sdks/flutter/error-monitoring.md",
         "references/sdks/flutter/index.md"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 9925,
@@ -18022,7 +18321,8 @@
         "references/sdks/cloudflare/durable-objects.md",
         "references/sdks/cloudflare/error-monitoring.md"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 17177,
@@ -18073,7 +18373,8 @@
       "sha256": "8671e32a5d05dc708846889f1081e28c782c24ee1575a33de89a2d2a9d81c8fc",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 6718,
@@ -18175,7 +18476,8 @@
         "references/search-query-language.md",
         "references/setup-verification.md"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 5118,
@@ -18233,7 +18535,8 @@
         "references/snapshots.md",
         "references/wizard-setup.md"
       ],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 7344,
@@ -18283,7 +18586,8 @@
       "sha256": "7067436a87b2396682cd667678c35285b3127e8373bd369990613587a1bca052",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 7663,
@@ -18334,7 +18638,8 @@
       "sha256": "b7dbb3249695841cf28f87555acc77dc630dafba0f1d544ecce252ff63b0933e",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/ask-matt"
+      "symlink_target": "../../.agents/skills/ask-matt",
+      "upstream_pin": null
     },
     {
       "body_bytes": 4999,
@@ -18385,7 +18690,8 @@
       "sha256": "a6c6083f6b852942fe1592bb128ef8f0ee091fb1fa171fbcfd11747833b0ce9c",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     },
     {
       "body_bytes": 1057,
@@ -18437,7 +18743,8 @@
       "sha256": "bbb25773158d78f610461e4041ffb56fe871cb297626e1f52b0535a9083b7996",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/claude-handoff"
+      "symlink_target": "../../.agents/skills/claude-handoff",
+      "upstream_pin": null
     },
     {
       "body_bytes": 6281,
@@ -18487,7 +18794,8 @@
       "sha256": "6a65cc61114f96db07ec41e3920e67c9c5bf70dd6e0901eb9460ebcb2bdc209f",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/code-review"
+      "symlink_target": "../../.agents/skills/code-review",
+      "upstream_pin": null
     },
     {
       "body_bytes": 6179,
@@ -18540,7 +18848,8 @@
         "DEEPENING.md",
         "DESIGN-IT-TWICE.md"
       ],
-      "symlink_target": "../../.agents/skills/codebase-design"
+      "symlink_target": "../../.agents/skills/codebase-design",
+      "upstream_pin": null
     },
     {
       "body_bytes": 3104,
@@ -18590,7 +18899,8 @@
       "sha256": "a2596e9fa2d50e23ba014f64a5b8f9df4eb56b846a52cad152899ef5eb97b085",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/design-an-interface"
+      "symlink_target": "../../.agents/skills/design-an-interface",
+      "upstream_pin": null
     },
     {
       "body_bytes": 8336,
@@ -18642,7 +18952,8 @@
       "sub_files": [
         "scripts/hitl-loop.template.sh"
       ],
-      "symlink_target": "../../.agents/skills/diagnosing-bugs"
+      "symlink_target": "../../.agents/skills/diagnosing-bugs",
+      "upstream_pin": null
     },
     {
       "body_bytes": 3167,
@@ -18695,7 +19006,8 @@
         "ADR-FORMAT.md",
         "CONTEXT-FORMAT.md"
       ],
-      "symlink_target": "../../.agents/skills/domain-modeling"
+      "symlink_target": "../../.agents/skills/domain-modeling",
+      "upstream_pin": null
     },
     {
       "body_bytes": 521,
@@ -18746,7 +19058,8 @@
       "sha256": "e10fba546f45357fe0aaa7494b9e186910d4525818d19f9b2ad6f28cc506aa5e",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/edit-article"
+      "symlink_target": "../../.agents/skills/edit-article",
+      "upstream_pin": null
     },
     {
       "body_bytes": 5176,
@@ -18796,7 +19109,8 @@
       "sha256": "deddc03b4b5f50755b97fcdb737a786676992ef7e9be614d2cd2c71e0320bebf",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/find-skills"
+      "symlink_target": "../../.agents/skills/find-skills",
+      "upstream_pin": null
     },
     {
       "body_bytes": 2014,
@@ -18848,7 +19162,8 @@
       "sub_files": [
         "scripts/block-dangerous-git.sh"
       ],
-      "symlink_target": "../../.agents/skills/git-guardrails-claude-code"
+      "symlink_target": "../../.agents/skills/git-guardrails-claude-code",
+      "upstream_pin": null
     },
     {
       "body_bytes": 28,
@@ -18899,7 +19214,8 @@
       "sha256": "6189dfceb7304a6e5558f75d87e68fa3bc7fcf7ba120e44f21f8a61fe01eba54",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/grill-me"
+      "symlink_target": "../../.agents/skills/grill-me",
+      "upstream_pin": null
     },
     {
       "body_bytes": 64,
@@ -18950,7 +19266,8 @@
       "sha256": "610d091047bcfb9db0f75c057d15538481a721111579fc5ec7f83ad9131a2165",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/grill-with-docs"
+      "symlink_target": "../../.agents/skills/grill-with-docs",
+      "upstream_pin": null
     },
     {
       "body_bytes": 633,
@@ -19000,7 +19317,8 @@
       "sha256": "5a35925d03a391bcfa46940868b649b72dba89ec9c19525e785bbb6bd3a7f478",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/grilling"
+      "symlink_target": "../../.agents/skills/grilling",
+      "upstream_pin": null
     },
     {
       "body_bytes": 669,
@@ -19052,7 +19370,8 @@
       "sha256": "57c9f1f392d7352cdc85b1e39ca49eddc70ce1dc278bd9653fb4f23dfc2560fc",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/handoff"
+      "symlink_target": "../../.agents/skills/handoff",
+      "upstream_pin": null
     },
     {
       "body_bytes": 302,
@@ -19103,7 +19422,8 @@
       "sha256": "6d3fd9e83b8f36e5213854779db49b256a457a7ebb4a503e53fa7dcff696adc3",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/implement"
+      "symlink_target": "../../.agents/skills/implement",
+      "upstream_pin": null
     },
     {
       "body_bytes": 5207,
@@ -19156,7 +19476,8 @@
       "sub_files": [
         "HTML-REPORT.md"
       ],
-      "symlink_target": "../../.agents/skills/improve-codebase-architecture"
+      "symlink_target": "../../.agents/skills/improve-codebase-architecture",
+      "upstream_pin": null
     },
     {
       "body_bytes": 2342,
@@ -19208,7 +19529,8 @@
       "sha256": "2b2c725f8b6e8b8f3f6e6bc2c18f0cf3ab029a270b5ac23132fbebdeb6b443aa",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/loop-me"
+      "symlink_target": "../../.agents/skills/loop-me",
+      "upstream_pin": null
     },
     {
       "body_bytes": 2579,
@@ -19258,7 +19580,8 @@
       "sha256": "de4da4c11d924fac79c924b2ee3d2db4a5cb98386eb490a599119463d036ae72",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/migrate-to-shoehorn"
+      "symlink_target": "../../.agents/skills/migrate-to-shoehorn",
+      "upstream_pin": null
     },
     {
       "body_bytes": 1314,
@@ -19308,7 +19631,8 @@
       "sha256": "7bed1d552aa5e9345e493cd62cb13e65c5d829d153c349afdb2cb91c809fa6c4",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/obsidian-vault"
+      "symlink_target": "../../.agents/skills/obsidian-vault",
+      "upstream_pin": null
     },
     {
       "body_bytes": 2785,
@@ -19361,7 +19685,8 @@
         "LOGIC.md",
         "UI.md"
       ],
-      "symlink_target": "../../.agents/skills/prototype"
+      "symlink_target": "../../.agents/skills/prototype",
+      "upstream_pin": null
     },
     {
       "body_bytes": 4653,
@@ -19411,7 +19736,8 @@
       "sha256": "d9727aac6503981bf69bdd8b37e0d85b32b8fbd353a57528c252dac1337ab761",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/qa"
+      "symlink_target": "../../.agents/skills/qa",
+      "upstream_pin": null
     },
     {
       "body_bytes": 2445,
@@ -19461,7 +19787,8 @@
       "sha256": "d59de4ba6cc1fe2dd267e8b9b5a1fd88e3e739e2130bc9dd78061d2a072830b8",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/request-refactor-plan"
+      "symlink_target": "../../.agents/skills/request-refactor-plan",
+      "upstream_pin": null
     },
     {
       "body_bytes": 675,
@@ -19511,7 +19838,8 @@
       "sha256": "ef8af88383613e4a4576d933dfac37bca57d47d86fc564b89a2cc88023c4d6ac",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/research"
+      "symlink_target": "../../.agents/skills/research",
+      "upstream_pin": null
     },
     {
       "body_bytes": 795,
@@ -19561,7 +19889,8 @@
       "sha256": "c7c9ba81362a786aac05d2223123bf1bd2f8a99c3243a72882ede9c68bedfb24",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/resolving-merge-conflicts"
+      "symlink_target": "../../.agents/skills/resolving-merge-conflicts",
+      "upstream_pin": null
     },
     {
       "body_bytes": 3338,
@@ -19611,7 +19940,8 @@
       "sha256": "75f5c9d771606fb9762f16522efc954df11c324f87148d8ff069bce166257de9",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/scaffold-exercises"
+      "symlink_target": "../../.agents/skills/scaffold-exercises",
+      "upstream_pin": null
     },
     {
       "body_bytes": 7042,
@@ -19668,7 +19998,8 @@
         "issue-tracker-local.md",
         "triage-labels.md"
       ],
-      "symlink_target": "../../.agents/skills/setup-matt-pocock-skills"
+      "symlink_target": "../../.agents/skills/setup-matt-pocock-skills",
+      "upstream_pin": null
     },
     {
       "body_bytes": 1978,
@@ -19718,7 +20049,8 @@
       "sha256": "872f4037cb7e6e0e340d4175c086550072959925dffc87b160d1a30dc9f63bbd",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/setup-pre-commit"
+      "symlink_target": "../../.agents/skills/setup-pre-commit",
+      "upstream_pin": null
     },
     {
       "body_bytes": 3032,
@@ -19771,7 +20103,8 @@
         "mocking.md",
         "tests.md"
       ],
-      "symlink_target": "../../.agents/skills/tdd"
+      "symlink_target": "../../.agents/skills/tdd",
+      "upstream_pin": null
     },
     {
       "body_bytes": 9328,
@@ -19828,7 +20161,8 @@
         "MISSION-FORMAT.md",
         "RESOURCES-FORMAT.md"
       ],
-      "symlink_target": "../../.agents/skills/teach"
+      "symlink_target": "../../.agents/skills/teach",
+      "upstream_pin": null
     },
     {
       "body_bytes": 2854,
@@ -19879,7 +20213,8 @@
       "sha256": "267638edd513b5918de626ad5605d261952abb7428cb308869c663ca924e93e7",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/to-spec"
+      "symlink_target": "../../.agents/skills/to-spec",
+      "upstream_pin": null
     },
     {
       "body_bytes": 5484,
@@ -19930,7 +20265,8 @@
       "sha256": "918bdefab9313100cb1f7ccb412e2a773fe2f2801dd20d44f6b2acf7a42ca456",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/to-tickets"
+      "symlink_target": "../../.agents/skills/to-tickets",
+      "upstream_pin": null
     },
     {
       "body_bytes": 6369,
@@ -19984,7 +20320,8 @@
         "AGENT-BRIEF.md",
         "OUT-OF-SCOPE.md"
       ],
-      "symlink_target": "../../.agents/skills/triage"
+      "symlink_target": "../../.agents/skills/triage",
+      "upstream_pin": null
     },
     {
       "body_bytes": 4498,
@@ -20035,7 +20372,8 @@
       "sha256": "2449e2345b96b9f1e861c697b5eab50d03ae1254481a4306b6f815684e523b3a",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/ubiquitous-language"
+      "symlink_target": "../../.agents/skills/ubiquitous-language",
+      "upstream_pin": null
     },
     {
       "body_bytes": 11226,
@@ -20086,7 +20424,8 @@
       "sha256": "bef437de697fb6984a8a90b7fd82f128609148d6e02f635ce419d03555b351e1",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/wayfinder"
+      "symlink_target": "../../.agents/skills/wayfinder",
+      "upstream_pin": null
     },
     {
       "body_bytes": 3859,
@@ -20139,7 +20478,8 @@
       "sub_files": [
         "template.sh"
       ],
-      "symlink_target": "../../.agents/skills/wizard"
+      "symlink_target": "../../.agents/skills/wizard",
+      "upstream_pin": null
     },
     {
       "body_bytes": 4718,
@@ -20190,7 +20530,8 @@
       "sha256": "668185cfb6eb6a324b8d864404c398e21f3cddbb637b760e39b7784c8c5e4fee",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/writing-beats"
+      "symlink_target": "../../.agents/skills/writing-beats",
+      "upstream_pin": null
     },
     {
       "body_bytes": 3444,
@@ -20241,7 +20582,8 @@
       "sha256": "c61b6608f227b0eee1b832273360cf5088ad68c343c15ec9c06673086662e64e",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/writing-fragments"
+      "symlink_target": "../../.agents/skills/writing-fragments",
+      "upstream_pin": null
     },
     {
       "body_bytes": 9224,
@@ -20294,7 +20636,8 @@
       "sub_files": [
         "GLOSSARY.md"
       ],
-      "symlink_target": "../../.agents/skills/writing-great-skills"
+      "symlink_target": "../../.agents/skills/writing-great-skills",
+      "upstream_pin": null
     },
     {
       "body_bytes": 5817,
@@ -20345,7 +20688,8 @@
       "sha256": "67d34422bbe43cfd523dea9fe7b3ec5260791aed8ea52309b5b85f9d76f32745",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": "../../.agents/skills/writing-shape"
+      "symlink_target": "../../.agents/skills/writing-shape",
+      "upstream_pin": null
     },
     {
       "body_bytes": 7344,
@@ -20395,13 +20739,14 @@
       "sha256": "7067436a87b2396682cd667678c35285b3127e8373bd369990613587a1bca052",
       "sub_file_count": 0,
       "sub_files": [],
-      "symlink_target": null
+      "symlink_target": null,
+      "upstream_pin": null
     }
   ],
   "summary": {
     "avg_description_chars": 283.6,
     "avg_lines": 179.6,
-    "frontmatter_yaml_invalid": 1,
+    "frontmatter_yaml_invalid": 0,
     "index_cost_tokens": 6739,
     "max_lines": 484,
     "median_description_chars": 254,
@@ -20413,15 +20758,16 @@
     "monolithic_count": 58,
     "name_mismatch": 2,
     "no_frontmatter": 1,
-    "total_bytes": 710492,
-    "total_est_tokens": 177627,
-    "total_lines": 17064,
+    "total_bytes": 710427,
+    "total_est_tokens": 177611,
+    "total_lines": 17062,
     "unique_skills": 95,
     "with_assets_dir": 3,
     "with_evals": 0,
     "with_references_dir": 23,
     "with_scripts_dir": 4
   },
+  "upstream_drift": [],
   "workspace": "/Users/lionel/Documents/GitHub/solomon-workspace",
   "yaml_backend": "pyyaml"
 }
