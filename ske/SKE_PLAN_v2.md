@@ -1,6 +1,6 @@
 # SKE_PLAN_v2 - Solomon Skills Evolution
 
-**Feature prefix:** SKE | **Supersedes:** SKE_PLAN_v1 (claude.ai only, never on disk) | **Grounded in:** `ske/SKE_DISCOVERY.md` (commit ea2e43c, 43 evidence citations) | **Status:** iteration 3 (v2.3) - panel review v1 fixes applied (2 CRIT, 4 WARN, 2 SUGG - `ske/SKE_PLAN_v2_review_v1.md`); awaiting delta re-run
+**Feature prefix:** SKE | **Supersedes:** SKE_PLAN_v1 (claude.ai only, never on disk) | **Grounded in:** `ske/SKE_DISCOVERY.md` (commit ea2e43c, 43 evidence citations) | **Status:** iteration 4 (v2.4) - **panel-converged** (delta run `ske/SKE_PLAN_v2_review_v2.md`: 0 CONFIRMED CRIT at iteration 2 of 3); review-v2 WARN/SUGG folded; PROMPTS emitted at `ske/SKE_PROMPTS_v2.md`
 **Location on disk (SKE-00d):** `solomon-workspace/ske/SKE_PLAN_v2.md`, `ske/SKE_PROGRESS.md`
 
 ## Executive summary
@@ -15,6 +15,8 @@ Solomon's skills estate is 94 skills across two ownership classes: 44 org-author
 
 **v2 -> v2.1** (verification pass, 10 corrections): index gate could not go green; `CODE_BLOCK_PATTERN` preserved (serves 38/43); metadata-empty corrected to 40/43; CLAUDE.md gate 39/39; R7 promotion task; RET-corruption sweep pre-discharged (0 hits); 23 sessions; 75/76 symlinks; `coverage` field named as a task; R5 off the critical path.
 
+**v2.3 -> v2.4** (panel review v2 delta - 0 CRIT, loop terminated; WARN/SUGG folds): T-01 - the `{07..10} -> R5` edges are now justified *in R5's body* per the plan's own Dependency-edge discipline (the estate sweep consumes Wave 3's newly-authored skill files as input). I-01 - SKE-14's Mem0 re-run gains the same deferral clause as the Success-claim beside it. I-02 - rollback notes added to SKE-02 (promotion is one revertable commit + symlink removal) and R6 (symlink re-commit revertable; `settings.local.json` is **untracked**, so a timestamped backup outside the tree precedes the purge). T-03 - R1 rollback stated (Encoding commits revert cleanly by design, D14). T-02 - section-1 population cell arithmetic reconciled. S-01 - SKE-00 (done discovery) never appears as a PROGRESS table row; prose note only, so SKE-00/SKE-00d cannot be confused in the parsed substrate. Emission consequence: `ske/SKE_PROGRESS.md` skeleton is emitted *with* PROMPTS (the governor is path-explicit and fails LOOP_PATHS_NOT_FOUND without it - hit live 2026-08-20); SKE-00d verifies it and registers the project rather than creating it.
+
 **v2.2 -> v2.3** (panel review v1, full mode, 8 findings all CONFIRMED or SUGG, 0 refuted): CRIT T-01 - the 44th org-authored skill (`claude-design-prompts`, the runtime-local real dir; the solomon-repo entry is a sha-identical duplicate of devkit's `polyrepo-management`) is in neither `SKILLS_ROOTS` root, making 44/44 unsatisfiable -> population arithmetic stated in D5, disposition task added to SKE-02, gate restated as "44/44 accounted". CRIT I-01 - **Bishop does not exist** (0 hits estate-wide) -> dropped; the vendored `code-review` skill already runs two-axis parallel-subagent review. WARN I-02 - **Sentinel does not exist** -> replaced with Samson's ingestion poller + `cadence_state`. WARN S-01 -> executive summary added. WARN T-02 -> SKE-05 scope follows the disposition. WARN I-03 -> rollback lines on R4 + SKE-06b. SUGG S-02 -> checklist scope note. SUGG I-04 -> `mkdir -p` in the hook.
 
 **v2.1 -> v2.2** (grilling, 12 decisions - the ledger):
@@ -22,14 +24,14 @@ Solomon's skills estate is 94 skills across two ownership classes: 44 org-author
 | Q | Decision | Lands in |
 |---|---|---|
 | 1 | Gates apply to **44 org-authored** skills only; vendored (39 mattpocock + 11 plugin) reachable via `search_skills` alone | D5, SKE-01, SKE-02, ADR-0002 |
-| 2 | Skills index = org-authored + one pointer line (~1,120 tok); search traverses both roots | D3, SKE-R3, SKE-R4 gate |
+| 2 | Skills index = org-authored + one pointer line (~1,120 tok); search traverses both roots | D3, SKE-R-03, SKE-R-04 gate |
 | 3 | Wrapper skills carry a report-only **Upstream pin** (lockfile hash); adjust as upstream moves | D8, SKE-01 (`upstream_drift`), SKE-07 |
-| 4 | Bare names resolve only while unique; collision -> `AMBIGUOUS_SKILL`; wrappers use **qualified references** | D3, SKE-R3, SKE-01 (`name_collisions`) |
+| 4 | Bare names resolve only while unique; collision -> `AMBIGUOUS_SKILL`; wrappers use **qualified references** | D3, SKE-R-03, SKE-01 (`name_collisions`) |
 | 5 | Eval-less reviewer results are **`x/80 UNMEASURED`** - a different scale, never a hidden cap | SKE-05 |
 | 6 | Evals mount the **production surface**; **Eval baseline = cases + index hash + upstream pins**, asserted at run start | SKE-04, SKE-11 gate |
 | 7 | PROMPTS carry **true dependency edges only** - an edge is a data-flow claim, not a reading order | DAG |
-| 8 | **Corpus-as-spec** section format; the R1<->R4 contract is a **round-trip test**, not matching prose | D2, SKE-R1, SKE-R4 |
-| 9 | An approved RET encoding is a **single-file `ret:` commit** carrying `entry_id`; refuse on dirty target; `mark_encoded` only after commit | D14, SKE-R1 |
+| 8 | **Corpus-as-spec** section format; the R1<->R4 contract is a **round-trip test**, not matching prose | D2, SKE-R-01, SKE-R-04 |
+| 9 | An approved RET encoding is a **single-file `ret:` commit** carrying `entry_id`; refuse on dirty target; `mark_encoded` only after commit | D14, SKE-R-01 |
 | 10 | **v1.11 is taken** (shipped Apr 2026). Format bump = **v1.12**, owned by one pre-wave session (SKE-06b); Wave 3 uses native worktree isolation from session one + file-ownership lists | D11, SKE-06b, Wave 3 |
 | 11 | Telemetry hook obeys the **four-rule Telemetry contract**; path `~/.claude/telemetry/`, never the phantom `~/.hfs/` | D15, SKE-03 |
 | 12 | **Success claim** adopted: >=11 of 22 dormant org-authored skills load within 60 days of Wave 1, precision/recall guard >=0.9 | D16, section 7, SKE-14 |
@@ -40,7 +42,7 @@ Solomon's skills estate is 94 skills across two ownership classes: 44 org-author
 
 | v1 assumption | Ground truth (discovery ref) | Effect on plan |
 |---|---|---|
-| 38 skills | 93 names / 95 records across 4 real roots: devkit 43, `~/.agents` 39, plugins 11, solomon-repo 1 (2.1) | **44 org-authored** are the gated population; `~/.agents` + plugins are a **Vendored root** - reachable, never gated (Q1, ADR-0002) |
+| 38 skills | 93 names / 95 records across 4 real roots - records by root: devkit 43 + runtime 40 (39 vendored via `~/.agents` + 1 real dir, `claude-design-prompts`) + plugins 11 + solomon-repo 1; the 2-record surplus over names is `polyrepo-management` present identically in 3 roots (2.1) | **44 org-authored** are the gated population; `~/.agents` + plugins are a **Vendored root** - reachable, never gated (Q1, ADR-0002) |
 | No tdd / code-review | Both exist in `~/.agents`, DORMANT (8.2) | Port sessions become **enrich + reach** sessions via Wrapper skills |
 | Frontmatter schema: author/date/phase/triggers/related_skills | Repudiated by devkit; live template = name, version, description, allowed-tools, model, hooks; actual adoption = name+description only (3.3, 8.4) | Conformance = name + description (+ optional allowed-tools, model, `upstream`). Nothing else scored |
 | 37/38 monolithic | 58/95; devkit already 17/43 with `references/` (8.5) | Disclosure refactor narrows to the worst devkit offenders |
@@ -64,7 +66,7 @@ Solomon's skills estate is 94 skills across two ownership classes: 44 org-author
 | D7 | **Usage-driven decisions deferred until instrumented.** No skill deleted or demoted on 57-day data. SKE-03 telemetry is the instrument; the Success claim (section 7) is the first consumer. | 5.1, 9.3 |
 | D8 | **Port, don't install; enrich, don't duplicate.** Wrapper skills load their vendored originals **by qualified reference** (`agents:tdd`) and carry an **Upstream pin** - the lockfile hash validated against, report-only, bumped deliberately on re-install. New authoring only for tracer-tickets, worktree-isolation, blast-radius, interrogate. | 8.2, Q3 (pins: tdd 57e1bee8, code-review 9df6fdac, diagnosing-bugs 0ecacff0; zero drift as of 2026-08-20), Q4 |
 | D9 | **Every enriched or new skill ships `evals/evals.json`. skill-reviewer must be installed and run at least once before it is trusted as a gate.** | 7: never run, not installed, 0 evals |
-| D10 | **Section-sign (U+00A7) forbidden estate-wide.** Swept in SKE-R5 (Wave 4 - cosmetic, off the critical path). | memory rule, C10 |
+| D10 | **Section-sign (U+00A7) forbidden estate-wide.** Swept in SKE-R-05 (Wave 4 - cosmetic, off the critical path). | memory rule, C10 |
 | D11 | **Format bump is v1.12, not v1.11.** `SESSION_FORMAT_v1.11_XML.md` shipped April 2026 (FE-verification gates) and its own header records a pending v1.12 split. **SKE-06b alone creates v1.12** with all additions at once: `<task size_tokens blocked_by>`, `<execution isolation>`, the section-sign forbidden pattern, and the effort-enum normalization. SKE-08, SKE-09, and R5 **consume** v1.12; none edits the spec. | Q10: three sessions claiming to edit a shipped spec version, two of them concurrently |
 | D12 | **Mem0 + compaction retained.** No `/clear`-first adoption. | v1 D3 retained |
 | D13 | **Runtime-only command files are promoted to canonical before they are edited.** Promote-then-symlink; then the edit is an ordinary repo edit plus one user-run `cp`. | C5; proven end-to-end by LHV-03 on 2026-08-20 |
@@ -80,33 +82,33 @@ Sizes: 🩹 <=15m, ⚡ <=30m, 🔨 30-90m, 🏗️ 90m+. All produce evidence (p
 
 ### Wave 0 - Scaffolding + P0 safety (~2h)
 
-**SKE-00d · Plan + progress scaffolding** 🩹
-This file + `ske/SKE_PROGRESS.md` (DAG table, all sessions PENDING except SKE-00 DONE ea2e43c). Register `solomon-workspace` in `~/.solomon/projects/` so `mark_complete` works (discovery: only `LJP Invoicing` and `payroll-converter` registered - no HFS session can complete via MCP today). Record the Success claim in PROGRESS with its evaluation date formula (Wave 1 completion + 60 days). Verify: `/session:complete` dry-run resolves project.
+**SKE-00d · Scaffolding verification + project registration** 🩹
+The plan and the `ske/SKE_PROGRESS.md` skeleton are emitted with PROMPTS (v2.4); this session **verifies** them and completes the scaffolding: register `solomon-workspace` in `~/.solomon/projects/` (mirror the shape of an existing registered project's `config.json`) so `mark_complete` works - discovery: only `LJP Invoicing` and `payroll-converter` registered, no HFS session can complete via MCP today. Confirm the Success claim + evaluation-date formula (Wave 1 completion + 60 days) is recorded in PROGRESS. **SKE-00 (the done discovery) appears in PROGRESS as a prose note only, never a table row** - the governor's catalog comparison sees exactly the 23 scheduled ids (panel S-01). Verify: `mark_complete` no longer returns PROJECT_NOT_FOUND (dry-run); PROGRESS round-trips the real ProgressParser.
 
-**SKE-R1 · RET fail-closed + Encoding commits** 🔨 *P0*
+**SKE-R-01 · RET fail-closed + Encoding commits** 🔨 *P0*
 `_insert_into_section`: raise `SkillSectionMissingError` when the target section is absent per the Skill-section format; never append blind. `_find_skill_path` resolves against configured `SKILLS_DIR`, never cwd. Emission per D2 corpus-as-spec: `SKILL_FORBIDDEN` -> a `| pattern | reason |` row appended to the existing `## Forbidden Patterns` table (create the table-form section only when genuinely absent); `SKILL_CONSTRAINT` -> a bullet under the matching `### {priority}` subhead of `## Constraints`. Per D14: `apply_encoding` lands the change as an Encoding commit (`ret(<skill>): <title> [entry_id]`), refuses on a dirty target path, and calls `mark_encoded` only after the commit succeeds. Backup path moves out of the skills tree (SEC-01 rhyme: committed `.bak` files were that incident).
-Tests: fixtures copied from 3 real devkit skills (one with a `## Forbidden Patterns` table, one without, one XML-legacy); assert no write on missing section; assert no XML ever emitted; assert refusal on dirty target; **round-trip test shared with R4** - whatever R1 emits, R4's parser must read back with priority intact (Q8: this test is the contract; the sessions may land in either order against the shared fixture).
+Tests: fixtures copied from 3 real devkit skills (one with a `## Forbidden Patterns` table, one without, one XML-legacy); assert no write on missing section; assert no XML ever emitted; assert refusal on dirty target; **round-trip test shared with R4** - whatever R1 emits, R4's parser must read back with priority intact (Q8: this test is the contract; the sessions may land in either order against the shared fixture). **Rollback (panel T-03): every Encoding commit reverts cleanly by design - `git revert <sha>` un-encodes a single lesson, and `mark_encoded`-after-commit (D14) means the DB never records what git no longer holds.**
 Verify: three `known_patterns.py` entries dry-run against devkit -> zero mutations; corruption-sweep grep re-run at session start (0 hits as of 2026-08-20).
 
-**SKE-R2 · hfs-client-engagement frontmatter + validity guard** 🩹
+**SKE-R-02 · hfs-client-engagement frontmatter + validity guard** 🩹
 Quote the `consumers: IAMS/NSA` scalar. Add `frontmatter_yaml_valid` assertion to `skills_inventory.py` exit code. Verify: `search_skills("client")` returns the skill; inventory exit 0.
 
-**SKE-R3 · Skills server: roots, index, resolution** ⚡
+**SKE-R-03 · Skills server: roots, index, resolution** ⚡
 `list_skills_impl` glob restricted to `*/SKILL.md`; `SKILL_FORMAT_*` / `SKILL_TEMPLATE_*` relocated to `skills/_meta/` (SKILL_FORMAT becomes the D2 spec's home). `SKILLS_DIR` default removed; startup fails loudly if unset. `SKILLS_ROOTS` = [devkit, `~/.agents/skills` read-only]. Per D3: `skills://index` renders **org-authored entries only + one pointer line** ("N vendored skills (incl. tdd, code-review, diagnosing-bugs, codebase-design) - call `search_skills(query)`"); `search_skills` / `load_skill` traverse both roots; bare-name collision returns `AMBIGUOUS_SKILL` with both qualified names; qualified references (`devkit:x` / `agents:x`) resolve directly.
 Verify: `health()` reports 82 traversable (43+39); index lists **43** org-authored + pointer (the 44th, `claude-design-prompts`, joins the index only if SKE-02 promotes it), contains no `skill-name-here`; a synthetic collision fixture returns `AMBIGUOUS_SKILL`.
 
-**SKE-R4 · Parser: corpus-as-spec contract** 🔨
+**SKE-R-04 · Parser: corpus-as-spec contract** 🔨
 Per D2. `load_skill_metadata` parses constraints from `## Constraints` priority subheads and forbidden from `## Forbidden Patterns` table rows; `triggers` from frontmatter *or* `## Triggers`, documented optional. Delete the three XML regexes + synthetic fixtures; **`CODE_BLOCK_PATTERN` untouched**. Tests: iterate the real corpus - non-empty metadata for every skill with a matching section (day-one yield: 15 constraints + 11 forbidden vs 3/43 today, baseline recorded); `get_pattern` non-empty count **>= 38** (regression floor); the shared R1 round-trip test. `lru_cache` keyed (path, mtime) for index/list/search.
 Verify: index entry count = **canonical count** (43 pre-disposition; deliberately != `health()` total per ADR-0002); **served tokens <= 1,200** (the Q2 index is ~43-44 entries + pointer ≈ 1,120); metadata non-empty rate reported. **Rollback (panel I-03): the regex deletion lands as a single commit - `git revert` restores XML extraction wholesale; exposure is bounded because only 3 corpus files ever parsed through the deleted regexes.**
 
-**SKE-R6 · Path drift** 🩹
-Re-commit `.claude/skills` and `.claude/commands` symlinks as relative or `$HOME`-based; purge 6 `lionelj` entries and the phantom `SKILLS_DIR` from `settings.local.json`. Verify: fresh clone into temp dir resolves both symlinks.
+**SKE-R-06 · Path drift** 🩹
+Re-commit `.claude/skills` and `.claude/commands` symlinks as relative or `$HOME`-based; purge 6 `lionelj` entries and the phantom `SKILLS_DIR` from `settings.local.json`. **Rollback (panel I-02): the symlink change is one revertable commit; `settings.local.json` is untracked, so a timestamped backup outside the tree (`~/.claude/backups/settings.local.json.<ts>`) is taken before the purge and restored by copy.** Verify: fresh clone into temp dir resolves both symlinks; backup file exists.
 
 *True edges within Wave 0: only `R3 -> R4` (R4's corpus test and index gate assume R3's relocations and roots). R1, R2, R6 are dependency-free.*
 
 ### Wave 1 - Reachability (D4, D5, D13)
 
-**SKE-R7 · Command promotion + MCP namespace repair** 🔨 *(task 6 is Lionel, manual)*
+**SKE-R-07 · Command promotion + MCP namespace repair** 🔨 *(task 6 is Lionel, manual)*
 Task 0 (D13): promote `plan.md`, `session.md`, `preflight.md`, `review.md` into `hfs-development-kit/claude-config/commands/` (verified 2026-08-20: no canonical copies exist), then symlink runtime. Tasks 1-5: decision doc + rewrite the 5 dead call sites to `mcp__plugin_solomon_solomon__*`. Task 6 (Lionel): one `cp` per file. Verify: each command executes one live call.
 
 **SKE-01 · Slash wrappers + inventory gates** ⚡
@@ -114,6 +116,7 @@ Task 0 (D13): promote `plan.md`, `session.md`, `preflight.md`, `review.md` into 
 
 **SKE-02 · Skill reachability sweep + runtime-local disposition** 🔨 *(shrunk from 🏗️: population 44, not 93)*
 Goal: **44/44 org-authored accounted** - (a) a command names it, (b) a category command (`/skill:backend|frontend|ops|meta|agents`) lists it, or (c) `search_skills` description match. **Disposition `claude-design-prompts` per the Runtime-local rule (panel CRIT T-01): read it, apply the Portability test, then either promote into devkit (add frontmatter - it currently has none - land canonically, symlink runtime) or declare it Personal in the lint exclusion with a reason.** Fix the 7 dead commands (wire or delete). Remove the 2 PHANTOM CLAUDE.md entries; correct the layer description. Install the 7 devkit skills missing from runtime (incl. `skill-reviewer`). Vendored skills: verify `search_skills` finds each by description - no wrappers built or maintained for them (D5).
+**Rollback (panel I-02): promotion is a single devkit commit + one runtime symlink - revert the commit, remove the symlink, and the pre-promotion state is exact; a Personal declaration is one exclusion-config line, reverted by deleting it.**
 Verify: `coverage` = 44/44 accounted (reachable + dispositioned); CLAUDE.md registry 39/39 resolve; the disposition is recorded (promotion commit or exclusion entry).
 
 **SKE-03 · Skill-load telemetry (Telemetry contract)** 🔨 (D7, D15)
@@ -162,8 +165,8 @@ Owns: `skills/blast-radius/`, `skills/interrogate/`, `skills/plan-review-loop/` 
 
 ### Wave 4 - Disclosure + platform
 
-**SKE-R5 · Section-sign ban** ⚡
-CONSTITUTION, **v1.12** `<forbidden>` (consumes SKE-06b's file), skill-creator/reviewer forbidden lists, RET `known_patterns.py` entry `section-sign-usage` (regex `\u00A7`), pre-commit hooks, estate-wide sweep (incl. `ske/SKE_DISCOVERY.md`). Verify: sweep empty; hook blocks a test commit.
+**SKE-R-05 · Section-sign ban** ⚡
+CONSTITUTION, **v1.12** `<forbidden>` (consumes SKE-06b's file), skill-creator/reviewer forbidden lists, RET `known_patterns.py` entry `section-sign-usage` (regex `\u00A7`), pre-commit hooks, estate-wide sweep (incl. `ske/SKE_DISCOVERY.md`). **The `{07..10} -> R5` edges are data flow, not reading order (panel T-01): the estate-wide sweep's input set must include the skill files Wave 3 authors - a sweep run before Wave 3 would certify files that don't exist yet and miss any section-sign those sessions introduce.** Verify: sweep empty; hook blocks a test commit.
 
 **SKE-11 · Disclosure refactor, devkit worst 6** 🏗️
 Split worst monolithic devkit skills to SKILL.md <=150 + `references/`; trim 17 descriptions >400 chars to <=300. Gate: eval harness shows no trigger regression **vs the asserted Eval baseline** (Q6 - the triple, not the bare inventory sha). Verify: re-run inventory; devkit avg desc <=300; baseline comparison attributes any movement.
@@ -175,7 +178,7 @@ Weekly full eval run -> Samson persists to `cadence_state`; alerting via **Samso
 Only if SKE-11 baseline stable. Verify: RET principle-violation rate unchanged over 2 weeks.
 
 **SKE-14 · HFS Agentic Workflow v2.1 + SKE retrospective** ⚡
-Document v1.12, tracer stage, tdd/review gates, eval gate, ownership taxonomy (org-authored/vendored, ADR-0002), single-root model. **Evaluate the Success claim if its date has arrived; otherwise record the evaluation date and the standing instruction** (section 7). Re-run `skills_usage.py` after Mem0 quota resets (2026-09-01); update ACTIVE/DORMANT.
+Document v1.12, tracer stage, tdd/review gates, eval gate, ownership taxonomy (org-authored/vendored, ADR-0002), single-root model. **Evaluate the Success claim if its date has arrived; otherwise record the evaluation date and the standing instruction** (section 7). **Re-run `skills_usage.py` and refresh ACTIVE/DORMANT if 2026-09-01 has passed (Mem0 quota reset); otherwise record it as a dated pending step exactly like the Success-claim clause - the session completes either way (panel I-01: no fixed-calendar gate may block completion).**
 
 ### DAG (true edges only - waves order scheduling, edges claim data flow)
 
@@ -184,7 +187,7 @@ Wave 0: SKE-00d ; R1 ; R2 ; R3 → R4 ; R6                (only R3→R4 is an ed
 Wave 1: R7 → SKE-02 ; SKE-01 → SKE-02 ; SKE-03           (R7 task 6 = Lionel)
 Wave 2: SKE-04 → SKE-05 → SKE-06 ; SKE-06b
 Wave 3: SKE-06b → {SKE-07, SKE-08, SKE-09, SKE-10}       (parallel x4, native worktrees, ownership lists)
-Wave 4: {07..10} → SKE-R5 ; SKE-04 → SKE-11 ; SKE-11 → SKE-12 → SKE-13(cond) → SKE-14
+Wave 4: {07..10} → SKE-R-05 ; SKE-04 → SKE-11 ; SKE-11 → SKE-12 → SKE-13(cond) → SKE-14
 ```
 
 **24 sessions** (23 scheduled + SKE-00 done; SKE-06b added in v2.2). Peak parallelism 4. Estimate ~20-24 h. Wave 0 is ~2h and removes active corruption risk - do it this week.
