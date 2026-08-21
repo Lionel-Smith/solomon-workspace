@@ -15,7 +15,7 @@
 |---|---|---|---|
 | SKE-00d | 0 | Scaffolding verification + project registration | ✅ Complete |
 | SKE-R-01 | 0 | RET fail-closed + Encoding commits (P0) | ✅ Complete |
-| SKE-R-02 | 0 | hfs-client-engagement frontmatter + validity guard | ⬜ Pending |
+| SKE-R-02 | 0 | hfs-client-engagement frontmatter + validity guard | ✅ Complete |
 | SKE-R-03 | 0 | Skills server: roots, index, resolution | ⬜ Pending |
 | SKE-R-04 | 0 | Parser: corpus-as-spec contract | ⬜ Pending |
 | SKE-R-06 | 0 | Path drift | ⬜ Pending |
@@ -51,3 +51,4 @@
 
 - **SKE-00d** (2026-08-21): project registered at ~/.solomon/projects/solomon-workspace/config.json (payroll-converter field shape); PROGRESS round-trips ProgressParser (23 rows, SKE-00 absent). Gate note: progress_parses command in PROMPTS calls nonexistent ProgressParser.parse() — real API is async parse_file; intent validated.
 - **SKE-R-01** (2026-08-21, solomon `cb17f3c`): 6/6 gates pass; 11 new tests + 6 legacy tests updated off the old XML/sibling-.bak contract; corruption sweep 0 hits pre+post; dry-run of 3 known_patterns entries clean. Pre-existing jacob/visual test failures (64) confirmed unrelated via stash-check.
+- **SKE-R-02** (2026-08-21, devkit `8078e02` + workspace `5880f21`): scalar quoted (single-line diff), yaml parses, guard exit-1 fail-path exercised; skill became live-discoverable mid-session (harness surfaced it). Inventory JSON regeneration reverted — SKE-11 owns that baseline.
