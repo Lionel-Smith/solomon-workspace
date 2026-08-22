@@ -31,7 +31,7 @@
 | SKE-08 | 3 | tracer-tickets | ✅ Complete |
 | SKE-09 | 3 | worktree-isolation | ✅ Complete |
 | SKE-10 | 3 | blast-radius + interrogate | ✅ Complete |
-| SKE-R-05 | 4 | Section-sign ban | ⬜ Pending |
+| SKE-R-05 | 4 | Section-sign ban | ✅ Complete |
 | SKE-11 | 4 | Disclosure refactor, devkit worst 6 | ✅ Complete |
 | SKE-12 | 4 | Cadence eval ritual + alerting | ✅ Complete |
 | SKE-13 | 4 | CONSTITUTION progressive split (conditional) | ✅ Complete |
@@ -71,3 +71,4 @@
 - **SKE-12** (2026-08-21, solomon `548c57b`, ws): 4/4 gates; existence check FAILED as memory predicted (samson SERVFAIL, no endpoint) → local jsonl + Slack path, Samson leg dated-pending in routine doc; Sat 09:00 slot (no friday-eval collision); RET Encoding commits now carry regression eval cases (D14 amended); first run P=1.0 R=1.0 coverage 50/50; synthetic breach alert fired end-to-end. USER STEP: create the weekly-skill-eval Routine in the Anthropic UI from routines/weekly-skill-eval.md and add its rt_* id to .created.yml.
 - **SKE-13** (2026-08-21, devkit): condition MET (quantified: >=1 post-SKE-11 run, zero >5pt drops) → SPLIT LANDED: core 14 lines + 5 modules + path-mapped loader hook (tested live, exit-0 envelope); violation_rate gate = 2-week observation window OPEN from 2026-08-21, check ~2026-09-04 via RET entries; USER STEP: wire constitution-loader.sh as PreToolUse Edit|Write hook.
 - **SKE-14** (2026-08-21): 3/3 gates; workflow v2.1 shipped; retro encoded 2 lessons into hfs-skill-creator (`28a7628`, `30342cf` — zero-sum triggers, skill-free negatives) AND caught a live RET defect (post-commit rollback on mark_encoded failure — fixed in solomon). **Success claim: DATED PENDING — Wave 1 completed 2026-08-21, evaluation date = 2026-10-20; standing instruction: run skills_usage.py + telemetry tally, claim holds if >=11 of the 22 baseline-DORMANT org-authored skills recorded >=1 load AND eval P/R >=0.9.** Mem0 usage re-run: DATED PENDING until after 2026-09-01 quota reset.
+- **SKE-R-05** (2026-08-21, devkit `5fcb594`, solomon-docs `c78689a`, ws `56ef1b3`): 3/3 gates; 101 files swept (contextual 'section N' replacement, never delete); hook blocks probe commits and passes clean ones (both proven live); known-pattern registered (16 total); 7 user-owned solomon-docs files swept in working tree only — commits stay Lionel's (OQ-06). CHAIN: all 23 sessions complete.
