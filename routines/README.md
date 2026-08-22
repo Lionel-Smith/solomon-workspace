@@ -17,11 +17,12 @@ Anthropic Max-tier accounts are capped at **15 Routine runs per day**. Below is 
 | `friday-retro` | scheduled | Fri 15:00 | 1 (Fri only) | slack, mem0 | solomon, hfs-aiops, solomon-workspace | remote |
 | `friday-eval` | scheduled | Fri 16:00 | 1 (Fri only) | slack | solomon-workspace | remote |
 | `friday-energy-retro` | scheduled | Fri 17:00 | 1 (Fri only) | whatsapp | none | remote |
+| `weekly-skill-eval` | scheduled | Sat 09:00 | 1 (Sat only) | slack | solomon-workspace | remote |
 | `claude-md-audit` | api | on-demand | 0-3/day typical | slack | varies | remote (local fallback) |
 | `github-pr-review` | github (PR) | event-driven | 0-5/day typical | github, slack | all 8 active repos | remote |
 | `github-ci-triage` | github (workflow) | event-driven | 0-3/day typical | github, slack, linear | all 8 active repos | remote |
 
-**Effective load:** Mon-Thu peak ~6 runs/day (news + standup + 0-5 GitHub events). Fri peak ~9 runs/day (5 scheduled + 0-4 GitHub events). Both well under the 15-run cap, leaving headroom for ad-hoc `claude-md-audit` triggers.
+**Effective load:** Mon-Thu peak ~6 runs/day (news + standup + 0-5 GitHub events). Fri peak ~9 runs/day (5 scheduled + 0-4 GitHub events). Sat ~1-3 (weekly-skill-eval + occasional GitHub events). All well under the 15-run cap, leaving headroom for ad-hoc `claude-md-audit` triggers.
 
 **Alert threshold:** the `cadence_routine_status` MCP tool emits a warning at 80% daily utilization (12+ runs); at that point `github-pr-review` may skip trivial PRs per its own prompt logic (see plan §4.7).
 
