@@ -33,7 +33,7 @@
 | SKE-10 | 3 | blast-radius + interrogate | ✅ Complete |
 | SKE-R-05 | 4 | Section-sign ban | ⬜ Pending |
 | SKE-11 | 4 | Disclosure refactor, devkit worst 6 | ✅ Complete |
-| SKE-12 | 4 | Cadence eval ritual + alerting | ⬜ Pending |
+| SKE-12 | 4 | Cadence eval ritual + alerting | ✅ Complete |
 | SKE-13 | 4 | CONSTITUTION progressive split (conditional) | ⬜ Pending |
 | SKE-14 | 4 | HFS Agentic Workflow v2.1 + SKE retrospective | ⬜ Pending |
 
@@ -68,3 +68,4 @@
 - **SKE-09** (2026-08-21): 3/3 gates; fanout_test.sh: 3 parallel worktrees, disjoint ownership, DAG-order merges, 0 conflicts, porcelain clean; OQ-03 DECIDED native (revisit triggers recorded).
 - **SKE-10** (2026-08-21, devkit): 3/3 gates; both skills runtime-linked; plan-review-loop (already symlinked since Jul 18) carries iteration-0 wiring live; jacob_contract reused, zero new MCP surface. Wave 3 COMPLETE.
 - **SKE-11** (2026-08-21, devkit `fb87495`, ws `f08a2bf`): 3/3 gates; worst-6 split (all <=150 + references/), 18 descs trimmed (avg 381->270), index 5,948 tok; EVAL GATE EARNED ITS KEEP: dw-02 recall regression caught (2-of-3 miss), root-caused to index-competition shift on an ambiguous prompt — fixed by description disambiguation (dev-workflow vs project-bootstrap territory), 3/3 PASS post-fix; hfs-client-engagement consumer clause relocated to body.
+- **SKE-12** (2026-08-21, solomon `548c57b`, ws): 4/4 gates; existence check FAILED as memory predicted (samson SERVFAIL, no endpoint) → local jsonl + Slack path, Samson leg dated-pending in routine doc; Sat 09:00 slot (no friday-eval collision); RET Encoding commits now carry regression eval cases (D14 amended); first run P=1.0 R=1.0 coverage 50/50; synthetic breach alert fired end-to-end. USER STEP: create the weekly-skill-eval Routine in the Anthropic UI from routines/weekly-skill-eval.md and add its rt_* id to .created.yml.
