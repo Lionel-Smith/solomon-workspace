@@ -25,7 +25,7 @@
 | SKE-03 | 1 | Skill-load telemetry (Telemetry contract) | ✅ Complete |
 | SKE-04 | 2 | Eval harness with asserted environment | ✅ Complete |
 | SKE-05 | 2 | skill-reviewer v2 — two scales | ✅ Complete |
-| SKE-06 | 2 | hfs-skill-creator v2.1 | ⬜ Pending |
+| SKE-06 | 2 | hfs-skill-creator v2.1 | ✅ Complete |
 | SKE-06b | 2 | SESSION_FORMAT v1.12 | ⬜ Pending |
 | SKE-07 | 3 | Enrich tdd + code-review + diagnosing-bugs | ⬜ Pending |
 | SKE-08 | 3 | tracer-tickets | ⬜ Pending |
@@ -61,3 +61,4 @@
 - **SKE-02** (2026-08-21, devkit `71bb3e6`+`78ca6d9`, workspace `2ac9804`): 3/3 gates (registry_resolves as-written over-matches prose fragments — intent validated on enumeration lines: 27 refs, 0 phantoms); claude-design-prompts PROMOTED (Portability: 0 user refs, YOUNG) + runtime symlinked w/ backup; 7 commands wired; 7 skills symlinked to runtime (all live-surfaced); 39/39 vendored findable by search; floor now 44; server sees 83.
 - **SKE-04** (2026-08-21): 2/2 gates; headless haiku runner live (12 cases ~2min); FIRST MEASURED BASELINE P=1.0 R=1.0 (variance to ~0.86 across runs — metrics recorded, not gated), index_hash 4563d142; static proxy P/R 0.43 (documented as crude PR-sample only); prl-04 negative corrected (was a real debugging-workflow trigger).
 - **SKE-05** (2026-08-21): 4/4 gates; 44 artifacts (3 Measured w/ baseline triple, 41 UNMEASURED); reviewer's FIRST run ever; pass^3/co-loaded withheld PENDING weekly ritual; sweep is mechanical/deterministic (skill_review_run.py); plan-review-loop scored 70/100 — its own sections don't parse corpus-as-spec (work-queue signal, feeds SKE-11).
+- **SKE-06** (2026-08-21): 2/2 gates; throwaway csv-schema-probe built per v2.1, scored 90/100 Measured (the max while pass^3/co-loaded are PENDING), deleted after gate reading; no upstream idioms found to strip.
