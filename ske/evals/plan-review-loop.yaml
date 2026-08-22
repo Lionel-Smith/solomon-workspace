@@ -1,0 +1,25 @@
+# Eval cases: plan-review-loop (ACTIVE #1)
+cases:
+  - id: prl-01
+    prompt: "Review my IAMS_PLAN.md architecture document iteratively until it has no critical issues"
+    should_trigger: true
+    expected_skill: plan-review-loop
+    co_loaded: []
+    rubric:
+      - "runs structural, technical, implementation phases"
+      - "outputs versioned file per iteration"
+  - id: prl-02
+    prompt: "My PROMPTS document has 12 dependent sessions touching production data - review it before I launch"
+    should_trigger: true
+    expected_skill: plan-review-loop
+    co_loaded: []
+    rubric:
+      - "mandates minimum 2 iterations for >3 dependent sessions"
+  - id: prl-03
+    prompt: "What's the capital of France?"
+    should_trigger: false
+    expected_skill: null
+  - id: prl-04
+    prompt: "Rename the variable x to count in this one-line function"
+    should_trigger: false
+    expected_skill: null

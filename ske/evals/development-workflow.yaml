@@ -1,0 +1,24 @@
+# Eval cases: development-workflow (ACTIVE #2)
+cases:
+  - id: dw-01
+    prompt: "Walk me through the HFS development workflow for building this feature from plan to commit"
+    should_trigger: true
+    expected_skill: development-workflow
+    co_loaded: [session-orchestrator]
+    rubric:
+      - "names the session lifecycle stages"
+  - id: dw-02
+    prompt: "How should I structure my work on this new HFS feature - what phases and gates apply?"
+    should_trigger: true
+    expected_skill: development-workflow
+    co_loaded: []
+    rubric:
+      - "references verification gates"
+  - id: dw-03
+    prompt: "Translate this paragraph into Spanish"
+    should_trigger: false
+    expected_skill: null
+  - id: dw-04
+    prompt: "What's the difference between TCP and UDP?"
+    should_trigger: false
+    expected_skill: null

@@ -1,0 +1,27 @@
+# Eval cases: hfs-client-engagement (ACTIVE #3, findable since SKE-R-02)
+cases:
+  - id: hce-01
+    prompt: "A new client wants us to build an inventory system for their eight venues - where do we start?"
+    should_trigger: true
+    expected_skill: hfs-client-engagement
+    co_loaded: []
+    rubric:
+      - "routes through intake and research brief stages"
+  - id: hce-02
+    prompt: "We received an RFP with an SRS attached for a contract build - what's the HFS process?"
+    should_trigger: true
+    expected_skill: hfs-client-engagement
+    co_loaded: []
+    rubric:
+      - "applies the external-gate routing rule"
+  - id: hce-03
+    prompt: "Should this internal tool idea go through /spec or the client pipeline?"
+    should_trigger: true
+    expected_skill: hfs-client-engagement
+    co_loaded: []
+    rubric:
+      - "external decision-maker test decides the pipeline"
+  - id: hce-04
+    prompt: "Optimize this SQL query for me"
+    should_trigger: false
+    expected_skill: null
