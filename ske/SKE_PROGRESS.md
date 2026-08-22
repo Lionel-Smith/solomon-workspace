@@ -24,7 +24,7 @@
 | SKE-02 | 1 | Skill reachability sweep + runtime-local disposition | ✅ Complete |
 | SKE-03 | 1 | Skill-load telemetry (Telemetry contract) | ✅ Complete |
 | SKE-04 | 2 | Eval harness with asserted environment | ✅ Complete |
-| SKE-05 | 2 | skill-reviewer v2 — two scales | ⬜ Pending |
+| SKE-05 | 2 | skill-reviewer v2 — two scales | ✅ Complete |
 | SKE-06 | 2 | hfs-skill-creator v2.1 | ⬜ Pending |
 | SKE-06b | 2 | SESSION_FORMAT v1.12 | ⬜ Pending |
 | SKE-07 | 3 | Enrich tdd + code-review + diagnosing-bugs | ⬜ Pending |
@@ -60,3 +60,4 @@
 - **SKE-R-07** (2026-08-21, devkit `c696378`+`c15bd37`, solomon `904732d`): 3/3 gates — copies_identical went MACHINE-checkable: discovery drift found, the 4 'runtime-only' files are symlinks → solomon/commands/ (plugin repo), so the live fix landed as repo edits and the planned user cp is a NO-OP (would sever symlinks — decision doc ske/decisions/SKE-R-07.md). 5 declared + 4 same-class dead refs repaired; 0 dead namespaces remain in command surfaces.
 - **SKE-02** (2026-08-21, devkit `71bb3e6`+`78ca6d9`, workspace `2ac9804`): 3/3 gates (registry_resolves as-written over-matches prose fragments — intent validated on enumeration lines: 27 refs, 0 phantoms); claude-design-prompts PROMOTED (Portability: 0 user refs, YOUNG) + runtime symlinked w/ backup; 7 commands wired; 7 skills symlinked to runtime (all live-surfaced); 39/39 vendored findable by search; floor now 44; server sees 83.
 - **SKE-04** (2026-08-21): 2/2 gates; headless haiku runner live (12 cases ~2min); FIRST MEASURED BASELINE P=1.0 R=1.0 (variance to ~0.86 across runs — metrics recorded, not gated), index_hash 4563d142; static proxy P/R 0.43 (documented as crude PR-sample only); prl-04 negative corrected (was a real debugging-workflow trigger).
+- **SKE-05** (2026-08-21): 4/4 gates; 44 artifacts (3 Measured w/ baseline triple, 41 UNMEASURED); reviewer's FIRST run ever; pass^3/co-loaded withheld PENDING weekly ritual; sweep is mechanical/deterministic (skill_review_run.py); plan-review-loop scored 70/100 — its own sections don't parse corpus-as-spec (work-queue signal, feeds SKE-11).
