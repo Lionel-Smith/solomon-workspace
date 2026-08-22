@@ -26,7 +26,7 @@
 | SKE-04 | 2 | Eval harness with asserted environment | ✅ Complete |
 | SKE-05 | 2 | skill-reviewer v2 — two scales | ✅ Complete |
 | SKE-06 | 2 | hfs-skill-creator v2.1 | ✅ Complete |
-| SKE-06b | 2 | SESSION_FORMAT v1.12 | ⬜ Pending |
+| SKE-06b | 2 | SESSION_FORMAT v1.12 | ✅ Complete |
 | SKE-07 | 3 | Enrich tdd + code-review + diagnosing-bugs | ⬜ Pending |
 | SKE-08 | 3 | tracer-tickets | ⬜ Pending |
 | SKE-09 | 3 | worktree-isolation | ⬜ Pending |
@@ -62,3 +62,4 @@
 - **SKE-04** (2026-08-21): 2/2 gates; headless haiku runner live (12 cases ~2min); FIRST MEASURED BASELINE P=1.0 R=1.0 (variance to ~0.86 across runs — metrics recorded, not gated), index_hash 4563d142; static proxy P/R 0.43 (documented as crude PR-sample only); prl-04 negative corrected (was a real debugging-workflow trigger).
 - **SKE-05** (2026-08-21): 4/4 gates; 44 artifacts (3 Measured w/ baseline triple, 41 UNMEASURED); reviewer's FIRST run ever; pass^3/co-loaded withheld PENDING weekly ritual; sweep is mechanical/deterministic (skill_review_run.py); plan-review-loop scored 70/100 — its own sections don't parse corpus-as-spec (work-queue signal, feeds SKE-11).
 - **SKE-06** (2026-08-21): 2/2 gates; throwaway csv-schema-probe built per v2.1, scored 90/100 Measured (the max while pass^3/co-loaded are PENDING), deleted after gate reading; no upstream idioms found to strip.
+- **SKE-06b** (2026-08-21, solomon + devkit): 3/3 gates; v1.12 delta spec + additive parser extraction (4 new tests, 79 legacy green); PARSER FACT for consumers: session `version` attr is never read — the block regex needs id/project adjacent, an attr between them breaks matching (spec documents this); shim removal deferred (superset rule).
