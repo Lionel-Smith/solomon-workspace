@@ -91,7 +91,7 @@ Append to the bottom of this file after each session completes.
 - **Files:** 2 created — `routines/daily-solomon-standup.md` (168 lines), `routines/.review/daily-solomon-standup_review.md` (review report, 2 iterations)
 - **plan-review-loop:** 2 iterations to clear (iter 1 = 92.5/100 with 2 criticals: Mem0 query shape + anti-pattern text expansion; iter 2 = 96/100 with 0 criticals → COMPLETE)
 - **Bonus constraint-sweep finding:** Caught stray `⚠` emoji in initial degraded-mode Safety line — removed before commit (emoji-allowlist enforcement via NFC-normalized regex sweep; documented in `pattern_emoji_allowlist_sweep`)
-- **Deferred to user:** Task 3 SMOKE_TEST — partial possible now (verify Safety §6 auth-failure branch since `/agents/activity` endpoint doesn't exist yet); full happy-path test waits for future BE-* session shipping Samson endpoint
+- **Deferred to user:** Task 3 SMOKE_TEST — partial possible now (verify Safety section 6 auth-failure branch since `/agents/activity` endpoint doesn't exist yet); full happy-path test waits for future BE-* session shipping Samson endpoint
 - **Routed-around drift (consistent with ROUTINE-01/02):**
   - Verification paths used `solomon-workspace/routines/...` but `working_directory` IS solomon-workspace; semantic-equivalent run used (per `lesson_session_path_doubling_drift`)
   - Check 2 bare `python -c "import yaml..."` pinned to `hfs-aiops/.venv/bin/python3.11` (per `lesson_pyyaml_interpreter_pinning`)
@@ -284,7 +284,7 @@ Append to the bottom of this file after each session completes.
 - **Dependencies:** BE-01 ✅
 - **Model:** claude-sonnet-4-6 with extended thinking (8K)
 - **User-authorized path:** Run on droplet against DO Postgres `defaultdb` via PgBouncer (per /session:run question — user chose "Run on droplet (Recommended)" + "Yes, apply (Recommended)")
-- **Verification:** 8/8 gates passed on droplet — alembic_clean ✓ (head `2c952a1cfdf3`) | tables_count ✓ (14 actual; XML said 13 — plan §2.1 arithmetic drift) | seed_count ✓ (7 agent budgets per OQ-06) | state_seeded ✓ (cadence_state id=1, epoch, schema_version 1.1.0) | fk_valid ✓ (2 FKs on cadence_routine_runs) | check_constraints ✓ (12 CHECK constraints) | downgrade_clean ✓ | pytest ✓ (5/5)
+- **Verification:** 8/8 gates passed on droplet — alembic_clean ✓ (head `2c952a1cfdf3`) | tables_count ✓ (14 actual; XML said 13 — plan section 2.1 arithmetic drift) | seed_count ✓ (7 agent budgets per OQ-06) | state_seeded ✓ (cadence_state id=1, epoch, schema_version 1.1.0) | fk_valid ✓ (2 FKs on cadence_routine_runs) | check_constraints ✓ (12 CHECK constraints) | downgrade_clean ✓ | pytest ✓ (5/5)
 - **Commits (4 across cadence-layer-v1.1 in hfs-aiops, all pushed):**
   - `de6ed84` (local) — feat(cadence): SQLAlchemy models + alembic wiring (BE-02 partial)
   - `8747ee7` (droplet) — feat(cadence): alembic migration applied (14 tables + seeds)
@@ -304,7 +304,7 @@ Append to the bottom of this file after each session completes.
   - `pattern_session_pool_mode_for_alembic` (PgBouncer flip during migration window)
   - `pattern_shared_db_preflight_inventory` (information_schema query to detect multi-tenancy upfront)
 - **Spec deviations vs original session XML:**
-  - tables_count expected 13 → actual 14 (plan §2.1 arithmetic off by one)
+  - tables_count expected 13 → actual 14 (plan section 2.1 arithmetic off by one)
   - Path: `hfs_aiops/cadence/` → `samson/cadence/` (per pattern_cadence_module_placement from BE-01)
   - APPLY_MIGRATION ran on droplet (not local) per user-authorized path
 - **/session:run rule deviation:** "DO NOT commit changes" violated by the interim local commit + droplet apply commits — necessary infrastructure for the user-authorized droplet path
@@ -334,7 +334,7 @@ Append to the bottom of this file after each session completes.
 - **DTO inventory:** 11 NEW v1.1 Routine lifecycle (Register/Ingest/Evaluate/Status req+resp + IngestionResult/RoutineHealth/DailySlotUsage) + 2 Capture + 3 Decisions (incl. PromotionProposal) + 3 Audit + 2 Energy + 3 Status + 5 Token (incl. AgentWeeklyTotal/BudgetBreach) + 1 CadenceError = 30
 - **All 7 constraints honored** (4 critical + 3 high). 0 forbidden-pattern violations.
 - **1 new pattern memorialized:** `lesson_session_verification_grep_anchored_to_class_body` — `<verification>` greps for Python field/class declarations MUST anchor with `^    ` (or `^class`); bare-symbol greps false-positive on docstring prose. Same bug class as `fe_bindings_updated` multiline-YAML gate; deferred process improvement → session XML authoring template should warn against bare-symbol greps.
-- **Inherited patterns applied (4):** pattern_cadence_module_placement (path correction `hfs_aiops/cadence` → `samson/cadence` enforced via `<forbidden>` pattern — zero violations this session), pattern_read_target_repo_claude_md_before_authoring (Task 0: pre-flight read of hfs-aiops CLAUDE.md + samson/cadence/CLAUDE.md + plan §3.1+§3.5 + contract-first-api skill), pattern_decision_boundary_at_trigger_not_runtime (ExecutionMode field on RoutineRegisterRequest is payload-set, never runtime-derived), pattern_dispatch_order_matches_data_flow (response URL/SID fields are explicit-nullable, never silently blank)
+- **Inherited patterns applied (4):** pattern_cadence_module_placement (path correction `hfs_aiops/cadence` → `samson/cadence` enforced via `<forbidden>` pattern — zero violations this session), pattern_read_target_repo_claude_md_before_authoring (Task 0: pre-flight read of hfs-aiops CLAUDE.md + samson/cadence/CLAUDE.md + plan section 3.1+section 3.5 + contract-first-api skill), pattern_decision_boundary_at_trigger_not_runtime (ExecutionMode field on RoutineRegisterRequest is payload-set, never runtime-derived), pattern_dispatch_order_matches_data_flow (response URL/SID fields are explicit-nullable, never silently blank)
 - **Routed-around drift (5 documented in SESSION.md `<drift_from_prompts_xml>`):** all 3 task paths corrected `hfs_aiops/cadence/*` → `samson/cadence/*`; tasks 1+2 reframed CREATE → MODIFY (placeholders from BE-01); verification commands path-corrected + venv-prefixed; +2 discriminator verification checks added; +1 critical constraint + 3 forbidden patterns added
 - **Notes:** mypy installed in venv (was missing — `2.1.0`). Wave 4 complete (BE-01 + BE-02 + BE-03 all ✅). BE-04 unblocked.
 
@@ -681,7 +681,7 @@ Append to the bottom of this file after each session completes.
 - **Loaded:** 2026-06-09
 - **Started:** 2026-06-09
 - **Completed:** 2026-06-09
-- **Effort:** light (plan §14 "BE-10 [Light]")
+- **Effort:** light (plan section 14 "BE-10 [Light]")
 - **Wave:** 10 (parallel-safe with BE-09 ✅)
 - **Working dir:** `~/Documents/GitHub/solomon-workspace/hfs-aiops`
 - **Dependencies:** BE-09 ✅ (per plan wave map; both Wave 10)

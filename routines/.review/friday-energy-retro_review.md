@@ -12,11 +12,11 @@
 
 ### Issues Found: 0 critical, 1 warning
 
-- **[WARN-001]** §4 hard rule "Two lines: the greeting/format intro, blank line, then the reply template" is slightly ambiguous re: whether the blank line counts. Cloud-Claude could compose a 2-line message without a blank separator and claim compliance. → Recommendation: tighten to "Two content lines separated by a blank line: (1) greeting+format-intro ending with `format:`, (2) `energy: gave=…` template."
+- **[WARN-001]** section 4 hard rule "Two lines: the greeting/format intro, blank line, then the reply template" is slightly ambiguous re: whether the blank line counts. Cloud-Claude could compose a 2-line message without a blank separator and claim compliance. → Recommendation: tighten to "Two content lines separated by a blank line: (1) greeting+format-intro ending with `format:`, (2) `energy: gave=…` template."
 
 ### Applied Fixes
 
-- [WARN-001] ✅ §4 rule tightened to "Two content lines separated by a blank line: (1) the greeting+format-intro line ending with `format:`, (2) the `energy: gave=…` template line."
+- [WARN-001] ✅ section 4 rule tightened to "Two content lines separated by a blank line: (1) the greeting+format-intro line ending with `format:`, (2) the `energy: gave=…` template line."
 
 ### Quality Score: 96
 
@@ -41,7 +41,7 @@ Loop terminated after iteration 1. **First Routine in this build to clear single
 
 **Strengths:**
 - Simplest Routine in the cadence build — single WhatsApp dispatch, no API loops, no response handling.
-- No-nudging constraint enforced in 3 places (§3 step 2, §4 hard rules, §6 Never) — defensive against the natural drift toward wellness-app voice.
+- No-nudging constraint enforced in 3 places (section 3 step 2, section 4 hard rules, section 6 Never) — defensive against the natural drift toward wellness-app voice.
 - Sunday-signal handoff to weekly-meta-reporter explicit — keeps this Routine from owning "did Lionel reply?" logic that belongs elsewhere.
 - 🌴 single-emoji allowlist declared upfront — the Bahamas personality signal is locked, not subject to substitution.
 - `energy: gave=… drained=… change=… sleep=… mood=…` reply-template format is verbatim — INT-01's `EnergyService.parse_whatsapp_reply` consumes this exact shape.

@@ -45,10 +45,10 @@ All 5 issues from iteration 1 resolved.
 
 - [CRIT-001] ✅ Step 7 now explicit: `solomon-workspace/CLAUDE.md` → solomon-workspace repo; `solomon/CLAUDE.md` → solomon; `hfs-aiops/CLAUDE.md` → hfs-aiops; `.claude/skills|commands|agents/*` → default to solomon-workspace (the `.claude/` is symlinked from there). Only the 3 repos in this Routine's `repos` config are clone-able.
 - [CRIT-002] ✅ Step 7 now has fallback validation: "if shell access is available, run `git apply --check`. If not (Anthropic cloud Routine context), do a logical check: confirm every `@@ -X,Y` line range exists in the current file and the context lines match." This handles both Anthropic-cloud and Local Routine execution modes.
-- [CRIT-003] ✅ Output Format §4 now differentiates Kata by mode:
+- [CRIT-003] ✅ Output Format section 4 now differentiates Kata by mode:
   - Quiet-week mode: 3 Kata prompts as the main message body (Target / Actual / Next experiment) — skip "Obstacles" since there's no obstacle to address from a quiet week.
   - Normal mode: 4-prompt Kata as a thread reply (Target / Actual / Obstacles / Next experiment).
-  Dispatch §5 Call 2 explicitly notes "normal mode only; skip in quiet-week mode."
+  Dispatch section 5 Call 2 explicitly notes "normal mode only; skip in quiet-week mode."
 - [WARN-001] ✅ `target_type_hint` rule tightened to `"≥ 2 members AND ≥ 50% members + valid → use the hint"`.
 - [WARN-002] ✅ Block Kit `value` field now shows escaped JSON-string example with `\"` quotes.
 
@@ -82,15 +82,15 @@ Loop terminated after 2 iterations (target met before max=3).
 - Block Kit `value` field documented with escape handling so BE-06's webhook can parse promotion IDs on click.
 
 **Residual risks (not blockers):**
-- The Samson `/cadence/learnings?queued_for_week=...` endpoint is **NEW** per plan §4.3 — won't exist until BE-08 ships. This Routine prompt is correct in calling it; smoke test will hit Safety §6 auth/404 path until that endpoint lands.
+- The Samson `/cadence/learnings?queued_for_week=...` endpoint is **NEW** per plan section 4.3 — won't exist until BE-08 ships. This Routine prompt is correct in calling it; smoke test will hit Safety section 6 auth/404 path until that endpoint lands.
 - BE-06's apply-worker webhook handler must match the `value` JSON shape exactly (`promotion_local_id`, `target_type`, `target_path`, `source_learning_ids`). Contract drift between this Routine and BE-06 would silently break promotion flows. Worth verifying when BE-06 is authored.
-- Diff staleness: if a learning was captured Monday and a relevant CLAUDE.md edit landed Tuesday, the Friday retro's diff might already be applied. The Mem0 dedup step (§3 step 6) helps but isn't airtight. Acceptable; revisit after ≥ 4 retros.
+- Diff staleness: if a learning was captured Monday and a relevant CLAUDE.md edit landed Tuesday, the Friday retro's diff might already be applied. The Mem0 dedup step (section 3 step 6) helps but isn't airtight. Acceptable; revisit after ≥ 4 retros.
 
 **Smoke test (task 3) — user-side action required:**
 Until BE-08 ships the `/cadence/learnings` endpoint and BE-06 ships the apply-worker, full smoke test isn't possible. **Partial smoke test now feasible:**
 1. Create one-off Routine in Anthropic UI with this prompt + connectors `{slack, mem0}` + secret `SAMSON_INTERNAL_TOKEN` + repos `{solomon, hfs-aiops, solomon-workspace}`.
 2. "Run now" — Samson API will 401/404 (endpoint doesn't exist yet).
-3. Verify Safety §6 auth-failure path: single line posted to Slack `#dev-retro`, no Block Kit blocks, no Kata thread.
+3. Verify Safety section 6 auth-failure path: single line posted to Slack `#dev-retro`, no Block Kit blocks, no Kata thread.
 4. Total tokens < 80K.
 
 Full smoke test (with live API + apply-worker) deferred until BE-08 and BE-06 land.

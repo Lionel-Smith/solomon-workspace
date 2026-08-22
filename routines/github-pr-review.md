@@ -132,10 +132,10 @@ payload:
   owner: <derive from repo>
   repo: <derive from repo>
   pull_number: <pr_number>
-  body: <the summary body from §4>
+  body: <the summary body from section 4>
   event: "COMMENT"   # NEVER APPROVE or REQUEST_CHANGES
   comments: [
-    {path: <file_path>, line: <line_number>, side: "RIGHT", body: <line-comment body from §4>},
+    {path: <file_path>, line: <line_number>, side: "RIGHT", body: <line-comment body from section 4>},
     # For findings on deleted lines (rare — usually a finding is about a removed-but-needed
     # line), use side: "LEFT" and reference the base-side line number instead of head-side.
     # Most findings target added/context lines → side: "RIGHT" is the default.
@@ -149,7 +149,7 @@ connector: slack
 method: chat.postMessage
 payload:
   channel: "#cadence-status"
-  text: <the one-line meta-notif from §4>
+  text: <the one-line meta-notif from section 4>
   unfurl_links: false
 ```
 
@@ -165,11 +165,11 @@ If Call 1 succeeds and Call 2 fails: record the Slack failure in `output_artifac
 - GitHub API returns 403 (perms issue): post a minimal review with `event=COMMENT` and body `_Cadence review skipped — GitHub API permissions issue. See Samson logs._` Then exit.
 
 **Diff too large:**
-- > 100KB: process first 100KB only, append truncation note to summary (see §4).
+- > 100KB: process first 100KB only, append truncation note to summary (see section 4).
 - > 500KB: refuse entirely. Post a minimal review body `_Cadence review skipped — PR diff is {{ size }}KB; over the 500KB cap. Split the PR for review._` Then exit.
 
 **CLAUDE.md not found:**
-- Use HFS-wide defaults (per §3 step 3). Do not fail — proceed with general HFS forbidden-pattern set.
+- Use HFS-wide defaults (per section 3 step 3). Do not fail — proceed with general HFS forbidden-pattern set.
 
 **Skip:**
 - Binary file changes (file mode = binary in diff): silently skip review for that file but still review text files in the same PR.

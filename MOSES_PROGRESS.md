@@ -119,7 +119,7 @@
 
 ## Audit Reconciliation — 2026-04-15
 
-Numeric claims reconciled against commit diffs. See [MOSES_AUDIT.md](MOSES_AUDIT.md) §3 and [MOSES_SPRINT_CLOSE_PLAN.md](MOSES_SPRINT_CLOSE_PLAN.md) §9 for full evidence.
+Numeric claims reconciled against commit diffs. See [MOSES_AUDIT.md](MOSES_AUDIT.md) section 3 and [MOSES_SPRINT_CLOSE_PLAN.md](MOSES_SPRINT_CLOSE_PLAN.md) section 9 for full evidence.
 
 | Session | Before | After | Reason |
 |---------|--------|-------|--------|

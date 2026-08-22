@@ -12,9 +12,9 @@
 
 ### Issues Found: 3 (1 critical, 2 warning)
 
-- **[CRIT-001]** Step 2 of §3 conflated "decide Remote vs Local" with "act per the chosen mode." OQ-14's resolution is that **Samson's `cadence_audit_claude_md` MCP tool decides at trigger time** based on `target_repo == user CWD` AND file unstaged. The Routine itself runs in Anthropic cloud — it cannot observe the user's CWD from there, so it cannot make this decision. The Routine must **honor** the mode from the trigger payload. → Fix: split into "step 2 receives execution_mode from payload" and surface the rationale.
+- **[CRIT-001]** Step 2 of section 3 conflated "decide Remote vs Local" with "act per the chosen mode." OQ-14's resolution is that **Samson's `cadence_audit_claude_md` MCP tool decides at trigger time** based on `target_repo == user CWD` AND file unstaged. The Routine itself runs in Anthropic cloud — it cannot observe the user's CWD from there, so it cannot make this decision. The Routine must **honor** the mode from the trigger payload. → Fix: split into "step 2 receives execution_mode from payload" and surface the rationale.
 - **[WARN-001]** Trigger payload schema was missing `execution_mode` field (and `auto_promote`). → Fix: add both to the payload schema with explicit semantics.
-- **[WARN-002]** Plan §4.6(B) reads: `If diff non-empty AND audit_mode signals "auto-promote" was opted in, optionally creates a cadence_promotions row`. But my `audit_mode` enum doesn't include an auto-promote value. The right model is a separate boolean field. → Fix: add `auto_promote: bool (default false)` to trigger payload.
+- **[WARN-002]** Plan section 4.6(B) reads: `If diff non-empty AND audit_mode signals "auto-promote" was opted in, optionally creates a cadence_promotions row`. But my `audit_mode` enum doesn't include an auto-promote value. The right model is a separate boolean field. → Fix: add `auto_promote: bool (default false)` to trigger payload.
 
 ### Applied Fixes
 
@@ -40,9 +40,9 @@ All 3 issues from iteration 1 resolved.
 
 ### Applied Fixes
 
-- [CRIT-001] ✅ §3 Step 2 rewritten: "**Honor `execution_mode` from payload** (the decision was made by Samson at trigger time per OQ-14 — this Routine does NOT decide at runtime because it can't observe the user's CWD from cloud context)." Remote and Local branches now describe what to DO per mode, not how to choose. §6 "Repo clone failure" branch updated to reject mid-run mode-switching with the rationale.
-- [WARN-001] ✅ §2 Trigger payload schema extended with `execution_mode: remote | local (set by Samson per OQ-14)` field. §3 step 1 payload validation includes the new required field.
-- [WARN-002] ✅ §2 Trigger payload schema extended with `auto_promote: bool (default false; if true AND diff non-empty AND diff passes verification, Samson's audit_ingestion_handler will create a cadence_promotions row in pending status — this Routine still never applies the patch)`. The §6 Never list already covers "auto-apply the suggested diff" so the boundary is consistent across the two paths.
+- [CRIT-001] ✅ section 3 Step 2 rewritten: "**Honor `execution_mode` from payload** (the decision was made by Samson at trigger time per OQ-14 — this Routine does NOT decide at runtime because it can't observe the user's CWD from cloud context)." Remote and Local branches now describe what to DO per mode, not how to choose. section 6 "Repo clone failure" branch updated to reject mid-run mode-switching with the rationale.
+- [WARN-001] ✅ section 2 Trigger payload schema extended with `execution_mode: remote | local (set by Samson per OQ-14)` field. section 3 step 1 payload validation includes the new required field.
+- [WARN-002] ✅ section 2 Trigger payload schema extended with `auto_promote: bool (default false; if true AND diff non-empty AND diff passes verification, Samson's audit_ingestion_handler will create a cadence_promotions row in pending status — this Routine still never applies the patch)`. The section 6 Never list already covers "auto-apply the suggested diff" so the boundary is consistent across the two paths.
 
 ### Quality Score: 96
 

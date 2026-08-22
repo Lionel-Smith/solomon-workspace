@@ -2,7 +2,7 @@
 
 Version-controlled prompts for the eight Claude Code Routines that power the HFS Cadence Layer. Each Routine fires in Anthropic's cloud, runs its prompt as a full Claude Code session, and dispatches via connectors. Samson ingests every run's output via the Routines API.
 
-> **Architecture context:** This library is Layer A of the HFS Cadence Layer (per `solomon-docs/plans/HFS_CADENCE_LAYER_PLAN_FINAL.md` §1.2). Layer B (Samson Cadence Service in `hfs-aiops`) ingests, evaluates, and reports on every run.
+> **Architecture context:** This library is Layer A of the HFS Cadence Layer (per `solomon-docs/plans/HFS_CADENCE_LAYER_PLAN_FINAL.md` section 1.2). Layer B (Samson Cadence Service in `hfs-aiops`) ingests, evaluates, and reports on every run.
 
 ---
 
@@ -24,7 +24,7 @@ Anthropic Max-tier accounts are capped at **15 Routine runs per day**. Below is 
 
 **Effective load:** Mon-Thu peak ~6 runs/day (news + standup + 0-5 GitHub events). Fri peak ~9 runs/day (5 scheduled + 0-4 GitHub events). Sat ~1-3 (weekly-skill-eval + occasional GitHub events). All well under the 15-run cap, leaving headroom for ad-hoc `claude-md-audit` triggers.
 
-**Alert threshold:** the `cadence_routine_status` MCP tool emits a warning at 80% daily utilization (12+ runs); at that point `github-pr-review` may skip trivial PRs per its own prompt logic (see plan §4.7).
+**Alert threshold:** the `cadence_routine_status` MCP tool emits a warning at 80% daily utilization (12+ runs); at that point `github-pr-review` may skip trivial PRs per its own prompt logic (see plan section 4.7).
 
 ---
 
@@ -71,7 +71,7 @@ last_reviewed_at: 2026-05-25
 | `version` | semver | Bumped when prompt content changes materially (not for typos) |
 | `last_reviewed_at` | ISO date | Last `plan-review-loop` pass date |
 
-When Samson reconciles Routine definitions nightly (per plan §7.5), it compares the prompt file's git SHA against `cadence_routine_definitions.prompt_sha`. Mismatches surface as alerts.
+When Samson reconciles Routine definitions nightly (per plan section 7.5), it compares the prompt file's git SHA against `cadence_routine_definitions.prompt_sha`. Mismatches surface as alerts.
 
 ---
 

@@ -12,12 +12,12 @@
 
 ### Issues Found: 6 (2 critical, 4 warning)
 
-- **[CRIT-001]** Date format placeholders (`{{ weekday_long }}` etc.) lack explicit timezone + format instruction. Anthropic-cloud Claude may render UTC instead of America/Nassau, breaking the "must be ready by 06:55 NAS" guarantee in §1. → Fix: explicit "Use America/Nassau local time, format `Weekday, Month D, YYYY`."
-- **[CRIT-002]** §3 step 4 uses "char-trigram cosine" as the dedup algorithm — too underspecified for autonomous execution. Different implementations of cosine on character trigrams produce different similarity scores, especially for short titles. → Fix: switch to lowercase-word-Jaccard with explicit stopword list and the same 0.85 threshold.
-- **[WARN-001]** §3 step 7 reads "format and dispatch per sections 4 and 5" — two distinct actions collapsed into one step. Implementation clarity benefits from splitting. → Recommendation: split into step 7 (format) + step 8 (dispatch).
-- **[WARN-002]** §4 stale suffix `(stale, {{ N }}d)` — N undefined as integer days-since-publication. → Recommendation: explicit `N = floor((now - published_at).total_seconds() / 86400)`.
-- **[WARN-003]** §3 step 5 govtech / Bahamas / Caribbean tags can compound (+6 or +9 for a single article). Intentional but unstated; a reviewer would assume bug. → Recommendation: one-line "tags compound intentionally" note.
-- **[WARN-004]** §6 soft-warning template `{{ N }}K` — rounding semantics not specified. → Recommendation: explicit `N = round(total_tokens / 1000)`.
+- **[CRIT-001]** Date format placeholders (`{{ weekday_long }}` etc.) lack explicit timezone + format instruction. Anthropic-cloud Claude may render UTC instead of America/Nassau, breaking the "must be ready by 06:55 NAS" guarantee in section 1. → Fix: explicit "Use America/Nassau local time, format `Weekday, Month D, YYYY`."
+- **[CRIT-002]** section 3 step 4 uses "char-trigram cosine" as the dedup algorithm — too underspecified for autonomous execution. Different implementations of cosine on character trigrams produce different similarity scores, especially for short titles. → Fix: switch to lowercase-word-Jaccard with explicit stopword list and the same 0.85 threshold.
+- **[WARN-001]** section 3 step 7 reads "format and dispatch per sections 4 and 5" — two distinct actions collapsed into one step. Implementation clarity benefits from splitting. → Recommendation: split into step 7 (format) + step 8 (dispatch).
+- **[WARN-002]** section 4 stale suffix `(stale, {{ N }}d)` — N undefined as integer days-since-publication. → Recommendation: explicit `N = floor((now - published_at).total_seconds() / 86400)`.
+- **[WARN-003]** section 3 step 5 govtech / Bahamas / Caribbean tags can compound (+6 or +9 for a single article). Intentional but unstated; a reviewer would assume bug. → Recommendation: one-line "tags compound intentionally" note.
+- **[WARN-004]** section 6 soft-warning template `{{ N }}K` — rounding semantics not specified. → Recommendation: explicit `N = round(total_tokens / 1000)`.
 
 ### Applied Fixes
 
@@ -86,7 +86,7 @@ Loop terminated after 2 iterations (target met before max=3).
 
 **Smoke test (task 3) — user-side action required:**
 Create a one-off Routine in Anthropic UI (claude.ai/code/routines) with this prompt + the connectors {slack, whatsapp, firecrawl}. "Run now" and verify:
-1. Output matches §4 markdown shape (1 title line + 5-7 bullets, no emojis, no color refs).
+1. Output matches section 4 markdown shape (1 title line + 5-7 bullets, no emojis, no color refs).
 2. Slack #dev-news receives the digest.
 3. WhatsApp delivery succeeds OR the OQ-04 fallback note appears in `output_artifacts.notes`.
 4. `output_artifacts.connector_calls` has both Slack + WhatsApp entries (or just Slack if WhatsApp connector unavailable).

@@ -30,7 +30,7 @@ Produce a per-agent activity digest covering the last 24 hours for all 7 Solomon
 
 ## 3. Steps
 
-Execute in order. Authentication is required for step 2; if it fails see Safety §6.
+Execute in order. Authentication is required for step 2; if it fails see Safety section 6.
 
 1. **Compute window.** Set `since = now - 24 hours` in UTC.
 
@@ -80,15 +80,15 @@ Execute in order. Authentication is required for step 2; if it fails see Safety 
      Content-Type: application/json
      Body: {"query": "cadence:learn", "filters": {"categories": ["cadence:learn"]}, "limit": 50}
      ```
-     Filter results client-side to `created_at` within the last 7 days (Mem0's filter schema may vary by plan — the query+recency filter is the contract, exact fields are flexible). If the request errors (auth, 4xx/5xx, or connection), skip the dedup step (see Safety §6) and continue with cluster-only proposed learnings.
+     Filter results client-side to `created_at` within the last 7 days (Mem0's filter schema may vary by plan — the query+recency filter is the contract, exact fields are flexible). If the request errors (auth, 4xx/5xx, or connection), skip the dedup step (see Safety section 6) and continue with cluster-only proposed learnings.
    - For each captured-learning text and each anti-pattern description, compute lowercase-word-**Jaccard overlap** with stopwords `the / a / an / of / and / or / to / for / in / on / with`. If overlap ≥ **0.85**, treat the anti-pattern as "already captured" and exclude it from proposed learnings.
    - Of the remaining anti-patterns, **cluster** them using the same Jaccard rule (overlap ≥ 0.85 on the `pattern` field text → same cluster). For each cluster, count frequency and pick the most recent occurrence as the representative.
    - **Select up to 3** clusters with the highest frequency. If fewer than 3 unique clusters exist, surface fewer (minimum 0 — silence is allowed).
    - **Expand each selected cluster's `pattern` field into a human-readable learning sentence** (≤120 chars) for the digest. Example: pattern `"except Exception: pass"` (3 occurrences across agents bishop, jacob) → learning text `"Bare 'except Exception: pass' caught 3 times this week — prefer specific exceptions and explicit re-raise/log."` Keep agent names + count to give Lionel context.
 
-7. **Compose** the digest per §4 below.
+7. **Compose** the digest per section 4 below.
 
-8. **Dispatch** per §5 below — single Slack call.
+8. **Dispatch** per section 5 below — single Slack call.
 
 ## 4. Output Format
 
@@ -130,7 +130,7 @@ connector: slack
 method: chat.postMessage
 payload:
   channel: "#solomon-standup"
-  text: <the full markdown digest from §4>
+  text: <the full markdown digest from section 4>
   unfurl_links: false
   unfurl_media: false
 ```

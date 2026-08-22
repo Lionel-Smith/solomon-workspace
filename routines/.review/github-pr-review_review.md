@@ -12,9 +12,9 @@
 
 ### Issues Found: 0 critical, 3 warning
 
-- **[WARN-001]** §3 step 5 mentioned "bare `assert`s in production code" — but "production code" is loose. Different cloud-Claude instances might interpret as "main branch" or "non-debug" — neither matches the intent. → Recommendation: clarify "outside `tests/` directories (asserts strip under `python -O`)."
-- **[WARN-002]** §3 step 2 skip-trivial regex covered docs/, .md, .github/, CHANGELOG, LICENSE — but conspicuously NOT dependency files. A PR that only touches `requirements.txt` (e.g., bumping httpx version) shouldn't skip review — version bumps often carry infra implications. → Recommendation: tighten the allowlist to documented-doc-paths only and explicitly note dependency files are NOT skip-eligible.
-- **[WARN-003]** §5 Call 1 hardcoded `side: "RIGHT"` for all line-specific comments. Most findings are on added/context lines (correctly RIGHT), but findings on deleted lines need `side: "LEFT"`. → Recommendation: add inline note explaining the side decision per finding.
+- **[WARN-001]** section 3 step 5 mentioned "bare `assert`s in production code" — but "production code" is loose. Different cloud-Claude instances might interpret as "main branch" or "non-debug" — neither matches the intent. → Recommendation: clarify "outside `tests/` directories (asserts strip under `python -O`)."
+- **[WARN-002]** section 3 step 2 skip-trivial regex covered docs/, .md, .github/, CHANGELOG, LICENSE — but conspicuously NOT dependency files. A PR that only touches `requirements.txt` (e.g., bumping httpx version) shouldn't skip review — version bumps often carry infra implications. → Recommendation: tighten the allowlist to documented-doc-paths only and explicitly note dependency files are NOT skip-eligible.
+- **[WARN-003]** section 5 Call 1 hardcoded `side: "RIGHT"` for all line-specific comments. Most findings are on added/context lines (correctly RIGHT), but findings on deleted lines need `side: "LEFT"`. → Recommendation: add inline note explaining the side decision per finding.
 
 ### Applied Fixes
 
@@ -40,9 +40,9 @@ All 3 warnings from iteration 1 resolved.
 
 ### Applied Fixes
 
-- [WARN-001] ✅ §3 step 5 clarified: "bare `assert` statements in files outside `tests/` directories (asserts strip under `python -O`)." Provides both the directory boundary AND the rationale so cloud-Claude understands why the rule exists.
-- [WARN-002] ✅ §3 step 2 skip-trivial regex tightened to `^(docs?/|.*\.md$|\.github/|CHANGELOG[^/]*$|LICENSE[^/]*$|README[^/]*$)$` and explicit note added: "dependency files (`requirements.txt`, `pyproject.toml`, `package.json`) are NOT in this allowlist; they often carry infra changes that deserve review."
-- [WARN-003] ✅ §5 Call 1 `comments[]` extended with inline comment: "For findings on deleted lines (rare — usually a finding is about a removed-but-needed line), use side: 'LEFT' and reference the base-side line number instead of head-side. Most findings target added/context lines → side: 'RIGHT' is the default."
+- [WARN-001] ✅ section 3 step 5 clarified: "bare `assert` statements in files outside `tests/` directories (asserts strip under `python -O`)." Provides both the directory boundary AND the rationale so cloud-Claude understands why the rule exists.
+- [WARN-002] ✅ section 3 step 2 skip-trivial regex tightened to `^(docs?/|.*\.md$|\.github/|CHANGELOG[^/]*$|LICENSE[^/]*$|README[^/]*$)$` and explicit note added: "dependency files (`requirements.txt`, `pyproject.toml`, `package.json`) are NOT in this allowlist; they often carry infra changes that deserve review."
+- [WARN-003] ✅ section 5 Call 1 `comments[]` extended with inline comment: "For findings on deleted lines (rare — usually a finding is about a removed-but-needed line), use side: 'LEFT' and reference the base-side line number instead of head-side. Most findings target added/context lines → side: 'RIGHT' is the default."
 
 ### Quality Score: 96
 
@@ -68,8 +68,8 @@ Both terminal conditions met:
 - Skip-trivial heuristic with explicit allowlist + dependency-file carve-out. Catches doc PRs without skipping infra PRs disguised as small changes.
 - Severity rubric maps to action: HIGH = forbidden pattern (worth blocking conceptually), MEDIUM = constraint violation (worth discussing), LOW = style nit (`_(optional reads)_` qualifier signals lower urgency).
 - Repo-specific constraint loading: reads the target repo's CLAUDE.md so review constraints match repo conventions. HFS defaults fallback if CLAUDE.md missing.
-- Comment-only stance enforced in §5 Call 1 (`event: "COMMENT"`) + §6 Never list. The merge decision stays with humans by design.
-- Same-head_sha dedup rule (§6 Never list) prevents wasted re-runs on PR synchronize-with-no-diff-change events.
+- Comment-only stance enforced in section 5 Call 1 (`event: "COMMENT"`) + section 6 Never list. The merge decision stays with humans by design.
+- Same-head_sha dedup rule (section 6 Never list) prevents wasted re-runs on PR synchronize-with-no-diff-change events.
 - `[skip-cadence-review]` title flag gives the PR author an opt-out without bot-config changes.
 
 **Residual risks (not blockers):**

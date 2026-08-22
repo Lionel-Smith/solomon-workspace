@@ -25,7 +25,7 @@ live this session via `mark_complete`/`loop_next` calls resolving under it.)
 
 All five rewritten to `mcp__plugin_solomon_solomon__*`.
 
-## Discovery drift correction (supersedes SKE_DISCOVERY.md §on runtime-only commands)
+## Discovery drift correction (supersedes SKE_DISCOVERY.md sectionon runtime-only commands)
 
 Discovery (2026-08-20) recorded plan/session/preflight/review as existing "ONLY at
 `~/.claude/commands/`". **False as of execution:** all four are symlinks →

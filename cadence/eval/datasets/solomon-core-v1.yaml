@@ -53,7 +53,7 @@ tasks:
   - task_id: claude_md_audit
     description: "Audit the synthetic CLAUDE.md at fixture_path. Identify all redundancies (rules stated more than once), contradictions (rules that conflict), and stale references (versions/libraries no longer in use). Report each finding with category, line range, and one-sentence explanation."
     agent_target: solomon
-    expected_output: "2 redundancies found, 1 contradiction found. Redundancy 1: rule about exception handling repeated in §A and §C. Redundancy 2: skill-loading instruction in §B and §E. Contradiction: §D and §F disagree on whether to skip pre-commit hooks."
+    expected_output: "2 redundancies found, 1 contradiction found. Redundancy 1: rule about exception handling repeated in sectionA and sectionC. Redundancy 2: skill-loading instruction in sectionB and sectionE. Contradiction: sectionD and sectionF disagree on whether to skip pre-commit hooks."
     tolerance: "MUST find both redundancies (credit 0.4 per correct redundancy). MUST find the contradiction (credit 0.3). Bonus 0.1 for any additional stale/vague finding. False positives subtract 0.1 each, capped at 0.0."
     passing_threshold: 0.7
     fixture_path: cadence/eval/fixtures/claude_md_audit_input.md

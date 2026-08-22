@@ -1,7 +1,7 @@
 # SKE-00 — Skills Ground-Truth Discovery
 
 **Session:** SKE-00 | **Phase:** 0 — Discovery | **Date:** 2026-08-20
-**Stance:** "never shipped" beats "in progress". Every claim in §2–§7 cites a path, sha, log line, or query result. Anything not directly observed is marked **INFERRED**.
+**Stance:** "never shipped" beats "in progress". Every claim in section 2–section 7 cites a path, sha, log line, or query result. Anything not directly observed is marked **INFERRED**.
 **Artifacts:** `ske/skills_inventory.json`, `ske/skills_usage.json`, `ske/skills_usage_classified.json`, `ske/scripts/skills_inventory.py`, `ske/scripts/skills_usage.py`
 
 ---
@@ -95,7 +95,7 @@ The devkit skills are roughly **4× longer and 2.4× more verbosely described** 
 
 ### 3.3 Frontmatter conformance
 
-Scored against **the devkit's own template** (`skills/SKILL_TEMPLATE_v1.9.md:1-21` = `name, version, description, allowed-tools, model, hooks`), not the brief's assumed schema (see §8.4):
+Scored against **the devkit's own template** (`skills/SKILL_TEMPLATE_v1.9.md:1-21` = `name, version, description, allowed-tools, model, hooks`), not the brief's assumed schema (see section 8.4):
 
 | Template key | Missing in |
 |---|---|
@@ -271,7 +271,7 @@ The brief asked whether the Jan-2026 XML assumption still holds. **It does not, 
 | `hfs-skill-creator` | 5 commits, last 2026-05-31; installed; **DORMANT** (0 invocations in 57 days); 406 lines, monolithic |
 | Only mention of `skill-reviewer` in the workspace | `CLAUDE.md` registry line |
 
-Both meta-skills exist as documents and have produced no observable output. The claude.ai characterisation "rubric-only" is accurate in effect but incomplete in cause — see §8.3.
+Both meta-skills exist as documents and have produced no observable output. The claude.ai characterisation "rubric-only" is accurate in effect but incomplete in cause — see section 8.3.
 
 ---
 
@@ -330,7 +330,7 @@ Canonical baseline for this run: `skills_inventory.json` sha256 `3726824f277dd06
 
 ## 10. Evidence index
 
-**§2 — Roots & drift**
+**section 2 — Roots & drift**
 - `~/.hfs/skills` absent — `ls -la ~/.hfs` → `No such file or directory`
 - Devkit HEAD — `git rev-parse HEAD` → `0dd7551322a36f357847b21af4e2a571175a63be`, branch `main`, `git status --short` → `?? tests/__pycache__/`
 - Workspace `.claude/skills` is a symlink — `ls -la solomon-workspace/.claude/` → `skills -> /Users/lionel/.claude/skills`
@@ -339,18 +339,18 @@ Canonical baseline for this run: `skills_inventory.json` sha256 `3726824f277dd06
 - `lionelj` paths in settings — `.claude/settings.local.json:34,295,342,343,344,347,352`
 - Sentry dual cache — `~/.claude/plugins/cache/claude-plugins-official/sentry/{1.2.0,1.3.0}/skills`; `installed_plugins.json` registers 1.3.0 only
 
-**§3 — Shape metrics**
+**section 3 — Shape metrics**
 - All figures — `ske/skills_inventory.json` → `summary`, `skills[]`; regenerate via `python3 scripts/skills_inventory.py`
 - Template schema — `hfs-development-kit/skills/SKILL_TEMPLATE_v1.9.md:1-21`
 - Idempotency — two consecutive runs byte-identical on both PyYAML and builtin backends; sole delta between runs traced to `plugin:sentry/sentry-instrument` 131→196 lines (file changed on disk)
 
-**§4 — Discoverability**
+**section 4 — Discoverability**
 - Command inventory — `find ~/.claude/commands -name '*.md'` → 20 files
 - Command→skill map — regenerated in-session; 13/93 referenced
 - Dead MCP namespaces — `plan.md:100` (`solomon-skills.load_skill`), `preflight.md` (`mcp__solomon_skills__list_skills`), `review.md` + `session/load.md` (`mcp__solomon__load_skill`)
 - Live tool names — `ToolSearch` / gateway tool list → `mcp__plugin_solomon_solomon__*`
 
-**§5 — Usage**
+**section 5 — Usage**
 - Corpus — `find ~/.claude/projects -name '*.jsonl' | wc -l` → 877; `du -sh` → 394M
 - Window — `ske/skills_usage.json` → `window_first_timestamp` `2026-06-24T15:53:48.649Z`, `window_last_timestamp` `2026-08-20T13:09:06.650Z`
 - Counts — `ske/skills_usage.json`; classification `ske/skills_usage_classified.json`
@@ -359,7 +359,7 @@ Canonical baseline for this run: `skills_inventory.json` sha256 `3726824f277dd06
 - Git churn — `git log --since=2026-05-22 --oneline -- skills/ | wc -l` → 27
 - PHANTOMs — `find` for `droplet-deployment`, `claude-config-sync` across all three roots → 0 each
 
-**§6 — Server & RET**
+**section 6 — Server & RET**
 - Default skills dir — `solomon_mcp/skills_server.py:47`
 - Override — `solomon/.mcp.json:7`
 - Live health — `mcp__plugin_solomon_solomon__health` → `{"status":"healthy","skills_count":45,"skills_dir":"…/hfs-development-kit/skills"}`
@@ -376,7 +376,7 @@ Canonical baseline for this run: `skills_inventory.json` sha256 `3726824f277dd06
 - RET tests assume XML — `tests/test_skills_server.py:26-31, 63-64, 586-590`
 - Hardcoded source skills — `solomon_mcp/retrospectives/known_patterns.py:80-189`
 
-**§7 — Reviewer / creator**
+**section 7 — Reviewer / creator**
 - No score artifacts — `grep -rn "Final Score" solomon-workspace --include='*.md'` → empty
 - Declared output format — `hfs-development-kit/skills/skill-reviewer/SKILL.md:160,165-175`
 - Rubric repudiates legacy fields — `skill-reviewer/SKILL.md:95`

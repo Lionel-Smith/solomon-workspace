@@ -38,14 +38,14 @@ WARN-001 applied. Second-pass inspection found no new issues.
 
 ### Applied Fixes
 
-- [WARN-001] ✅ Step 2d tightened: "Accumulate the per-task result in memory for the final summary + `output_artifacts.task_results`: `{...}`. Do NOT dispatch until all 10 tasks (or partial set per §7) are processed." Removes "locally" ambiguity; surfaces the "wait until aggregation" rule that was implicit.
+- [WARN-001] ✅ Step 2d tightened: "Accumulate the per-task result in memory for the final summary + `output_artifacts.task_results`: `{...}`. Do NOT dispatch until all 10 tasks (or partial set per section 7) are processed." Removes "locally" ambiguity; surfaces the "wait until aggregation" rule that was implicit.
 
 ### Polish observations (no action needed):
 
 - Single-emoji allowlist (`🚨` only, only in the regression line when drift ≤ -0.10) is the right balance — visual cue when it matters, zero visual noise otherwise. This is the first Routine with a *conditional* emoji rather than an unconditional template emoji.
-- Thread resolution (§5) makes a second Samson API call to find today's friday-retro `slack_message_ts`. If friday-retro hit its auth-failure path earlier (no Slack thread exists), the fallback "else post top-level" handles it cleanly.
+- Thread resolution (section 5) makes a second Samson API call to find today's friday-retro `slack_message_ts`. If friday-retro hit its auth-failure path earlier (no Slack thread exists), the fallback "else post top-level" handles it cleanly.
 - Dataset YAML schema validation is the first thing the prompt does (step 1) — fail-fast if OQ-05's dataset is corrupted.
-- Cost budget uses BOTH dollar (primary, per plan §4.4 "abort if cost > $5") AND token (monitoring) — the only Routine so far with dual-unit budget.
+- Cost budget uses BOTH dollar (primary, per plan section 4.4 "abort if cost > $5") AND token (monitoring) — the only Routine so far with dual-unit budget.
 
 ### Quality Score: 96
 
@@ -74,18 +74,18 @@ Both terminal conditions met:
 - Drift detection uses `offset=1` defensively to skip in-flight run race condition.
 - Linear P1 issue creation explicitly *deferred to Samson* (BE-08 ingestion handler) — Routine alerts in Slack, Samson handles the Linear side. Clean separation.
 - Single-emoji allowlist (🚨 conditional on drift ≤ -0.10) is the right balance — first conditional emoji rule in the cadence Routine library.
-- Cost budget uses dual units (dollar primary per plan §4.4 hard cap, token equivalent for monitoring) — first Routine with this dual representation.
+- Cost budget uses dual units (dollar primary per plan section 4.4 hard cap, token equivalent for monitoring) — first Routine with this dual representation.
 
 **Residual risks (not blockers):**
-- The `/solomon/run` endpoint and `/cadence/routines/{slug}/runs` endpoint are **NEW** per plan §4.4 — won't exist until BE-* sessions ship. Partial smoke test verifies auth-failure branch.
-- Fixture files referenced from the dataset (`cadence/eval/fixtures/*.md`, `*.py`, `*.yml`) don't exist yet — they're future-session deliverables. Tasks with `fixture_path` will fail at runtime until fixtures land. Per §6 per-task error rule, this is acceptable: task scores 0.0 with reasoning "fixture not found." Worth a follow-up session to materialize the 6 fixture files.
+- The `/solomon/run` endpoint and `/cadence/routines/{slug}/runs` endpoint are **NEW** per plan section 4.4 — won't exist until BE-* sessions ship. Partial smoke test verifies auth-failure branch.
+- Fixture files referenced from the dataset (`cadence/eval/fixtures/*.md`, `*.py`, `*.yml`) don't exist yet — they're future-session deliverables. Tasks with `fixture_path` will fail at runtime until fixtures land. Per section 6 per-task error rule, this is acceptable: task scores 0.0 with reasoning "fixture not found." Worth a follow-up session to materialize the 6 fixture files.
 - Judge model selection (Sonnet default) hasn't been calibrated — first eval will show whether the judge scoring is too lenient/strict. Worth a 1-month review.
 
 **Smoke test (task 4) — user-side action required:**
 Until BE-* sessions ship the Samson endpoints, full smoke test isn't possible. **Partial smoke test now feasible:**
 1. Create one-off Routine in Anthropic UI with connectors `{slack}` + secret `SAMSON_INTERNAL_TOKEN` + repos `{solomon-workspace}`.
 2. "Run now" — Samson API will 401/404.
-3. Verify Safety §6 auth-failure path: single line posted to Slack `#dev-retro`, no per-task table, no thread.
+3. Verify Safety section 6 auth-failure path: single line posted to Slack `#dev-retro`, no per-task table, no thread.
 4. Verify dataset YAML loads cleanly (step 1 schema validation should succeed since the YAML is committed).
 5. Total cost < $5.
 

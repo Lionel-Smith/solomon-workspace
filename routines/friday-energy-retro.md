@@ -22,7 +22,7 @@ Post a single Slack message containing the ISO week + a short 5-field reply temp
 
 - **Schedule:** cron `0 17 * * 5` in `America/Nassau` (Friday 17:00 NAS, one hour after friday-eval).
 - **Max runs/day:** 1 (Friday only).
-- **Destination:** Slack channel `#solomon-checkin` (see §5).
+- **Destination:** Slack channel `#solomon-checkin` (see section 5).
 - **Response handling:** Lionel replies in the Slack thread at his own pace. No webhook, no out-of-band capture — the reply lives in the thread. The Routine is fire-and-forget.
 - **No-reply is fine:** if he doesn't reply, that's itself a signal. The Routine never retries, nudges, or escalates.
 
@@ -31,8 +31,8 @@ Post a single Slack message containing the ISO week + a short 5-field reply temp
 Short Routine — 3 steps, no loops, no API calls beyond the single dispatch.
 
 1. **Compute current ISO week** in America/Nassau. Format: `YYYY-W{week:02d}` (e.g., `2026-W27`).
-2. **Compose the message body** per §4, substituting `{{ iso_week }}` only. Do NOT add greetings, reassurances, explanations, or any text outside the template.
-3. **Post to Slack** (§5). Capture the message `ts` into `output_artifacts.connector_calls`. Exit cleanly — no wait, no polling, no retry beyond the once-on-5xx rule in §6.
+2. **Compose the message body** per section 4, substituting `{{ iso_week }}` only. Do NOT add greetings, reassurances, explanations, or any text outside the template.
+3. **Post to Slack** (section 5). Capture the message `ts` into `output_artifacts.connector_calls`. Exit cleanly — no wait, no polling, no retry beyond the once-on-5xx rule in section 6.
 
 ## 4. Output Format
 
@@ -62,7 +62,7 @@ connector: slack
 method: chat.postMessage
 payload:
   channel: "#solomon-checkin"
-  text: <the exact 2-line message from §4 with {{ iso_week }} substituted>
+  text: <the exact 2-line message from section 4 with {{ iso_week }} substituted>
   unfurl_links: false
 ```
 

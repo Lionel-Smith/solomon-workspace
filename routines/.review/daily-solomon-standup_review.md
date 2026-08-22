@@ -15,7 +15,7 @@
 - **[CRIT-001]** Step 6's Mem0 query specifies exact payload `{query, window_days}`, but Anthropic's Mem0 connector schema likely uses different field names. A runtime mismatch would cause the dedup step to fail with a 4xx, propagating into proposed-learnings noise (re-proposing already-captured learnings). → Fix: describe the intent + capabilities needed (tag filter + recency); let the cloud-Claude map to the connector's actual schema. Include a Safety fallback for connector errors.
 - **[CRIT-002]** Step 6 uses `anti_patterns[].pattern` as the proposed-learning text body, but `pattern` is likely a short code label (e.g., `"except Exception: pass"`) — not a sentence. The output format demands `≤120 chars` learning text that's readable. → Fix: explicit instruction to expand the `pattern` label into a human-readable learning sentence with agent names + frequency, including a worked example.
 - **[WARN-001]** Step 3 lead-in "Account for all 7 agents — required" is correct but loose. "Account for" could mean "mention" or "include data for" — ambiguous to autonomous Claude. → Recommendation: rename to "Build the 7-agent roster" with explicit "exactly once" semantic.
-- **[WARN-002]** §4 output rule "All 7 agents appear across Healthy + Blockers" doesn't explicitly bar duplicates. Could be misread as "could appear in both sections." → Recommendation: add "exactly once" + "no agent listed in both sections."
+- **[WARN-002]** section 4 output rule "All 7 agents appear across Healthy + Blockers" doesn't explicitly bar duplicates. Could be misread as "could appear in both sections." → Recommendation: add "exactly once" + "no agent listed in both sections."
 - **[WARN-003]** Cost budget section default-model line ("Default to Sonnet — the work is structured API consumption...") is correct but slightly redundant with the per-token tier guidance above it. Minor polish only. → Recommendation: leave as-is (clarity wins over brevity here).
 
 ### Applied Fixes
@@ -69,21 +69,21 @@ Loop terminated after 2 iterations (target met before max=3).
 **Score:** 96/100 — **Excellent** (per skill rubric: ≥ 90 ready for production).
 
 **Strengths:**
-- Authentication failure path is the most prominent branch in Safety §6 (correctly — it's the highest-runtime-risk failure mode and would otherwise silently break the daily cadence).
-- 7-agent roster invariant enforced in 3 places (Step 3, §4 output rule, Safety "Never") — defensive consistency.
+- Authentication failure path is the most prominent branch in Safety section 6 (correctly — it's the highest-runtime-risk failure mode and would otherwise silently break the daily cadence).
+- 7-agent roster invariant enforced in 3 places (Step 3, section 4 output rule, Safety "Never") — defensive consistency.
 - Mem0 dedup query is intent-based rather than payload-prescriptive, with explicit fallback for connector mismatch.
 - Anti-pattern expansion example shows cloud-Claude how to turn `"except Exception: pass"` into a useful learning sentence.
 - 4-emoji exception (`☀️ 🟢 🚧 💁`) explicitly scoped to template positions, preventing emoji creep elsewhere.
 
 **Residual risks (not blockers):**
-- The Samson `/agents/activity` endpoint is **NEW** per plan §4.2 and won't exist until a Samson session implements it. This Routine prompt is correct in calling it, but the smoke test (task 3) will fail until that endpoint ships. Worth flagging in /session:complete notes.
+- The Samson `/agents/activity` endpoint is **NEW** per plan section 4.2 and won't exist until a Samson session implements it. This Routine prompt is correct in calling it, but the smoke test (task 3) will fail until that endpoint ships. Worth flagging in /session:complete notes.
 - Anti-pattern source field (`anti_patterns[].pattern`) is also predicted; the actual schema depends on how Samson's `IngestService` exposes it. May need fix-up commit after Samson side lands.
 - Jaccard 0.85 threshold for dedup is consistent with ROUTINE-02 (pattern-level decision) — after ≥ 30 days review actual proposed-vs-captured overlap to tune.
 
 **Smoke test (task 3) — user-side action required:**
-Create a one-off Routine in Anthropic UI with this prompt + connectors `{slack, whatsapp, mem0}` + secret `SAMSON_INTERNAL_TOKEN`. The `/agents/activity` endpoint won't exist yet, so the smoke test will hit the Safety §6 401/5xx path — that's the right thing to verify at this stage:
+Create a one-off Routine in Anthropic UI with this prompt + connectors `{slack, whatsapp, mem0}` + secret `SAMSON_INTERNAL_TOKEN`. The `/agents/activity` endpoint won't exist yet, so the smoke test will hit the Safety section 6 401/5xx path — that's the right thing to verify at this stage:
 1. Does the auth failure produce the Slack-only "Standup unavailable" notification?
-2. Does the digest format (when manually fed mock JSON) match §4 exactly with all 7 agents + 4 emojis?
+2. Does the digest format (when manually fed mock JSON) match section 4 exactly with all 7 agents + 4 emojis?
 3. Does `output_artifacts.connector_calls` record the Slack post?
 4. Total token usage < 50K?
 

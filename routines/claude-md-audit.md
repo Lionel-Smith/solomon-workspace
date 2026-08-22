@@ -49,7 +49,7 @@ Audit the named CLAUDE.md against four checks (redundancy, contradiction, stalen
 
 Execute in order. The Remote-vs-Local fork (step 2) is the OQ-14-encoded decision.
 
-1. **Validate payload.** Confirm `file_path`, `target_repo`, `execution_mode`, `triggered_via`, `triggered_by_user` present. Confirm `audit_mode` ∈ {all, redundancy, contradiction, staleness, complexity} (default `all` if absent). Confirm `execution_mode` ∈ {remote, local}. `auto_promote` defaults to false if absent. If any required field invalid, dispatch error per §6 and exit.
+1. **Validate payload.** Confirm `file_path`, `target_repo`, `execution_mode`, `triggered_via`, `triggered_by_user` present. Confirm `audit_mode` ∈ {all, redundancy, contradiction, staleness, complexity} (default `all` if absent). Confirm `execution_mode` ∈ {remote, local}. `auto_promote` defaults to false if absent. If any required field invalid, dispatch error per section 6 and exit.
 
 2. **Honor `execution_mode` from payload** (decided by Samson at trigger time per OQ-14):
    - **Remote mode** (`execution_mode=remote`, the ONLY supported mode): read the file from the cloned tree of `target_repo`. **The repo must already be attached to this Routine's config** — cloud sessions clone only attached repos at run start; there is no ad-hoc clone of arbitrary repos. If `target_repo` is not one of the attached repos, dispatch `**Audit failed:** {{ target_repo }} is not attached to this Routine — attach it in the Routine config first.` and exit. Audits committed content on the default branch.
@@ -59,8 +59,8 @@ Execute in order. The Remote-vs-Local fork (step 2) is the OQ-14-encoded decisio
 3. **Fetch the file content.** Cap at 50KB; if larger, take first 50KB and add a top-of-findings note: `_File truncated to first 50KB ({{ N }} of M lines processed)._`
 
 4. **Run audit checks** per `audit_mode`. For `all`, run all four sequentially:
-   - **Redundancy:** scan for the same rule/instruction stated more than once (e.g., "always lint" in §A and §C). Use Jaccard overlap ≥ 0.85 on sentence tokens to cluster near-duplicates.
-   - **Contradiction:** scan for rules that conflict (e.g., §A says "use ruff", §C says "use pylint instead"). Look for explicit "but" / "instead" / "however" markers connecting two rules on the same topic.
+   - **Redundancy:** scan for the same rule/instruction stated more than once (e.g., "always lint" in sectionA and sectionC). Use Jaccard overlap ≥ 0.85 on sentence tokens to cluster near-duplicates.
+   - **Contradiction:** scan for rules that conflict (e.g., sectionA says "use ruff", sectionC says "use pylint instead"). Look for explicit "but" / "instead" / "however" markers connecting two rules on the same topic.
    - **Staleness:** flag references to versions/libraries/tools no longer in active use. Reference points: project's actual `pyproject.toml` / `package.json` if Remote mode allows; otherwise flag pattern-only (e.g., "Python 3.9" when 3.11+ is current).
    - **Complexity:** flag sections > 30 lines without subheadings, vague directives ("be careful", "use good judgment"), or single-paragraph rules covering 3+ unrelated topics.
 
@@ -75,9 +75,9 @@ Execute in order. The Remote-vs-Local fork (step 2) is the OQ-14-encoded decisio
    - Verify diff applicability per `pattern_routine_diff_validation_dual_path`: if shell access available, `git apply --check`; else logical check (every `@@ -X,Y` range exists, context lines match).
    - If verification fails, mark `suggested_diff: requires_manual_review` and omit the diff (don't dispatch a broken patch).
 
-7. **Format** per §4 below.
+7. **Format** per section 4 below.
 
-8. **Dispatch** per §5 below — contextual to `triggered_via`.
+8. **Dispatch** per section 5 below — contextual to `triggered_via`.
 
 ## 4. Output Format
 
@@ -132,7 +132,7 @@ method: chat.postMessage
 payload:
   channel: <same channel where /audit-claude was invoked — derive from trigger context>
   thread_ts: <trigger_message_ts from payload>
-  text: <the formatted findings from §4>
+  text: <the formatted findings from section 4>
   unfurl_links: false
 ```
 
@@ -142,7 +142,7 @@ connector: slack
 method: chat.postMessage
 payload:
   channel: "#cadence-status"
-  text: "<@{{ triggered_by_user }}> Audit results for {{ target_repo }}/{{ file_path }}:\n\n<the formatted findings from §4>"
+  text: "<@{{ triggered_by_user }}> Audit results for {{ target_repo }}/{{ file_path }}:\n\n<the formatted findings from section 4>"
   unfurl_links: false
 ```
 
@@ -158,7 +158,7 @@ Capture the response's `ts` into `output_artifacts.connector_calls[0]` so Samson
 - `file_path` doesn't exist in `target_repo` (Remote) or on local filesystem (Local): dispatch `**Audit failed:** file not found at {{ target_repo }}/{{ file_path }}.` and exit.
 
 **File too large:**
-- > 50KB: process the first 50KB only, prepend truncation note in §4 output.
+- > 50KB: process the first 50KB only, prepend truncation note in section 4 output.
 - > 500KB: refuse entirely. Dispatch `**Audit failed:** file is {{ size }}KB; over the 500KB cap. Audit not meaningful at this scale — split the file.` and exit.
 
 **Repo clone failure (Remote mode):**

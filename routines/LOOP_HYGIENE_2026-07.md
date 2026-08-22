@@ -1,6 +1,6 @@
 # Loop Hygiene Audit — July 2026
 
-**Session:** LHV-04 (Loop Hardening v2, Plan §3-F5) · **Date:** 2026-08-20
+**Session:** LHV-04 (Loop Hardening v2, Plan section 3-F5) · **Date:** 2026-08-20
 **Scope:** docs-only. Interval and trigger *metadata* analysis. No routine prompt
 body is modified here — prompt-content changes stay behind `plan-review-loop >= 90`
 per R5.3, and any trigger change recommended below needs its own implementation
@@ -40,7 +40,7 @@ Schedules from `routines/.created.yml`; cron is `TZ=America/Nassau`.
 | Routine | Routine ID | Cron (NAS) | What it watches | How fast that changes | Fit |
 |---|---|---|---|---|---|
 | `daily-news-sweep` | `trig_01A9w6skLbgrA4GgmKJmr6rP` | `30 6 * * 1-5` — Mon–Fri 06:30 | External dev news, releases, ecosystem posts | Continuously, many times/day | **Deliberately slower.** Digest-shaped: the value is one batched read, not low latency |
-| `daily-solomon-standup` | `trig_01RC8mKuTeeLB3MyHNtxuMWY` | `0 7 * * 1-5` — Mon–Fri 07:00 | Samson agent activity overnight | Daily-ish, tied to agent runs | **PAUSED** — blocked, not an interval question (§3) |
+| `daily-solomon-standup` | `trig_01RC8mKuTeeLB3MyHNtxuMWY` | `0 7 * * 1-5` — Mon–Fri 07:00 | Samson agent activity overnight | Daily-ish, tied to agent runs | **PAUSED** — blocked, not an interval question (section 3) |
 | `friday-retro` | `trig_01TxzYbSqjbtPxxtDhrYYbeh` | `0 15 * * 5` — Fri 15:00 | Commits + completed sessions across `solomon`, `hfs-aiops`, `solomon-workspace` | Bursty; several sessions/week | **Matched.** A retro's subject is the accumulated week, not any single commit |
 | `friday-eval` | `trig_01NcDtKZEJp6AMQXan6cU1gf` | `0 16 * * 5` — Fri 16:00 | `solomon-core-v1` eval-suite results | Episodic — only when Solomon or the model changes | **Mismatched.** Fires weekly regardless of whether anything moved |
 | `friday-energy-retro` | `trig_011tUwDSykbionaLAqEYiSnW` | `0 17 * * 5` — Fri 17:00 | Lionel's own week — energy, focus, load | Weekly by construction | **Matched.** A reflection ritual, not a monitor |
@@ -99,8 +99,8 @@ Recommended shape is a **hybrid**, not a straight cron→event swap:
   floor is the safety net, not the primary trigger.
 
 **Do not implement here.** This needs its own session: it touches
-`inventory.yml` (`trigger_type`, `github_event_filter`) and the routine's §2, and
-the §2 edit is prompt-body content gated behind `plan-review-loop >= 90` (R5.3).
+`inventory.yml` (`trigger_type`, `github_event_filter`) and the routine's section 2, and
+the section 2 edit is prompt-body content gated behind `plan-review-loop >= 90` (R5.3).
 Note the routine is currently *blocked on a v1.1 re-paste*
 (`REMEDIATION_2026-07-01.md:93`) — which makes this the cheap moment to change it,
 before it is re-pasted in its current form.

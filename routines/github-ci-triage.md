@@ -20,7 +20,7 @@ For a single failed workflow_run, fetch the failed job's logs via GitHub API, cl
 - **Event filter:** `workflow_run.completed` AND `conclusion=failure`.
 - **Eligible repos** (per OQ-10): `solomon`, `hfs-aiops`, `esther-mcp`, `esther-models`, `solomon-dashboard`, `esther-preview`, `hfs-development-kit`, `solomon-workspace`. Skip with no-op if event arrives from any other repo.
 - **Event payload provides:** `repo`, `workflow_run_id`, `workflow_name`, `head_branch`, `head_sha`, `conclusion`, `html_url`, `event` (push|pull_request|schedule|workflow_dispatch).
-- **Max runs/day:** 3 (per Appendix D budget — CI failures are bursty; rate-limit gate in §3 step 2 prevents storm).
+- **Max runs/day:** 3 (per Appendix D budget — CI failures are bursty; rate-limit gate in section 3 step 2 prevents storm).
 - **Samson-independent at runtime:** no calls to Samson from this Routine. Samson's `ci_triage_ingestion_handler` (BE-08) maintains the flaky-counter in `cadence_events.metadata` and escalates flaky-≥3 to its own Linear issue downstream.
 
 ## 3. Steps
@@ -51,9 +51,9 @@ Execute in order. Step 2's rate-limit gate prevents Routine-spam on CI-storm con
    - `real-bug` AND `head_branch != default branch` (PR branch): file Linear with **P2** priority.
    - `flaky` / `env` / `dependency` / `timeout`: do NOT file Linear from this Routine. (For `flaky`, Samson's `ci_triage_ingestion_handler` will count + escalate to its own Linear issue once the cross-run threshold of 3 is crossed.)
 
-6. **Compose** outputs per §4 below.
+6. **Compose** outputs per section 4 below.
 
-7. **Dispatch** per §5 below — Slack always fires; Linear fires only on `real-bug`.
+7. **Dispatch** per section 5 below — Slack always fires; Linear fires only on `real-bug`.
 
 ## 4. Output Format
 
@@ -130,7 +130,7 @@ method: issue.create
 payload:
   team_id: <HFS Linear team — derive from repo or use cadence-default>
   title: "[{{ priority }}] CI failed: {{ repo }}/{{ workflow_name }} on {{ head_branch }}"
-  description: <the Linear issue body from §4>
+  description: <the Linear issue body from section 4>
   priority: <"1" for P1 if main; "2" for P2 if PR>
   labels: ["ci-failure", "cadence-auto-filed", "{{ classification }}"]
 ```
@@ -142,7 +142,7 @@ connector: slack
 method: chat.postMessage
 payload:
   channel: "#ci-failures"
-  text: <the Slack triage summary from §4 — with linear_issue_url substituted (or "Linear filing failed — <linear_failure_note>; manual file needed." if Call 1 errored)>
+  text: <the Slack triage summary from section 4 — with linear_issue_url substituted (or "Linear filing failed — <linear_failure_note>; manual file needed." if Call 1 errored)>
   unfurl_links: false
 ```
 

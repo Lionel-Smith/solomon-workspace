@@ -15,4 +15,4 @@ Claude Code's Workflow tool lets deterministic scripts orchestrate parallel suba
 
 ## Rejected alternatives
 
-Workflow-as-loop-driver (seam A) and wave-parallel execution via workflow (seam C) were rejected unanimously by a three-lens design panel — see `solomon-docs/plans/WFI_WORKFLOW_INTEGRATION_SPEC.md` §5 for the full rejected-ideas table.
+Workflow-as-loop-driver (seam A) and wave-parallel execution via workflow (seam C) were rejected unanimously by a three-lens design panel — see `solomon-docs/plans/WFI_WORKFLOW_INTEGRATION_SPEC.md` section 5 for the full rejected-ideas table.

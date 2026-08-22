@@ -12,9 +12,9 @@
 
 ### Issues Found: 3 (2 critical, 1 warning)
 
-- **[CRIT-001]** §3 step 4 `flaky` classification said "Same test/step has BOTH failed AND passed in the workflow's last 10 runs" — but my GitHub API call queried workflow-level pass/fail history, not per-test history. Per-test would require N+1 API calls (each prior run's job/step status). Plan §4.8 spec is workflow-level signal: "same test failed in last 10 runs but passed at least once" means the WORKFLOW has had at least one pass recently, not the specific test. → Fix: clarify wording — workflow-level signal; per-test counter is Samson's job via `test_id`.
-- **[CRIT-002]** §5 had dispatch order Slack → Linear, but the Slack summary template embeds `linear_issue_url`. Until Linear fires, that field doesn't exist. Posting Slack first would either have a placeholder or require a follow-up `chat.update` call. → Fix: reverse the order — Linear first (if eligible), then Slack with the result. Linear failure is captured in a local variable that the Slack body references.
-- **[WARN-001]** §3 step 2 used `workflow_name` in the GitHub API path: `GET /repos/{repo}/actions/workflows/{workflow_name}/runs?status=failure&created=>{now-1h}`. GitHub's API expects `workflow_id` (numeric) or the workflow file basename (e.g., `ci.yml`), not the human-readable name. The trigger payload provides `workflow_id` natively. → Fix: switch to `workflow_id` with explicit note.
+- **[CRIT-001]** section 3 step 4 `flaky` classification said "Same test/step has BOTH failed AND passed in the workflow's last 10 runs" — but my GitHub API call queried workflow-level pass/fail history, not per-test history. Per-test would require N+1 API calls (each prior run's job/step status). Plan section 4.8 spec is workflow-level signal: "same test failed in last 10 runs but passed at least once" means the WORKFLOW has had at least one pass recently, not the specific test. → Fix: clarify wording — workflow-level signal; per-test counter is Samson's job via `test_id`.
+- **[CRIT-002]** section 5 had dispatch order Slack → Linear, but the Slack summary template embeds `linear_issue_url`. Until Linear fires, that field doesn't exist. Posting Slack first would either have a placeholder or require a follow-up `chat.update` call. → Fix: reverse the order — Linear first (if eligible), then Slack with the result. Linear failure is captured in a local variable that the Slack body references.
+- **[WARN-001]** section 3 step 2 used `workflow_name` in the GitHub API path: `GET /repos/{repo}/actions/workflows/{workflow_name}/runs?status=failure&created=>{now-1h}`. GitHub's API expects `workflow_id` (numeric) or the workflow file basename (e.g., `ci.yml`), not the human-readable name. The trigger payload provides `workflow_id` natively. → Fix: switch to `workflow_id` with explicit note.
 
 ### Applied Fixes
 
@@ -40,9 +40,9 @@ All 3 issues from iteration 1 resolved.
 
 ### Applied Fixes
 
-- [CRIT-001] ✅ §3 step 4 flaky row rewritten: "The workflow has had at least one **passing** run in its last 10 runs (workflow-level signal, not per-test). Query `GET /repos/{repo}/actions/workflows/{workflow_id}/runs?per_page=10` and check `runs[].conclusion`. If any of the prior 9 runs are `success`, the current failure is flaky. The cross-run per-test counter is Samson's responsibility via `test_id`." Single API call, deterministic check, per-test logic correctly deferred to Samson.
-- [CRIT-002] ✅ §5 dispatch order reversed: Call 1 = Linear (if real-bug, captures `issue.url` for the Slack body), Call 2 = Slack (always, references Linear result via `linear_issue_url` substitution or `linear_failure_note` if Call 1 errored). Linear failure cascades into the Slack body cleanly. §6 "Linear team resolution failure" branch updated to match the new flow.
-- [WARN-001] ✅ §3 step 2 rate-limit query path uses `workflow_id` with explicit note: "(the trigger payload provides `workflow_id` numeric — use that, not the human-readable `workflow_name`, in the API path)."
+- [CRIT-001] ✅ section 3 step 4 flaky row rewritten: "The workflow has had at least one **passing** run in its last 10 runs (workflow-level signal, not per-test). Query `GET /repos/{repo}/actions/workflows/{workflow_id}/runs?per_page=10` and check `runs[].conclusion`. If any of the prior 9 runs are `success`, the current failure is flaky. The cross-run per-test counter is Samson's responsibility via `test_id`." Single API call, deterministic check, per-test logic correctly deferred to Samson.
+- [CRIT-002] ✅ section 5 dispatch order reversed: Call 1 = Linear (if real-bug, captures `issue.url` for the Slack body), Call 2 = Slack (always, references Linear result via `linear_issue_url` substitution or `linear_failure_note` if Call 1 errored). Linear failure cascades into the Slack body cleanly. section 6 "Linear team resolution failure" branch updated to match the new flow.
+- [WARN-001] ✅ section 3 step 2 rate-limit query path uses `workflow_id` with explicit note: "(the trigger payload provides `workflow_id` numeric — use that, not the human-readable `workflow_name`, in the API path)."
 
 ### Quality Score: 96
 

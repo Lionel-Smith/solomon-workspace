@@ -30,7 +30,7 @@ Convert the week's queued learnings into 0-10 actionable **promotion proposals**
 
 ## 3. Steps
 
-Execute in order. Step 2's API call is the load-bearing data fetch — see Safety §6 for the auth-failure branch.
+Execute in order. Step 2's API call is the load-bearing data fetch — see Safety section 6 for the auth-failure branch.
 
 1. **Compute current ISO week** in America/Nassau. Format: `YYYY-W{week:02d}` (e.g., `2026-W21`).
 
@@ -63,17 +63,17 @@ Execute in order. Step 2's API call is the load-bearing data fetch — see Safet
    ```
    Filter results client-side to `status=approved` within the last 30 days (exact filter fields are flexible; query+recency is the contract). For each cluster's `representative_text`, drop it if Jaccard overlap ≥ 0.85 with an approved-promotion text. If the request errors (auth, 4xx/5xx, or connection), skip this dedup step and add `output_artifacts.notes: "mem0_promotion_dedup_skipped"` — continue with raw clusters.
 
-7. **Draft a unified-diff patch per remaining cluster** (cap at 10 — see §6 if more):
+7. **Draft a unified-diff patch per remaining cluster** (cap at 10 — see section 6 if more):
    - **Resolve the repo** from `target_path`: `solomon-workspace/CLAUDE.md` → solomon-workspace repo; `solomon/CLAUDE.md` → solomon repo; `hfs-aiops/CLAUDE.md` → hfs-aiops repo. For `.claude/skills/*`, `.claude/commands/*`, `.claude/agents/*` paths: default to **solomon-workspace** (the workspace's `.claude/` is symlinked from there). Only the 3 repos in this Routine's `repos` config are clone-able.
    - **Fetch the target file** via the Routine's repo access. If the file doesn't exist yet (new skill/command/agent), the diff is a pure-addition with `--- /dev/null`.
    - **Compose a unified diff** in standard git format: `--- a/<path>`, `+++ b/<path>`, `@@ -<old_line>,<old_count> +<new_line>,<new_count> @@`, then context + `+added` lines. Keep additions concise — single new rule, skill section, or command body. Never rewrite the whole file. If the change would exceed 30 added lines, split into multiple smaller proposals targeting the same file (each as its own cluster, counted toward the 10 cap).
    - **Verify diff applicability:** if shell access is available, run `git apply --check`. If not (Anthropic cloud Routine context), do a logical check: confirm every `@@ -X,Y` line range exists in the current file and the context lines match. If verification fails, note the cluster as `requires_manual_review` and include `representative_text` in the Block Kit section instead of the patch.
 
-8. **Compose** the Slack Block Kit message per §4 below using either:
+8. **Compose** the Slack Block Kit message per section 4 below using either:
    - Normal mode: promotions array (1-10 items) + Kata thread template, OR
    - Quiet-week mode: empty promotions + "Quiet week" header + 3 Kata reflection prompts
 
-9. **Dispatch** per §5 below.
+9. **Dispatch** per section 5 below.
 
 ## 4. Output Format
 
@@ -136,7 +136,7 @@ connector: slack
 method: chat.postMessage
 payload:
   channel: "#dev-retros"
-  blocks: <the Block Kit JSON array from §4>
+  blocks: <the Block Kit JSON array from section 4>
   text: "Friday Retro — Week {{ iso_week }}"   # fallback text for notifications
   unfurl_links: false
 ```
@@ -149,7 +149,7 @@ method: chat.postMessage
 payload:
   channel: "#dev-retros"
   thread_ts: <ts from Call 1>
-  text: <the 4-prompt Kata reflection markdown from §4>
+  text: <the 4-prompt Kata reflection markdown from section 4>
   unfurl_links: false
 ```
 

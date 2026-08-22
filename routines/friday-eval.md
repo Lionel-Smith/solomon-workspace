@@ -30,9 +30,9 @@ For each of the 10 tasks in `solomon-core-v1`, dispatch to the target Solomon ag
 
 ## 3. Steps
 
-Execute in order. Step 2's API calls are load-bearing — see Safety §6 for the auth-failure branch.
+Execute in order. Step 2's API calls are load-bearing — see Safety section 6 for the auth-failure branch.
 
-1. **Load the dataset** from `cadence/eval/datasets/solomon-core-v1.yaml` **relative to the solomon-workspace repo clone root** (do NOT prefix `solomon-workspace/` — the clone directory IS that repo; per lesson_session_path_doubling_drift, if the literal path misses, resolve the semantic equivalent within the clone). Parse with strict schema validation: every task must have `task_id, description, agent_target, expected_output, tolerance, passing_threshold`. If validation fails, dispatch the auth-failure-shape error (see §6) and exit.
+1. **Load the dataset** from `cadence/eval/datasets/solomon-core-v1.yaml` **relative to the solomon-workspace repo clone root** (do NOT prefix `solomon-workspace/` — the clone directory IS that repo; per lesson_session_path_doubling_drift, if the literal path misses, resolve the semantic equivalent within the clone). Parse with strict schema validation: every task must have `task_id, description, agent_target, expected_output, tolerance, passing_threshold`. If validation fails, dispatch the auth-failure-shape error (see section 6) and exit.
 
 2. **For each of the 10 tasks** (process sequentially to bound concurrency cost):
    a. Resolve `fixture_path` if present: read the file content and inline it into the task payload as `fixture_content` (cap at 8KB; if larger, take first 8KB + note `[truncated]`).
@@ -44,8 +44,8 @@ Execute in order. Step 2's API calls are load-bearing — see Safety §6 for the
       Body: {"agent_target": "<from task>", "task_id": "<from task>", "task_description": "<from task>", "fixture_content": "<resolved or null>", "timeout_s": 60}
       ```
       Expected response: `{"task_id", "actual_output", "agent_invoked", "elapsed_s", "tokens_used"}`.
-   c. Invoke the LLM-as-judge with the C.4.1 verbatim prompt (see §4 below). The judge receives `task_description`, `expected_output`, `actual_output`, `tolerance`; returns `{"score": 0.0-1.0, "reasoning": "<one sentence>", "passed": true|false}`.
-   d. Accumulate the per-task result in memory for the final summary + `output_artifacts.task_results`: `{task_id, score, passed, reasoning, agent_actual_output_snippet (first 200 chars), agent_tokens, judge_tokens}`. Do NOT dispatch until all 10 tasks (or partial set per §7) are processed.
+   c. Invoke the LLM-as-judge with the C.4.1 verbatim prompt (see section 4 below). The judge receives `task_description`, `expected_output`, `actual_output`, `tolerance`; returns `{"score": 0.0-1.0, "reasoning": "<one sentence>", "passed": true|false}`.
+   d. Accumulate the per-task result in memory for the final summary + `output_artifacts.task_results`: `{task_id, score, passed, reasoning, agent_actual_output_snippet (first 200 chars), agent_tokens, judge_tokens}`. Do NOT dispatch until all 10 tasks (or partial set per section 7) are processed.
 
 3. **Aggregate:** compute `pass_rate = sum(1 for r in results if r.passed) / len(results)`. Tabulate by `agent_target` for the per-agent breakdown.
 
@@ -58,7 +58,7 @@ Execute in order. Step 2's API calls are load-bearing — see Safety §6 for the
 
 5. **Compute drift:** `drift = current_pass_rate - prior_pass_rate` (range -1.0 to +1.0). A negative number means regression.
 
-6. **Format** the output per §4 and **dispatch** per §5.
+6. **Format** the output per section 4 and **dispatch** per section 5.
 
 ## 4. Output Format
 
@@ -122,7 +122,7 @@ method: chat.postMessage
 payload:
   channel: "#dev-retros"
   thread_ts: <if friday-retro ran today and its ts is recoverable from Samson, reply in thread; else top-level>
-  text: <the markdown summary from §4>
+  text: <the markdown summary from section 4>
   unfurl_links: false
 ```
 
@@ -159,7 +159,7 @@ payload:
 - Slack dispatch: wait 5 seconds, retry once.
 
 **Never:**
-- Improvise the judge prompt. The C.4.1 version in §4 is verbatim and any deviation invalidates drift comparison.
+- Improvise the judge prompt. The C.4.1 version in section 4 is verbatim and any deviation invalidates drift comparison.
 - Skip a task to stay under budget. If budget pressure forces a stop, partial-run dispatch with explicit `_Partial run — M of 10 tasks evaluated; cost cap reached._` prefix.
 - Fabricate the prior-week pass_rate. If unfetchable, set `drift=null` with the "no prior run" note.
 - File a Linear issue from this Routine. Linear P1 issue creation is Samson's responsibility (BE-08 ingestion handler watches for drift ≤ -0.10).
@@ -168,7 +168,7 @@ payload:
 
 ## 7. Cost Budget
 
-Plan §4.4 mandates a hard $5 cap. Dollar values are primary; token estimates are for monitoring (Sonnet pricing).
+Plan section 4.4 mandates a hard $5 cap. Dollar values are primary; token estimates are for monitoring (Sonnet pricing).
 
 - **Target:** ≤ $1.50/run (≈ 80,000 total tokens with Sonnet).
 - **Soft warning:** if cumulative cost > $3.00 (≈ 150,000 tokens) mid-run, append `_Warning: high cost ($N.NN at task M of 10) — judge prompt may be inefficient._` to `output_artifacts.notes` and continue.

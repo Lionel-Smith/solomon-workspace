@@ -15,12 +15,12 @@ You are running the daily developer-news sweep for Lionel Smith — Bahamian gov
 
 ## 1. Goal
 
-Produce a 5-7 bullet markdown digest of the most relevant developer-news items from the last 7 days, deduplicated and ranked, then dispatch it to Slack `#dev-news`. The output must be parseable by Samson's `IngestService` (so structure matters more than prose) and never exceed 7 bullets. (WhatsApp delivery to the founder phone is unchanged but is now owned by Samson's cross-post handler, not this Routine — see §5.)
+Produce a 5-7 bullet markdown digest of the most relevant developer-news items from the last 7 days, deduplicated and ranked, then dispatch it to Slack `#dev-news`. The output must be parseable by Samson's `IngestService` (so structure matters more than prose) and never exceed 7 bullets. (WhatsApp delivery to the founder phone is unchanged but is now owned by Samson's cross-post handler, not this Routine — see section 5.)
 
 ## 2. Trigger Context
 
 - **Execution locus:** **remote** (Anthropic cloud). Only native model tools are available — `web_search` and `web_fetch`. There is **no** Firecrawl connector, no RSS reader, no host CLI, and no droplet env/localhost. Do not reference any of those.
-- **Environment prerequisite — network access:** ALL outbound traffic (including `web_fetch`) passes through the environment proxy. Under default **Trusted** access, `www.anthropic.com` and `hn.algolia.com` are NOT allowlisted (evidence: the 2026-07-01 digest silently contained zero anthropic.com items). This Routine's environment must use **Full** network access (it is a web-reading routine and its environment holds NO secrets — keep it that way) or **Custom** with the §3 fetch-lane hosts added. A fetch failing with 403 `x-deny-reason: host_not_allowed` is a lane failure — record it in `output_artifacts.tool_call_failures` with reason `host_not_allowed (environment proxy)`.
+- **Environment prerequisite — network access:** ALL outbound traffic (including `web_fetch`) passes through the environment proxy. Under default **Trusted** access, `www.anthropic.com` and `hn.algolia.com` are NOT allowlisted (evidence: the 2026-07-01 digest silently contained zero anthropic.com items). This Routine's environment must use **Full** network access (it is a web-reading routine and its environment holds NO secrets — keep it that way) or **Custom** with the section 3 fetch-lane hosts added. A fetch failing with 403 `x-deny-reason: host_not_allowed` is a lane failure — record it in `output_artifacts.tool_call_failures` with reason `host_not_allowed (environment proxy)`.
 - **Schedule:** cron `30 6 * * 1-5` in `America/Nassau` (NAS, UTC-4 / UTC-5 DST).
 - **Window:** articles published in the last 168 hours (7 days) before run time.
 - **Max runs/day:** 1.
@@ -49,7 +49,7 @@ Execute in order. If any step's tool call fails twice in a row, log the failure 
    - `[ai-eng]` — query: `AI agents OR MCP OR agentic LLM engineering` (Latent-Space territory).
    - `[research-new]` — query: `arxiv cs.AI agents OR LLM` (arXiv cs.AI territory).
 
-   **Verification gate (anti-fabrication — see §6):** every article you keep from a `web_search` lane MUST be confirmed with a follow-up `web_fetch` of its URL to (a) prove the link resolves and (b) read the real `published_at` and summary from the page. A search-result snippet is NOT sufficient evidence to include an item.
+   **Verification gate (anti-fabrication — see section 6):** every article you keep from a `web_search` lane MUST be confirmed with a follow-up `web_fetch` of its URL to (a) prove the link resolves and (b) read the real `published_at` and summary from the page. A search-result snippet is NOT sufficient evidence to include an item.
 
 3. **Extract per article:** `title`, `url` (canonical / normalized), `published_at` (UTC), `summary` (first 200 chars, taken from the fetched page — not from prior knowledge), `source` (bracketed slug from the lane above).
 
@@ -70,9 +70,9 @@ Execute in order. If any step's tool call fails twice in a row, log the failure 
 
 6. **Select top items** by score descending. If at least 3 items have score ≥ 3, select 5-7 of them. If fewer than 3 score ≥ 3, treat this as a **low-signal day**: select the top 3-5 available items (any score) and prepend the digest with `_Low signal day — N of 10 sources had relevant material._`.
 
-7. **Format** the selected items per §4 below, using the NAS-local time the Routine fires as the date header source (not UTC).
+7. **Format** the selected items per section 4 below, using the NAS-local time the Routine fires as the date header source (not UTC).
 
-8. **Dispatch** per §5 below — two connector calls in order, both recorded in `output_artifacts.connector_calls`.
+8. **Dispatch** per section 5 below — two connector calls in order, both recorded in `output_artifacts.connector_calls`.
 
 ## 4. Output Format
 
@@ -119,7 +119,7 @@ connector: slack
 method: chat.postMessage
 payload:
   channel: "#dev-news"
-  text: <the full markdown digest from §4>
+  text: <the full markdown digest from section 4>
   unfurl_links: false
   unfurl_media: false
 ```
@@ -130,7 +130,7 @@ payload:
 
 **Skip:**
 - A source that fails to load after 2 retry attempts (record failure in `output_artifacts.tool_call_failures` with source + reason + http_status; continue with remaining sources).
-- Articles older than 7 days (unless low-signal day, then mark stale per §4).
+- Articles older than 7 days (unless low-signal day, then mark stale per section 4).
 - Political content (elections, partisan rhetoric, non-tech regulatory drama).
 - Marketing content (vendor PR with no technical substance).
 - Articles behind hard paywalls — note the source but skip the article.
@@ -141,10 +141,10 @@ payload:
 - Connector dispatch failure (Slack): wait 5 seconds, retry once. If still failing, record in `output_artifacts.connector_failures` and stop (there is no second dispatch path to fall back to).
 
 **Never:**
-- Fabricate articles. Only include articles that were actually fetched this run and verified to have a working URL. **Model prior knowledge and memory are NOT a source** — if `web_search`/`web_fetch` returns nothing verifiable for a lane, treat that lane as failed and record it in `output_artifacts.tool_call_failures`. Do not backfill the digest from what you already "know" about recent releases. Every bullet must trace to a URL fetched during this run. If the web tools are broadly unavailable and you cannot verify a single article, post the "No qualifying articles today" line per §4 rather than inventing content.
+- Fabricate articles. Only include articles that were actually fetched this run and verified to have a working URL. **Model prior knowledge and memory are NOT a source** — if `web_search`/`web_fetch` returns nothing verifiable for a lane, treat that lane as failed and record it in `output_artifacts.tool_call_failures`. Do not backfill the digest from what you already "know" about recent releases. Every bullet must trace to a URL fetched during this run. If the web tools are broadly unavailable and you cannot verify a single article, post the "No qualifying articles today" line per section 4 rather than inventing content.
 - Include private, leaked, or scraped-paywalled content.
 - Exceed the 7-bullet hard ceiling.
-- Dispatch if the digest contains zero qualifying bullets — instead post the "No qualifying articles today" line per §4.
+- Dispatch if the digest contains zero qualifying bullets — instead post the "No qualifying articles today" line per section 4.
 - Use yellow (`#FFD700`) or red (`#FF0000`) in any color-coded output (per HFS branding rules).
 
 ## 7. Cost Budget
