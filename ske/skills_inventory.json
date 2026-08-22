@@ -2,7 +2,7 @@
   "baseline_comparable": true,
   "coverage": {
     "devkit_not_installed": [],
-    "reachable": 44,
+    "reachable": 46,
     "runtime_not_in_devkit": [
       "ask-matt",
       "claude-handoff",
@@ -44,7 +44,7 @@
       "writing-great-skills",
       "writing-shape"
     ],
-    "total": 44,
+    "total": 46,
     "unreachable": []
   },
   "drift": [
@@ -311,16 +311,16 @@
       "identical": true,
       "in_devkit": true,
       "name": "debugging-workflow",
-      "newest_mtime": 1785765888,
+      "newest_mtime": 1787364012,
       "roots": [
         "devkit",
         "runtime",
         "workspace"
       ],
       "sha_by_root": {
-        "devkit": "c0e975580bdb",
-        "runtime": "c0e975580bdb",
-        "workspace": "c0e975580bdb"
+        "devkit": "4e77fb548122",
+        "runtime": "4e77fb548122",
+        "workspace": "4e77fb548122"
       }
     },
     {
@@ -795,6 +795,31 @@
     {
       "devkit_sha_match": true,
       "distinct_copies": {
+        "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-code-review": [
+          "devkit",
+          "runtime",
+          "workspace"
+        ]
+      },
+      "distinct_realpaths": 1,
+      "identical": true,
+      "in_devkit": true,
+      "name": "hfs-code-review",
+      "newest_mtime": 1787363988,
+      "roots": [
+        "devkit",
+        "runtime",
+        "workspace"
+      ],
+      "sha_by_root": {
+        "devkit": "2439755825f8",
+        "runtime": "2439755825f8",
+        "workspace": "2439755825f8"
+      }
+    },
+    {
+      "devkit_sha_match": true,
+      "distinct_copies": {
         "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-component-library": [
           "devkit",
           "runtime",
@@ -1055,16 +1080,41 @@
       "identical": true,
       "in_devkit": true,
       "name": "hfs-skill-creator",
-      "newest_mtime": 1785765888,
+      "newest_mtime": 1787362873,
       "roots": [
         "devkit",
         "runtime",
         "workspace"
       ],
       "sha_by_root": {
-        "devkit": "c2dd89c9cc4a",
-        "runtime": "c2dd89c9cc4a",
-        "workspace": "c2dd89c9cc4a"
+        "devkit": "a3754e70b18a",
+        "runtime": "a3754e70b18a",
+        "workspace": "a3754e70b18a"
+      }
+    },
+    {
+      "devkit_sha_match": true,
+      "distinct_copies": {
+        "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-tdd": [
+          "devkit",
+          "runtime",
+          "workspace"
+        ]
+      },
+      "distinct_realpaths": 1,
+      "identical": true,
+      "in_devkit": true,
+      "name": "hfs-tdd",
+      "newest_mtime": 1787363971,
+      "roots": [
+        "devkit",
+        "runtime",
+        "workspace"
+      ],
+      "sha_by_root": {
+        "devkit": "5edd475b85c2",
+        "runtime": "5edd475b85c2",
+        "workspace": "5edd475b85c2"
       }
     },
     {
@@ -1842,16 +1892,16 @@
       "identical": true,
       "in_devkit": true,
       "name": "skill-reviewer",
-      "newest_mtime": 1785765888,
+      "newest_mtime": 1787362748,
       "roots": [
         "devkit",
         "runtime",
         "workspace"
       ],
       "sha_by_root": {
-        "devkit": "3963948e59a0",
-        "runtime": "3963948e59a0",
-        "workspace": "3963948e59a0"
+        "devkit": "7371f31736ef",
+        "runtime": "7371f31736ef",
+        "workspace": "7371f31736ef"
       }
     },
     {
@@ -2640,12 +2690,12 @@
           "upstream_pin": null
         },
         "debugging-workflow": {
-          "body_bytes": 11834,
-          "bytes": 12199,
+          "body_bytes": 12974,
+          "bytes": 13339,
           "declared_name": "debugging-workflow",
           "description_chars": 318,
           "description_tokens": 80,
-          "est_tokens": 3050,
+          "est_tokens": 3335,
           "frontmatter_keys": [
             "description",
             "name"
@@ -2653,12 +2703,12 @@
           "frontmatter_yaml_error": null,
           "frontmatter_yaml_valid": true,
           "has_assets_dir": true,
-          "has_evals": false,
+          "has_evals": true,
           "has_frontmatter": true,
           "has_references_dir": true,
           "has_scripts_dir": false,
           "is_symlink": false,
-          "lines": 351,
+          "lines": 365,
           "mentions_code_review": false,
           "mentions_completion_criteria": false,
           "mentions_tdd": false,
@@ -2678,16 +2728,17 @@
             "hooks"
           ],
           "monolithic": false,
-          "mtime": 1785765888,
+          "mtime": 1787364012,
           "name": "debugging-workflow",
           "name_matches_dir": true,
           "path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/debugging-workflow",
           "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/debugging-workflow",
           "root": "devkit",
-          "sha256": "c0e975580bdbdc570911087417d2cd298270465ba728a78842a0bbbdad139544",
-          "sub_file_count": 3,
+          "sha256": "4e77fb548122c93ae4e4a2a7540c6ad5b8f7a7a74cd0e4e18b55564da5cabaa7",
+          "sub_file_count": 4,
           "sub_files": [
             "assets/DEBUG_PLAN_TEMPLATE.md",
+            "evals/cases.yaml",
             "references/diagnostic-patterns.md",
             "references/fix-patterns.md"
           ],
@@ -3110,6 +3161,61 @@
           ],
           "symlink_target": null,
           "upstream_pin": null
+        },
+        "hfs-code-review": {
+          "body_bytes": 1970,
+          "bytes": 2250,
+          "declared_name": "hfs-code-review",
+          "description_chars": 185,
+          "description_tokens": 46,
+          "est_tokens": 562,
+          "frontmatter_keys": [
+            "description",
+            "invocation",
+            "name",
+            "upstream"
+          ],
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
+          "has_assets_dir": false,
+          "has_evals": true,
+          "has_frontmatter": true,
+          "has_references_dir": false,
+          "has_scripts_dir": false,
+          "is_symlink": false,
+          "lines": 46,
+          "mentions_code_review": true,
+          "mentions_completion_criteria": false,
+          "mentions_tdd": false,
+          "mentions_worktree": false,
+          "missing_assumed_v2_keys": [
+            "version",
+            "author",
+            "date",
+            "phase",
+            "triggers",
+            "related_skills"
+          ],
+          "missing_template_keys": [
+            "version",
+            "allowed-tools",
+            "model",
+            "hooks"
+          ],
+          "monolithic": false,
+          "mtime": 1787363988,
+          "name": "hfs-code-review",
+          "name_matches_dir": true,
+          "path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-code-review",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-code-review",
+          "root": "devkit",
+          "sha256": "2439755825f8e76dab500cb05887c6524eed5a52c931fb29ade731e570c03332",
+          "sub_file_count": 1,
+          "sub_files": [
+            "evals/cases.yaml"
+          ],
+          "symlink_target": null,
+          "upstream_pin": "code-review@9df6fdac"
         },
         "hfs-component-library": {
           "body_bytes": 6951,
@@ -3630,12 +3736,12 @@
           "upstream_pin": null
         },
         "hfs-skill-creator": {
-          "body_bytes": 17400,
-          "bytes": 17904,
+          "body_bytes": 18957,
+          "bytes": 19461,
           "declared_name": "hfs-skill-creator",
           "description_chars": 446,
           "description_tokens": 112,
-          "est_tokens": 4476,
+          "est_tokens": 4865,
           "frontmatter_keys": [
             "description",
             "name"
@@ -3648,9 +3754,9 @@
           "has_references_dir": false,
           "has_scripts_dir": false,
           "is_symlink": false,
-          "lines": 406,
-          "mentions_code_review": false,
-          "mentions_completion_criteria": false,
+          "lines": 418,
+          "mentions_code_review": true,
+          "mentions_completion_criteria": true,
           "mentions_tdd": false,
           "mentions_worktree": false,
           "missing_assumed_v2_keys": [
@@ -3668,17 +3774,72 @@
             "hooks"
           ],
           "monolithic": true,
-          "mtime": 1785765888,
+          "mtime": 1787362873,
           "name": "hfs-skill-creator",
           "name_matches_dir": true,
           "path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-skill-creator",
           "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-skill-creator",
           "root": "devkit",
-          "sha256": "c2dd89c9cc4a0ddaf45622a55311b1eb5181171926d23844649f011ea10df31e",
+          "sha256": "a3754e70b18a0234232b9716acf795a4574afd7f168ebec47c4eb1fb16edb92e",
           "sub_file_count": 0,
           "sub_files": [],
           "symlink_target": null,
           "upstream_pin": null
+        },
+        "hfs-tdd": {
+          "body_bytes": 1902,
+          "bytes": 2172,
+          "declared_name": "hfs-tdd",
+          "description_chars": 191,
+          "description_tokens": 48,
+          "est_tokens": 543,
+          "frontmatter_keys": [
+            "description",
+            "invocation",
+            "name",
+            "upstream"
+          ],
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
+          "has_assets_dir": false,
+          "has_evals": true,
+          "has_frontmatter": true,
+          "has_references_dir": false,
+          "has_scripts_dir": false,
+          "is_symlink": false,
+          "lines": 45,
+          "mentions_code_review": false,
+          "mentions_completion_criteria": false,
+          "mentions_tdd": true,
+          "mentions_worktree": false,
+          "missing_assumed_v2_keys": [
+            "version",
+            "author",
+            "date",
+            "phase",
+            "triggers",
+            "related_skills"
+          ],
+          "missing_template_keys": [
+            "version",
+            "allowed-tools",
+            "model",
+            "hooks"
+          ],
+          "monolithic": false,
+          "mtime": 1787363971,
+          "name": "hfs-tdd",
+          "name_matches_dir": true,
+          "path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-tdd",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-tdd",
+          "root": "devkit",
+          "sha256": "5edd475b85c2d54830bbc985210620dbbb5d916d06155b1c5670764ac2564f1f",
+          "sub_file_count": 1,
+          "sub_files": [
+            "evals/cases.yaml"
+          ],
+          "symlink_target": null,
+          "upstream_pin": "tdd@57e1bee8"
         },
         "hfs-vscode-orchestrator": {
           "body_bytes": 10411,
@@ -4281,12 +4442,12 @@
           "upstream_pin": null
         },
         "skill-reviewer": {
-          "body_bytes": 7485,
-          "bytes": 7853,
+          "body_bytes": 8547,
+          "bytes": 8915,
           "declared_name": "skill-reviewer",
           "description_chars": 323,
           "description_tokens": 81,
-          "est_tokens": 1963,
+          "est_tokens": 2229,
           "frontmatter_keys": [
             "description",
             "name"
@@ -4299,7 +4460,7 @@
           "has_references_dir": false,
           "has_scripts_dir": false,
           "is_symlink": false,
-          "lines": 291,
+          "lines": 308,
           "mentions_code_review": true,
           "mentions_completion_criteria": false,
           "mentions_tdd": false,
@@ -4319,13 +4480,13 @@
             "hooks"
           ],
           "monolithic": true,
-          "mtime": 1785765888,
+          "mtime": 1787362748,
           "name": "skill-reviewer",
           "name_matches_dir": true,
           "path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/skill-reviewer",
           "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/skill-reviewer",
           "root": "devkit",
-          "sha256": "3963948e59a018a2280e5388263af228fc29c474edfc4356d87d516cd48e9419",
+          "sha256": "7371f31736ef10c37bd4f3987b4e7e020d398bc48052f7a2e6628fbe4d68a174",
           "sub_file_count": 0,
           "sub_files": [],
           "symlink_target": null,
@@ -5169,12 +5330,12 @@
           "upstream_pin": null
         },
         "debugging-workflow": {
-          "body_bytes": 11834,
-          "bytes": 12199,
+          "body_bytes": 12974,
+          "bytes": 13339,
           "declared_name": "debugging-workflow",
           "description_chars": 318,
           "description_tokens": 80,
-          "est_tokens": 3050,
+          "est_tokens": 3335,
           "frontmatter_keys": [
             "description",
             "name"
@@ -5182,12 +5343,12 @@
           "frontmatter_yaml_error": null,
           "frontmatter_yaml_valid": true,
           "has_assets_dir": true,
-          "has_evals": false,
+          "has_evals": true,
           "has_frontmatter": true,
           "has_references_dir": true,
           "has_scripts_dir": false,
           "is_symlink": true,
-          "lines": 351,
+          "lines": 365,
           "mentions_code_review": false,
           "mentions_completion_criteria": false,
           "mentions_tdd": false,
@@ -5207,16 +5368,17 @@
             "hooks"
           ],
           "monolithic": false,
-          "mtime": 1785765888,
+          "mtime": 1787364012,
           "name": "debugging-workflow",
           "name_matches_dir": true,
           "path": "/Users/lionel/.claude/skills/debugging-workflow",
           "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/debugging-workflow",
           "root": "runtime",
-          "sha256": "c0e975580bdbdc570911087417d2cd298270465ba728a78842a0bbbdad139544",
-          "sub_file_count": 3,
+          "sha256": "4e77fb548122c93ae4e4a2a7540c6ad5b8f7a7a74cd0e4e18b55564da5cabaa7",
+          "sub_file_count": 4,
           "sub_files": [
             "assets/DEBUG_PLAN_TEMPLATE.md",
+            "evals/cases.yaml",
             "references/diagnostic-patterns.md",
             "references/fix-patterns.md"
           ],
@@ -6162,6 +6324,61 @@
           "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-client-engagement/",
           "upstream_pin": null
         },
+        "hfs-code-review": {
+          "body_bytes": 1970,
+          "bytes": 2250,
+          "declared_name": "hfs-code-review",
+          "description_chars": 185,
+          "description_tokens": 46,
+          "est_tokens": 562,
+          "frontmatter_keys": [
+            "description",
+            "invocation",
+            "name",
+            "upstream"
+          ],
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
+          "has_assets_dir": false,
+          "has_evals": true,
+          "has_frontmatter": true,
+          "has_references_dir": false,
+          "has_scripts_dir": false,
+          "is_symlink": true,
+          "lines": 46,
+          "mentions_code_review": true,
+          "mentions_completion_criteria": false,
+          "mentions_tdd": false,
+          "mentions_worktree": false,
+          "missing_assumed_v2_keys": [
+            "version",
+            "author",
+            "date",
+            "phase",
+            "triggers",
+            "related_skills"
+          ],
+          "missing_template_keys": [
+            "version",
+            "allowed-tools",
+            "model",
+            "hooks"
+          ],
+          "monolithic": false,
+          "mtime": 1787363988,
+          "name": "hfs-code-review",
+          "name_matches_dir": true,
+          "path": "/Users/lionel/.claude/skills/hfs-code-review",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-code-review",
+          "root": "runtime",
+          "sha256": "2439755825f8e76dab500cb05887c6524eed5a52c931fb29ade731e570c03332",
+          "sub_file_count": 1,
+          "sub_files": [
+            "evals/cases.yaml"
+          ],
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-code-review",
+          "upstream_pin": "code-review@9df6fdac"
+        },
         "hfs-component-library": {
           "body_bytes": 6951,
           "bytes": 7280,
@@ -6681,12 +6898,12 @@
           "upstream_pin": null
         },
         "hfs-skill-creator": {
-          "body_bytes": 17400,
-          "bytes": 17904,
+          "body_bytes": 18957,
+          "bytes": 19461,
           "declared_name": "hfs-skill-creator",
           "description_chars": 446,
           "description_tokens": 112,
-          "est_tokens": 4476,
+          "est_tokens": 4865,
           "frontmatter_keys": [
             "description",
             "name"
@@ -6699,9 +6916,9 @@
           "has_references_dir": false,
           "has_scripts_dir": false,
           "is_symlink": true,
-          "lines": 406,
-          "mentions_code_review": false,
-          "mentions_completion_criteria": false,
+          "lines": 418,
+          "mentions_code_review": true,
+          "mentions_completion_criteria": true,
           "mentions_tdd": false,
           "mentions_worktree": false,
           "missing_assumed_v2_keys": [
@@ -6719,17 +6936,72 @@
             "hooks"
           ],
           "monolithic": true,
-          "mtime": 1785765888,
+          "mtime": 1787362873,
           "name": "hfs-skill-creator",
           "name_matches_dir": true,
           "path": "/Users/lionel/.claude/skills/hfs-skill-creator",
           "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-skill-creator",
           "root": "runtime",
-          "sha256": "c2dd89c9cc4a0ddaf45622a55311b1eb5181171926d23844649f011ea10df31e",
+          "sha256": "a3754e70b18a0234232b9716acf795a4574afd7f168ebec47c4eb1fb16edb92e",
           "sub_file_count": 0,
           "sub_files": [],
           "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-skill-creator/",
           "upstream_pin": null
+        },
+        "hfs-tdd": {
+          "body_bytes": 1902,
+          "bytes": 2172,
+          "declared_name": "hfs-tdd",
+          "description_chars": 191,
+          "description_tokens": 48,
+          "est_tokens": 543,
+          "frontmatter_keys": [
+            "description",
+            "invocation",
+            "name",
+            "upstream"
+          ],
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
+          "has_assets_dir": false,
+          "has_evals": true,
+          "has_frontmatter": true,
+          "has_references_dir": false,
+          "has_scripts_dir": false,
+          "is_symlink": true,
+          "lines": 45,
+          "mentions_code_review": false,
+          "mentions_completion_criteria": false,
+          "mentions_tdd": true,
+          "mentions_worktree": false,
+          "missing_assumed_v2_keys": [
+            "version",
+            "author",
+            "date",
+            "phase",
+            "triggers",
+            "related_skills"
+          ],
+          "missing_template_keys": [
+            "version",
+            "allowed-tools",
+            "model",
+            "hooks"
+          ],
+          "monolithic": false,
+          "mtime": 1787363971,
+          "name": "hfs-tdd",
+          "name_matches_dir": true,
+          "path": "/Users/lionel/.claude/skills/hfs-tdd",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-tdd",
+          "root": "runtime",
+          "sha256": "5edd475b85c2d54830bbc985210620dbbb5d916d06155b1c5670764ac2564f1f",
+          "sub_file_count": 1,
+          "sub_files": [
+            "evals/cases.yaml"
+          ],
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-tdd",
+          "upstream_pin": "tdd@57e1bee8"
         },
         "hfs-vscode-orchestrator": {
           "body_bytes": 10411,
@@ -8011,12 +8283,12 @@
           "upstream_pin": null
         },
         "skill-reviewer": {
-          "body_bytes": 7485,
-          "bytes": 7853,
+          "body_bytes": 8547,
+          "bytes": 8915,
           "declared_name": "skill-reviewer",
           "description_chars": 323,
           "description_tokens": 81,
-          "est_tokens": 1963,
+          "est_tokens": 2229,
           "frontmatter_keys": [
             "description",
             "name"
@@ -8029,7 +8301,7 @@
           "has_references_dir": false,
           "has_scripts_dir": false,
           "is_symlink": true,
-          "lines": 291,
+          "lines": 308,
           "mentions_code_review": true,
           "mentions_completion_criteria": false,
           "mentions_tdd": false,
@@ -8049,13 +8321,13 @@
             "hooks"
           ],
           "monolithic": true,
-          "mtime": 1785765888,
+          "mtime": 1787362748,
           "name": "skill-reviewer",
           "name_matches_dir": true,
           "path": "/Users/lionel/.claude/skills/skill-reviewer",
           "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/skill-reviewer",
           "root": "runtime",
-          "sha256": "3963948e59a018a2280e5388263af228fc29c474edfc4356d87d516cd48e9419",
+          "sha256": "7371f31736ef10c37bd4f3987b4e7e020d398bc48052f7a2e6628fbe4d68a174",
           "sub_file_count": 0,
           "sub_files": [],
           "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/skill-reviewer",
@@ -11668,12 +11940,12 @@
           "upstream_pin": null
         },
         "debugging-workflow": {
-          "body_bytes": 11834,
-          "bytes": 12199,
+          "body_bytes": 12974,
+          "bytes": 13339,
           "declared_name": "debugging-workflow",
           "description_chars": 318,
           "description_tokens": 80,
-          "est_tokens": 3050,
+          "est_tokens": 3335,
           "frontmatter_keys": [
             "description",
             "name"
@@ -11681,12 +11953,12 @@
           "frontmatter_yaml_error": null,
           "frontmatter_yaml_valid": true,
           "has_assets_dir": true,
-          "has_evals": false,
+          "has_evals": true,
           "has_frontmatter": true,
           "has_references_dir": true,
           "has_scripts_dir": false,
           "is_symlink": true,
-          "lines": 351,
+          "lines": 365,
           "mentions_code_review": false,
           "mentions_completion_criteria": false,
           "mentions_tdd": false,
@@ -11706,16 +11978,17 @@
             "hooks"
           ],
           "monolithic": false,
-          "mtime": 1785765888,
+          "mtime": 1787364012,
           "name": "debugging-workflow",
           "name_matches_dir": true,
           "path": "/Users/lionel/Documents/GitHub/solomon-workspace/.claude/skills/debugging-workflow",
           "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/debugging-workflow",
           "root": "workspace",
-          "sha256": "c0e975580bdbdc570911087417d2cd298270465ba728a78842a0bbbdad139544",
-          "sub_file_count": 3,
+          "sha256": "4e77fb548122c93ae4e4a2a7540c6ad5b8f7a7a74cd0e4e18b55564da5cabaa7",
+          "sub_file_count": 4,
           "sub_files": [
             "assets/DEBUG_PLAN_TEMPLATE.md",
+            "evals/cases.yaml",
             "references/diagnostic-patterns.md",
             "references/fix-patterns.md"
           ],
@@ -12661,6 +12934,61 @@
           "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-client-engagement/",
           "upstream_pin": null
         },
+        "hfs-code-review": {
+          "body_bytes": 1970,
+          "bytes": 2250,
+          "declared_name": "hfs-code-review",
+          "description_chars": 185,
+          "description_tokens": 46,
+          "est_tokens": 562,
+          "frontmatter_keys": [
+            "description",
+            "invocation",
+            "name",
+            "upstream"
+          ],
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
+          "has_assets_dir": false,
+          "has_evals": true,
+          "has_frontmatter": true,
+          "has_references_dir": false,
+          "has_scripts_dir": false,
+          "is_symlink": true,
+          "lines": 46,
+          "mentions_code_review": true,
+          "mentions_completion_criteria": false,
+          "mentions_tdd": false,
+          "mentions_worktree": false,
+          "missing_assumed_v2_keys": [
+            "version",
+            "author",
+            "date",
+            "phase",
+            "triggers",
+            "related_skills"
+          ],
+          "missing_template_keys": [
+            "version",
+            "allowed-tools",
+            "model",
+            "hooks"
+          ],
+          "monolithic": false,
+          "mtime": 1787363988,
+          "name": "hfs-code-review",
+          "name_matches_dir": true,
+          "path": "/Users/lionel/Documents/GitHub/solomon-workspace/.claude/skills/hfs-code-review",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-code-review",
+          "root": "workspace",
+          "sha256": "2439755825f8e76dab500cb05887c6524eed5a52c931fb29ade731e570c03332",
+          "sub_file_count": 1,
+          "sub_files": [
+            "evals/cases.yaml"
+          ],
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-code-review",
+          "upstream_pin": "code-review@9df6fdac"
+        },
         "hfs-component-library": {
           "body_bytes": 6951,
           "bytes": 7280,
@@ -13180,12 +13508,12 @@
           "upstream_pin": null
         },
         "hfs-skill-creator": {
-          "body_bytes": 17400,
-          "bytes": 17904,
+          "body_bytes": 18957,
+          "bytes": 19461,
           "declared_name": "hfs-skill-creator",
           "description_chars": 446,
           "description_tokens": 112,
-          "est_tokens": 4476,
+          "est_tokens": 4865,
           "frontmatter_keys": [
             "description",
             "name"
@@ -13198,9 +13526,9 @@
           "has_references_dir": false,
           "has_scripts_dir": false,
           "is_symlink": true,
-          "lines": 406,
-          "mentions_code_review": false,
-          "mentions_completion_criteria": false,
+          "lines": 418,
+          "mentions_code_review": true,
+          "mentions_completion_criteria": true,
           "mentions_tdd": false,
           "mentions_worktree": false,
           "missing_assumed_v2_keys": [
@@ -13218,17 +13546,72 @@
             "hooks"
           ],
           "monolithic": true,
-          "mtime": 1785765888,
+          "mtime": 1787362873,
           "name": "hfs-skill-creator",
           "name_matches_dir": true,
           "path": "/Users/lionel/Documents/GitHub/solomon-workspace/.claude/skills/hfs-skill-creator",
           "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-skill-creator",
           "root": "workspace",
-          "sha256": "c2dd89c9cc4a0ddaf45622a55311b1eb5181171926d23844649f011ea10df31e",
+          "sha256": "a3754e70b18a0234232b9716acf795a4574afd7f168ebec47c4eb1fb16edb92e",
           "sub_file_count": 0,
           "sub_files": [],
           "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-skill-creator/",
           "upstream_pin": null
+        },
+        "hfs-tdd": {
+          "body_bytes": 1902,
+          "bytes": 2172,
+          "declared_name": "hfs-tdd",
+          "description_chars": 191,
+          "description_tokens": 48,
+          "est_tokens": 543,
+          "frontmatter_keys": [
+            "description",
+            "invocation",
+            "name",
+            "upstream"
+          ],
+          "frontmatter_yaml_error": null,
+          "frontmatter_yaml_valid": true,
+          "has_assets_dir": false,
+          "has_evals": true,
+          "has_frontmatter": true,
+          "has_references_dir": false,
+          "has_scripts_dir": false,
+          "is_symlink": true,
+          "lines": 45,
+          "mentions_code_review": false,
+          "mentions_completion_criteria": false,
+          "mentions_tdd": true,
+          "mentions_worktree": false,
+          "missing_assumed_v2_keys": [
+            "version",
+            "author",
+            "date",
+            "phase",
+            "triggers",
+            "related_skills"
+          ],
+          "missing_template_keys": [
+            "version",
+            "allowed-tools",
+            "model",
+            "hooks"
+          ],
+          "monolithic": false,
+          "mtime": 1787363971,
+          "name": "hfs-tdd",
+          "name_matches_dir": true,
+          "path": "/Users/lionel/Documents/GitHub/solomon-workspace/.claude/skills/hfs-tdd",
+          "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-tdd",
+          "root": "workspace",
+          "sha256": "5edd475b85c2d54830bbc985210620dbbb5d916d06155b1c5670764ac2564f1f",
+          "sub_file_count": 1,
+          "sub_files": [
+            "evals/cases.yaml"
+          ],
+          "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-tdd",
+          "upstream_pin": "tdd@57e1bee8"
         },
         "hfs-vscode-orchestrator": {
           "body_bytes": 10411,
@@ -14510,12 +14893,12 @@
           "upstream_pin": null
         },
         "skill-reviewer": {
-          "body_bytes": 7485,
-          "bytes": 7853,
+          "body_bytes": 8547,
+          "bytes": 8915,
           "declared_name": "skill-reviewer",
           "description_chars": 323,
           "description_tokens": 81,
-          "est_tokens": 1963,
+          "est_tokens": 2229,
           "frontmatter_keys": [
             "description",
             "name"
@@ -14528,7 +14911,7 @@
           "has_references_dir": false,
           "has_scripts_dir": false,
           "is_symlink": true,
-          "lines": 291,
+          "lines": 308,
           "mentions_code_review": true,
           "mentions_completion_criteria": false,
           "mentions_tdd": false,
@@ -14548,13 +14931,13 @@
             "hooks"
           ],
           "monolithic": true,
-          "mtime": 1785765888,
+          "mtime": 1787362748,
           "name": "skill-reviewer",
           "name_matches_dir": true,
           "path": "/Users/lionel/Documents/GitHub/solomon-workspace/.claude/skills/skill-reviewer",
           "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/skill-reviewer",
           "root": "workspace",
-          "sha256": "3963948e59a018a2280e5388263af228fc29c474edfc4356d87d516cd48e9419",
+          "sha256": "7371f31736ef10c37bd4f3987b4e7e020d398bc48052f7a2e6628fbe4d68a174",
           "sub_file_count": 0,
           "sub_files": [],
           "symlink_target": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/skill-reviewer",
@@ -16664,12 +17047,12 @@
       "upstream_pin": null
     },
     {
-      "body_bytes": 11834,
-      "bytes": 12199,
+      "body_bytes": 12974,
+      "bytes": 13339,
       "declared_name": "debugging-workflow",
       "description_chars": 318,
       "description_tokens": 80,
-      "est_tokens": 3050,
+      "est_tokens": 3335,
       "frontmatter_keys": [
         "description",
         "name"
@@ -16677,12 +17060,12 @@
       "frontmatter_yaml_error": null,
       "frontmatter_yaml_valid": true,
       "has_assets_dir": true,
-      "has_evals": false,
+      "has_evals": true,
       "has_frontmatter": true,
       "has_references_dir": true,
       "has_scripts_dir": false,
       "is_symlink": false,
-      "lines": 351,
+      "lines": 365,
       "mentions_code_review": false,
       "mentions_completion_criteria": false,
       "mentions_tdd": false,
@@ -16702,16 +17085,17 @@
         "hooks"
       ],
       "monolithic": false,
-      "mtime": 1785765888,
+      "mtime": 1787364012,
       "name": "debugging-workflow",
       "name_matches_dir": true,
       "path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/debugging-workflow",
       "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/debugging-workflow",
       "root": "devkit",
-      "sha256": "c0e975580bdbdc570911087417d2cd298270465ba728a78842a0bbbdad139544",
-      "sub_file_count": 3,
+      "sha256": "4e77fb548122c93ae4e4a2a7540c6ad5b8f7a7a74cd0e4e18b55564da5cabaa7",
+      "sub_file_count": 4,
       "sub_files": [
         "assets/DEBUG_PLAN_TEMPLATE.md",
+        "evals/cases.yaml",
         "references/diagnostic-patterns.md",
         "references/fix-patterns.md"
       ],
@@ -17134,6 +17518,61 @@
       ],
       "symlink_target": null,
       "upstream_pin": null
+    },
+    {
+      "body_bytes": 1970,
+      "bytes": 2250,
+      "declared_name": "hfs-code-review",
+      "description_chars": 185,
+      "description_tokens": 46,
+      "est_tokens": 562,
+      "frontmatter_keys": [
+        "description",
+        "invocation",
+        "name",
+        "upstream"
+      ],
+      "frontmatter_yaml_error": null,
+      "frontmatter_yaml_valid": true,
+      "has_assets_dir": false,
+      "has_evals": true,
+      "has_frontmatter": true,
+      "has_references_dir": false,
+      "has_scripts_dir": false,
+      "is_symlink": false,
+      "lines": 46,
+      "mentions_code_review": true,
+      "mentions_completion_criteria": false,
+      "mentions_tdd": false,
+      "mentions_worktree": false,
+      "missing_assumed_v2_keys": [
+        "version",
+        "author",
+        "date",
+        "phase",
+        "triggers",
+        "related_skills"
+      ],
+      "missing_template_keys": [
+        "version",
+        "allowed-tools",
+        "model",
+        "hooks"
+      ],
+      "monolithic": false,
+      "mtime": 1787363988,
+      "name": "hfs-code-review",
+      "name_matches_dir": true,
+      "path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-code-review",
+      "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-code-review",
+      "root": "devkit",
+      "sha256": "2439755825f8e76dab500cb05887c6524eed5a52c931fb29ade731e570c03332",
+      "sub_file_count": 1,
+      "sub_files": [
+        "evals/cases.yaml"
+      ],
+      "symlink_target": null,
+      "upstream_pin": "code-review@9df6fdac"
     },
     {
       "body_bytes": 6951,
@@ -17654,12 +18093,12 @@
       "upstream_pin": null
     },
     {
-      "body_bytes": 17400,
-      "bytes": 17904,
+      "body_bytes": 18957,
+      "bytes": 19461,
       "declared_name": "hfs-skill-creator",
       "description_chars": 446,
       "description_tokens": 112,
-      "est_tokens": 4476,
+      "est_tokens": 4865,
       "frontmatter_keys": [
         "description",
         "name"
@@ -17672,9 +18111,9 @@
       "has_references_dir": false,
       "has_scripts_dir": false,
       "is_symlink": false,
-      "lines": 406,
-      "mentions_code_review": false,
-      "mentions_completion_criteria": false,
+      "lines": 418,
+      "mentions_code_review": true,
+      "mentions_completion_criteria": true,
       "mentions_tdd": false,
       "mentions_worktree": false,
       "missing_assumed_v2_keys": [
@@ -17692,17 +18131,72 @@
         "hooks"
       ],
       "monolithic": true,
-      "mtime": 1785765888,
+      "mtime": 1787362873,
       "name": "hfs-skill-creator",
       "name_matches_dir": true,
       "path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-skill-creator",
       "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-skill-creator",
       "root": "devkit",
-      "sha256": "c2dd89c9cc4a0ddaf45622a55311b1eb5181171926d23844649f011ea10df31e",
+      "sha256": "a3754e70b18a0234232b9716acf795a4574afd7f168ebec47c4eb1fb16edb92e",
       "sub_file_count": 0,
       "sub_files": [],
       "symlink_target": null,
       "upstream_pin": null
+    },
+    {
+      "body_bytes": 1902,
+      "bytes": 2172,
+      "declared_name": "hfs-tdd",
+      "description_chars": 191,
+      "description_tokens": 48,
+      "est_tokens": 543,
+      "frontmatter_keys": [
+        "description",
+        "invocation",
+        "name",
+        "upstream"
+      ],
+      "frontmatter_yaml_error": null,
+      "frontmatter_yaml_valid": true,
+      "has_assets_dir": false,
+      "has_evals": true,
+      "has_frontmatter": true,
+      "has_references_dir": false,
+      "has_scripts_dir": false,
+      "is_symlink": false,
+      "lines": 45,
+      "mentions_code_review": false,
+      "mentions_completion_criteria": false,
+      "mentions_tdd": true,
+      "mentions_worktree": false,
+      "missing_assumed_v2_keys": [
+        "version",
+        "author",
+        "date",
+        "phase",
+        "triggers",
+        "related_skills"
+      ],
+      "missing_template_keys": [
+        "version",
+        "allowed-tools",
+        "model",
+        "hooks"
+      ],
+      "monolithic": false,
+      "mtime": 1787363971,
+      "name": "hfs-tdd",
+      "name_matches_dir": true,
+      "path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-tdd",
+      "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/hfs-tdd",
+      "root": "devkit",
+      "sha256": "5edd475b85c2d54830bbc985210620dbbb5d916d06155b1c5670764ac2564f1f",
+      "sub_file_count": 1,
+      "sub_files": [
+        "evals/cases.yaml"
+      ],
+      "symlink_target": null,
+      "upstream_pin": "tdd@57e1bee8"
     },
     {
       "body_bytes": 10411,
@@ -18305,12 +18799,12 @@
       "upstream_pin": null
     },
     {
-      "body_bytes": 7485,
-      "bytes": 7853,
+      "body_bytes": 8547,
+      "bytes": 8915,
       "declared_name": "skill-reviewer",
       "description_chars": 323,
       "description_tokens": 81,
-      "est_tokens": 1963,
+      "est_tokens": 2229,
       "frontmatter_keys": [
         "description",
         "name"
@@ -18323,7 +18817,7 @@
       "has_references_dir": false,
       "has_scripts_dir": false,
       "is_symlink": false,
-      "lines": 291,
+      "lines": 308,
       "mentions_code_review": true,
       "mentions_completion_criteria": false,
       "mentions_tdd": false,
@@ -18343,13 +18837,13 @@
         "hooks"
       ],
       "monolithic": true,
-      "mtime": 1785765888,
+      "mtime": 1787362748,
       "name": "skill-reviewer",
       "name_matches_dir": true,
       "path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/skill-reviewer",
       "real_path": "/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/skill-reviewer",
       "root": "devkit",
-      "sha256": "3963948e59a018a2280e5388263af228fc29c474edfc4356d87d516cd48e9419",
+      "sha256": "7371f31736ef10c37bd4f3987b4e7e020d398bc48052f7a2e6628fbe4d68a174",
       "sub_file_count": 0,
       "sub_files": [],
       "symlink_target": null,
@@ -21542,30 +22036,43 @@
     }
   ],
   "summary": {
-    "avg_description_chars": 288.6,
-    "avg_lines": 179.6,
+    "avg_description_chars": 286.6,
+    "avg_lines": 177.3,
     "frontmatter_yaml_invalid": 0,
-    "index_cost_tokens": 6859,
+    "index_cost_tokens": 6953,
     "max_lines": 484,
-    "median_description_chars": 265,
-    "median_lines": 134,
-    "mentions_code_review": 11,
-    "mentions_completion_criteria": 8,
-    "mentions_tdd": 5,
+    "median_description_chars": 254,
+    "median_lines": 130,
+    "mentions_code_review": 13,
+    "mentions_completion_criteria": 9,
+    "mentions_tdd": 6,
     "mentions_worktree": 2,
     "monolithic_count": 58,
     "name_mismatch": 1,
     "no_frontmatter": 0,
-    "total_bytes": 710962,
-    "total_est_tokens": 177745,
-    "total_lines": 17066,
-    "unique_skills": 95,
+    "total_bytes": 719143,
+    "total_est_tokens": 179790,
+    "total_lines": 17200,
+    "unique_skills": 97,
     "with_assets_dir": 3,
-    "with_evals": 0,
+    "with_evals": 3,
     "with_references_dir": 23,
     "with_scripts_dir": 4
   },
-  "upstream_drift": [],
+  "upstream_drift": [
+    {
+      "lock_hash": "9df6fdac9c49f20944411ee45e1582e718d9a657",
+      "name": "hfs-code-review",
+      "pin": "code-review@9df6fdac",
+      "status": "match"
+    },
+    {
+      "lock_hash": "57e1bee887816ed2af745e5fd388f224f6e61ada",
+      "name": "hfs-tdd",
+      "pin": "tdd@57e1bee8",
+      "status": "match"
+    }
+  ],
   "workspace": "/Users/lionel/Documents/GitHub/solomon-workspace",
   "yaml_backend": "pyyaml"
 }
