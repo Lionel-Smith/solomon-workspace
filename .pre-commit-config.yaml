@@ -7,3 +7,11 @@ repos:
     rev: v8.30.1
     hooks:
       - id: gitleaks
+  - repo: local
+    hooks:
+      - id: section-sign-ban
+        name: Block section-sign character (U+00A7)
+        entry: bash scripts/check-section-sign.sh
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
