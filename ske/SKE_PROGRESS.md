@@ -32,7 +32,7 @@
 | SKE-09 | 3 | worktree-isolation | ✅ Complete |
 | SKE-10 | 3 | blast-radius + interrogate | ✅ Complete |
 | SKE-R-05 | 4 | Section-sign ban | ⬜ Pending |
-| SKE-11 | 4 | Disclosure refactor, devkit worst 6 | ⬜ Pending |
+| SKE-11 | 4 | Disclosure refactor, devkit worst 6 | ✅ Complete |
 | SKE-12 | 4 | Cadence eval ritual + alerting | ⬜ Pending |
 | SKE-13 | 4 | CONSTITUTION progressive split (conditional) | ⬜ Pending |
 | SKE-14 | 4 | HFS Agentic Workflow v2.1 + SKE retrospective | ⬜ Pending |
@@ -67,3 +67,4 @@
 - **SKE-08** (2026-08-21, devkit `7fae929`, ws `148ae9f`): 3/3 gates; calibration vs LHV: identical 4-slice/2-wave/3-wide shape (working sets all <60k so no splits fire), tracer drops 1 non-dataflow edge and sizes 4/4 tasks — method adds signal without distorting well-sized plans.
 - **SKE-09** (2026-08-21): 3/3 gates; fanout_test.sh: 3 parallel worktrees, disjoint ownership, DAG-order merges, 0 conflicts, porcelain clean; OQ-03 DECIDED native (revisit triggers recorded).
 - **SKE-10** (2026-08-21, devkit): 3/3 gates; both skills runtime-linked; plan-review-loop (already symlinked since Jul 18) carries iteration-0 wiring live; jacob_contract reused, zero new MCP surface. Wave 3 COMPLETE.
+- **SKE-11** (2026-08-21, devkit `fb87495`, ws `f08a2bf`): 3/3 gates; worst-6 split (all <=150 + references/), 18 descs trimmed (avg 381->270), index 5,948 tok; EVAL GATE EARNED ITS KEEP: dw-02 recall regression caught (2-of-3 miss), root-caused to index-competition shift on an ambiguous prompt — fixed by description disambiguation (dev-workflow vs project-bootstrap territory), 3/3 PASS post-fix; hfs-client-engagement consumer clause relocated to body.
