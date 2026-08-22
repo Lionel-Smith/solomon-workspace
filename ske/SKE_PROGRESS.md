@@ -29,7 +29,7 @@
 | SKE-06b | 2 | SESSION_FORMAT v1.12 | ✅ Complete |
 | SKE-07 | 3 | Enrich tdd + code-review + diagnosing-bugs | ✅ Complete |
 | SKE-08 | 3 | tracer-tickets | ✅ Complete |
-| SKE-09 | 3 | worktree-isolation | ⬜ Pending |
+| SKE-09 | 3 | worktree-isolation | ✅ Complete |
 | SKE-10 | 3 | blast-radius + interrogate | ⬜ Pending |
 | SKE-R-05 | 4 | Section-sign ban | ⬜ Pending |
 | SKE-11 | 4 | Disclosure refactor, devkit worst 6 | ⬜ Pending |
@@ -65,3 +65,4 @@
 - **SKE-06b** (2026-08-21, solomon + devkit): 3/3 gates; v1.12 delta spec + additive parser extraction (4 new tests, 79 legacy green); PARSER FACT for consumers: session `version` attr is never read — the block regex needs id/project adjacent, an attr between them breaks matching (spec documents this); shim removal deferred (superset rule).
 - **SKE-07** (2026-08-21, devkit `d0410bc`+`5f7274d`, solomon `92b5766`, ws `d11fca2`): 4/4 gates; pins both `match` in upstream_drift (SKE-01 field lit end-to-end); LIVE two-axis run on e10e83f: Standards caught a real import-in-loop defect in my own commit → fixed → RET Encoding commit `5f7274d` (full SKE-R-01 contract exercised in production); Spec axis clean; org-authored now 46.
 - **SKE-08** (2026-08-21, devkit `7fae929`, ws `148ae9f`): 3/3 gates; calibration vs LHV: identical 4-slice/2-wave/3-wide shape (working sets all <60k so no splits fire), tracer drops 1 non-dataflow edge and sizes 4/4 tasks — method adds signal without distorting well-sized plans.
+- **SKE-09** (2026-08-21): 3/3 gates; fanout_test.sh: 3 parallel worktrees, disjoint ownership, DAG-order merges, 0 conflicts, porcelain clean; OQ-03 DECIDED native (revisit triggers recorded).
