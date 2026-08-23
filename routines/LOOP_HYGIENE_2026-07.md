@@ -15,6 +15,19 @@ fires slower than its subject changes misses events.
 
 ## 1. Pitch item 1 is moot — pr-review is already event-driven
 
+> **CORRECTED 2026-08-23 — this section's conclusion was wrong.**
+> Live config showed `github-pr-review` running a **weekly Friday cron** plus a
+> GitHub trigger set to `pull_request.closed` (the UI's "PR merged" preset) on a
+> **single** repo. It was never event-driven on `opened`/`synchronize`, and all
+> 14 of its runs were cron-fired no-ops.
+>
+> The error is instructive: the three "independent" evidence rows below are all
+> documents *in this repo* — a prompt file, an ID registry, and a checkbox in a
+> runbook. None of them is the live trigger config, which is the only thing that
+> decides when a routine fires. Three citations, zero of them load-bearing.
+> See `LIVE_AUDIT_2026-08-23.md`. Fixed in the UI on that date.
+
+
 The LHV pitch proposed moving `github-pr-review` from a cron schedule to a GitHub
 event trigger. Discovery on 2026-07-07 found this had already shipped. Three
 independent pieces of evidence:

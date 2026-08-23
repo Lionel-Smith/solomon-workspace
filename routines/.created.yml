@@ -28,6 +28,7 @@ created:
   - slug: daily-news-sweep
     # display_name:    Daily Dev News Sweep
     # schedule_cron:   30 6 * * 1-5         (Mon–Fri 06:30 NAS)
+    # LIVE 2026-08-23: fires 06:00, not 06:30. Env cadence-web, Slack only. 30/30 OK.
     # connectors:      slack, whatsapp, firecrawl
     # prompt:          routines/daily-news-sweep.md
     anthropic_routine_id: trig_01A9w6skLbgrA4GgmKJmr6rP
@@ -36,6 +37,8 @@ created:
   - slug: daily-solomon-standup
     # display_name:    Daily Solomon Agent Standup
     # schedule_cron:   0 7 * * 1-5          (Mon–Fri 07:00 NAS)
+    # LIVE 2026-08-23: PAUSED (correct), but ran 30x through Jul 29 before pausing.
+    #   Still on default env, Figma/Gmail/Linear connectors untrimmed.
     # connectors:      slack, whatsapp, mem0
     # prompt:          routines/daily-solomon-standup.md
     anthropic_routine_id: trig_01RC8mKuTeeLB3MyHNtxuMWY
@@ -44,6 +47,8 @@ created:
   - slug: friday-retro
     # display_name:    Friday Retrospective
     # schedule_cron:   0 15 * * 5           (Fri 15:00 NAS)
+    # LIVE 2026-08-23: schedule correct. PAUSED this date (Samson API unbuilt).
+    #   Only 1 of 3 repos attached; connectors untrimmed; env not cadence-samson.
     # connectors:      slack, mem0
     # repos:           solomon, hfs-aiops, solomon-workspace
     # prompt:          routines/friday-retro.md
@@ -53,6 +58,7 @@ created:
   - slug: friday-eval
     # display_name:    Friday Eval — solomon-core-v1
     # schedule_cron:   0 16 * * 5           (Fri 16:00 NAS)
+    # LIVE 2026-08-23: was firing MONDAY 09:00, not Fri 16:00. PAUSED this date.
     # connectors:      slack
     # repos:           solomon-workspace
     # prompt:          routines/friday-eval.md
@@ -62,6 +68,7 @@ created:
   - slug: friday-energy-retro
     # display_name:    Friday Energy Retro
     # schedule_cron:   0 17 * * 5           (Fri 17:00 NAS)
+    # LIVE 2026-08-23: was firing MONDAY 17:00. CORRECTED to Friday 17:00 this date.
     # connectors:      whatsapp
     # prompt:          routines/friday-energy-retro.md
     anthropic_routine_id: trig_011tUwDSykbionaLAqEYiSnW
@@ -85,6 +92,11 @@ created:
   - slug: github-pr-review
     # display_name:    GitHub Pull Request Review
     # trigger:         github (event=pull_request, actions=[opened, synchronize])
+    # LIVE 2026-08-23: was a weekly Fri 09:00 cron PLUS github pull_request.closed
+    #   ("PR merged" preset) on ONE repo -> 14/14 runs were no-ops. CORRECTED to
+    #   'Pull request: Opened'; cron removed. NOTE platform limit: one GitHub
+    #   trigger per routine, single-repo. The 8-repo design needs 8 routines.
+    #   Currently covers Lionel-Smith/solomon only.
     # connectors:      github, slack
     # repos:           solomon, hfs-aiops, esther-mcp, esther-models,
     #                  solomon-dashboard, esther-preview, hfs-development-kit,

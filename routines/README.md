@@ -10,6 +10,12 @@ Version-controlled prompts for the eight Claude Code Routines that power the HFS
 
 Anthropic Max-tier accounts are capped at **15 Routine runs per day**. Below is the planned firing schedule (per plan Appendix D):
 
+> ⚠️ **This table is the PLAN, not the live config.** A 2026-08-23 browser audit found material drift on
+> 5 of 7 live routines (wrong days, wrong event filter, wrong environment) — see
+> [LIVE_AUDIT_2026-08-23.md](LIVE_AUDIT_2026-08-23.md) for the live-vs-planned delta. The two GitHub
+> rows below are not merely stale but **structurally unachievable**: the platform allows one GitHub
+> trigger per routine, targeting exactly one repo. Multi-repo coverage needs one routine per repo.
+
 | Slug | Trigger | Schedule (NAS) | Daily slots | Connectors | Repos | Execution |
 |---|---|---|---|---|---|---|
 | `daily-news-sweep` | scheduled | Mon-Fri 06:30 | 1 | slack, whatsapp, firecrawl | none | remote |
@@ -19,8 +25,8 @@ Anthropic Max-tier accounts are capped at **15 Routine runs per day**. Below is 
 | `friday-energy-retro` | scheduled | Fri 17:00 | 1 (Fri only) | whatsapp | none | remote |
 | `weekly-skill-eval` | scheduled | Sat 09:00 | 1 (Sat only) | slack | solomon-workspace | remote |
 | `claude-md-audit` | api | on-demand | 0-3/day typical | slack | varies | remote (local fallback) |
-| `github-pr-review` | github (PR) | event-driven | 0-5/day typical | github, slack | all 8 active repos | remote |
-| `github-ci-triage` | github (workflow) | event-driven | 0-3/day typical | github, slack, linear | all 8 active repos | remote |
+| `github-pr-review` | github (PR) | event-driven | 0-5/day typical | github, slack | ~~all 8 active repos~~ **1 repo max** | remote |
+| `github-ci-triage` | github (workflow) | event-driven | 0-3/day typical | github, slack, linear | ~~all 8 active repos~~ **1 repo max** | remote |
 
 **Effective load:** Mon-Thu peak ~6 runs/day (news + standup + 0-5 GitHub events). Fri peak ~9 runs/day (5 scheduled + 0-4 GitHub events). Sat ~1-3 (weekly-skill-eval + occasional GitHub events). All well under the 15-run cap, leaving headroom for ad-hoc `claude-md-audit` triggers.
 
@@ -96,6 +102,13 @@ To change a Routine prompt:
 3. **Commit** the change on a feature branch with message `feat(routines): refine {slug} — {reason}`.
 4. **Open PR** for review (especially for `friday-retro`, `friday-eval`, and `claude-md-audit` — high-impact prompts).
 5. **After merge**, re-paste the prompt into the Anthropic Routine via the web UI at https://claude.ai/code/routines (replacing the prior version).
+   > **Instructions and triggers are separate fields.** Re-pasting the prompt does
+   > NOT correct a wrong trigger, schedule, environment, or connector set — those
+   > live in the same "Edit routine" modal but are edited independently, and a
+   > wrong one survives every re-paste. After any re-paste, verify the Triggers
+   > row on the routine's detail page against `inventory.yml`. See
+   > `LIVE_AUDIT_2026-08-23.md` for what this cost: a routine sat on the wrong
+   > GitHub event for three months across two audits that never looked.
 6. **Bump** the `version` field in front matter; update `last_reviewed_at`.
 7. **Re-register** via `cadence_routine_register` MCP tool, or wait for the nightly reconciler to detect the SHA change and update `cadence_routine_definitions.prompt_sha`.
 
@@ -127,3 +140,5 @@ All schedules in `inventory.yml` are interpreted as **America/Nassau** (NAS, UTC
 - `solomon-docs/plans/HFS_CADENCE_LAYER_PLAN_FINAL.md` — full architecture spec
 - `solomon-docs/plans/HFS_CADENCE_LAYER_PROMPTS_FINAL.md` — session-by-session implementation plan
 - `hfs-aiops/cadence/` — Samson-side ingestion, evaluation, and reporting (Layer B)
+- `routines/LIVE_AUDIT_2026-08-23.md` — first audit against the LIVE UI config; records the run-status trap and the one-GitHub-trigger-per-routine platform limit
+- `routines/REMEDIATION_2026-07-01.md` — the four gap classes (connectors, proxy, channels, env vars)
