@@ -84,6 +84,49 @@ known when the cadence layer was designed and they invalidate part of its design
 - **Connector bleed.** `friday-eval`, `friday-retro` and `daily-solomon-standup`
   still carry the auto-added Figma / Gmail / Linear connectors. Harmless while
   paused; trim before unpausing (the UI grants write access without prompting).
-- **Repo scope decided 2026-08-23:** the live 8 on `github-pr-review` are
-  authoritative; `inventory.yml` should be updated to match rather than the
-  reverse. Not yet done.
+- **Repo scope — superseded, see section 5.** An earlier draft of this line said
+  "the live 8 on `github-pr-review` are authoritative." That was wrong: the trigger
+  is single-repo, so there were never 8 live. The 8-repo list exists only as an
+  aspiration in the plan's OQ-10 row, and section 5 shows it is stale besides.
+
+## 5. PR activity measurement (2026-08-23)
+
+Measured before deciding whether to clone `github-pr-review` into per-repo siblings.
+Source: GitHub search across `org:High-Functioning-Solutions` and `user:Lionel-Smith`,
+PRs created since 2026-02-23 (48 + 2 results, complete — not truncated).
+
+**The estate stopped opening PRs eight weeks ago while continuing to ship daily.**
+
+| Signal | Value |
+|---|---|
+| PRs opened, all repos, last 6 months | 50 |
+| Most recent PR opened, anywhere | **2026-06-29** |
+| Repos pushed since 2026-07-01 | 9 (through 2026-08-22) |
+| PRs opened since 2026-07-01 | **0** |
+
+Active development, zero pull requests. That is this workspace's trunk-based
+preference working as intended — commits go straight to `main`.
+
+OQ-10's 8-repo list against reality:
+
+| OQ-10 repo | PRs (6mo) | Pushed since Jul 1 |
+|---|---|---|
+| `hfs-development-kit` | 0 | yes (Aug 22) |
+| `hfs-aiops` | 4 | no |
+| `solomon` | 0 | no |
+| `solomon-workspace` | 1 (Jun 14) | no |
+| `esther-mcp`, `esther-models`, `esther-preview`, `solomon-dashboard` | 0 | no |
+
+Only one of the eight is still active, and it has never had a PR. Meanwhile the
+repos that *do* carry PR history — `caribbeanleaf-api` (18), `caribbeanleaf-web`
+(16) — are not on the list and have not been pushed since June. The genuinely
+active work (`yatlas-*`, `stocktrace`) is not on the list either; `stocktrace` was
+created 2026-07-25, after the plan was written.
+
+**Conclusion: do not clone.** `github-pr-review` is now correctly configured and
+will still never fire, because nothing opens PRs. The fix in section 1 was real —
+the trigger was genuinely broken — but repairing it does not make the routine
+useful. A PR-triggered routine is structurally mismatched to a trunk-based
+workflow. The options are to pause it alongside the Samson-blocked routines, or to
+re-trigger it on an event that actually occurs (push / `workflow_run`); whether the
+platform offers a push event was not checked.
