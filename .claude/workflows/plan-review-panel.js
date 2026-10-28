@@ -32,17 +32,31 @@ const CODEX_EFFORT = 'high'
 const CODEX_SENTINEL = 'END_OF_FINDINGS'
 const CODEX_SEVS = ['CRIT', 'WARN', 'SUGG']
 const shq = (s) => `'${String(s).replace(/'/g, `'\\''`)}'`
-const dirOf = (p) => (p.includes('/') ? p.slice(0, p.lastIndexOf('/')) || '/' : '.')
+// NEVER for client docs (user ruling 2026-10-28). Fail closed, three layers: (1) JS allowlist root +
+// path markers before launch; (2) shell realpath re-check (symlinks) + (3) content scan for an
+// engagement code, both BEFORE codex starts. Anything unprovable is refused, never sent.
+const CODEX_ALLOWED_ROOT = '/Users/lionel/Documents/GitHub/solomon-workspace/'
+const CODEX_CLIENT_PATH_RE = /stocktrace|hfs-contract|client|engagement|(^|[\/_.-])(iams|nsa|esp|lighthouse|bluestar)([\/_.-]|$)/i
+const CODEX_CLIENT_SHELL_RE = 'stocktrace|hfs-contract|client|engagement|(^|[/_.-])(iams|nsa|esp|lighthouse|bluestar)([/_.-]|$)'
+const CODEX_CLIENT_CONTENT_RE = 'HFS-CONTRACT-[0-9]+'
+const codexClientRefusal = (path) => {
+  const p = String(path || '')
+  if (!p.startsWith('/')) return 'doc path not absolute; cannot prove it is outside client work'
+  if (/\/\.\.?\//.test(p)) return 'doc path not normalized'
+  if (!p.startsWith(CODEX_ALLOWED_ROOT)) return `doc outside allowlist root ${CODEX_ALLOWED_ROOT}`
+  const m = p.match(CODEX_CLIENT_PATH_RE)
+  return m ? `client marker in path (${m[0]})` : null
+}
 const codexBrief = (path, docKind) =>
   `You are an independent reviewer from a different model provider on an adversarial plan-review panel. ` +
-  `The document under review (a software implementation ${docKind}) is provided on stdin; its path is ${path}. ` +
-  `You may read other files in the working directory for context. Do not modify anything. ` +
+  `The document under review (a software implementation ${docKind}) is provided on stdin; it is your ONLY input. ` +
+  `Do not read, list, or open any file, and do not modify anything. ` +
   `Find defects that would make the intended ${docKind} wrong or unexecutable as written: dependency or ordering errors, ` +
   `contradictions between sections, verification gates that cannot fail, destructive steps without rollback or backup, ` +
   `missing prerequisites, credentials or services, data-model or API inconsistencies. ` +
   `Severity by impact: CRIT = would cause rework, data loss, or blocked sessions if unfixed; ` +
   `WARN = a real defect that consumers of the ${docKind} will hit; SUGG = everything else. ` +
-  `Do not report style nits. Do not re-raise items the document or a sibling decision record explicitly decides as intended. ` +
+  `Do not report style nits. Do not re-raise items the document explicitly decides as intended. ` +
   `Reply with ONLY lines in this exact format, one finding per line, no markdown, no other text: ` +
   `FINDING {"severity":"CRIT|WARN|SUGG","section":"<section heading>","claim":"<one-sentence claim>",` +
   `"evidence_quote":"<verbatim quote from the document, single line, max 200 chars>"} ` +
@@ -56,12 +70,18 @@ const CODEX_STDERR_AWK =
   `/^ERROR/{print "[err] " substr($0,1,300)} ` +
   `t{print "[tokens] " $0; t=0} /^tokens used/{t=1} ` +
   `{last[NR%3]=$0} END{for(i=NR-2;i<=NR;i++) if(i>0) print "[tail] " substr(last[i%3],1,200)}`
+// codex runs from an EMPTY temp dir with the doc on stdin only: no sibling file is reachable.
 const codexCommand = (path, docKind) =>
-  `set -o pipefail; echo "[meta] cli: $(codex --version 2>&1)"; ` +
+  `set -o pipefail; doc=${shq(path)}; real=$(realpath -- "$doc" 2>/dev/null); ` +
+  `if [ -z "$real" ] || [ ! -f "$real" ]; then echo "CODEX_REFUSED=doc unresolvable"; ` +
+  `elif case "$real" in ${shq(CODEX_ALLOWED_ROOT)}*) false;; *) true;; esac; then echo "CODEX_REFUSED=realpath outside allowlist root"; ` +
+  `elif printf '%s' "$real" | grep -qiE ${shq(CODEX_CLIENT_SHELL_RE)}; then echo "CODEX_REFUSED=client marker in realpath"; ` +
+  `elif grep -qE ${shq(CODEX_CLIENT_CONTENT_RE)} -- "$real"; then echo "CODEX_REFUSED=client engagement code in content"; ` +
+  `else wd=$(mktemp -d) && echo "[meta] cli: $(codex --version 2>&1)" && ` +
   `{ codex exec --ignore-user-config --ignore-rules --ephemeral --skip-git-repo-check -s read-only ` +
   `-c approval_policy='"never"' -m ${CODEX_MODEL} -c model_reasoning_effort='"${CODEX_EFFORT}"' ` +
-  `-C ${shq(dirOf(path))} ${shq(codexBrief(path, docKind))} < ${shq(path)} 2>&1 1>&3 ` +
-  `| awk ${shq(CODEX_STDERR_AWK)}; } 3>&1; echo "CODEX_EXIT=$?"`
+  `-C "$wd" ${shq(codexBrief(path, docKind))} < "$real" 2>&1 1>&3 ` +
+  `| awk ${shq(CODEX_STDERR_AWK)}; } 3>&1; echo "CODEX_EXIT=$?"; rmdir "$wd" 2>/dev/null; fi`
 // Returns {ok:true, findings, malformed, meta, tokens} or {ok:false, reason, meta}.
 // A timeout, non-zero exit, unconfirmed sandbox, or missing sentinel is NEVER "no findings".
 const parseCodexOutput = (raw) => {
@@ -72,6 +92,8 @@ const parseCodexOutput = (raw) => {
     if (m) meta[m[1]] = m[2].trim()
   }
   const tokens = (lines.find((l) => l.startsWith('[tokens] ')) || '').slice(9).trim() || null
+  const refused = lines.map((l) => l.trim()).find((l) => l.startsWith('CODEX_REFUSED='))
+  if (refused) return { ok: false, refused: true, reason: `REFUSED before send (never for client docs): ${refused.slice(14)}`, meta }
   const exitLine = lines.map((l) => l.trim()).filter((l) => /^CODEX_EXIT=\d+$/.test(l)).pop()
   if (!exitLine) return { ok: false, reason: 'no CODEX_EXIT marker — command did not complete (timeout or relay failure)', meta }
   const code = Number(exitLine.slice('CODEX_EXIT='.length))
@@ -257,7 +279,8 @@ if (priorFindingsPath) {
 } else {
   const lenses = kind === 'prompts' ? PROMPTS_LENSES : PLAN_LENSES
   // started before the barrier so codex runs concurrently with the 3 Claude lenses
-  const codexPending = codexOptedOut ? null : runCodexLens().catch((e) => ({ ok: false, reason: `relay threw: ${String(e).slice(0, 200)}`, meta: {} }))
+  const codexRefusal = codexOptedOut ? null : codexClientRefusal(docPath)
+  const codexPending = codexOptedOut || codexRefusal ? null : runCodexLens().catch((e) => ({ ok: false, reason: `relay threw: ${String(e).slice(0, 200)}`, meta: {} }))
   const reviews = await parallel(
     lenses.map((lens) => () =>
       agent(reviewerPrompt(lens), {
@@ -273,6 +296,8 @@ if (priorFindingsPath) {
   rawFindings = reviews.filter(Boolean).flatMap((r) => r.findings)
   if (codexOptedOut) {
     codexLens = 'DISABLED (opt-in: pass codex:true)'
+  } else if (codexRefusal) {
+    codexLens = `REFUSED (never for client docs: ${codexRefusal}) - nothing sent`
   } else {
     const cx = await codexPending
     if (cx.ok) {
