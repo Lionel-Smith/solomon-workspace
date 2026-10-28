@@ -1,21 +1,109 @@
 export const meta = {
   name: 'plan-review-panel',
-  description: 'Adversarial plan-review panel: 3 checklist-family reviewers, refutation verify (CRIT individual, WARN batched), single-writer versioned report',
-  whenToUse: 'Trigger-class plan/prompts docs (infrastructure, production data, >3 dependent sessions, migration) per /solomon review step 4. Delta mode when prior findings are passed.',
+  description: 'Adversarial plan-review panel: 3 checklist-family reviewers + cross-provider codex lens, refutation verify (CRIT individual, WARN batched), single-writer versioned report',
+  whenToUse: 'Trigger-class plan/prompts docs (infrastructure, production data, >3 dependent sessions, migration) per /solomon review step 4. Delta mode when prior findings are passed. Cross-provider codex lens is opt-in (codex:true); it sends the doc to OpenAI, so never enable it for client-confidential docs.',
   phases: [
     { title: 'Checklist', detail: 'fail-loud canonical checklist fetch' },
-    { title: 'Review', detail: '3 reviewers, merged checklist families (full) OR fix-verify + regression (delta)' },
+    { title: 'Review', detail: '3 reviewers, merged checklist families + read-only codex exec lens (full) OR fix-verify + regression (delta)' },
     { title: 'Verify', detail: 'one refuting verifier per CRIT/WARN finding' },
     { title: 'Report', detail: 'exactly one writer emits the versioned report' },
   ],
 }
 
 // args = [doc_path, doc_type ("plan"|"prompts"), prior_findings_path?]
+//     or {doc, type?, prior?, codex?}  — codex:true opts IN to the cross-provider lens (default OFF)
 // Discipline (ADR 0001): fan out reads and judgments only; ONLY the phase-4 writer
 // writes; no agent ever calls the session-advancement governor tool (non-idempotent); wave/session execution is out of scope.
-const [docPath, docType, priorFindingsPath] = Array.isArray(args) ? args : [args, 'plan']
-if (!docPath) throw new Error('plan-review-panel: args[0] must be the document path')
+const argObj = args && typeof args === 'object' && !Array.isArray(args) ? args : null
+const [docPath, docType, priorFindingsPath] = argObj
+  ? [argObj.doc, argObj.type, argObj.prior]
+  : Array.isArray(args) ? args : [args, 'plan']
+if (!docPath) throw new Error('plan-review-panel: args[0] (or args.doc) must be the document path')
 const kind = docType === 'prompts' ? 'prompts' : 'plan'
+// OPT-IN until the user rules on client-confidential docs (codex sends the doc to OpenAI).
+const codexOptedOut = argObj?.codex !== true
+
+// >>> codex-helpers — pure functions, no workflow globals (unit-checked by extracting this block)
+// Cross-provider lens (council rule): a different-provider judge, run READ-ONLY. Report, never substitute.
+// Flags proven 2026-10-28 on codex-cli 0.154.0: --ignore-user-config drops the user's MCP servers/plugins
+// (MCP tools are NOT covered by the shell sandbox); -s read-only blocks writes; --ephemeral = no session files.
+const CODEX_MODEL = 'gpt-6-astra'
+const CODEX_EFFORT = 'high'
+const CODEX_SENTINEL = 'END_OF_FINDINGS'
+const CODEX_SEVS = ['CRIT', 'WARN', 'SUGG']
+const shq = (s) => `'${String(s).replace(/'/g, `'\\''`)}'`
+const dirOf = (p) => (p.includes('/') ? p.slice(0, p.lastIndexOf('/')) || '/' : '.')
+const codexBrief = (path, docKind) =>
+  `You are an independent reviewer from a different model provider on an adversarial plan-review panel. ` +
+  `The document under review (a software implementation ${docKind}) is provided on stdin; its path is ${path}. ` +
+  `You may read other files in the working directory for context. Do not modify anything. ` +
+  `Find defects that would make the intended ${docKind} wrong or unexecutable as written: dependency or ordering errors, ` +
+  `contradictions between sections, verification gates that cannot fail, destructive steps without rollback or backup, ` +
+  `missing prerequisites, credentials or services, data-model or API inconsistencies. ` +
+  `Severity by impact: CRIT = would cause rework, data loss, or blocked sessions if unfixed; ` +
+  `WARN = a real defect that consumers of the ${docKind} will hit; SUGG = everything else. ` +
+  `Do not report style nits. Do not re-raise items the document or a sibling decision record explicitly decides as intended. ` +
+  `Reply with ONLY lines in this exact format, one finding per line, no markdown, no other text: ` +
+  `FINDING {"severity":"CRIT|WARN|SUGG","section":"<section heading>","claim":"<one-sentence claim>",` +
+  `"evidence_quote":"<verbatim quote from the document, single line, max 200 chars>"} ` +
+  `(each line after FINDING is one valid single-line JSON object) ` +
+  `then a final line containing exactly ${CODEX_SENTINEL}. If there are no defects, reply with only ${CODEX_SENTINEL}.`
+// stdout (codex's final message) passes through untouched; stderr is reduced by awk to header meta,
+// ERROR lines, the token count, and the last 3 lines — so a failure always carries a reason.
+const CODEX_STDERR_AWK =
+  `/^--------$/{h++; next} ` +
+  `h==1 && /^(model|provider|approval|sandbox|reasoning effort): /{print "[meta] " $0} ` +
+  `/^ERROR/{print "[err] " substr($0,1,300)} ` +
+  `t{print "[tokens] " $0; t=0} /^tokens used/{t=1} ` +
+  `{last[NR%3]=$0} END{for(i=NR-2;i<=NR;i++) if(i>0) print "[tail] " substr(last[i%3],1,200)}`
+const codexCommand = (path, docKind) =>
+  `set -o pipefail; echo "[meta] cli: $(codex --version 2>&1)"; ` +
+  `{ codex exec --ignore-user-config --ignore-rules --ephemeral --skip-git-repo-check -s read-only ` +
+  `-c approval_policy='"never"' -m ${CODEX_MODEL} -c model_reasoning_effort='"${CODEX_EFFORT}"' ` +
+  `-C ${shq(dirOf(path))} ${shq(codexBrief(path, docKind))} < ${shq(path)} 2>&1 1>&3 ` +
+  `| awk ${shq(CODEX_STDERR_AWK)}; } 3>&1; echo "CODEX_EXIT=$?"`
+// Returns {ok:true, findings, malformed, meta, tokens} or {ok:false, reason, meta}.
+// A timeout, non-zero exit, unconfirmed sandbox, or missing sentinel is NEVER "no findings".
+const parseCodexOutput = (raw) => {
+  const lines = String(raw || '').split(/\r?\n/)
+  const meta = {}
+  for (const l of lines) {
+    const m = l.match(/^\[meta\] (cli|model|provider|approval|sandbox|reasoning effort): (.*)$/)
+    if (m) meta[m[1]] = m[2].trim()
+  }
+  const tokens = (lines.find((l) => l.startsWith('[tokens] ')) || '').slice(9).trim() || null
+  const exitLine = lines.map((l) => l.trim()).filter((l) => /^CODEX_EXIT=\d+$/.test(l)).pop()
+  if (!exitLine) return { ok: false, reason: 'no CODEX_EXIT marker — command did not complete (timeout or relay failure)', meta }
+  const code = Number(exitLine.slice('CODEX_EXIT='.length))
+  if (code !== 0) {
+    const why = lines.filter((l) => l.startsWith('[err] ')).concat(lines.filter((l) => l.startsWith('[tail] ')))[0] || 'no stderr'
+    return { ok: false, reason: `codex exited ${code}: ${why.replace(/^\[(err|tail)\] /, '').slice(0, 240)}`, meta }
+  }
+  if (meta.sandbox !== 'read-only') return { ok: false, reason: `sandbox not confirmed read-only (header: ${meta.sandbox || 'missing'})`, meta }
+  if (!lines.some((l) => l.trim() === CODEX_SENTINEL)) return { ok: false, reason: `reply lacks ${CODEX_SENTINEL} sentinel — truncated or off-format`, meta }
+  const findings = []
+  let malformed = 0
+  for (const l of lines) {
+    // JSON payload, not a delimiter: plans quote shell like `|| true`, which broke a pipe-split format in testing
+    const t = l.trim().replace(/^[-*]\s+/, '').replace(/^`+|`+$/g, '')
+    // any FINDING-prefixed line is a claimed finding: off-format ones count as malformed, never skipped silently
+    if (!/^FINDING\b/.test(t)) continue
+    let o = null
+    try { o = JSON.parse(t.slice('FINDING'.length).trim()) } catch (e) { o = null }
+    const sev = String(o?.severity || '').trim().toUpperCase()
+    if (!o || !CODEX_SEVS.includes(sev) || !o.claim) { malformed++; continue }
+    findings.push({
+      id: `cx-${String(findings.length + 1).padStart(2, '0')}`,
+      severity: sev,
+      section: String(o.section || '').trim(),
+      claim: String(o.claim).trim(),
+      evidence_quote: String(o.evidence_quote || '').trim(),
+    })
+  }
+  if (!findings.length && malformed) return { ok: false, reason: `all ${malformed} FINDING lines off-format — reply unparseable, not clean`, meta }
+  return { ok: true, findings, malformed, meta, tokens }
+}
+// <<< codex-helpers
 
 const CHECKLIST_PATH =
   '/Users/lionel/Documents/GitHub/solomon-workspace/hfs-development-kit/skills/plan-review-loop/SKILL.md'
@@ -114,8 +202,36 @@ const reviewerPrompt = (lens) =>
   `Do not report style nits. An empty findings list is a valid answer. ${NO_WRITE}\n\n` +
   `=== CANONICAL CHECKLIST ===\n${checklist}`
 
+// Cross-provider lens: a Haiku RELAY runs the proven codex command and returns its output verbatim;
+// parseCodexOutput (pure JS) turns it into findings. The relay never authors findings.
+const CODEX_RELAY_SCHEMA = {
+  type: 'object',
+  properties: {
+    ran: { type: 'boolean', description: 'false if the Bash tool itself failed or timed out' },
+    output: { type: 'string', description: 'the command output, VERBATIM, every line' },
+    bash_error: { type: 'string', description: 'Bash tool error text when ran=false' },
+  },
+  required: ['ran', 'output'],
+}
+const runCodexLens = async () => {
+  const relay = await agent(
+    `You are a RELAY, not a reviewer. Run EXACTLY this one shell command with the Bash tool — pass ` +
+      `timeout: 600000, do not run it in the background, do not alter, split, or retry it:\n\n${codexCommand(docPath, kind)}\n\n` +
+      `Then return the command's complete output VERBATIM in "output" (every line, unedited, no summary). ` +
+      `NEVER review the document yourself, never write or invent findings, never substitute another model or tool. ` +
+      `If the Bash tool itself errored or timed out, set ran=false and put its error text in bash_error. ${NO_WRITE}`,
+    { label: 'review:codex', phase: 'Review', model: 'haiku', effort: 'low', schema: CODEX_RELAY_SCHEMA }
+  )
+  if (!relay) return { ok: false, reason: 'relay agent died before returning', meta: {} }
+  if (!relay.ran) return { ok: false, reason: `Bash failed/timed out: ${String(relay.bash_error || 'no error text').slice(0, 200)}`, meta: {} }
+  return parseCodexOutput(relay.output)
+}
+
+let codexLens = null // header string for the report: OK / UNAVAILABLE / DISABLED / SKIPPED
+let codexFindingIds = []
 let rawFindings = []
 if (priorFindingsPath) {
+  codexLens = 'SKIPPED (delta mode — fix-verify + regression only)'
   // DELTA MODE (grilling ruling 2026-07-18): verify prior CONFIRMED CRIT fixes + one regression reviewer.
   const prior = await agent(
     `Read ${priorFindingsPath} and return, as JSON in your final text, the array of previously-CONFIRMED ` +
@@ -140,6 +256,8 @@ if (priorFindingsPath) {
   rawFindings = [...fixChecks.filter(Boolean), regression].filter(Boolean).flatMap((r) => r.findings)
 } else {
   const lenses = kind === 'prompts' ? PROMPTS_LENSES : PLAN_LENSES
+  // started before the barrier so codex runs concurrently with the 3 Claude lenses
+  const codexPending = codexOptedOut ? null : runCodexLens().catch((e) => ({ ok: false, reason: `relay threw: ${String(e).slice(0, 200)}`, meta: {} }))
   const reviews = await parallel(
     lenses.map((lens) => () =>
       agent(reviewerPrompt(lens), {
@@ -153,10 +271,29 @@ if (priorFindingsPath) {
     )
   )
   rawFindings = reviews.filter(Boolean).flatMap((r) => r.findings)
+  if (codexOptedOut) {
+    codexLens = 'DISABLED (opt-in: pass codex:true)'
+  } else {
+    const cx = await codexPending
+    if (cx.ok) {
+      // appended LAST so an equal-severity Claude near-duplicate wins the lexical dedupe
+      rawFindings = rawFindings.concat(cx.findings)
+      codexFindingIds = cx.findings.map((f) => f.id)
+      codexLens =
+        `OK (${cx.meta.cli || 'codex-cli ?'}, model ${cx.meta.model || '?'}, effort ${cx.meta['reasoning effort'] || '?'}, ` +
+        `sandbox ${cx.meta.sandbox}, ${cx.findings.length} findings, ${cx.malformed} malformed lines dropped, tokens ${cx.tokens || '?'})`
+      if (cx.malformed) log(`codex lens: ${cx.malformed} malformed FINDING line(s) dropped`)
+    } else {
+      // FAIL LOUD, NOT SUBSTITUTE: the panel continues on its 3 lenses and the report says so.
+      codexLens = `UNAVAILABLE (${cx.reason})`
+    }
+    log(`codex lens: ${codexLens}`)
+  }
 }
 const beforeDedupe = rawFindings.length
 rawFindings = dedupe(rawFindings)
-log(`${beforeDedupe} raw findings -> ${rawFindings.length} after cross-lens dedupe`)
+const codexSurvivors = rawFindings.filter((f) => codexFindingIds.includes(f.id)).length
+log(`${beforeDedupe} raw findings -> ${rawFindings.length} after cross-lens dedupe (${codexSurvivors} cx- survived; lexical dedupe, so semantic overlap with Claude lenses is possible)`)
 
 // ---------- Phase 3: adversarial verify (CRIT/WARN only) ----------
 phase('Verify')
@@ -249,6 +386,8 @@ const reportPayload = {
   document: docPath,
   doc_type: kind,
   mode: priorFindingsPath ? 'delta' : 'full',
+  codex_lens: codexLens,
+  codex_findings_after_dedupe: codexSurvivors,
   confirmed: results.filter((f) => f.verdict === 'CONFIRMED'),
   plausible: results.filter((f) => f.verdict === 'PLAUSIBLE'),
   suggestions,
@@ -266,6 +405,8 @@ const reportPath = await agent(
     `1. Determine the next version number: list existing files matching the pattern ` +
     `<doc-basename>_review_v*.md in the directory of ${docPath}; next n = highest + 1 (or 1).\n` +
     `2. Write EXACTLY ONE file, <doc-basename>_review_v<n>.md, in that directory: a markdown report ` +
+    `whose header (directly under the title) contains the line "codex lens: ${codexLens}" verbatim ` +
+    `(findings with ids starting "cx-" came from the cross-provider codex reviewer — keep their ids), ` +
     `with sections "Confirmed findings" (CRIT first, each with evidence quote), "Downgraded to ` +
     `plausible" (each WITH its refutation quote), "Suggestions", and a final "Counts" line ` +
     `containing confirmed_crit=<n>. Findings are never omitted — downgraded ones appear with their ` +
@@ -276,5 +417,6 @@ const reportPath = await agent(
 return {
   report_path: (reportPath || '').trim(),
   counts: reportPayload.counts,
+  codex_lens: codexLens,
   terminator_hint: confirmedCrit.length === 0 ? 'zero CONFIRMED CRIT — loop may terminate' : 'CONFIRMED CRIT present — iterate',
 }
