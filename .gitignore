@@ -52,3 +52,6 @@ Thumbs.db
 
 # Cadence — Routine bearer tokens (companion to routines/.created.yml; never committed)
 routines/.tokens.env
+
+# outcome-eval run transcripts (large, per-run; history jsonl stays tracked)
+ske/evals/history/transcripts/

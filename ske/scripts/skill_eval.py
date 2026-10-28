@@ -19,6 +19,12 @@ Runners:
     which skill the rendered index triggers for the case prompt.
   static: deterministic proxy - search_skills relevance ranking over the
     same surface. Used for the 20% PR sample; no model calls.
+
+Outcome evals (contract: hfs-development-kit/skills/_meta/OUTCOME_EVALS.md,
+implementation: outcome_eval.py) - "is the result right?", judged by a script:
+  --validate-judges  judge(golden) exits 0, judge(each mutant) exits 1; no model.
+  --outcomes         headless agent per case in a fixture-only workdir, then the
+                     judge; pass^k; appends to evals/history/<date>-outcomes.jsonl.
 """
 
 from __future__ import annotations
@@ -31,6 +37,8 @@ import os
 import subprocess
 import sys
 from pathlib import Path
+
+import outcome_eval
 
 WORKSPACE = Path(__file__).resolve().parents[2]
 SOLOMON = WORKSPACE / "solomon"
@@ -73,12 +81,7 @@ def load_cases(cases_dir: Path) -> list[dict]:
 
 
 def baseline_triple(cases: list[dict], index: str) -> dict:
-    inv_path = WORKSPACE / "ske" / "skills_inventory.json"
-    pins = []
-    try:
-        pins = json.loads(inv_path.read_text()).get("upstream_drift", [])
-    except (OSError, ValueError):
-        pass  # pins list may be empty pre-SKE-07; None is never recorded
+    pins = outcome_eval.upstream_pins()
     case_blob = json.dumps(
         [{k: v for k, v in c.items() if not k.startswith("_")} for c in cases],
         sort_keys=True,
@@ -152,15 +155,41 @@ def evaluate(cases: list[dict], index: str, runner: str) -> dict:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="SKE-04 skill eval harness")
-    ap.add_argument("--cases", required=True, type=Path)
-    ap.add_argument("--report", required=True, type=Path)
+    ap.add_argument("--cases", type=Path, help="trigger case dir (trigger mode)")
+    ap.add_argument("--report", type=Path,
+                    help="JSON report path (required in trigger mode)")
     ap.add_argument("--runner", choices=("headless", "static"), default="headless")
     ap.add_argument("--full", action="store_true",
                     help="also grade rubric pass^3 (weekly ritual, SKE-12)")
     ap.add_argument("--compare-baseline", type=Path, default=None,
                     help="prior report; fail on precision/recall regression or "
                     "co-loaded set change (SKE-12 alerting input)")
+    oc = ap.add_argument_group("outcome evals (OUTCOME_EVALS.md)")
+    mode = oc.add_mutually_exclusive_group()
+    mode.add_argument("--outcomes", action="store_true",
+                      help="run outcome cases: headless agent + deterministic judge")
+    mode.add_argument("--validate-judges", action="store_true",
+                      help="judge-the-judge gate: golden exits 0, mutants exit 1; no model")
+    oc.add_argument("--skill", action="append", help="only this skill (repeatable)")
+    oc.add_argument("--case", action="append", help="only this case id (repeatable)")
+    oc.add_argument("--model", default=outcome_eval.OUTCOME_MODEL,
+                    help=f"outcome agent model (default {outcome_eval.OUTCOME_MODEL})")
+    oc.add_argument("--runs", type=int, default=None,
+                    help="override each case's runs (k) - e.g. 1 for a smoke run")
+    oc.add_argument("--allow-network", action="store_true",
+                    help="run cases that require [network] (adds WebFetch/WebSearch)")
+    oc.add_argument("--mcp-config", type=Path, default=None,
+                    help="MCP config JSON; servers defined here satisfy [mcp:<server>]")
+    oc.add_argument("--skills-dir", type=Path, default=DEFAULT_SKILLS_DIR)
+    oc.add_argument("--history-dir", type=Path, default=outcome_eval.DEFAULT_HISTORY_DIR)
+    oc.add_argument("--keep-workdirs", action="store_true",
+                    help="keep each run's temp workdir for inspection")
     args = ap.parse_args()
+
+    if args.outcomes or args.validate_judges:
+        return outcome_eval.main(args)
+    if args.cases is None or args.report is None:
+        ap.error("trigger mode requires --cases and --report")
 
     index = render_production_index()          # fails loudly
     cases = load_cases(args.cases)

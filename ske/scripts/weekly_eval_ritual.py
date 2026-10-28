@@ -26,7 +26,8 @@ THRESHOLD = 0.05
 
 
 def latest_prior() -> dict | None:
-    runs = sorted(HISTORY.glob("*.jsonl"))
+    # <date>-outcomes.jsonl rows (outcome evals) have no precision/recall
+    runs = sorted(p for p in HISTORY.glob("*.jsonl") if not p.stem.endswith("-outcomes"))
     if not runs:
         return None
     return json.loads(runs[-1].read_text().splitlines()[-1])
